@@ -7,6 +7,7 @@ import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.FirebaseDatabase
+import isen.CedricLucieFlorent.benfit.Models.User
 import kotlinx.android.synthetic.main.activity_sign_up.*
 import java.text.SimpleDateFormat
 
@@ -47,7 +48,7 @@ class SignUpActivity : AppCompatActivity() {
                     lastnameEditTextSignUp.text.toString(),
                     birthdayEditTextSignUp.text.toString(),
                     putsport,
-                    Integer.parseInt(weightEditText.text.toString())
+                    weightEditText.text.toString()
                     )
                 updateUI(user)
             } else {
@@ -64,7 +65,7 @@ class SignUpActivity : AppCompatActivity() {
         }
     }
 
-    private fun registerNewUser(user: FirebaseUser?, fname:String, lname:String, birthdate:String, sport:String, weight:Number) {
+    private fun registerNewUser(user: FirebaseUser?, fname:String, lname:String, birthdate:String, sport:String, weight:String) {
         if (user?.uid != null) {
             val sdf = SimpleDateFormat("dd/mm/yyyy")
             val date = sdf.format(Date())
