@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">BeNFit</string>
+    <string name="mot_de_passe">Mot de passe</string>
+    <string name="connexion">Connexion</string>
+    <string name="je_n_ai_pas_de_compte">Je n\'ai pas de compte</string>
+    <string name="inscription">Inscription</string>
+    <string name="prenom">Prénom</string>
+    <string name="nom">Nom</string>
+    <string name="adresse_mail">Adresse mail</string>
+    <string name="date_de_naissance">Date de naissance</string>
+    <string name="s_inscrire">S\'inscrire</string>
+    <string name="j_ai_un_compte">J\'ai déjà un compte</string>
 </resources>
