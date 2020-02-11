@@ -52,7 +52,7 @@
     <EditText
         android:id="@+id/lastnameEditTextSignUp"
         android:layout_width="164dp"
-        android:layout_height="36dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:layout_marginTop="185dp"
         android:ems="10"
@@ -78,8 +78,10 @@
         android:layout_marginTop="450dp"
         android:ems="10"
         android:inputType="textPersonName"
+        app:layout_constraintBottom_toTopOf="@+id/passwordEditTextSignUp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.14" />
 
     <TextView
         android:id="@+id/birthdayTextViewSignUp"
@@ -120,8 +122,10 @@
         android:layout_marginTop="540dp"
         android:ems="10"
         android:inputType="textPassword"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.055"
         tools:ignore="DuplicateIds" />
 
     <Button
@@ -238,12 +242,12 @@
 
     <EditText
         android:id="@+id/weightEditText"
-        android:layout_width="124dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="345dp"
-        android:layout_marginEnd="20dp"
+        android:layout_width="123dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="346dp"
+        android:layout_marginEnd="18dp"
         android:ems="10"
-        android:inputType="textPersonName"
+        android:inputType="number"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
