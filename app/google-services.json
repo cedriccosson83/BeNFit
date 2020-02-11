@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "938890335147",
+    "firebase_url": "https://benfit-284ff.firebaseio.com",
+    "project_id": "benfit-284ff",
+    "storage_bucket": "benfit-284ff.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:938890335147:android:69401100b370ac797e78ee",
+        "android_client_info": {
+          "package_name": "isen.CedricLucieFlorent.benfit"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "938890335147-i91v2g3gjehuju0o2dr5kltquem5grr5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "isen.CedricLucieFlorent.benfit",
+            "certificate_hash": "76f3bf05c139c0a4a4ab81d904b3ed792264a233"
+          }
+        },
+        {
+          "client_id": "938890335147-ba5bblo8hd83394eqvd7ipkt03hapmvb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCGhoYMzGhzQCs68FF9dXShs1eoDv66CBI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "938890335147-ba5bblo8hd83394eqvd7ipkt03hapmvb.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
