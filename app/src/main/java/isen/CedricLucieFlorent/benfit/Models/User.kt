@@ -13,6 +13,7 @@ class User {
     var dateCreate: String? = Date().toString()
     var sportLevel: String? = ""
     var grade: String? = ""
+    var weight: String? = ""
     var sports: ArrayList<Sport> = ArrayList()
     var currentPrograms: ArrayList<UserCurrentProgram> = ArrayList()
     var history: ArrayList<UserHistory> = ArrayList()
