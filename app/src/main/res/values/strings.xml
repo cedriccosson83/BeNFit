@@ -10,4 +10,17 @@
     <string name="date_de_naissance">Date de naissance</string>
     <string name="s_inscrire">S\'inscrire</string>
     <string name="j_ai_un_compte">J\'ai déjà un compte</string>
+    <string name="nameSession">Nom de la séance</string>
+    <string name="descSession">Description de la séance</string>
+    <string name="levelSession">Niveau</string>
+    <string name="Validate">Valider</string>
+    <string name="freqSession">Fréquence entraînement(/semaine)</string>
+    <string name="nameExo">Nom de l\'exercice</string>
+    <string name="descExo">Description de l\'exercice</string>
+
+    <string-array name="level_array">
+        <item>Débutant</item>
+        <item>Intermédiaire</item>
+        <item>Expert</item>
+    </string-array>
 </resources>
