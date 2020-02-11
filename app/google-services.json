@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "938890335147-kul37ejhgeqa1sjv7h243eq3nsphe3p4.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "isen.CedricLucieFlorent.benfit",
+            "certificate_hash": "43498c81f3aba6887be525bf00caffd3bcb46111"
+          }
+        },
+        {
           "client_id": "938890335147-i91v2g3gjehuju0o2dr5kltquem5grr5.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {

@@ -23,4 +23,12 @@
         <item>Intermédiaire</item>
         <item>Expert</item>
     </string-array>
+    <string name="course_pieds">Course à pieds</string>
+    <string name="cyclisme">Cyclisme</string>
+    <string name="musculation">Musculation</string>
+    <string name="poids">Poids</string>
+    <string name="mail_mdp_incorrect">Email ou mot de passe incorrect</string>
+    <string name="err_inscription">Erreur d\'inscription</string>
+    <string name="vous_connecte">Vous êtes connecté</string>
+    <string name="vous_avez_un_compte">Vous avez déjà un compte</string>
 </resources>
