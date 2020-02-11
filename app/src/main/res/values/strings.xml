@@ -10,4 +10,9 @@
     <string name="date_de_naissance">Date de naissance</string>
     <string name="s_inscrire">S\'inscrire</string>
     <string name="j_ai_un_compte">J\'ai déjà un compte</string>
+    <string name="course_pieds">Course à pieds</string>
+    <string name="cyclisme">Cyclisme</string>
+    <string name="musculation">Musculation</string>
+    <string name="poids">Poids</string>
+    <string name="mail_mdp_incorrect">Email ou mot de passe incorrect</string>
 </resources>
