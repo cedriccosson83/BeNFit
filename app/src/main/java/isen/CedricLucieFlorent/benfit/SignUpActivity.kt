@@ -7,6 +7,7 @@ import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.FirebaseDatabase
+import isen.CedricLucieFlorent.benfit.Models.User
 import kotlinx.android.synthetic.main.activity_sign_up.*
 import java.text.SimpleDateFormat
 
@@ -42,17 +43,17 @@ class SignUpActivity : AppCompatActivity() {
             if (task.isSuccessful) {
                 val putsport = whatsport()
                 val user = auth.currentUser
-                registerNewUser(user,
+                val userName = registerNewUser(user,
                     firstnameEditTextSignUp.text.toString(),
                     lastnameEditTextSignUp.text.toString(),
                     birthdayEditTextSignUp.text.toString(),
                     putsport,
-                    Integer.parseInt(weightEditText.text.toString())
+                    weightEditText.text.toString()
                     )
-                updateUI(user)
+                updateUI(user, userName)
             } else {
                 Toast.makeText(baseContext, getString(R.string.err_inscription), Toast.LENGTH_SHORT).show()
-                updateUI(null)
+                updateUI(null, "")
             }
         }
     }
@@ -64,21 +65,24 @@ class SignUpActivity : AppCompatActivity() {
         }
     }
 
-    private fun registerNewUser(user: FirebaseUser?, fname:String, lname:String, birthdate:String, sport:String, weight:Number) {
+    private fun registerNewUser(user: FirebaseUser?, fname:String, lname:String, birthdate:String, sport:String, weight:String) : String{
+        var userName : String = ""
         if (user?.uid != null) {
             val sdf = SimpleDateFormat("dd/mm/yyyy")
             val date = sdf.format(Date())
             currUser = User(user.uid, user.email, fname, lname, birthdate, sport, weight)
-            val root = database.getReference("myusers")
+            val root = database.getReference("users")
             root.child(currUser.userid).setValue(currUser)
+            userName = currUser.firstname.toString()
 
         } else
             Toast.makeText(this, getString(R.string.err_inscription), Toast.LENGTH_LONG).show()
+        return userName
     }
 
-    fun updateUI(user: FirebaseUser?) {
+    fun updateUI(user: FirebaseUser?, firstname : String) {
         if (user != null) {
-            Toast.makeText(this, getString(R.string.vous_connecte)+ user.uid, Toast.LENGTH_LONG).show()
+            Toast.makeText(this, getString(R.string.welcomeBack) + " " + firstname + " !", Toast.LENGTH_LONG).show()
             startActivity(Intent(this, MainActivity::class.java))
         } else {
             Toast.makeText(this, getString(R.string.vous_avez_un_compte), Toast.LENGTH_LONG).show()

@@ -3,15 +3,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="isen.CedricLucieFlorent.benfit">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/benfit_logo"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/benfit_logo_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
-        <activity android:name=".SignUpActivity"></activity>
+        android:theme="@style/AppTheme"
+        tools:ignore="GoogleAppIndexingWarning">
+        <activity android:name=".ProfileActivity"/>
+        <activity android:name=".WritePostActivity"/>
+        <activity android:name=".PostActivity"/>
+        <activity android:name=".FeedActivity"/>
+        <activity android:name=".SignUpActivity" />
         <activity android:name=".MainActivity" />
         <activity android:name=".SignInActivity">
             <intent-filter>

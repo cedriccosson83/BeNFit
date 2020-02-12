@@ -50,7 +50,7 @@ class SignInActivity : AppCompatActivity() {
             database.getReference("users")
                 .child(user.uid)
                 .setValue(date)
-            startActivity(Intent(this, MainActivity::class.java))
+            startActivity(Intent(this, WritePostActivity::class.java))
         } else {
             Toast.makeText(this, getString(R.string.mail_mdp_incorrect), Toast.LENGTH_LONG).show()
         }
