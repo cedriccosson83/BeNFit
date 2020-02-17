@@ -129,7 +129,8 @@ class SignUpActivity : AppCompatActivity() {
         }
     }
 
-    private fun registerNewUser(user: FirebaseUser?, fname:String, lname:String, birthdate:String, sports:ArrayList<Sport>, weight:String) {
+    private fun registerNewUser(user: FirebaseUser?, fname:String, lname:String, birthdate:String, sports:ArrayList<Sport>, weight:String): String {
+        var userName = ""
         if (user?.uid != null) {
             val sdf = SimpleDateFormat("dd/mm/yyyy")
             val date = sdf.format(Date())

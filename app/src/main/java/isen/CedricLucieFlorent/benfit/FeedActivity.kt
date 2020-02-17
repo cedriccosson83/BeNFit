@@ -18,10 +18,6 @@ import kotlinx.android.synthetic.main.recycler_view_post_cell.*
 
 class FeedActivity : MenuActivity() {
 
-
-    lateinit var auth: FirebaseAuth
-    val database = FirebaseDatabase.getInstance()
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         layoutInflater.inflate(R.layout.activity_feed, frameLayout)

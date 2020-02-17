@@ -15,8 +15,6 @@ import kotlin.collections.ArrayList
 
 class WritePostActivity : MenuActivity() {
 
-    lateinit var auth: FirebaseAuth
-    val database = FirebaseDatabase.getInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -21,11 +21,6 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 class PostActivity : MenuActivity() {
-
-    lateinit var auth: FirebaseAuth
-    val database = FirebaseDatabase.getInstance()
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         layoutInflater.inflate(R.layout.activity_post, frameLayout)

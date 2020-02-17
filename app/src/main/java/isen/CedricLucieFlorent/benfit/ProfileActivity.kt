@@ -14,10 +14,8 @@ import isen.CedricLucieFlorent.benfit.Models.User
 import kotlinx.android.synthetic.main.activity_profile.*
 import kotlin.collections.ArrayList
 
-class ProfileActivity : AppCompatActivity() {
+class ProfileActivity : MenuActivity() {
 
-    lateinit var auth: FirebaseAuth
-    val database = FirebaseDatabase.getInstance()
     lateinit var userId: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -33,7 +31,13 @@ class ProfileActivity : AppCompatActivity() {
                 showUser(userId)
             }
         }
+
+        settingsButton.setOnClickListener(){
+            startActivity(Intent(this, ModifyProfile::class.java))
+        }
     }
+
+
 
     fun showUser(userId: String) {
         val myRef = database.getReference("users")
@@ -51,7 +55,7 @@ class ProfileActivity : AppCompatActivity() {
                         value.child("weight").value.toString()
 
                     )
-                    if (user?.userid == userId) {
+                    if (user.userid == userId) {
                         fullNameTextView.text = "${user.firstname} ${user.lastname}"
                         descriptionTextView.text = "Date de naissance : ${user.birthdate.toString()}" + "\nEmail : ${user.email} " + "\nPoids : ${user.weight}" + "\nSport(s) pratiqué(s) : ${user.sports.map { it.name }}"
                     }

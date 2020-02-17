@@ -3,6 +3,7 @@ package isen.CedricLucieFlorent.benfit
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
@@ -24,7 +25,16 @@ import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import com.google.firestore.v1.Write
+import isen.CedricLucieFlorent.benfit.Models.Sport
+import isen.CedricLucieFlorent.benfit.Models.User
+import kotlinx.android.synthetic.main.activity_profile.*
+import kotlinx.android.synthetic.main.nav_header_base.*
 
 open class MenuActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener
 {
@@ -32,6 +42,8 @@ open class MenuActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
     lateinit var toolbar: Toolbar
     lateinit var img_menuOption: ImageView
     lateinit var frameLayout: FrameLayout
+    lateinit var auth: FirebaseAuth
+    val database = FirebaseDatabase.getInstance()
 
 
     private var drawer: DrawerLayout? = null
@@ -40,6 +52,8 @@ open class MenuActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_base)
+
+        auth = FirebaseAuth.getInstance()
         context = this
         initView()
         frameLayout = findViewById(R.id.container)
@@ -62,8 +76,34 @@ open class MenuActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
         toggle.isDrawerIndicatorEnabled = false
         toggle.syncState()
         navigationView.setNavigationItemSelectedListener(this)
+        updateMenuInfos(auth.currentUser?.uid ?: "")
         img_menuOption.setOnClickListener { drawer!!.openDrawer(GravityCompat.START) }
 
+    }
+    private fun updateMenuInfos(userId: String) {
+        if (userId == "") return
+        val myRef = database.getReference("users")
+        myRef.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                for (value in dataSnapshot.children) {
+                    var id = value.child("userid").value.toString()
+                    var mail = value.child("email").value.toString()
+                    var fname = value.child("firstname").value.toString()
+                    var lname = value.child("lastname").value.toString()
+
+                    if (id == userId) {
+                        nav_name.text = "${fname} ${lname}"
+                        nav_mail.text = mail
+                    }
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+
+                Log.w("post", "Failed to read value.", error.toException())
+            }
+
+        })
     }
 
     override fun onBackPressed() {
