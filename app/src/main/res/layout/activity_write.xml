@@ -49,45 +49,4 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <LinearLayout
-        android:id="@+id/linearLayout2"
-        android:layout_width="415dp"
-        android:layout_height="78dp"
-        android:background="#FF9800"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/recyclerViewFeed">
-
-
-        <ImageButton
-            android:id="@+id/accessNewBTN"
-            android:layout_width="144dp"
-            android:layout_height="156dp"
-            android:layout_gravity="center_horizontal|center"
-            android:background="#00FFFFFF"
-            android:contentDescription="@string/app_name"
-            app:srcCompat="@drawable/comment" />
-
-        <ImageButton
-            android:id="@+id/accessFeedBTN"
-            android:layout_width="131dp"
-            android:layout_height="82dp"
-            android:layout_gravity="center_horizontal|center"
-            android:background="#00FFFFFF"
-            android:contentDescription="@string/app_name"
-            app:srcCompat="@drawable/feed" />
-
-        <ImageButton
-            android:id="@+id/accessProfileBTN"
-            android:layout_width="140dp"
-            android:layout_height="140dp"
-            android:layout_gravity="center_horizontal|center"
-            android:background="#00FFFFFF"
-            android:contentDescription="@string/app_name"
-            app:srcCompat="@drawable/user" />
-
-    </LinearLayout>
-
 </androidx.constraintlayout.widget.ConstraintLayout>

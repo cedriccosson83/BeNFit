@@ -78,7 +78,7 @@ class PostAdapter(val posts: ArrayList<Post>, val clickListener: (Post) -> Unit,
             val currentUserID = auth.currentUser?.uid
             val likes = post.likes
             Log.d("like", likes.toString())
-            if(likes?.all { it != currentUserID } == true) {
+            if(likes.all { it != currentUserID }) {
                 //likes.add(currentUserID ?: "")
                 view.imageViewStar.setImageResource(R.drawable.like)
             }else{

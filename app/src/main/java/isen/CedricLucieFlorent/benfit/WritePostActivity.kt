@@ -4,7 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import isen.CedricLucieFlorent.benfit.Models.Post
@@ -14,14 +13,14 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 
-class WritePostActivity : AppCompatActivity() {
+class WritePostActivity : MenuActivity() {
 
     lateinit var auth: FirebaseAuth
     val database = FirebaseDatabase.getInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_write)
+        layoutInflater.inflate(R.layout.activity_write, frameLayout)
 
         auth = FirebaseAuth.getInstance()
 
@@ -46,17 +45,6 @@ class WritePostActivity : AppCompatActivity() {
             }
         }
 
-        accessFeedBTN.setOnClickListener{
-            startActivity(Intent(this, FeedActivity::class.java))
-        }
-
-        accessProfileBTN.setOnClickListener{
-            val intent = Intent(this, ProfileActivity::class.java)
-            val id = auth.currentUser?.uid
-            intent.putExtra("userId", id)
-            startActivity(intent)
-        }
-        //readPosts()
     }
 
     private fun newPost(userId: String, content: String) {

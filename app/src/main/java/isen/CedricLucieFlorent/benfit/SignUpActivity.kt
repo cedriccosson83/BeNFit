@@ -68,8 +68,8 @@ class SignUpActivity : AppCompatActivity() {
     private fun registerNewUser(user: FirebaseUser?, fname:String, lname:String, birthdate:String, sport:String, weight:String) : String{
         var userName : String = ""
         if (user?.uid != null) {
-            val sdf = SimpleDateFormat("dd/mm/yyyy")
-            val date = sdf.format(Date())
+            //val sdf = SimpleDateFormat("dd/mm/yyyy")
+            //val date = sdf.format(Date())
             currUser = User(user.uid, user.email, fname, lname, birthdate, sport, weight)
             val root = database.getReference("users")
             root.child(currUser.userid).setValue(currUser)

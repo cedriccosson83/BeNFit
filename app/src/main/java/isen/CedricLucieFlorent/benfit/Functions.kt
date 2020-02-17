@@ -23,7 +23,7 @@ fun showDate(date : String?, textview: TextView){
     val sdf = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
     val currentDate: String = sdf.format(Date())
     if(currentDate == dateSplit?.get(1)){
-        textview.text = "${dateSplit?.get(0)}"
+        textview.text = dateSplit[0]
     }else{
         textview.text = "${dateSplit?.get(1)}"
     }
@@ -43,13 +43,12 @@ fun showUserName(userId : String, textview: TextView) {
     val myRef = database.getReference("users")
     myRef.addValueEventListener(object : ValueEventListener {
         override fun onDataChange(dataSnapshot: DataSnapshot) {
-            var user: User
             for (value in dataSnapshot.children) {
                 val fname = value.child("firstname").value.toString()
                 val lname = value.child("lastname").value.toString()
                 val retrievedUserId = value.child("userid").value?.toString()
                 if (retrievedUserId == userId) {
-                    textview.text = "${fname} ${lname}"
+                    textview.text = "$fname $lname"
                 }
             }
         }

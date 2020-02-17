@@ -16,14 +16,11 @@ import isen.CedricLucieFlorent.benfit.Adapters.CommentAdapter
 import isen.CedricLucieFlorent.benfit.Models.Comment
 import isen.CedricLucieFlorent.benfit.Models.Post
 import kotlinx.android.synthetic.main.activity_post.*
-import kotlinx.android.synthetic.main.activity_post.accessFeedBTN
-import kotlinx.android.synthetic.main.activity_post.nameProfile
-import kotlinx.android.synthetic.main.recycler_view_post_cell.*
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
 
-class PostActivity : AppCompatActivity() {
+class PostActivity : MenuActivity() {
 
     lateinit var auth: FirebaseAuth
     val database = FirebaseDatabase.getInstance()
@@ -31,38 +28,25 @@ class PostActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_post)
+        layoutInflater.inflate(R.layout.activity_post, frameLayout)
         auth = FirebaseAuth.getInstance()
 
         val intent = intent
         if (intent != null) {
             showPost(intent)
-
         }
 
-        accessNewBTN.setOnClickListener{
-            startActivity(Intent(this, WritePostActivity::class.java))
-        }
-
-        accessFeedBTN.setOnClickListener{
-            startActivity(Intent(this, FeedActivity::class.java))
-        }
-        accessProfileBTN.setOnClickListener{
-            val intent = Intent(this, ProfileActivity::class.java)
-            val id = auth.currentUser?.uid
-            intent.putExtra("userId", id)
-            startActivity(intent)
-        }
         recyclerViewComments.addItemDecoration(DividerItemDecoration(this, LinearLayoutManager.VERTICAL))
         recyclerViewComments.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL,false)
-        val postId: String = intent.getStringExtra("post")
-        showComments(postId)
+        val postId: String? = intent.getStringExtra("post") ?: ""
+        postId?.let { showComments(it) }
+
 
 
         buttonPublishComment.setOnClickListener {
-            var content:String = editTextComment.text.toString()
+            val content:String = editTextComment.text.toString()
             if(content != ""){
-                newComment(postId,content)
+                postId?.let { it1 -> newComment(it1,content) }
                 editTextComment.setText("")
                 Toast.makeText(this, "Commentaire posté!", Toast.LENGTH_LONG).show()
             }else{
@@ -74,16 +58,16 @@ class PostActivity : AppCompatActivity() {
     }
 
     //This function allows to show the name of the user
-    fun showPost(intent : Intent) {
+    private fun showPost(intent : Intent) {
 
         val myRef = database.getReference("posts")
         myRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot){
                 var post: Post
                 for(value in dataSnapshot.children ) {
-                    var likes : ArrayList<String> = ArrayList()
+                    val likes : ArrayList<String> = ArrayList()
                     post = Post(value.child("userid").value.toString(), value.child("postid").value.toString(), value.child("date").value.toString(), value.child("content").value.toString(),likes)
-                    val postId: String = intent.getStringExtra("post")
+                    val postId: String? = intent.getStringExtra("post") ?: ""
                     if(post.postid == postId){
                         textViewContent2.text = "${post.content}"
                         showUserName(post.userid, nameProfile)
@@ -117,7 +101,7 @@ class PostActivity : AppCompatActivity() {
                 for(value in dataSnapshot.children ) {
 
 
-                    var comment : Comment = Comment(
+                    val comment = Comment(
                         value.child("userid").value.toString(),
                         value.child("parentid").value.toString(),
                         value.child("date").value.toString(),
@@ -131,7 +115,7 @@ class PostActivity : AppCompatActivity() {
 
                 }
                 //comments.reverse()
-                recyclerViewComments.adapter = CommentAdapter(comments,{ commentItem : Comment -> userClicked(commentItem) })
+                recyclerViewComments.adapter = CommentAdapter(comments) { commentItem : Comment -> userClicked(commentItem) }
                 Log.d("comment", comments.toString())
             }
             override fun onCancelled(error: DatabaseError) {

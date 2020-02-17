@@ -1,14 +1,11 @@
 package isen.CedricLucieFlorent.benfit
 
-import android.content.ClipData.Item
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.*
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
@@ -19,7 +16,7 @@ import kotlinx.android.synthetic.main.activity_feed.*
 import kotlinx.android.synthetic.main.recycler_view_post_cell.*
 
 
-class FeedActivity : AppCompatActivity() {
+class FeedActivity : MenuActivity() {
 
 
     lateinit var auth: FirebaseAuth
@@ -27,26 +24,13 @@ class FeedActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_feed)
+        layoutInflater.inflate(R.layout.activity_feed, frameLayout)
 
         auth = FirebaseAuth.getInstance()
 
         showPosts()
         recyclerViewFeed.layoutManager =
             LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-
-
-
-        accessNewBTN.setOnClickListener{
-            startActivity(Intent(this, WritePostActivity::class.java))
-        }
-
-        accessProfileBTN.setOnClickListener{
-            val intent = Intent(this, ProfileActivity::class.java)
-            val id = auth.currentUser?.uid
-            intent.putExtra("userId", id)
-            startActivity(intent)
-        }
     }
 
     //This function get the posts on the database and show them on the feed
@@ -96,7 +80,7 @@ class FeedActivity : AppCompatActivity() {
 
         val likes = postItem.likes
         Log.d("like", likes.toString())
-        if(likes?.all { it != currentUserID } == true) {
+        if(likes.all { it != currentUserID }) {
             likes.add(currentUserID ?: "")
             myRef.child(postItem.postid).child("likes").setValue(likes)
             Toast.makeText(this, "Publication aimée!", Toast.LENGTH_LONG).show()

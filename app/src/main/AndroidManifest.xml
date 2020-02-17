@@ -16,22 +16,17 @@
         <activity android:name=".ProfileActivity" />
         <activity android:name=".WritePostActivity" />
         <activity android:name=".PostActivity" />
+        <activity android:name=".ScriptActivity" />
         <activity android:name=".FeedActivity" />
         <activity android:name=".SignUpActivity" />
-        <activity
-            android:name=".SplashActivity"
-            android:theme="@style/SplashTheme">
+        <activity android:name=".MainActivity" />
+        <activity android:name=".MenuActivity" />
+        <activity android:name=".SignInActivity"/>
+        <activity android:name=".SplashActivity" android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-        <activity android:name=".MainActivity"
-            android:theme="@style/AppTheme.NoActionBar">
-        </activity>
-
-        <activity android:name=".SignInActivity">
         </activity>
     </application>
 
