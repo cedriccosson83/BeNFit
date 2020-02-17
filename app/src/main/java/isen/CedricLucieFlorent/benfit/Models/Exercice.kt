@@ -1,10 +1,12 @@
 package isen.CedricLucieFlorent.benfit.Models
 
-class Exercice {
-    var id: String = ""
-    var name: String = ""
-    var author: String = ""
-    var description: String = ""
-    var difficulty: String = ""
-    var categories: ArrayList<Category> = ArrayList()
-}
+data class Exercice (
+    var id: String = "",
+    var name: String = "",
+    var author: String = "",
+    var description: String = "",
+    var urlYTB: String = "",
+    var difficulty: String = "",
+    var sport : String = ""
+    //var categories: ArrayList<Category> = ArrayList()
+)

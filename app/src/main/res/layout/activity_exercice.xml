@@ -75,7 +75,7 @@
             </com.google.android.material.textfield.TextInputLayout>
 
 
-            <FrameLayout
+           <!-- <FrameLayout
                 android:id="@+id/fragmentContainer"
                 android:layout_width="316dp"
                 android:layout_height="149dp"
@@ -116,15 +116,78 @@
                     app:shapeAppearance="@style/round" />
                 />
 
-            </com.google.android.material.button.MaterialButtonToggleGroup>
+            </com.google.android.material.button.MaterialButtonToggleGroup> -->
 
 
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textInputLayoutURL"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="300dp"
+                android:layout_height="60dp"
+                android:layout_marginTop="10dp"
+                android:hint="@string/urlYtb"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textInputLayoutExo">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/inputURLExo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="0dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="0dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                android:id="@+id/textViewLevelExo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp"
+                android:text="@string/levelSession"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textInputLayoutURL" />
+
+            <Spinner
+                android:id="@+id/spinnerLevelExo"
+                android:layout_width="158dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="25dp"
+                app:layout_constraintBottom_toBottomOf="@+id/textViewLevelExo"
+                app:layout_constraintStart_toEndOf="@+id/textViewLevelExo"
+                app:layout_constraintTop_toTopOf="@+id/textViewLevelExo"
+                app:layout_constraintVertical_bias="0.444" />
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="30dp"
+                android:text="@string/sportExo"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewLevelExo" />
+
+            <Spinner
+                android:id="@+id/spinnerSportExo"
+                android:layout_width="158dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="35dp"
+                app:layout_constraintBottom_toBottomOf="@+id/textView"
+                app:layout_constraintStart_toEndOf="@+id/textView"
+                app:layout_constraintTop_toTopOf="@+id/textView" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </com.google.android.material.card.MaterialCardView>
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/button_done_exo"
+        android:id="@+id/btnDoneExo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/done"

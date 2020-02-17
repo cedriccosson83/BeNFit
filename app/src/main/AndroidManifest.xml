@@ -12,7 +12,8 @@
         android:roundIcon="@mipmap/benfit_logo_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ExerciceActivity"></activity>
+        <activity android:name=".ListExercicesActivity"></activity>
+        <activity android:name=".ExerciceActivity" />
         <activity android:name=".SessionActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
