@@ -22,7 +22,7 @@ class ProfileActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_profile)
+        layoutInflater.inflate(R.layout.activity_profile, frameLayout)
         auth = FirebaseAuth.getInstance()
         userId = auth.currentUser?.uid ?: ""
 
@@ -33,14 +33,6 @@ class ProfileActivity : AppCompatActivity() {
                 showUser(userId)
             }
         }
-        settingsButton.setOnClickListener{
-            startActivity(Intent(this, ModifyProfile::class.java))
-        }
-
-        sportLevelImageView.setOnClickListener{
-            startActivity(Intent(this, MainActivity::class.java))
-        }
-
     }
 
     fun showUser(userId: String) {

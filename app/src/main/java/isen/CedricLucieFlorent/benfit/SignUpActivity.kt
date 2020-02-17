@@ -107,17 +107,17 @@ class SignUpActivity : AppCompatActivity() {
             if (task.isSuccessful) {
                 //val putsport = ArrayList<String>()
                 val user = auth.currentUser
-                registerNewUser(user,
+                val userName = registerNewUser(user,
                     firstnameEditTextSignUp.text.toString(),
                     lastnameEditTextSignUp.text.toString(),
                     birthdayEditTextSignUp.text.toString(),
                     sportSelected,
                     weightEditText.text.toString()
                     )
-                updateUI(user)
+                updateUI(user, userName)
             } else {
                 Toast.makeText(baseContext, getString(R.string.err_inscription), Toast.LENGTH_SHORT).show()
-                updateUI(null)
+                updateUI(null, "")
             }
         }
     }
@@ -136,15 +136,17 @@ class SignUpActivity : AppCompatActivity() {
             currUser = User(user.uid, user.email, fname, lname, birthdate,sports, weight)
             val root = database.getReference("users")
             root.child(currUser.userid).setValue(currUser)
+            userName = currUser.firstname.toString()
 
         } else
             Toast.makeText(this, getString(R.string.err_inscription), Toast.LENGTH_LONG).show()
+        return userName
     }
 
-    fun updateUI(user: FirebaseUser?) {
+    fun updateUI(user: FirebaseUser?, firstname : String) {
         if (user != null) {
-            Toast.makeText(this, getString(R.string.vous_connecte)+ user.uid, Toast.LENGTH_LONG).show()
-            startActivity(Intent(this, ProfileActivity::class.java))
+            Toast.makeText(this, getString(R.string.welcomeBack) + " " + firstname + " !", Toast.LENGTH_LONG).show()
+            startActivity(Intent(this, MainActivity::class.java))
         } else {
             Toast.makeText(this, getString(R.string.vous_avez_un_compte), Toast.LENGTH_LONG).show()
         }

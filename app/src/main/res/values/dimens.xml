@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <dimen name="txt_size_16" tools:keep="@dimen/txt_size_16">16sp</dimen>
+    <dimen name="txt_size_18" tools:keep="@dimen/txt_size_18">18sp</dimen>
+    <dimen name="txt_size_20" tools:keep="@dimen/txt_size_20">20sp</dimen>
+    <dimen name="txt_size_26" tools:keep="@dimen/txt_size_26">26sp</dimen>
+    <dimen name="card_corner" tools:keep="@dimen/card_corner">20dp</dimen>
+    <dimen name="card_corner_15" tools:keep="@dimen/card_corner_15">15dp</dimen>
+    <dimen name="card_corner_10" tools:keep="@dimen/card_corner_10">10dp</dimen>
+    <dimen name="padding_10">10dp</dimen>
+    <dimen name="padding_5dp" tools:keep="@dimen/padding_5dp">5dp</dimen>
+    <dimen name="padding_20" tools:keep="@dimen/padding_20">20dp</dimen>
+    <dimen name="padding_15" tools:keep="@dimen/padding_15">15dp</dimen>
+    <dimen name="padding_30">30dp</dimen>
+    <dimen name="padding_40" tools:keep="@dimen/padding_40">40dp</dimen>
+    <dimen name="padding_50" tools:keep="@dimen/padding_50">50dp</dimen>
+    <dimen name="txt_size_14" tools:keep="@dimen/txt_size_14">14dp</dimen>
+    <dimen name="txt_size_12" tools:keep="@dimen/txt_size_12">12sp</dimen>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin" tools:keep="@dimen/activity_vertical_margin">16dp</dimen>
+    <dimen name="nav_header_vertical_spacing" tools:keep="@dimen/nav_header_vertical_spacing">8dp</dimen>
+    <dimen name="nav_header_height">130dp</dimen>
+    <dimen name="fab_margin" tools:keep="@dimen/fab_margin">20dp</dimen>
+    <dimen name="btn_size" tools:keep="@dimen/btn_size">20dp</dimen>
+</resources>
