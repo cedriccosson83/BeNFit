@@ -17,15 +17,17 @@ import kotlinx.android.synthetic.main.activity_session.*
 class SessionActivity : AppCompatActivity(){
     lateinit var auth: FirebaseAuth
     val database = FirebaseDatabase.getInstance()
-
+    var array : ArrayList<String> ?= ArrayList()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_session)
+        Log.d("state", "oncreate")
         auth = FirebaseAuth.getInstance()
         showExosSession(database, recyclerViewExoSession)
         recyclerViewExoSession.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         createSpinnerLevel()
         showPopMenuExo()
+
 
     }
 

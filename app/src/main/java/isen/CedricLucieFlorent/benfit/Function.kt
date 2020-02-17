@@ -80,8 +80,8 @@ fun showExosSession(database : FirebaseDatabase, view: RecyclerView) {
 
 private fun exoClicked(context:Context, exoItem : Exercice) {
     Log.d("exo", exoItem.name)
-    val intent = Intent(context, SessionActivity::class.java)
 
+    val intent = Intent(context, SessionActivity::class.java)
     context.startActivity(intent)
 }
 
