@@ -12,22 +12,19 @@
         android:roundIcon="@mipmap/benfit_logo_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".SignInActivity"></activity>
+        <activity android:name=".SessionActivity"></activity>
         <activity android:name=".ModifyProfile" />
         <activity android:name=".ProfileActivity" />
         <activity android:name=".MainActivity" />
-        <activity android:name=".SignUpActivity">
+        <activity android:name=".SignUpActivity"/>
         <activity android:name=".ExerciceActivity"></activity>
-        <activity android:name=".SessionActivity">
+        <activity android:name=".SignInActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".SignInActivity" />
-        <activity android:name=".SignUpActivity" />
-        <activity android:name=".MainActivity" />
     </application>
 
 </manifest>

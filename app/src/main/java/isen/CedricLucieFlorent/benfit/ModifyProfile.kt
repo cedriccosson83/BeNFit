@@ -3,6 +3,7 @@ package isen.CedricLucieFlorent.benfit
 import android.app.Activity
 import android.content.Intent
 import android.graphics.Bitmap
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
@@ -16,9 +17,13 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
 import isen.CedricLucieFlorent.benfit.Models.Sport
 import isen.CedricLucieFlorent.benfit.Models.User
 import kotlinx.android.synthetic.main.activity_modify_profile.*
+import java.util.HashMap
 
 class ModifyProfile : AppCompatActivity() {
 
@@ -27,6 +32,10 @@ class ModifyProfile : AppCompatActivity() {
     lateinit var userId: String
     lateinit var currUser: User
     var sportSelectedModif  = ArrayList<Sport>()
+    private lateinit var filePath: Uri
+    private var firebaseStore: FirebaseStorage? = null
+    private lateinit var storageReference: StorageReference
+    private val codePicture = 1
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -47,6 +56,22 @@ class ModifyProfile : AppCompatActivity() {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 dataSnapshot.children.forEach {
                     sportArray.add(it.child("name").value.toString())
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                Log.w("post", "Failed to read value.", error.toException())
+            }
+
+        })
+
+        val sportSel = arrayListOf<String>()
+
+        val mySpo = database.getReference("users").child(userId)
+        mySpo.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                dataSnapshot.child("sports").children.forEach {
+                    sportSel.add(it.child("name").value.toString())
                 }
             }
 
@@ -81,6 +106,12 @@ class ModifyProfile : AppCompatActivity() {
 
         sportTextViewModify.setOnClickListener(){
             val checkedColorsArray = BooleanArray(166)
+            for (sport in sportSel){
+                if (sportArray.indexOf(sport) != -1){
+                    checkedColorsArray[sportArray.indexOf(sport)] = true
+                }
+            }
+
             val sportList = sportArray.toList()
             AlertDialog.Builder(this@ModifyProfile)
                 .setTitle("Select colors")
@@ -125,11 +156,49 @@ class ModifyProfile : AppCompatActivity() {
                 bitmap?.let{
                     changeProfilImageModify.setImageBitmap(it)
                 }
+                savePictureFireStore()
             }else{
                 changeProfilImageModify.setImageURI(data?.data)
 
             }
 
+        }
+    }
+
+    private fun savePictureFireStore() {
+        val userid = auth.currentUser?.uid ?: ""
+        if(userid != ""){
+            val riversRef = storageReference.child("users/$userid/profile")
+
+            riversRef.putFile(filePath)
+                .addOnSuccessListener { taskSnapshot ->
+
+                    val downloadUrl = taskSnapshot.metadata?.reference?.downloadUrl.toString()
+                    if(downloadUrl.isNotEmpty()) {
+
+                        val db = FirebaseFirestore.getInstance()
+
+                        val data = HashMap<String, Any>()
+                        data["imageUrl"] = downloadUrl
+
+                        db.collection("posts")
+                            .add(data)
+                            .addOnSuccessListener { documentReference ->
+                                Toast.makeText(this, "Image enregistrée", Toast.LENGTH_LONG).show()
+                            }
+                            .addOnFailureListener { e ->
+                                Toast.makeText(this, "Erreur lors de la sauvegarde", Toast.LENGTH_LONG).show()
+                            }
+                        Toast.makeText(this, downloadUrl, Toast.LENGTH_LONG).show()
+                    }
+
+                }
+                .addOnFailureListener {
+                    Toast.makeText(this,"Échec de l'upload de l'image", Toast.LENGTH_LONG).show()
+                }
+        }
+        else{
+            Toast.makeText(this, "Veuillez choisir une image", Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -154,7 +223,7 @@ class ModifyProfile : AppCompatActivity() {
                         firstNameTextViewModify.setText("${user.firstname}")
                         lastNameTextViewModify.setText("${user.lastname}")
                         birthdateTextViewModify.setText("${user.birthdate.toString()}")
-                        weightTextViewModify.setText("${user.weight} kg")
+                        weightTextViewModify.setText("${user.weight}")
                         showSports.setText("${user.sports.map { it.name }}")
                     }
                 }

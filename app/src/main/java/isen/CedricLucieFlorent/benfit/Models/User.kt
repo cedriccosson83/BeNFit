@@ -67,8 +67,6 @@ class User {
         this.sports = sports
     }
 
-    constructor(){}
-
 
 }
 
