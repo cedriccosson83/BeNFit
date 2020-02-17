@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <color name="colorPrimary">#008577</color>
-    <color name="colorPrimaryDark">#00574B</color>
-    <color name="colorAccent">#D81B60</color>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <color name="redLogo">#E51B23</color>
+    <color name="dark_text_color">#000</color>
+    <color name="colorPrimary">#673AB7</color>
+    <color name="colorPrimaryDark">#4A2A86</color>
+    <color name="colorAccent">#D81B60</color>
+    <color name="purple" tools:keep="@color/purple">#5E35B1</color>
+    <color name="blue" tools:keep="@color/blue">#1E88E5</color>
+    <color name="black">#000000</color>
     <color name="white">#FFFFFF</color>
+    <color name="gray" tools:keep="@color/gray">#FFF</color>
 </resources>

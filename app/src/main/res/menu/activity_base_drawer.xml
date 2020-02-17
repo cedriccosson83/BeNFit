@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <item android:title="@string/activity">
+        <menu>
+            <item
+                android:id="@+id/nav_programs"
+                android:icon="@drawable/programs"
+                android:title="@string/programs_list" />
+            <item
+                android:id="@+id/nav_sessions"
+                android:icon="@drawable/sessions"
+                android:title="@string/sessions_list" />
+            <item
+                android:id="@+id/nav_write_program"
+                android:icon="@drawable/write_program"
+                android:title="@string/new_program" />
+            <item
+                android:id="@+id/nav_write_session"
+                android:icon="@drawable/write_session"
+                android:title="@string/new_session" />
+        </menu>
+    </item>
+
+
+
+    <item android:title="@string/community">
+        <menu>
+            <item
+                android:id="@+id/nav_feed"
+                android:icon="@drawable/feed"
+                android:title="@string/feed" />
+            <item
+                android:id="@+id/nav_write"
+                android:icon="@drawable/write"
+                android:title="@string/new_publication" />
+        </menu>
+    </item>
+
+    <item android:title="@string/myspace">
+        <menu>
+            <item
+                android:id="@+id/nav_profile"
+                android:icon="@drawable/profile"
+                android:title="@string/my_profile" />
+        </menu>
+    </item>
+
+</menu>

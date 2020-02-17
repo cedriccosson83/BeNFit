@@ -1,0 +1,156 @@
+package isen.CedricLucieFlorent.benfit
+
+import android.content.Context
+import android.content.Intent
+import android.os.Bundle
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.android.material.snackbar.Snackbar
+import androidx.appcompat.app.AlertDialog
+import androidx.core.view.GravityCompat
+import androidx.appcompat.app.ActionBarDrawerToggle
+
+import android.view.MenuItem
+
+import com.google.android.material.navigation.NavigationView
+
+import androidx.drawerlayout.widget.DrawerLayout
+
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
+
+import android.view.Menu
+import android.widget.FrameLayout
+import android.widget.ImageView
+import android.widget.TextView
+import android.widget.Toast
+import com.google.firestore.v1.Write
+
+open class MenuActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener
+{
+    lateinit var context: Context
+    lateinit var toolbar: Toolbar
+    lateinit var img_menuOption: ImageView
+    lateinit var frameLayout: FrameLayout
+
+
+    private var drawer: DrawerLayout? = null
+
+    private lateinit var toggle: ActionBarDrawerToggle
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_base)
+        context = this
+        initView()
+        frameLayout = findViewById(R.id.container)
+        //val drawer = findViewById<DrawerLayout>(R.id.drawer_layout)
+        val navigationView = findViewById<NavigationView>(R.id.nav_view)
+
+        navigationView.setNavigationItemSelectedListener(this)
+    }
+
+    private fun initView() {
+        toolbar = findViewById(R.id.toolbar)
+        img_menuOption = findViewById(R.id.img_menuOption)
+        drawer = findViewById(R.id.drawer_layout)
+        val navigationView = findViewById<NavigationView>(R.id.nav_view)
+        //val headerview = navigationView.getHeaderView(0)
+        toggle = ActionBarDrawerToggle(
+            this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close
+        )
+        drawer!!.addDrawerListener(toggle)
+        toggle.isDrawerIndicatorEnabled = false
+        toggle.syncState()
+        navigationView.setNavigationItemSelectedListener(this)
+        img_menuOption.setOnClickListener { drawer!!.openDrawer(GravityCompat.START) }
+
+    }
+
+    override fun onBackPressed() {
+        val drawer = findViewById<DrawerLayout>(R.id.drawer_layout)
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START)
+        } else {
+            ExitApp()
+        }
+    }
+
+    private fun ExitApp() {
+        val builder = AlertDialog.Builder(context)
+
+        builder.setTitle(R.string.app_name)
+        builder.setMessage(getString(R.string.sureToLeave))
+        builder.setIcon(R.drawable.icon)
+        //final AlertDialog dialog = builder.create();
+        builder.setPositiveButton(
+            "YES"
+        ) { _, _ -> finish() }
+        builder.setNegativeButton(
+            "NO"
+        ) { _, _ -> }
+        builder.show()
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        menuInflater.inflate(R.menu.base, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        val id = item.itemId
+
+
+        return if (id == R.id.action_settings) {
+            true
+        } else super.onOptionsItemSelected(item)
+
+    }
+
+
+    override fun onNavigationItemSelected(item: MenuItem): Boolean {
+        // Handle navigation view item clicks here.
+        val id = item.itemId
+        val intent: Intent
+        if (id == R.id.nav_programs) {
+            intent = Intent(this, FeedActivity::class.java)
+            startActivity(intent)
+            finish()
+        } else if (id == R.id.nav_sessions) {
+            intent = Intent(this, FeedActivity::class.java)
+            startActivity(intent)
+            finish()
+        }else if (id == R.id.nav_write_program) {
+            intent = Intent(this, FeedActivity::class.java)
+            startActivity(intent)
+            finish()
+        }else if (id == R.id.nav_write_session) {
+            intent = Intent(this, FeedActivity::class.java)
+            startActivity(intent)
+            finish()
+        }else if (id == R.id.nav_feed) {
+            intent = Intent(this, FeedActivity::class.java)
+            startActivity(intent)
+            finish()
+        }else if (id == R.id.nav_write) {
+            intent = Intent(this, WritePostActivity::class.java)
+            startActivity(intent)
+            finish()
+        }else if (id == R.id.nav_profile) {
+            intent = Intent(this, ProfileActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
+
+        val drawer = findViewById<DrawerLayout>(R.id.drawer_layout)
+        drawer.closeDrawer(GravityCompat.START)
+        return true
+    }
+
+    companion object {
+        private val INTENT_REQUEST_CODE = 200
+    }
+}

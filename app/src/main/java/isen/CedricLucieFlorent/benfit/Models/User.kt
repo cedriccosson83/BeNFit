@@ -15,6 +15,7 @@ class User {
     var grade: String? = ""
     var weight: String? = ""
     var sports: ArrayList<Sport> = ArrayList()
+    var temporrary_sports: String? = ""
     var currentPrograms: ArrayList<UserCurrentProgram> = ArrayList()
     var history: ArrayList<UserHistory> = ArrayList()
 
