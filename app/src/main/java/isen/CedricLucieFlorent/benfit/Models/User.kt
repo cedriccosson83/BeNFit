@@ -14,7 +14,6 @@ class User {
     var sportLevel: String? = ""
     var grade: String? = ""
     var weight: String? = ""
-    var sport: String? = "" // temporaire
     var sports: ArrayList<Sport> = ArrayList()
     var currentPrograms: ArrayList<UserCurrentProgram> = ArrayList()
     var history: ArrayList<UserHistory> = ArrayList()
@@ -56,7 +55,7 @@ class User {
         firstname: String?,
         lastname: String?,
         birthdate: String?,
-        sport: String?,
+        sports: ArrayList<Sport>,
         weight: String?
     ) {
         this.userid = userid
@@ -65,8 +64,10 @@ class User {
         this.lastname = lastname
         this.birthdate = birthdate
         this.weight = weight
-        this.sport = sport
+        this.sports = sports
     }
+
+    constructor(){}
 
 
 }

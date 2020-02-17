@@ -48,9 +48,9 @@ class SignInActivity : AppCompatActivity() {
             val sdf = SimpleDateFormat("dd/MM/yyyy HH:mm:ss")
             val date = sdf.format(Date())
             database.getReference("users")
-                .child(user.uid)
+                .child(user.uid).child("lastConn")
                 .setValue(date)
-            startActivity(Intent(this, MainActivity::class.java))
+            startActivity(Intent(this, ProfileActivity::class.java))
         } else {
             Toast.makeText(this, getString(R.string.mail_mdp_incorrect), Toast.LENGTH_LONG).show()
         }

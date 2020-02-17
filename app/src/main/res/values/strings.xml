@@ -18,4 +18,5 @@
     <string name="err_inscription">Erreur d\'inscription</string>
     <string name="vous_connecte">Vous êtes connecté</string>
     <string name="vous_avez_un_compte">Vous avez déjà un compte</string>
+    <string name="sport_pratiqu">Sport pratiqué</string>
 </resources>

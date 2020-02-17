@@ -176,59 +176,9 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:layout_marginTop="324dp"
-        android:text="Sport pratiqué"
+        android:text="@string/sport_pratiqu"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <ScrollView
-        android:id="@+id/scrollView2"
-        android:layout_width="122dp"
-        android:layout_height="82dp"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="320dp"
-        android:layout_marginEnd="170dp"
-        android:scrollbarAlwaysDrawHorizontalTrack="true"
-        android:scrollbarAlwaysDrawVerticalTrack="true"
-        android:scrollbarDefaultDelayBeforeFade="5000000"
-        android:scrollbarFadeDuration="5000000"
-        android:scrollbarStyle="outsideInset"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/sportTewtView"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:fadeScrollbars="false"
-            android:orientation="vertical">
-
-            <CheckBox
-                android:id="@+id/checkBoxCourse"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/course_pieds"
-                tools:layout_editor_absoluteX="136dp"
-                tools:layout_editor_absoluteY="321dp" />
-
-            <CheckBox
-                android:id="@+id/checkBoxVelo"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/cyclisme"
-                tools:layout_editor_absoluteX="26dp"
-                tools:layout_editor_absoluteY="390dp" />
-
-            <CheckBox
-                android:id="@+id/checkBoxMuscu"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/musculation"
-                tools:layout_editor_absoluteX="26dp"
-                tools:layout_editor_absoluteY="390dp" />
-
-        </LinearLayout>
-
-    </ScrollView>
 
     <TextView
         android:id="@+id/poidsTextView"
@@ -250,6 +200,15 @@
         android:inputType="number"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/showsporttextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="28dp"
+        app:layout_constraintStart_toEndOf="@+id/sportTewtView"
+        app:layout_constraintTop_toBottomOf="@+id/birthdayEditTextSignUp" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

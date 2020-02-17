@@ -11,9 +11,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        //lateinit var auth: FirebaseAuth
         val database = FirebaseDatabase.getInstance()
-
-        database.getReference("users").setValue("coucou")
     }
 }
