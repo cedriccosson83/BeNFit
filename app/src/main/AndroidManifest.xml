@@ -4,6 +4,10 @@
     package="isen.CedricLucieFlorent.benfit">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
 
     <application
         android:allowBackup="true"
@@ -13,22 +17,24 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-
+        <activity android:name=".SignInActivity"></activity>
         <activity android:name=".ProfileActivity" />
         <activity android:name=".WritePostActivity" />
         <activity android:name=".PostActivity" />
         <activity android:name=".ScriptActivity" />
         <activity android:name=".FeedActivity" />
-        <activity android:name=".SessionActivity"/>
+        <activity android:name=".SessionActivity" />
         <activity android:name=".SignUpActivity" />
         <activity android:name=".ModifyProfile" />
         <activity android:name=".MainActivity" />
-        <activity android:name=".ExerciceActivity"/>
+        <activity android:name=".ExerciceActivity" />
         <activity android:name=".MenuActivity" />
-        <activity android:name=".SignInActivity"/>
-        <activity android:name=".SplashActivity" android:theme="@style/AppTheme">
+        <activity
+            android:name=".SplashActivity"
+            android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
