@@ -20,6 +20,7 @@ import isen.CedricLucieFlorent.benfit.Models.User
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.recycler_view_comment_cell.view.*
 import kotlinx.android.synthetic.main.recycler_view_post_cell.view.*
+import java.io.File
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -70,8 +71,38 @@ fun showUserName(userId : String, textview: TextView) {
 
 fun setImageFromFirestore(context: Context, target: ImageView, location: String) {
     //target : findViewById<ImageView>(R.id...)
-
+    deleteCache(context)
     val storeRef: StorageReference?
         = FirebaseStorage.getInstance().getReference(location)
     GlideApp.with(context).load(storeRef).into(target)
+}
+
+fun deleteCache(context: Context) {
+    try {
+        val dir = context.getCacheDir()
+        deleteDir(dir)
+    } catch (e: Exception) {
+        e.printStackTrace()
+    }
+}
+
+fun deleteDir(dir: File?): Boolean {
+    if (dir != null && dir!!.isDirectory()) {
+        val children = dir!!.list()
+        for (i in children.indices) {
+            val success = deleteDir(File(dir, children[i]))
+            if (!success) {
+                return false
+            }
+        }
+        return dir!!.delete()
+    } else return if (dir != null && dir!!.isFile()) {
+        dir!!.delete()
+    } else {
+        false
+    }
+}
+
+fun toast(context: Context, message: String) {
+    Toast.makeText(context, message, Toast.LENGTH_LONG).show()
 }
