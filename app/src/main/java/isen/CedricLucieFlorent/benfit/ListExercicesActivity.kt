@@ -8,18 +8,19 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import kotlinx.android.synthetic.main.activity_list_exercices.*
 
-class ListExercicesActivity : AppCompatActivity() {
+class ListExercicesActivity : MenuActivity() {
 
-    lateinit var auth: FirebaseAuth
-    val database = FirebaseDatabase.getInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_list_exercices)
+        layoutInflater.inflate(R.layout.activity_list_exercices, frameLayout)
         auth = FirebaseAuth.getInstance()
+        val id = auth.currentUser?.uid
 
 
-        showExos(database, recycler_view_list_exo, this)
+        if (id != null) {
+            showExos(database, recycler_view_list_exo, this,id)
+        }
         recycler_view_list_exo.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
     }
 
