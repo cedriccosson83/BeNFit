@@ -27,6 +27,10 @@
         <activity android:name=".MenuActivity" />
         <activity android:name=".SignInActivity"/>
         <activity android:name=".SplashActivity" android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme">
+        <activity android:name=".ListExercicesActivity"></activity>
+        <activity android:name=".ExerciceActivity" />
+        <activity android:name=".SessionActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
