@@ -15,11 +15,17 @@ class SignInActivity : AppCompatActivity() {
 
     lateinit var auth: FirebaseAuth
     val database = FirebaseDatabase.getInstance()
-
+    
     override fun onCreate(saved: Bundle?) {
         super.onCreate(saved)
         setContentView(R.layout.activity_sign_in)
         auth = FirebaseAuth.getInstance()
+
+        val user = auth.currentUser
+
+        if (user != null) {
+            updateUI(user)
+        }
 
         signInButton.setOnClickListener{
             if (mailEditTextSignIn.text.toString().isNotEmpty()) {
