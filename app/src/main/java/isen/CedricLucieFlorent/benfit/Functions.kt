@@ -2,16 +2,22 @@ package isen.CedricLucieFlorent.benfit
 
 import android.content.Context
 import android.content.Intent
+import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.ContextCompat.startActivity
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
 import isen.CedricLucieFlorent.benfit.Models.User
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.recycler_view_comment_cell.view.*
 import kotlinx.android.synthetic.main.recycler_view_post_cell.view.*
 import java.text.SimpleDateFormat
@@ -60,4 +66,12 @@ fun showUserName(userId : String, textview: TextView) {
     })
 
 
+}
+
+fun setImageFromFirestore(context: Context, target: ImageView, location: String) {
+    //target : findViewById<ImageView>(R.id...)
+
+    val storeRef: StorageReference?
+        = FirebaseStorage.getInstance().getReference(location)
+    GlideApp.with(context).load(storeRef).into(target)
 }

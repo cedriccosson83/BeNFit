@@ -1,7 +1,9 @@
 package isen.CedricLucieFlorent.benfit
 
 import android.app.Activity
+import android.content.ContentValues
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
@@ -11,6 +13,8 @@ import android.util.Log
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.DataSnapshot
@@ -23,19 +27,24 @@ import com.google.firebase.storage.StorageReference
 import isen.CedricLucieFlorent.benfit.Models.Sport
 import isen.CedricLucieFlorent.benfit.Models.User
 import kotlinx.android.synthetic.main.activity_modify_profile.*
-import java.util.HashMap
 
 class ModifyProfile : AppCompatActivity() {
 
     lateinit var auth: FirebaseAuth
     val database = FirebaseDatabase.getInstance()
+
     lateinit var userId: String
     lateinit var currUser: User
+
     var sportSelectedModif  = ArrayList<Sport>()
-    private lateinit var filePath: Uri
-    private var firebaseStore: FirebaseStorage? = null
+
     private lateinit var storageReference: StorageReference
-    private val codePicture = 1
+    val sportSel = arrayListOf<String>()
+
+    private val code_perm_image = 101
+    private val code_req_image = 102
+    private val code_res_ext = 101
+    private lateinit var image_uri : Uri
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -45,6 +54,8 @@ class ModifyProfile : AppCompatActivity() {
         val showdiffsports = findViewById<TextView>(R.id.showSports)
 
         auth = FirebaseAuth.getInstance()
+        storageReference = FirebaseStorage.getInstance().getReference()
+
         userId = auth.currentUser?.uid ?: ""
 
         val intent = intent
@@ -65,7 +76,7 @@ class ModifyProfile : AppCompatActivity() {
 
         })
 
-        val sportSel = arrayListOf<String>()
+
 
         val mySpo = database.getReference("users").child(userId)
         mySpo.addValueEventListener(object : ValueEventListener {
@@ -88,19 +99,12 @@ class ModifyProfile : AppCompatActivity() {
         }
 
         changeProfilImageModify.setOnClickListener(){
-            val imagefromgalleryIntent = Intent(Intent.ACTION_PICK)
-            imagefromgalleryIntent.setType("image/png")
-
-            val imagefromcameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-
-            val chooseIntent= Intent.createChooser(imagefromgalleryIntent, "Gallery")
-            chooseIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, arrayOf(imagefromcameraIntent))
-            startActivityForResult(chooseIntent,11)
+            askCameraPermissions()
         }
 
         validateModifyButton.setOnClickListener(){
             val user = auth.currentUser
-            ChangeUser(user, firstNameTextViewModify.text.toString(),lastNameTextViewModify.text.toString(), birthdateTextViewModify.text.toString(), "Sport", weightTextViewModify.text.toString())
+            ChangeUser(user, firstNameTextViewModify.text.toString(),lastNameTextViewModify.text.toString(), birthdateTextViewModify.text.toString(), "", weightTextViewModify.text.toString())
             startActivity(Intent(this, ProfileActivity::class.java))
         }
 
@@ -148,57 +152,61 @@ class ModifyProfile : AppCompatActivity() {
 
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (resultCode == Activity.RESULT_OK ){
-            if(data?.data == null){
-                val bitmap = data?.extras?.get("data") as? Bitmap
-                bitmap?.let{
-                    changeProfilImageModify.setImageBitmap(it)
-                }
-                savePictureFireStore()
+    private fun askCameraPermissions(){
+        if(ContextCompat.checkSelfPermission(this, android.Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED){
+            ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.CAMERA), code_perm_image)
+        }
+        else if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.WRITE_EXTERNAL_STORAGE), code_res_ext)
+        }
+        else { openCamera()}
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (requestCode == code_perm_image){
+            if (grantResults.size > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED ){
+                openCamera()
             }else{
-                changeProfilImageModify.setImageURI(data?.data)
-
+                Toast.makeText(this, "Camera permissions required", Toast.LENGTH_LONG).show()
             }
-
         }
     }
 
-    private fun savePictureFireStore() {
+    fun openCamera() {
+        val values = ContentValues()
+        values.put(MediaStore.Images.Media.DESCRIPTION, "New Picture")
+        values.put(MediaStore.Images.Media.DESCRIPTION, "From the Camera")
+        var notsureuri = contentResolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values)
+        if (notsureuri != null ){
+            image_uri = notsureuri}
+        val imagefromgalleryIntent = Intent(Intent.ACTION_PICK)
+        imagefromgalleryIntent.setType("image/png")
+        imagefromgalleryIntent.putExtra(MediaStore.EXTRA_OUTPUT, image_uri)
+
+        val cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+        cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, image_uri)
+
+
+        val chooseIntent= Intent.createChooser(imagefromgalleryIntent, "Gallery")
+        chooseIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, arrayOf(cameraIntent))
+
+        startActivityForResult(chooseIntent, code_req_image)
+
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
         val userid = auth.currentUser?.uid ?: ""
-        if(userid != ""){
-            val riversRef = storageReference.child("users/$userid/profile")
-
-            riversRef.putFile(filePath)
-                .addOnSuccessListener { taskSnapshot ->
-
-                    val downloadUrl = taskSnapshot.metadata?.reference?.downloadUrl.toString()
-                    if(downloadUrl.isNotEmpty()) {
-
-                        val db = FirebaseFirestore.getInstance()
-
-                        val data = HashMap<String, Any>()
-                        data["imageUrl"] = downloadUrl
-
-                        db.collection("posts")
-                            .add(data)
-                            .addOnSuccessListener { documentReference ->
-                                Toast.makeText(this, "Image enregistrée", Toast.LENGTH_LONG).show()
-                            }
-                            .addOnFailureListener { e ->
-                                Toast.makeText(this, "Erreur lors de la sauvegarde", Toast.LENGTH_LONG).show()
-                            }
-                        Toast.makeText(this, downloadUrl, Toast.LENGTH_LONG).show()
-                    }
-
-                }
-                .addOnFailureListener {
-                    Toast.makeText(this,"Échec de l'upload de l'image", Toast.LENGTH_LONG).show()
-                }
-        }
-        else{
-            Toast.makeText(this, "Veuillez choisir une image", Toast.LENGTH_SHORT).show()
+        val riversRef = storageReference.child("users/$userid/profile.png")
+        if (requestCode == code_req_image){
+            if(data?.data == null){
+                changeProfilImageModify.setImageURI(image_uri)
+                riversRef.putFile(image_uri)
+            }else{
+                riversRef.putFile(data?.data as Uri)
+                changeProfilImageModify.setImageURI(data?.data)
+            }
         }
     }
 
@@ -244,8 +252,8 @@ class ModifyProfile : AppCompatActivity() {
             root.child(user?.uid).child("lastname").setValue(lnamenew)
             root.child(user?.uid).child("birthdate").setValue(birthdatenew)
             root.child(user?.uid).child("weight").setValue(weightnew)
-            root.child(user?.uid).child("sports").setValue(sportSelectedModif)
-            //root.child(user?.uid).child("sport").setValue(sportnew)
+            if (sportSelectedModif.isNotEmpty()){ root.child(user?.uid).child("sports").setValue(sportSelectedModif)}
+            else{root.child(user?.uid).child("sports").setValue(sportSel)}
 
         } else
             Toast.makeText(this, getString(R.string.err_inscription), Toast.LENGTH_LONG).show()

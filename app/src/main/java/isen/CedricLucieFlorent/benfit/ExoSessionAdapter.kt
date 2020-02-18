@@ -8,7 +8,7 @@ import isen.CedricLucieFlorent.benfit.Models.Exercice
 import kotlinx.android.synthetic.main.recycler_view_exo_session.view.*
 
 
-class ExoSessionAdapter(val exos: ArrayList<Exercice>,  val clickListener: (Exercice) -> Unit): RecyclerView.Adapter<ExoSessionAdapter.ExoSessionViewHolder>(){
+class ExoSessionAdapter(val exos: ArrayList<Exercice>, val clickListener: (Exercice) -> Unit): RecyclerView.Adapter<ExoSessionAdapter.ExoSessionViewHolder>(){
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ExoSessionAdapter.ExoSessionViewHolder {

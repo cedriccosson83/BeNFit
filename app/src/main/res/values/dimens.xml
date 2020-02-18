@@ -23,4 +23,5 @@
     <dimen name="nav_header_height">130dp</dimen>
     <dimen name="fab_margin" tools:keep="@dimen/fab_margin">20dp</dimen>
     <dimen name="btn_size" tools:keep="@dimen/btn_size">20dp</dimen>
+    <dimen name="design_navigation_icon_size" tools:override="true">20sp</dimen>
 </resources>
