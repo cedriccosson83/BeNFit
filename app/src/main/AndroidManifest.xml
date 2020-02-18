@@ -29,17 +29,14 @@
         <activity android:name=".MainActivity" />
         <activity android:name=".ExerciceActivity" />
         <activity android:name=".MenuActivity" />
-        <activity android:name=".SignInActivity"/>
-        <activity android:name=".SplashActivity" android:theme="@style/AppTheme">
-        <activity android:name=".ListExercicesActivity"></activity>
-        <activity android:name=".ExerciceActivity" />
-        <activity android:name=".SessionActivity">
+        	<activity android:name=".SplashActivity" android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".ListExercicesActivity" />
     </application>
 
 </manifest>
