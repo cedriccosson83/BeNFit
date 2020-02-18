@@ -91,7 +91,8 @@ open class MenuActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
                     var fname = value.child("firstname").value.toString()
                     var lname = value.child("lastname").value.toString()
 
-                    if (id == userId) {
+                   if (id == userId) {
+
                         nav_name.text = "${fname} ${lname}"
                         nav_mail.text = mail
                     }
@@ -168,7 +169,7 @@ open class MenuActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
             startActivity(intent)
             finish()
         }else if (id == R.id.nav_write_session) {
-            intent = Intent(this, FeedActivity::class.java)
+            intent = Intent(this, SessionActivity::class.java)
             startActivity(intent)
             finish()
         }else if (id == R.id.nav_feed) {
