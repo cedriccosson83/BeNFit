@@ -86,14 +86,15 @@ open class MenuActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
         myRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 for (value in dataSnapshot.children) {
-                    var id = value.child("userid").value.toString()
-                    var mail = value.child("email").value.toString()
-                    var fname = value.child("firstname").value.toString()
-                    var lname = value.child("lastname").value.toString()
+                    val id = value.child("userid").value.toString()
+                    val mail = value.child("email").value.toString()
+                    val fname = value.child("firstname").value.toString()
+                    val lname = value.child("lastname").value.toString()
 
                     if (id == userId) {
                         nav_name.text = "${fname} ${lname}"
                         nav_mail.text = mail
+                        setImageFromFirestore(context, nav_picture, "users/$userId/profile.png")
                     }
                 }
             }
