@@ -162,7 +162,7 @@ open class MenuActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
             startActivity(intent)
             finish()
         } else if (id == R.id.nav_sessions) {
-            intent = Intent(this, FeedActivity::class.java)
+            intent = Intent(this, SessionActivity::class.java)
             startActivity(intent)
             finish()
         }else if (id == R.id.nav_write_program) {

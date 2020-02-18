@@ -17,10 +17,10 @@ import kotlinx.android.synthetic.main.activity_session.*
 class SessionActivity : MenuActivity(){
 
     var array : ArrayList<String> ?= ArrayList()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         layoutInflater.inflate(R.layout.activity_session, frameLayout)
-
         Log.d("state", "oncreate")
         auth = FirebaseAuth.getInstance()
         val id = auth.currentUser?.uid

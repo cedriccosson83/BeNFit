@@ -13,7 +13,6 @@ import kotlinx.android.synthetic.main.activity_session.*
 
 class ExerciceActivity : MenuActivity() {
 
-
     //var etatFragment : Int = 0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

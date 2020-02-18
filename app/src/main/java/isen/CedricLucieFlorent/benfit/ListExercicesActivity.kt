@@ -10,7 +10,6 @@ import kotlinx.android.synthetic.main.activity_list_exercices.*
 
 class ListExercicesActivity : MenuActivity() {
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         layoutInflater.inflate(R.layout.activity_list_exercices, frameLayout)

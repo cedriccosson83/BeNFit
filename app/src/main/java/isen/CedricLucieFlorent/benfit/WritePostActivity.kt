@@ -15,7 +15,6 @@ import kotlin.collections.ArrayList
 
 class WritePostActivity : MenuActivity() {
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         layoutInflater.inflate(R.layout.activity_write, frameLayout)
