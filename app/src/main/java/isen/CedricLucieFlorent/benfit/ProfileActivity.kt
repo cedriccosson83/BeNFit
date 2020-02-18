@@ -1,5 +1,6 @@
 package isen.CedricLucieFlorent.benfit
 
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -23,6 +24,7 @@ class ProfileActivity : MenuActivity() {
         layoutInflater.inflate(R.layout.activity_profile, frameLayout)
         auth = FirebaseAuth.getInstance()
         userId = auth.currentUser?.uid ?: ""
+        context = this
 
         val intent = intent
 
@@ -34,6 +36,11 @@ class ProfileActivity : MenuActivity() {
 
         settingsButton.setOnClickListener(){
             startActivity(Intent(this, ModifyProfile::class.java))
+        }
+
+        sportLevelImageView.setOnClickListener(){
+            FirebaseAuth.getInstance().signOut()
+            startActivity(Intent(this, SignInActivity::class.java))
         }
     }
 
@@ -58,6 +65,7 @@ class ProfileActivity : MenuActivity() {
                     if (user.userid == userId) {
                         fullNameTextView.text = "${user.firstname} ${user.lastname}"
                         descriptionTextView.text = "Date de naissance : ${user.birthdate.toString()}" + "\nEmail : ${user.email} " + "\nPoids : ${user.weight}" + "\nSport(s) pratiqué(s) : ${user.sports.map { it.name }}"
+                        setImageFromFirestore(context, ProfilImage, "users/$userId/profile.png")
                     }
                 }
             }

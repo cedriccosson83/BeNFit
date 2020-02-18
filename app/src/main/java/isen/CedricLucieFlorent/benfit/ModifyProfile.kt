@@ -28,10 +28,7 @@ import isen.CedricLucieFlorent.benfit.Models.Sport
 import isen.CedricLucieFlorent.benfit.Models.User
 import kotlinx.android.synthetic.main.activity_modify_profile.*
 
-class ModifyProfile : AppCompatActivity() {
-
-    lateinit var auth: FirebaseAuth
-    val database = FirebaseDatabase.getInstance()
+class ModifyProfile : MenuActivity() {
 
     lateinit var userId: String
     lateinit var currUser: User
@@ -49,7 +46,7 @@ class ModifyProfile : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_modify_profile)
+        layoutInflater.inflate(R.layout.activity_modify_profile, frameLayout)
 
         val showdiffsports = findViewById<TextView>(R.id.showSports)
 
@@ -123,11 +120,8 @@ class ModifyProfile : AppCompatActivity() {
                     sportArray.toTypedArray(),
                     checkedColorsArray
                 ) { _, which, isChecked ->
-                    // Update the current focused item's checked status
                     checkedColorsArray[which] = isChecked
-                    // Get the current focused item
                     val currentItem = sportList[which]
-                    // Notify the current action
                     Toast.makeText(
                         applicationContext,
                         "$currentItem $isChecked",
@@ -135,8 +129,6 @@ class ModifyProfile : AppCompatActivity() {
                     ).show()
                 }
                 .setPositiveButton("OK") { dialog, which ->
-                    // return to ModifyProfile
-                    //val mysports = arrayListOf<String>()
                     showdiffsports.text = "Vos sports préférés..... \n"
                     for (i in checkedColorsArray.indices) {
                         val checked = checkedColorsArray[i]

@@ -10,15 +10,12 @@ import com.google.firebase.database.FirebaseDatabase
 import kotlinx.android.synthetic.main.activity_exercice.*
 import kotlinx.android.synthetic.main.activity_session.*
 
-class ExerciceActivity : AppCompatActivity() {
-
-    lateinit var auth: FirebaseAuth
-    val database = FirebaseDatabase.getInstance()
+class ExerciceActivity : MenuActivity() {
 
     //var etatFragment : Int = 0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_exercice)
+        layoutInflater.inflate(R.layout.activity_exercice, frameLayout)
         auth = FirebaseAuth.getInstance()
 
 

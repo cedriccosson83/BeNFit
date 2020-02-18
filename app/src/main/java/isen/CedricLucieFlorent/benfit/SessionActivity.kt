@@ -14,13 +14,13 @@ import com.google.firebase.database.FirebaseDatabase
 import kotlinx.android.synthetic.main.activity_session.*
 
 
-class SessionActivity : AppCompatActivity(){
-    lateinit var auth: FirebaseAuth
-    val database = FirebaseDatabase.getInstance()
+class SessionActivity : MenuActivity(){
+
     var array : ArrayList<String> ?= ArrayList()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_session)
+        layoutInflater.inflate(R.layout.activity_session, frameLayout)
         Log.d("state", "oncreate")
         auth = FirebaseAuth.getInstance()
         showExosSession(database, recyclerViewExoSession)

@@ -8,14 +8,11 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import kotlinx.android.synthetic.main.activity_list_exercices.*
 
-class ListExercicesActivity : AppCompatActivity() {
-
-    lateinit var auth: FirebaseAuth
-    val database = FirebaseDatabase.getInstance()
+class ListExercicesActivity : MenuActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_list_exercices)
+        layoutInflater.inflate(R.layout.activity_list_exercices, frameLayout)
         auth = FirebaseAuth.getInstance()
 
 
