@@ -112,24 +112,8 @@ open class MenuActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START)
         } else {
-            ExitApp()
+            finish()
         }
-    }
-
-    private fun ExitApp() {
-        val builder = AlertDialog.Builder(context)
-
-        builder.setTitle(R.string.app_name)
-        builder.setMessage(getString(R.string.sureToLeave))
-        builder.setIcon(R.drawable.icon)
-        //final AlertDialog dialog = builder.create();
-        builder.setPositiveButton(
-            "YES"
-        ) { _, _ -> finish() }
-        builder.setNegativeButton(
-            "NO"
-        ) { _, _ -> }
-        builder.show()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

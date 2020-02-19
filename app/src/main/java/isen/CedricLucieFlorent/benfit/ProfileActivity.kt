@@ -22,6 +22,7 @@ class ProfileActivity : MenuActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         layoutInflater.inflate(R.layout.activity_profile, frameLayout)
+        overridePendingTransition(R.anim.zoom_enter, 0)
         auth = FirebaseAuth.getInstance()
         userId = auth.currentUser?.uid ?: ""
         context = this

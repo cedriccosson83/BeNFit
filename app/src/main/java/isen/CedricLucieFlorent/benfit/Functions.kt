@@ -70,7 +70,6 @@ fun showUserName(userId : String, textview: TextView) {
 }
 
 fun setImageFromFirestore(context: Context, target: ImageView, location: String) {
-    //target : findViewById<ImageView>(R.id...)
     deleteCache(context)
     val storeRef: StorageReference?
         = FirebaseStorage.getInstance().getReference(location)
