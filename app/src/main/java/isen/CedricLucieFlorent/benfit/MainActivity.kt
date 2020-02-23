@@ -13,8 +13,10 @@ import com.google.common.io.Files.isFile
 import androidx.core.app.ComponentActivity.ExtraData
 import androidx.core.content.ContextCompat.getSystemService
 import android.icu.lang.UCharacter.GraphemeClusterBreak.T
+import android.net.Uri
 import android.widget.Toast
 import java.io.File
+import java.net.URI
 
 
 class MainActivity : MenuActivity() {
@@ -23,25 +25,11 @@ class MainActivity : MenuActivity() {
             super.onCreate(savedInstanceState)
             //deleteCache(this)
             layoutInflater.inflate(R.layout.activity_main, frameLayout)
-            val img = findViewById<ImageView>(R.id.mainImage)
-            val auth = FirebaseAuth.getInstance()
-            val userid = auth.currentUser?.uid
-/*
-            mainImage.setOnClickListener {
-                val db = FirebaseFirestore.getInstance()
-                val settings = FirebaseFirestoreSettings.Builder()
-                    .setPersistenceEnabled(false)
-                    .build()
-                db.firestoreSettings = settings
+            //val img = findViewById<ImageView>(R.id.mainImage)
+            //val auth = FirebaseAuth.getInstance()
+            //val userid = auth.currentUser?.uid
 
-                val storeRef: StorageReference?
-                        = FirebaseStorage.getInstance().getReference("users/$userid/profile.png")
-                GlideApp.with(context).load(storeRef).into(img)
-            }
-
-*/
-
-            setImageFromFirestore(this, img, "users/$userid/profile.png")
+            //mainImage.setImageURI(Uri.parse("gs://benfit-284ff.appspot.com/users/VA1wZJSkGZYnMLHU09XNRIyaCF43/088567df-a9b7-4810-aa14-118f8c9d0b10"))
     }
 
 }

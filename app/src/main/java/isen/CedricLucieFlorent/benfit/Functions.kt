@@ -70,36 +70,10 @@ fun showUserName(userId : String, textview: TextView) {
 }
 
 fun setImageFromFirestore(context: Context, target: ImageView, location: String) {
-    deleteCache(context)
     val storeRef: StorageReference?
         = FirebaseStorage.getInstance().getReference(location)
-    GlideApp.with(context).load(storeRef).into(target)
-}
-
-fun deleteCache(context: Context) {
-    try {
-        val dir = context.getCacheDir()
-        deleteDir(dir)
-    } catch (e: Exception) {
-        e.printStackTrace()
-    }
-}
-
-fun deleteDir(dir: File?): Boolean {
-    if (dir != null && dir!!.isDirectory()) {
-        val children = dir!!.list()
-        for (i in children.indices) {
-            val success = deleteDir(File(dir, children[i]))
-            if (!success) {
-                return false
-            }
-        }
-        return dir!!.delete()
-    } else return if (dir != null && dir!!.isFile()) {
-        dir!!.delete()
-    } else {
-        false
-    }
+    Log.d("STORAGE_LOCATION", storeRef?.path ?: "")
+    GlideApp.with(ApplicationContext.applicationContext()).load(storeRef).into(target)
 }
 
 fun toast(context: Context, message: String) {

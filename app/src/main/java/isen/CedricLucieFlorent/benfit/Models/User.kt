@@ -18,7 +18,7 @@ class User {
     var temporrary_sports: String? = ""
     var currentPrograms: ArrayList<UserCurrentProgram> = ArrayList()
     var history: ArrayList<UserHistory> = ArrayList()
-
+    var pictureUID: String? = ""
 
     constructor(
         userid: String,
@@ -50,14 +50,15 @@ class User {
         this.history = history
     }
 
-    constructor(
+    constructor( // inscription - connexion
         userid: String,
         email: String?,
         firstname: String?,
         lastname: String?,
         birthdate: String?,
         sports: ArrayList<Sport>,
-        weight: String?
+        weight: String?,
+        pictureUID: String?= ""
     ) {
         this.userid = userid
         this.email = email
@@ -66,6 +67,7 @@ class User {
         this.birthdate = birthdate
         this.weight = weight
         this.sports = sports
+        this.pictureUID = pictureUID
     }
 
 
