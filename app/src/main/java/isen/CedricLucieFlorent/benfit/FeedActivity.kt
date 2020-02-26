@@ -24,6 +24,7 @@ class FeedActivity : MenuActivity() {
 
         auth = FirebaseAuth.getInstance()
 
+
         showPosts()
         recyclerViewFeed.layoutManager =
             LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)

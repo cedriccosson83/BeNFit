@@ -2,44 +2,32 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".FragmentTimeExo">
 
     <NumberPicker
-        android:id="@+id/numberPickerMinutes"
-        android:layout_width="50dp"
-        android:layout_height="180dp"
-        android:layout_marginStart="75dp"
-        android:layout_weight="1"
-        android:theme="@style/NumberPickerText"
-
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <NumberPicker
-        android:id="@+id/numberPickerSecondes"
-        android:layout_width="50dp"
-        android:layout_height="180dp"
-        android:layout_marginEnd="75dp"
-        android:layout_weight="1"
-        android:theme="@style/NumberPickerText"
-
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/numberPickerMin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text=":"
-        android:textSize="60sp"
-        android:textStyle="bold"
+        android:layout_marginEnd="115dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/numberPickerSecondes"
-        app:layout_constraintStart_toEndOf="@+id/numberPickerMinutes"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.499" />
+
+    <NumberPicker
+        android:id="@+id/numberPickerSec"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="115dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.499" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+

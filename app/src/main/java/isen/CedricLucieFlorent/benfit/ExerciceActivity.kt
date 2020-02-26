@@ -1,5 +1,6 @@
 package isen.CedricLucieFlorent.benfit
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -17,6 +18,7 @@ class ExerciceActivity : MenuActivity() {
         super.onCreate(savedInstanceState)
         layoutInflater.inflate(R.layout.activity_exercice, frameLayout)
         auth = FirebaseAuth.getInstance()
+        val id = auth.currentUser?.uid
 
 
         createSpinnerCategory()
@@ -31,10 +33,16 @@ class ExerciceActivity : MenuActivity() {
             var levelExo : String = spinnerLevelExo.selectedItem.toString()
 
 
-            var res_request = addNewExo(database,nameExo,descExo,urlExo,levelExo,categoryExo)
+            var res_request =
+                id?.let { it1 ->
+                    addNewExo(database,nameExo,
+                        it1,descExo,urlExo,levelExo,categoryExo)
+                }
 
             if(res_request == 0){
                 Toast.makeText(this, "Nouvel exercice créé !", Toast.LENGTH_SHORT).show()
+                intent = Intent(this, SessionActivity::class.java)
+                startActivity(intent)
             }else{
                 Toast.makeText(this, "Erreur! Veuillez réessayer!", Toast.LENGTH_SHORT).show()
 

@@ -1,7 +1,5 @@
 package isen.CedricLucieFlorent.benfit
 
-
-
 import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -9,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.NumberPicker
+import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_exercice.*
 
 class FragmentTimeExo : Fragment() {
@@ -20,8 +19,8 @@ class FragmentTimeExo : Fragment() {
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater, container: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_time, container, false)
@@ -29,26 +28,26 @@ class FragmentTimeExo : Fragment() {
 
     override fun onStart() {
         super.onStart()
-        val numberPickerMinutes = view?.findViewById<NumberPicker>(R.id.numberPickerMinutes)
-        if (numberPickerMinutes != null) {
-            numberPickerMinutes.minValue = 0
-            numberPickerMinutes.maxValue = 59
-            numberPickerMinutes.wrapSelectorWheel = true
-            numberPickerMinutes.setOnValueChangedListener { picker, oldVal, newVal ->
+        val numberPicker = view?.findViewById<NumberPicker>(R.id.numberPickerMin)
+        if (numberPicker != null) {
+            numberPicker.minValue = 0
+            numberPicker.maxValue = 59
+            numberPicker.wrapSelectorWheel = true
+            numberPicker.setOnValueChangedListener { picker, oldVal, newVal ->
                 val text = "Changed from $oldVal to $newVal"
             }
         }
 
-
-        val numberPickerSecondes = view?.findViewById<NumberPicker>(R.id.numberPickerSecondes)
-        if (numberPickerSecondes != null) {
-            numberPickerSecondes.minValue = 0
-            numberPickerSecondes.maxValue = 59
-            numberPickerSecondes.wrapSelectorWheel = true
-            numberPickerSecondes.setOnValueChangedListener { picker, oldVal, newVal ->
+        val numberPickerSec = view?.findViewById<NumberPicker>(R.id.numberPickerSec)
+        if (numberPickerSec != null) {
+            numberPickerSec.minValue = 0
+            numberPickerSec.maxValue = 59
+            numberPickerSec.wrapSelectorWheel = true
+            numberPickerSec.setOnValueChangedListener { picker, oldVal, newVal ->
                 val text = "Changed from $oldVal to $newVal"
             }
         }
+
     }
 
     override fun onAttach(context: Context) {
