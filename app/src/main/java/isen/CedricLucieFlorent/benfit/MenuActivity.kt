@@ -5,9 +5,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.google.android.material.snackbar.Snackbar
-import androidx.appcompat.app.AlertDialog
 import androidx.core.view.GravityCompat
 import androidx.appcompat.app.ActionBarDrawerToggle
 
@@ -21,19 +18,12 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 
 import android.view.Menu
-import android.widget.FrameLayout
-import android.widget.ImageView
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
-import com.google.firestore.v1.Write
-import isen.CedricLucieFlorent.benfit.Models.Sport
-import isen.CedricLucieFlorent.benfit.Models.User
-import kotlinx.android.synthetic.main.activity_profile.*
 import kotlinx.android.synthetic.main.nav_header_base.*
 
 open class MenuActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener
@@ -41,6 +31,7 @@ open class MenuActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
     lateinit var context: Context
     lateinit var toolbar: Toolbar
     lateinit var img_menuOption: ImageView
+    lateinit var imgHomeBTN: ImageButton
     lateinit var frameLayout: FrameLayout
     lateinit var auth: FirebaseAuth
     val database = FirebaseDatabase.getInstance()
@@ -57,7 +48,6 @@ open class MenuActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
         context = this
         initView()
         frameLayout = findViewById(R.id.container)
-        //val drawer = findViewById<DrawerLayout>(R.id.drawer_layout)
         val navigationView = findViewById<NavigationView>(R.id.nav_view)
 
         navigationView.setNavigationItemSelectedListener(this)
@@ -79,6 +69,7 @@ open class MenuActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
         updateMenuInfos(auth.currentUser?.uid ?: "")
         img_menuOption.setOnClickListener { drawer!!.openDrawer(GravityCompat.START) }
 
+
     }
     private fun updateMenuInfos(userId: String) {
         if (userId == "") return
@@ -90,11 +81,17 @@ open class MenuActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
                     val mail = value.child("email").value.toString()
                     val fname = value.child("firstname").value.toString()
                     val lname = value.child("lastname").value.toString()
+                    val pictUID = value.child("pictureUID").value.toString()
 
                     if (id == userId) {
-                        nav_name.text = "${fname} ${lname}"
+                        nav_name.text = "$fname $lname"
                         nav_mail.text = mail
-                        setImageFromFirestore(context, nav_picture, "users/$userId/profile.png")
+                        setImageFromFirestore(context, nav_picture, "users/$userId/$pictUID")
+                        myHomeBTN.setOnClickListener{
+                            intent = Intent(context, HomeActivity::class.java)
+                            startActivity(intent)
+                            finish()
+                        }
                     }
                 }
             }
@@ -112,24 +109,8 @@ open class MenuActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START)
         } else {
-            ExitApp()
+            finish()
         }
-    }
-
-    private fun ExitApp() {
-        val builder = AlertDialog.Builder(context)
-
-        builder.setTitle(R.string.app_name)
-        builder.setMessage(getString(R.string.sureToLeave))
-        builder.setIcon(R.drawable.icon)
-        //final AlertDialog dialog = builder.create();
-        builder.setPositiveButton(
-            "YES"
-        ) { _, _ -> finish() }
-        builder.setNegativeButton(
-            "NO"
-        ) { _, _ -> }
-        builder.show()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

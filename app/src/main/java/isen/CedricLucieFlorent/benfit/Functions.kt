@@ -117,8 +117,6 @@ fun showUserName(userId : String, textview: TextView) {
 }
 
 fun setImageFromFirestore(context: Context, target: ImageView, location: String) {
-    //target : findViewById<ImageView>(R.id...)
-    deleteCache(context)
     val storeRef: StorageReference?
         = FirebaseStorage.getInstance().getReference(location)
     GlideApp.with(context).load(storeRef).into(target)
@@ -148,6 +146,8 @@ fun deleteDir(dir: File?, context: Context): Boolean {
     } else {
         false
     }
+    Log.d("STORAGE_LOCATION", storeRef?.path ?: "")
+    GlideApp.with(ApplicationContext.applicationContext()).load(storeRef).into(target)
 }
 
 fun toast(context: Context, message: String) {

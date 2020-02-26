@@ -27,6 +27,10 @@ import com.google.firebase.storage.StorageReference
 import isen.CedricLucieFlorent.benfit.Models.Sport
 import isen.CedricLucieFlorent.benfit.Models.User
 import kotlinx.android.synthetic.main.activity_modify_profile.*
+import kotlinx.android.synthetic.main.activity_profile.*
+import kotlinx.android.synthetic.main.nav_header_base.*
+import java.util.*
+import kotlin.collections.ArrayList
 
 class ModifyProfile : MenuActivity() {
 
@@ -190,14 +194,21 @@ class ModifyProfile : MenuActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         val userid = auth.currentUser?.uid ?: ""
-        val riversRef = storageReference.child("users/$userid/profile.png")
+        val uniqID = UUID.randomUUID().toString()
+        val riversRef = storageReference.child("users/$userid/$uniqID")
         if (requestCode == code_req_image){
             if(data?.data == null){
-                changeProfilImageModify.setImageURI(image_uri)
-                riversRef.putFile(image_uri)
+                val result = riversRef.putFile(image_uri)
+                result.addOnSuccessListener {
+                    changeProfilImageModify.setImageURI(image_uri)
+                    database.getReference("users/$userid/pictureUID").setValue(uniqID)
+                }
             }else{
-                riversRef.putFile(data?.data as Uri)
-                changeProfilImageModify.setImageURI(data?.data)
+                val result = riversRef.putFile(data.data as Uri)
+                result.addOnSuccessListener {
+                    changeProfilImageModify.setImageURI(data.data)
+                    database.getReference("users/$userid/pictureUID").setValue(uniqID)
+                }
             }
         }
     }
@@ -215,7 +226,8 @@ class ModifyProfile : MenuActivity() {
                         value.child("lastname").value.toString(),
                         value.child("birthdate").value.toString(),
                         ArrayList(value.child("sports").children.map { Sport(it.value.toString(), arrayListOf()) }),
-                        value.child("weight").value.toString()
+                        value.child("weight").value.toString(),
+                        value.child("pictureUID").value.toString()
 
                     )
 
@@ -225,6 +237,7 @@ class ModifyProfile : MenuActivity() {
                         birthdateTextViewModify.setText("${user.birthdate.toString()}")
                         weightTextViewModify.setText("${user.weight}")
                         showSports.setText("${user.sports.map { it.name }}")
+                        setImageFromFirestore(context, changeProfilImageModify, "users/$userId/${user.pictureUID}")
                     }
                 }
             }

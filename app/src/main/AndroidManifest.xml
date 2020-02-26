@@ -15,7 +15,9 @@
         android:roundIcon="@mipmap/benfit_logo_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
+        android:name=".ApplicationContext"
         tools:ignore="GoogleAppIndexingWarning">
+
         <activity android:name=".MenuActivity" />
         <activity android:name=".SignInActivity" />
         <activity android:name=".ProfileActivity" />
@@ -27,6 +29,7 @@
         <activity android:name=".SignUpActivity" />
         <activity android:name=".ModifyProfile" />
         <activity android:name=".MainActivity" />
+        <activity android:name=".HomeActivity" />
         <activity android:name=".ExerciceActivity" />
         <activity android:name=".NotifActivity" />
         <activity
@@ -40,6 +43,7 @@
         </activity>
         <receiver android:name=".ReminderBroadcast"/>
         <activity android:name=".ListExercicesActivity" />
+        <activity android:name=".FullScreenImageView" />
     </application>
 
 </manifest>
