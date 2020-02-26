@@ -21,6 +21,7 @@ class ProfileActivity : MenuActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        toast(this, "profil ok gros")
         layoutInflater.inflate(R.layout.activity_profile, frameLayout)
         auth = FirebaseAuth.getInstance()
         userId = auth.currentUser?.uid ?: ""
@@ -50,6 +51,7 @@ class ProfileActivity : MenuActivity() {
         val myRef = database.getReference("users")
         myRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
+                toast(context, "ondatachange")
                 var user: User?
                 for (value in dataSnapshot.children) {
                     user = User(
@@ -65,6 +67,7 @@ class ProfileActivity : MenuActivity() {
                     if (user.userid == userId) {
                         fullNameTextView.text = "${user.firstname} ${user.lastname}"
                         descriptionTextView.text = "Date de naissance : ${user.birthdate.toString()}" + "\nEmail : ${user.email} " + "\nPoids : ${user.weight}" + "\nSport(s) pratiqué(s) : ${user.sports.map { it.name }}"
+                        toast(context, "cache delet")
                         setImageFromFirestore(context, ProfilImage, "users/$userId/profile.png")
                     }
                 }

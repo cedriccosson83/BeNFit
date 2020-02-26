@@ -1,13 +1,22 @@
 package isen.CedricLucieFlorent.benfit
 
+import android.app.Notification
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import android.graphics.BitmapFactory
+import android.graphics.Color
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.ImageView
+import android.widget.RemoteViews
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.core.content.ContextCompat.startActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
@@ -35,10 +44,50 @@ fun showDate(date : String?, textview: TextView){
         textview.text = "${dateSplit?.get(1)}"
     }
 }
+// jpenq
+fun creernotif(context: Context?, notificationManager:NotificationManager){
+
+    if (context == null) return
+
+    val notificationChannel : NotificationChannel
+    val builder : Notification.Builder
+    val channelId = "isen.CedricLucieFlorent.benfit"
+    val description = "Test notification"
+
+    val intent = Intent(context, NotifActivity::class.java)
+    val pendingIntent = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
+
+    val contentView = RemoteViews(context.packageName, R.layout.notification_layout)
+    contentView.setTextViewText(R.id.tv_title,"Motivez vous ! ")
+    contentView.setTextViewText(R.id.tv_content, "N'oubliez pas votre séance d'entrainement")
+
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+        notificationChannel = NotificationChannel(channelId, description, NotificationManager.IMPORTANCE_HIGH)
+        notificationChannel.enableLights(true)
+        notificationChannel.lightColor = Color.GREEN
+        notificationChannel.enableVibration(false)
+        notificationManager.createNotificationChannel(notificationChannel) // ça tu l'init ou ?
+
+        builder = Notification.Builder(context,channelId)
+            .setContent(contentView)
+            .setSmallIcon(R.mipmap.benfit_logo_round)
+            .setLargeIcon(BitmapFactory.decodeResource(context.resources, R.mipmap.benfit_logo_round))
+            .setContentIntent(pendingIntent)
+
+    }
+    else{
+        builder = Notification.Builder(context) // fais gaffe aux fonctions Deprecated (les barrées) ca veut dire qyoioui merci jai compris mais ca fait quoi
+            .setContent(contentView)
+            .setSmallIcon(R.mipmap.benfit_logo_round)
+            .setLargeIcon(BitmapFactory.decodeResource(context.resources, R.mipmap.benfit_logo_round))
+            .setContentIntent(pendingIntent)
+    }
+    notificationManager.notify(123, builder.build())
+}
 
 fun redirectToUserActivity(context: Context, userID : String){
     val intent = Intent(context, ProfileActivity::class.java)
-    var id : String = userID
+    val id : String = userID
     intent.putExtra("user", id)
     context.startActivity(intent)
     Toast.makeText(context, "Clicked: ${id}", Toast.LENGTH_LONG).show()
@@ -65,8 +114,6 @@ fun showUserName(userId : String, textview: TextView) {
             Log.w("post", "Failed to read value.", error.toException())
         }
     })
-
-
 }
 
 fun setImageFromFirestore(context: Context, target: ImageView, location: String) {
@@ -80,17 +127,17 @@ fun setImageFromFirestore(context: Context, target: ImageView, location: String)
 fun deleteCache(context: Context) {
     try {
         val dir = context.getCacheDir()
-        deleteDir(dir)
+        deleteDir(dir, context)
     } catch (e: Exception) {
         e.printStackTrace()
     }
 }
 
-fun deleteDir(dir: File?): Boolean {
+fun deleteDir(dir: File?, context: Context): Boolean {
     if (dir != null && dir!!.isDirectory()) {
         val children = dir!!.list()
         for (i in children.indices) {
-            val success = deleteDir(File(dir, children[i]))
+            val success = deleteDir(File(dir, children[i]), context)
             if (!success) {
                 return false
             }

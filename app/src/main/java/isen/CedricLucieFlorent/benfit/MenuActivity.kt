@@ -154,6 +154,7 @@ open class MenuActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         // Handle navigation view item clicks here.
+
         val id = item.itemId
         val intent: Intent
         if (id == R.id.nav_programs) {
@@ -169,7 +170,7 @@ open class MenuActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
             startActivity(intent)
             finish()
         }else if (id == R.id.nav_write_session) {
-            intent = Intent(this, FeedActivity::class.java)
+            intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
             finish()
         }else if (id == R.id.nav_feed) {
