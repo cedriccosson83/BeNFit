@@ -21,12 +21,11 @@ class MainActivity : MenuActivity() {
 
         override fun onCreate(savedInstanceState: Bundle?) {
             super.onCreate(savedInstanceState)
-            //deleteCache(this)
             layoutInflater.inflate(R.layout.activity_main, frameLayout)
             val img = findViewById<ImageView>(R.id.mainImage)
             val auth = FirebaseAuth.getInstance()
             val userid = auth.currentUser?.uid
-/*
+
             mainImage.setOnClickListener {
                 val db = FirebaseFirestore.getInstance()
                 val settings = FirebaseFirestoreSettings.Builder()
@@ -38,8 +37,6 @@ class MainActivity : MenuActivity() {
                         = FirebaseStorage.getInstance().getReference("users/$userid/profile.png")
                 GlideApp.with(context).load(storeRef).into(img)
             }
-
-*/
 
             setImageFromFirestore(this, img, "users/$userid/profile.png")
     }
