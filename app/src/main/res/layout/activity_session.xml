@@ -75,11 +75,82 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewExoSession"
-        android:layout_width="409dp"
-        android:layout_height="316dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_width="401dp"
+        android:layout_height="358dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/spinnerLevelSession" />
+
+    <TextView
+        android:id="@+id/textRepeatExoSession"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/repeat"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/recyclerViewExoSession" />
+
+    <TextView
+        android:id="@+id/textXexoSession"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="5dp"
+        android:text="X"
+        app:layout_constraintBottom_toBottomOf="@+id/editTextNumberSerie"
+        app:layout_constraintEnd_toStartOf="@+id/editTextNumberSerie"
+        app:layout_constraintTop_toTopOf="@+id/editTextNumberSerie" />
+
+    <EditText
+        android:id="@+id/editTextNumberSerie"
+        android:layout_width="34dp"
+        android:layout_height="48dp"
+        android:ems="10"
+        android:inputType="number"
+        android:text="1"
+        app:layout_constraintBottom_toTopOf="@+id/textRound"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textRepeatExoSession" />
+
+    <TextView
+        android:id="@+id/textRound"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/round"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageView
+        android:id="@+id/btnPlusRound"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="25dp"
+        app:layout_constraintBottom_toBottomOf="@+id/editTextNumberSerie"
+        app:layout_constraintStart_toEndOf="@+id/editTextNumberSerie"
+        app:layout_constraintTop_toTopOf="@+id/editTextNumberSerie"
+        app:srcCompat="@drawable/plus" />
+
+    <ImageView
+        android:id="@+id/btnMinusRound"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="25dp"
+        app:layout_constraintBottom_toBottomOf="@+id/editTextNumberSerie"
+        app:layout_constraintEnd_toEndOf="@+id/textXexoSession"
+        app:layout_constraintTop_toTopOf="@+id/editTextNumberSerie"
+        app:srcCompat="@drawable/minus" />
+
+    <ImageView
+        android:id="@+id/btnSaveSession"
+        android:layout_width="46dp"
+        android:layout_height="61dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/save" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

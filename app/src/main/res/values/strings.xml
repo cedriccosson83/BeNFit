@@ -17,7 +17,8 @@
     <string name="freqSession">Fréquence entraînement(/semaine)</string>
     <string name="nameExo">Nom de l\'exercice</string>
     <string name="descExo">Description de l\'exercice</string>
-
+    <string name="nameProgram">Nom du programme</string>
+    <string name="descProgram">Description du programme</string>
     <string-array name="level_array">
         <item>Débutant</item>
         <item>Intermédiaire</item>
@@ -239,4 +240,7 @@
     <string name="cateExo">Catégorie</string>
     <string name="sportExo">Sport</string>
     <string name="difficultyExo">Difficulté de l\'exercice</string>
+    <string name="repeat">Répéter</string>
+    <string name="round">TOURS</string>
+
 </resources>

@@ -19,14 +19,14 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/cardViewExoSession"
+            android:id="@+id/cardViewSessionCreateProgram"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:padding="8dp">
 
             <ImageView
-                android:id="@+id/imageViewExoSession"
+                android:id="@+id/imageViewSessionCreateProgram"
                 android:layout_width="36dp"
                 android:layout_height="35dp"
                 android:layout_marginStart="16dp"
@@ -36,18 +36,18 @@
                 app:srcCompat="@mipmap/benfit_logo_round" />
 
             <TextView
-                android:id="@+id/nameExoSession"
+                android:id="@+id/nameSessionCreateProgram"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
-                android:text="@string/nameExo"
+                android:text="@string/nameSession"
                 android:textSize="18sp"
-                app:layout_constraintBottom_toBottomOf="@+id/imageViewExoSession"
-                app:layout_constraintStart_toEndOf="@+id/imageViewExoSession"
-                app:layout_constraintTop_toTopOf="@+id/imageViewExoSession" />
+                app:layout_constraintBottom_toBottomOf="@+id/imageViewSessionCreateProgram"
+                app:layout_constraintStart_toEndOf="@+id/imageViewSessionCreateProgram"
+                app:layout_constraintTop_toTopOf="@+id/imageViewSessionCreateProgram" />
 
             <ImageView
-                android:id="@+id/btnDeleteExoSession"
+                android:id="@+id/btnDeleteSessionCreateProgram"
                 android:layout_width="45dp"
                 android:layout_height="41dp"
                 android:tint="@color/redLogo"
@@ -56,15 +56,7 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@android:drawable/ic_menu_delete" />
 
-            <TextView
-                android:id="@+id/textRepExoSession"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="10dp"
-                android:text="TextView"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/btnDeleteExoSession"
-                app:layout_constraintTop_toTopOf="parent" />
+
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

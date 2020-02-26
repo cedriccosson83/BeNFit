@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import kotlinx.android.synthetic.main.activity_session.*
+import kotlinx.android.synthetic.main.activity_splash.view.*
 
 
 class SessionActivity : MenuActivity(){
@@ -25,12 +26,36 @@ class SessionActivity : MenuActivity(){
         auth = FirebaseAuth.getInstance()
         val id = auth.currentUser?.uid
         if (id != null) {
-            showExosSession(database, recyclerViewExoSession, id)
+            showExosSession(database, recyclerViewExoSession, id,this)
         }
         recyclerViewExoSession.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-        //createSpinnerLevel()
+        createSpinnerLevel()
         showPopMenuExo()
 
+        btnMinusRound.setOnClickListener {
+            var round = editTextNumberSerie.text.toString().toInt()
+            round -= 1
+            editTextNumberSerie.setText(round.toString())
+            Log.d("round", round.toString())
+        }
+
+        btnPlusRound.setOnClickListener {
+            var round = editTextNumberSerie.text.toString().toInt()
+            round += 1
+            Log.d("round", round.toString())
+            editTextNumberSerie.setText(round.toString())
+        }
+
+        btnSaveSession.setOnClickListener {
+            if (id != null) {
+                saveSession(database, id,inputNameSession.text.toString(),inputDescSession.text.toString(),spinnerLevelSession.selectedItem.toString(), editTextNumberSerie.text.toString().toInt() )
+                Toast.makeText(this,"Séance sauvegardée!", Toast.LENGTH_SHORT).show()
+                deleteExoSessionTemp(database, id)
+                val intent = Intent(this,SessionActivity::class.java)
+                startActivity(intent)
+                overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
+            }
+        }
 
     }
 

@@ -28,7 +28,7 @@ class FragmentRepExo : Fragment() {
 
     override fun onStart() {
         super.onStart()
-        val numberPicker = view?.findViewById<NumberPicker>(R.id.numberPicker)
+        val numberPicker = view?.findViewById<NumberPicker>(R.id.numberPickerRep)
         if (numberPicker != null) {
             numberPicker.minValue = 0
             numberPicker.maxValue = 500

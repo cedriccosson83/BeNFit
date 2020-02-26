@@ -1,14 +1,12 @@
-package isen.CedricLucieFlorent.benfit.Models
+package isen.CedricLucieFlorent.benfit
 
-class Program {
-    var id: String = ""
-    var name: String = ""
-    var author: String = ""
-    var description: String = ""
-    var difficulty: String = ""
-    var frequency: String = ""
-    var successfullyDone: String = ""
-    var likes: ArrayList<String> = ArrayList()
-    var sessions: ArrayList<Session> = ArrayList()
-    var categories: ArrayList<Category> = ArrayList()
-}
+import isen.CedricLucieFlorent.benfit.Models.Session
+
+data class Program (
+        var programID:String? = "",
+        var userID : String = "",
+        var nameProgram: String = "",
+        var descProgram: String = "",
+        var levelProgram: String = "",
+        var sessionsProgram : ArrayList<Session> = ArrayList()
+){}

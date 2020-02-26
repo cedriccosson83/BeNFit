@@ -1,6 +1,8 @@
 package isen.CedricLucieFlorent.benfit.Models
 
 data class SessionExercice (
-   var  userID :String ="",
-   var  exoID : String =""
+        var exoSessionID: String = "",
+        var userID :String ="",
+        var exoID : String ="",
+        var rep : String = ""
 ){}
