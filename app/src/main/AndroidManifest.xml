@@ -19,6 +19,9 @@
         tools:ignore="GoogleAppIndexingWarning">
 
         <activity android:name=".MenuActivity" />
+        <activity android:name=".ListSessionActivity"></activity>
+        <activity android:name=".ProgramActivity" />
+        <activity android:name=".ExerciceSessionActivity" />
         <activity android:name=".SignInActivity" />
         <activity android:name=".ProfileActivity" />
         <activity android:name=".WritePostActivity" />

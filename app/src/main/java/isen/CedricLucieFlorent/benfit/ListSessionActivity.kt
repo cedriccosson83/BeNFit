@@ -1,15 +1,13 @@
 package isen.CedricLucieFlorent.benfit
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.FirebaseDatabase
 import kotlinx.android.synthetic.main.activity_list_exercices.*
 import kotlinx.android.synthetic.main.activity_list_session.*
 
-class ListExercicesActivity : MenuActivity() {
+class ListSessionActivity : MenuActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -19,10 +17,8 @@ class ListExercicesActivity : MenuActivity() {
 
 
         if (id != null) {
-            showExos(database, recycler_view_list_session, this,id)
+            showSessions(database, recycler_view_list_session, this)
         }
         recycler_view_list_session.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
     }
-
-
 }

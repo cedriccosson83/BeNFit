@@ -4,10 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ListExercicesActivity">
+    tools:context=".ListSessionActivity">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_view_list_exo"
+        android:id="@+id/recycler_view_list_session"
         android:layout_width="396dp"
         android:layout_height="628dp"
         android:layout_marginTop="100dp"
