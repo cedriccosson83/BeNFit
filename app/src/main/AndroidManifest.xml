@@ -9,7 +9,6 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
-        android:allowBackup="true"
         android:icon="@mipmap/benfit_logo"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/benfit_logo_round"
@@ -17,9 +16,8 @@
         android:theme="@style/AppTheme"
         android:name=".ApplicationContext"
         tools:ignore="GoogleAppIndexingWarning">
-
         <activity android:name=".MenuActivity" />
-        <activity android:name=".ListSessionActivity"></activity>
+        <activity android:name=".ListSessionActivity" />
         <activity android:name=".ProgramActivity" />
         <activity android:name=".ExerciceSessionActivity" />
         <activity android:name=".SignInActivity" />
