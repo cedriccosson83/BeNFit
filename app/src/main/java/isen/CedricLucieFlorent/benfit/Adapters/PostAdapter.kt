@@ -4,6 +4,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
@@ -11,12 +12,10 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import isen.CedricLucieFlorent.benfit.*
 import isen.CedricLucieFlorent.benfit.Models.Comment
 import isen.CedricLucieFlorent.benfit.Models.Post
 import isen.CedricLucieFlorent.benfit.Models.User
-import isen.CedricLucieFlorent.benfit.R
-import isen.CedricLucieFlorent.benfit.showDate
-import isen.CedricLucieFlorent.benfit.showUserName
 import kotlinx.android.synthetic.main.recycler_view_post_cell.view.*
 import kotlin.collections.ArrayList
 
@@ -96,7 +95,8 @@ class PostAdapter(val posts: ArrayList<Post>, val clickListener: (Post) -> Unit,
             view.imageViewUserPost.setOnClickListener { clickListener(post) }
             view.cardViewPost.setOnClickListener {clickListenerPost(post) }
             view.imageViewStar.setOnClickListener { clickListenerLike(post) }
-            showUserName(post.userid, view.textViewName)
+            val imgView = view.imageViewUserPost
+            showUserNameImage(post.userid, view.textViewName, imgView)
             showLike(post)
             countComments(post.postid)
             countLikes(post)

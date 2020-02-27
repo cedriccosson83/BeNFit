@@ -8,6 +8,7 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.BitmapFactory
 import android.graphics.Color
+import android.media.Image
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
@@ -44,7 +45,7 @@ fun showDate(date : String?, textview: TextView){
         textview.text = "${dateSplit?.get(1)}"
     }
 }
-// jpenq
+
 fun creernotif(context: Context?, notificationManager:NotificationManager){
 
     if (context == null) return
@@ -105,6 +106,31 @@ fun showUserName(userId : String, textview: TextView) {
                 val retrievedUserId = value.child("userid").value?.toString()
                 if (retrievedUserId == userId) {
                     textview.text = "$fname $lname"
+                }
+            }
+        }
+
+        override fun onCancelled(error: DatabaseError) {
+
+            Log.w("post", "Failed to read value.", error.toException())
+        }
+    })
+}
+
+fun showUserNameImage(userId : String, textview: TextView,  imgView : ImageView) {
+
+    val database = FirebaseDatabase.getInstance()
+    val myRef = database.getReference("users")
+    myRef.addValueEventListener(object : ValueEventListener {
+        override fun onDataChange(dataSnapshot: DataSnapshot) {
+            for (value in dataSnapshot.children) {
+                val fname = value.child("firstname").value.toString()
+                val lname = value.child("lastname").value.toString()
+                val imgPath =  value.child("pictureUID").value.toString()
+                val retrievedUserId = value.child("userid").value?.toString()
+                if (retrievedUserId == userId) {
+                    textview.text = "$fname $lname"
+                    setImageFromFirestore(ApplicationContext.applicationContext(), imgView, "users/$userId/$imgPath")
                 }
             }
         }
