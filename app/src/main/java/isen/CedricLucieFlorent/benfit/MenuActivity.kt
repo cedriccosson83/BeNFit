@@ -68,8 +68,6 @@ open class MenuActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
         navigationView.setNavigationItemSelectedListener(this)
         updateMenuInfos(auth.currentUser?.uid ?: "")
         img_menuOption.setOnClickListener { drawer!!.openDrawer(GravityCompat.START) }
-
-
     }
     private fun updateMenuInfos(userId: String) {
         if (userId == "") return
@@ -91,6 +89,10 @@ open class MenuActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
                             intent = Intent(context, HomeActivity::class.java)
                             startActivity(intent)
                             finish()
+                        }
+                        myLogoutBTN.setOnClickListener{
+                            FirebaseAuth.getInstance().signOut()
+                            startActivity(Intent(context, SignInActivity::class.java))
                         }
                     }
                 }
@@ -114,15 +116,11 @@ open class MenuActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        // Inflate the menu; this adds items to the action bar if it is present.
         menuInflater.inflate(R.menu.base, menu)
         return true
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         val id = item.itemId
 
 
@@ -167,6 +165,8 @@ open class MenuActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
             startActivity(intent)
             finish()
         }
+
+
 
         val drawer = findViewById<DrawerLayout>(R.id.drawer_layout)
         drawer.closeDrawer(GravityCompat.START)

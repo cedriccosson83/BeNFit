@@ -242,5 +242,6 @@
     <string name="difficultyExo">Difficulté de l\'exercice</string>
     <string name="repeat">Répéter</string>
     <string name="round">TOURS</string>
+    <string name="logout">Déconnexion</string>
 
 </resources>
