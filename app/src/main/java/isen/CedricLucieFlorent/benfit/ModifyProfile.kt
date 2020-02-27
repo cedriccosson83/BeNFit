@@ -1,15 +1,15 @@
 package isen.CedricLucieFlorent.benfit
 
 import android.app.Activity
+import android.app.DatePickerDialog
 import android.content.ContentValues
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.graphics.Bitmap
 import android.net.Uri
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
+import android.view.View
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
@@ -19,16 +19,13 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
-import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import isen.CedricLucieFlorent.benfit.Models.Sport
 import isen.CedricLucieFlorent.benfit.Models.User
 import kotlinx.android.synthetic.main.activity_modify_profile.*
-import kotlinx.android.synthetic.main.activity_profile.*
-import kotlinx.android.synthetic.main.nav_header_base.*
+import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -51,6 +48,16 @@ class ModifyProfile : MenuActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         layoutInflater.inflate(R.layout.activity_modify_profile, frameLayout)
+
+        val c = Calendar.getInstance()
+        val year = c.get(Calendar.YEAR)
+        val month = c.get(Calendar.MONTH)
+        val day = c.get(Calendar.DAY_OF_MONTH)
+        val dateFormat = "dd/MM/yyyy"
+        val sdf = SimpleDateFormat(dateFormat, Locale.FRANCE)
+        var dayselec : Int = 0
+        var monthselec : Int = 0
+        var yearselec : Int = 0
 
         val showdiffsports = findViewById<TextView>(R.id.showSports)
 
@@ -99,6 +106,28 @@ class ModifyProfile : MenuActivity() {
             }
         }
 
+        birthdateTextViewModify.setOnFocusChangeListener(View.OnFocusChangeListener { view, hasFocus ->
+            if (hasFocus) {
+                val dpd = DatePickerDialog(
+                    this,
+                    DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
+                        c.set(Calendar.YEAR, year)
+                        c.set(Calendar.MONTH, monthOfYear)
+                        c.set(Calendar.DAY_OF_MONTH, dayOfMonth)
+                        // Display Selected date in TextView
+                        birthdateTextViewModify.setText(sdf.format(c.time))
+                        dayselec = dayOfMonth
+                        monthselec = monthOfYear
+                        yearselec = year
+                    },
+                    year,
+                    month,
+                    day
+                )
+                dpd.show()
+            }
+        })
+
         changeProfilImageModify.setOnClickListener(){
             askCameraPermissions()
         }
@@ -126,11 +155,6 @@ class ModifyProfile : MenuActivity() {
                 ) { _, which, isChecked ->
                     checkedColorsArray[which] = isChecked
                     val currentItem = sportList[which]
-                    Toast.makeText(
-                        applicationContext,
-                        "$currentItem $isChecked",
-                        Toast.LENGTH_SHORT
-                    ).show()
                 }
                 .setPositiveButton("OK") { dialog, which ->
                     showdiffsports.text = "Vos sports préférés..... \n"

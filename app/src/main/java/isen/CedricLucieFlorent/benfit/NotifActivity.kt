@@ -7,23 +7,13 @@ import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.view.View
-import android.widget.CalendarView
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_notif.*
-import kotlinx.android.synthetic.main.activity_session.*
-import kotlinx.android.synthetic.main.activity_splash.*
-import java.sql.Time
 import java.text.SimpleDateFormat
 import java.util.*
 
 
 class NotifActivity : AppCompatActivity() {
-
-    /**lateinit var notificationManager : NotificationManager
-    lateinit var notificationChannel : NotificationChannel
-    lateinit var builder : Notification.Builder
-    private val channelId = "isen.CedricLucieFlorent.benfit"
-    private val description = "Test notification"*/
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -125,35 +115,4 @@ class NotifActivity : AppCompatActivity() {
             notificationManager.createNotificationChannel(channel)
         }
     }
-    /**fun createnotif(){
-        val intent = Intent(this, NotifActivity::class.java)
-        val pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
-
-        val contentView = RemoteViews(packageName, R.layout.notification_layout)
-        contentView.setTextViewText(R.id.tv_title,"Motivez vous ! ")
-        contentView.setTextViewText(R.id.tv_content, "N'oubliez pas votre séance d'entrainement")
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            notificationChannel = NotificationChannel(channelId, description, NotificationManager.IMPORTANCE_HIGH)
-            notificationChannel.enableLights(true)
-            notificationChannel.lightColor = Color.GREEN
-            notificationChannel.enableVibration(false)
-            notificationManager.createNotificationChannel(notificationChannel)
-
-            builder = Notification.Builder(this,channelId)
-                .setContent(contentView)
-                .setSmallIcon(R.mipmap.benfit_logo_round)
-                .setLargeIcon(BitmapFactory.decodeResource(this.resources, R.mipmap.benfit_logo_round))
-                .setContentIntent(pendingIntent)
-
-        }
-        else{
-            builder = Notification.Builder(this)
-                .setContent(contentView)
-                .setSmallIcon(R.mipmap.benfit_logo_round)
-                .setLargeIcon(BitmapFactory.decodeResource(this.resources, R.mipmap.benfit_logo_round))
-                .setContentIntent(pendingIntent)
-        }
-        notificationManager.notify(123, builder.build())
-    }*/
 }

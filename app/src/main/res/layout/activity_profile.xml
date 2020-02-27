@@ -59,29 +59,40 @@
         android:id="@+id/descriptionTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="50dp"
         android:layout_marginTop="8dp"
+        android:layout_marginEnd="50dp"
         android:text="Description"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/fullNameTextView" />
 
-    <Button
-        android:id="@+id/myProgramButton"
-        android:layout_width="205dp"
-        android:layout_height="60dp"
-        android:layout_marginTop="380dp"
-        android:text="Mes programmes"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/subscribeProgramButton"
-        android:layout_width="204dp"
-        android:layout_height="60dp"
-        android:layout_marginTop="380dp"
-        android:text="Mes programmes suivis"
+    <com.google.android.material.button.MaterialButtonToggleGroup
+        android:id="@+id/GroupButtonProg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="370dp"
+        app:checkedButton="@+id/myProgramButton"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:singleSelection="true">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/myProgramButton"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Mes programmes" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/subscribeProgramButton"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Programmes suivis" />
+
+    </com.google.android.material.button.MaterialButtonToggleGroup>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/programRecyclerView"
@@ -93,7 +104,6 @@
         android:layout_marginBottom="1dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/myProgramButton" />
+        app:layout_constraintStart_toStartOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

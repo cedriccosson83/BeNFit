@@ -8,13 +8,14 @@
 
     <EditText
         android:id="@+id/weightTextViewModify"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="196dp"
+        android:layout_height="47dp"
         android:layout_marginTop="196dp"
         android:ems="10"
         android:inputType="textPersonName"
         android:text="@string/poids"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.46"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/changeProfilImageModify" />
 
@@ -74,16 +75,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageButton
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/validateModifyButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="140dp"
+        android:layout_marginBottom="68dp"
+        android:text="Valider les modifications"
+        android:textSize="10sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.48"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/sportTextViewModify"
-        app:srcCompat="@android:drawable/checkbox_on_background" />
+        app:layout_constraintTop_toBottomOf="@+id/showSports" />
 
     <EditText
         android:id="@+id/lastNameTextViewModify"
@@ -105,5 +107,18 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/sportTextViewModify" />
+
+    <TextView
+        android:id="@+id/textViewkg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="36dp"
+        android:layout_marginEnd="91dp"
+        android:layout_marginBottom="28dp"
+        android:text="(kg)"
+        app:layout_constraintBottom_toTopOf="@+id/sportTextViewModify"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/weightTextViewModify"
+        app:layout_constraintTop_toBottomOf="@+id/birthdateTextViewModify" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

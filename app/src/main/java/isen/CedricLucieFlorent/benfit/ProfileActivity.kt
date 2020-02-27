@@ -1,31 +1,15 @@
 package isen.CedricLucieFlorent.benfit
 
-import android.content.ContentValues
-import android.content.Context
 import android.content.Intent
-import android.content.pm.PackageManager
-import android.net.Uri
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.provider.MediaStore
 import android.util.Log
-import android.widget.Toast
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
-import com.google.android.gms.tasks.OnSuccessListener
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
-import com.google.firebase.storage.FirebaseStorage
-import com.google.firebase.storage.StorageReference
-import com.google.firebase.storage.UploadTask
 import isen.CedricLucieFlorent.benfit.Models.Sport
 import isen.CedricLucieFlorent.benfit.Models.User
-import kotlinx.android.synthetic.main.activity_modify_profile.*
 import kotlinx.android.synthetic.main.activity_profile.*
-import java.util.*
 import kotlin.collections.ArrayList
 
 class ProfileActivity : MenuActivity() {
@@ -34,7 +18,6 @@ class ProfileActivity : MenuActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        toast(this, "profil ok gros")
         layoutInflater.inflate(R.layout.activity_profile, frameLayout)
         overridePendingTransition(R.anim.zoom_enter, 0)
         auth = FirebaseAuth.getInstance()
@@ -51,9 +34,12 @@ class ProfileActivity : MenuActivity() {
             startActivity(Intent(this, ModifyProfile::class.java))
         }
 
-        sportLevelImageView.setOnClickListener {
-            FirebaseAuth.getInstance().signOut()
-            startActivity(Intent(this, SignInActivity::class.java))
+        myProgramButton.setOnClickListener(){
+            toast(context, "mes programmes actif")
+        }
+
+        subscribeProgramButton.setOnClickListener(){
+            toast(context, "mes programmes suivis actif")
         }
     }
 
@@ -61,7 +47,6 @@ class ProfileActivity : MenuActivity() {
         val myRef = database.getReference("users")
         myRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
-                toast(context, "ondatachange")
                 var user: User?
                 for (value in dataSnapshot.children) {
                     user = User(
@@ -77,9 +62,7 @@ class ProfileActivity : MenuActivity() {
                     if (user.userid == userId) {
                         val imagePath = user.pictureUID
                         fullNameTextView.text = "${user.firstname} ${user.lastname}"
-                        descriptionTextView.text = "Date de naissance : ${user.birthdate.toString()}" + "\nEmail : ${user.email} " + "\nPoids : ${user.weight}" + "\nSport(s) pratiqué(s) : ${user.sports.map { it.name }}"
-                        toast(context, "cache delet")
-                        setImageFromFirestore(context, ProfilImage, "users/$userId/profile.png")
+                        descriptionTextView.text = "Date de naissance : ${user.birthdate.toString()}" + "\nEmail : ${user.email} " + "\nPoids : ${user.weight} kg"  + "\nSport(s) pratiqué(s) : ${user.sports.map { it.name }}"
                         setImageFromFirestore(context, ProfilImage, "users/$userId/$imagePath")
 
                         ProfilImage.setOnClickListener {
