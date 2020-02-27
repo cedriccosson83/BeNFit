@@ -30,14 +30,15 @@ class MainActivity : MenuActivity() {
         mainImage.setOnClickListener {
             val db = FirebaseFirestore.getInstance()
             val settings = FirebaseFirestoreSettings.Builder()
-                .setPersistenceEnabled(false)
-                .build()
+                    .setPersistenceEnabled(false)
+                    .build()
             db.firestoreSettings = settings
 
             val storeRef: StorageReference? =
-                FirebaseStorage.getInstance().getReference("users/$userid/profile.png")
+                    FirebaseStorage.getInstance().getReference("users/$userid/profile.png")
             GlideApp.with(context).load(storeRef).into(img)
         }
 
         setImageFromFirestore(this, img, "users/$userid/profile.png")
+    }
 }

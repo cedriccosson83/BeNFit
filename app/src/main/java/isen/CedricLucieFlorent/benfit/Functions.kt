@@ -122,34 +122,6 @@ fun setImageFromFirestore(context: Context, target: ImageView, location: String)
     GlideApp.with(context).load(storeRef).into(target)
 }
 
-fun deleteCache(context: Context) {
-    try {
-        val dir = context.getCacheDir()
-        deleteDir(dir, context)
-    } catch (e: Exception) {
-        e.printStackTrace()
-    }
-}
-
-fun deleteDir(dir: File?, context: Context): Boolean {
-    if (dir != null && dir!!.isDirectory()) {
-        val children = dir!!.list()
-        for (i in children.indices) {
-            val success = deleteDir(File(dir, children[i]), context)
-            if (!success) {
-                return false
-            }
-        }
-        return dir!!.delete()
-    } else return if (dir != null && dir!!.isFile()) {
-        dir!!.delete()
-    } else {
-        false
-    }
-    Log.d("STORAGE_LOCATION", storeRef?.path ?: "")
-    GlideApp.with(ApplicationContext.applicationContext()).load(storeRef).into(target)
-}
-
 fun toast(context: Context, message: String) {
     Toast.makeText(context, message, Toast.LENGTH_LONG).show()
 }

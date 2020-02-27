@@ -12,11 +12,12 @@ import kotlinx.android.synthetic.main.fragment_time.*
 import kotlinx.android.synthetic.main.recycler_view_exo_session.*
 import kotlinx.android.synthetic.main.recycler_view_exo_session.view.*
 
-class ExerciceSessionActivity : AppCompatActivity(), OnFragmentInteractionListener  {
+class ExerciceSessionActivity : MenuActivity(), OnFragmentInteractionListener  {
     var etatFragment : Int = 0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_exercice_session)
+        //setContentView(R.layout.activity_exercice_session)
+        layoutInflater.inflate(R.layout.activity_exercice_session, frameLayout)
         val database = FirebaseDatabase.getInstance()
 
         val intent = intent
