@@ -92,6 +92,14 @@ class ModifyProfile : MenuActivity() {
                 dataSnapshot.child("sports").children.forEach {
                     sportSel.add(it.child("name").value.toString())
                 }
+                val sportList = sportArray.toList()
+                Log.d("SPORTS", "${sportSel}")
+                for (sport in sportSel){
+                    Log.d("SPORTS", "${sport}")
+                    if (sportArray.indexOf(sport) != -1){
+                        sportSelectedModif.add(Sport(sportList[sportArray.indexOf(sport)], ArrayList()))
+                    }
+                }
             }
 
             override fun onCancelled(error: DatabaseError) {
@@ -138,6 +146,8 @@ class ModifyProfile : MenuActivity() {
             startActivity(Intent(this, ProfileActivity::class.java))
         }
 
+
+
         sportTextViewModify.setOnClickListener(){
             val checkedColorsArray = BooleanArray(166)
             for (sport in sportSel){
@@ -157,11 +167,17 @@ class ModifyProfile : MenuActivity() {
                     val currentItem = sportList[which]
                 }
                 .setPositiveButton("OK") { dialog, which ->
+                    var listSportselec : ArrayList<String> = ArrayList()
+                    for (sport in sportSelectedModif){
+                        listSportselec.add(sport.getSportName())
+                    }
                     showdiffsports.text = "Vos sports préférés..... \n"
                     for (i in checkedColorsArray.indices) {
                         val checked = checkedColorsArray[i]
                         if (checked) {
                             showdiffsports.text = showdiffsports.text.toString() + sportList[i] + "\n"
+
+                            if (listSportselec.indexOf(sportList[i]) == -1)
                             sportSelectedModif.add(Sport(sportList[i], ArrayList()))
                         }
                     }
@@ -249,7 +265,7 @@ class ModifyProfile : MenuActivity() {
                         value.child("firstname").value.toString(),
                         value.child("lastname").value.toString(),
                         value.child("birthdate").value.toString(),
-                        ArrayList(value.child("sports").children.map { Sport(it.value.toString(), arrayListOf()) }),
+                        ArrayList(value.child("sports").children.map { Sport(it.child("name").value.toString(), arrayListOf()) }),
                         value.child("weight").value.toString(),
                         value.child("pictureUID").value.toString()
 
@@ -260,7 +276,7 @@ class ModifyProfile : MenuActivity() {
                         lastNameTextViewModify.setText("${user.lastname}")
                         birthdateTextViewModify.setText("${user.birthdate.toString()}")
                         weightTextViewModify.setText("${user.weight}")
-                        showSports.setText("${user.sports.map { it.name }}")
+                        showSports.setText("${user.sports.map { it.getSportName()}}")
                         setImageFromFirestore(context, changeProfilImageModify, "users/$userId/${user.pictureUID}")
                     }
                 }
@@ -282,7 +298,9 @@ class ModifyProfile : MenuActivity() {
             root.child(user?.uid).child("birthdate").setValue(birthdatenew)
             root.child(user?.uid).child("weight").setValue(weightnew)
             if (sportSelectedModif.isNotEmpty()){ root.child(user?.uid).child("sports").setValue(sportSelectedModif)}
-            else{root.child(user?.uid).child("sports").setValue(sportSel)}
+            else{
+                toast(context, "liste vide")
+                root.child(user?.uid).child("sports").setValue(sportSel)}
 
         } else
             Toast.makeText(this, getString(R.string.err_inscription), Toast.LENGTH_LONG).show()

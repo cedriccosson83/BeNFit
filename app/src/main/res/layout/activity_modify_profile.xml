@@ -42,16 +42,6 @@
         app:srcCompat="@mipmap/benfit_logo_round" />
 
 
-    <ImageView
-        android:id="@+id/sportLevelImageViewModify"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="112dp"
-        android:layout_marginTop="64dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@android:drawable/star_big_on" />
-
     <EditText
         android:id="@+id/firstNameTextViewModify"
         android:layout_width="wrap_content"

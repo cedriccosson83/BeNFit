@@ -26,19 +26,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@android:drawable/ic_menu_edit" />
 
-    <ImageView
-        android:id="@+id/sportLevelImageView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="112dp"
-        android:layout_marginTop="64dp"
-        android:layout_marginEnd="267dp"
-        app:layout_constraintBottom_toTopOf="@+id/ProfilImage"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@android:drawable/star_big_on" />
-
     <TextView
         android:id="@+id/fullNameTextView"
         android:layout_width="wrap_content"

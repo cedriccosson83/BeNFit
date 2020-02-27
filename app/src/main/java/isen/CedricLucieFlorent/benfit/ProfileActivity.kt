@@ -55,14 +55,18 @@ class ProfileActivity : MenuActivity() {
                         value.child("firstname").value.toString(),
                         value.child("lastname").value.toString(),
                         value.child("birthdate").value.toString(),
-                        ArrayList(value.child("sports").children.map { Sport(it.value.toString(), arrayListOf()) }),
+                        ArrayList(value.child("sports").children.map { Sport(it.child("name").value.toString(), arrayListOf()) }),
                         value.child("weight").value.toString(),
                         value.child("pictureUID").value.toString()
                     )
                     if (user.userid == userId) {
                         val imagePath = user.pictureUID
+                        var sportsaff = ""
+                        for (sport in user.sports){
+                            sportsaff += "${sport.getSportName()}" + " "
+                        }
                         fullNameTextView.text = "${user.firstname} ${user.lastname}"
-                        descriptionTextView.text = "Date de naissance : ${user.birthdate.toString()}" + "\nEmail : ${user.email} " + "\nPoids : ${user.weight} kg"  + "\nSport(s) pratiqué(s) : ${user.sports.map { it.name }}"
+                        descriptionTextView.text = "Date de naissance : ${user.birthdate.toString()}" + "\nEmail : ${user.email} " + "\nPoids : ${user.weight} kg"  + "\nSport(s) pratiqué(s) : ${sportsaff}"
                         setImageFromFirestore(context, ProfilImage, "users/$userId/$imagePath")
 
                         ProfilImage.setOnClickListener {
