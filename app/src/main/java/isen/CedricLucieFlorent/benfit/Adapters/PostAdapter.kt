@@ -4,16 +4,13 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
-import isen.CedricLucieFlorent.benfit.Models.Comment
 import isen.CedricLucieFlorent.benfit.Models.Post
-import isen.CedricLucieFlorent.benfit.Models.User
 import isen.CedricLucieFlorent.benfit.R
 import isen.CedricLucieFlorent.benfit.showDate
 import isen.CedricLucieFlorent.benfit.showUserName
@@ -46,7 +43,7 @@ class PostAdapter(val posts: ArrayList<Post>, val clickListener: (Post) -> Unit,
         fun countLikes(post: Post) {
             var array: ArrayList<String> = post.likes
             var count: Int = array.size
-            view.textViewLikeNumber.text="Likes(${count})"
+            view.textViewLikeNumberPost.text="${count}"
             Log.d("like", array.toString())
         }
 
@@ -61,7 +58,7 @@ class PostAdapter(val posts: ArrayList<Post>, val clickListener: (Post) -> Unit,
                         if (retrievedPostId == postId)
                             count++
                     }
-                    view.textViewCommentsNumber.text = "Commentaires(${count})"
+                    view.textViewCommentsNumberPost.text = "${count}"
 
                 }
 
@@ -80,10 +77,10 @@ class PostAdapter(val posts: ArrayList<Post>, val clickListener: (Post) -> Unit,
             Log.d("like", likes.toString())
             if(likes.all { it != currentUserID }) {
                 //likes.add(currentUserID ?: "")
-                view.imageViewStar.setImageResource(R.drawable.like)
+                view.btnLikePost.setImageResource(R.drawable.like)
             }else{
                 //likes.remove(currentUserID)
-                view.imageViewStar.setImageResource(R.drawable.dislike)
+                view.btnLikePost.setImageResource(R.drawable.dislike)
 
             }
         }
@@ -94,8 +91,8 @@ class PostAdapter(val posts: ArrayList<Post>, val clickListener: (Post) -> Unit,
             showDate(post.date, view.textViewDate)
             view.textViewName.setOnClickListener { clickListener(post) }
             view.imageViewUserPost.setOnClickListener { clickListener(post) }
-            view.cardViewPost.setOnClickListener {clickListenerPost(post) }
-            view.imageViewStar.setOnClickListener { clickListenerLike(post) }
+            view.btnCommentExo.setOnClickListener {clickListenerPost(post) }
+            view.btnLikePost.setOnClickListener { clickListenerLike(post) }
             showUserName(post.userid, view.textViewName)
             showLike(post)
             countComments(post.postid)

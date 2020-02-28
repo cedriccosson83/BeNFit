@@ -3,12 +3,10 @@ package isen.CedricLucieFlorent.benfit
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import isen.CedricLucieFlorent.benfit.Adapters.PostAdapter
 import isen.CedricLucieFlorent.benfit.Models.Post
@@ -80,11 +78,9 @@ class FeedActivity : MenuActivity() {
         if(likes.all { it != currentUserID }) {
             likes.add(currentUserID ?: "")
             myRef.child(postItem.postid).child("likes").setValue(likes)
-            Toast.makeText(this, "Publication aimée!", Toast.LENGTH_LONG).show()
         }else{
             likes.remove(currentUserID)
             myRef.child(postItem.postid).child("likes").setValue(likes)
-            Toast.makeText(this, "Vous n'aimez plus la publication!", Toast.LENGTH_LONG).show()
         }
     }
 

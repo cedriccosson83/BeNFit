@@ -42,7 +42,7 @@ class CommentAdapter(val comments: ArrayList<Comment>, val clickListener: (Comme
             showDate(comment.date, view.textViewDateComment)
             showUserName(comment.userid, view.textViewNameComment)
             view.textViewNameComment.setOnClickListener { clickListener(comment) }
-            view.imageViewFeed.setOnClickListener { clickListener(comment) }
+            view.profileImageViewComment.setOnClickListener { clickListener(comment) }
         }
     }
 

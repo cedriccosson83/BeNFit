@@ -38,9 +38,9 @@ class ExoSessionAdapter(val exos: ArrayList<SessionExercice>, val deleteListener
             //view.nameExoSession.text = "${exo.exoSessionID}"
             val database = FirebaseDatabase.getInstance()
             showExo(database, exo.exoID,  view.nameExoSession)
-            showRepExosSession(database, exo.exoSessionID, view.textRepExoSession)
+            //showRepExosSession(database, exo.exoSessionID, view.textRepExoSession)
             view.btnDeleteExoSession.setOnClickListener { deleteListener(exo) }
-            view.cardViewExoSession.setOnClickListener { exoListener(exo) }
+            view.textRepExoSession.setOnClickListener { exoListener(exo) }
         }
     }
 

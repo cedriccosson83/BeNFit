@@ -7,7 +7,6 @@
     android:layout_marginTop="0dp"
 
     android:orientation="vertical">
-
     <com.google.android.material.card.MaterialCardView
         style="@style/Widget.MaterialComponents.CardView"
         android:layout_width="0dp"
@@ -26,82 +25,79 @@
             android:orientation="vertical"
             android:padding="8dp">
 
-            <TextView
-                android:id="@+id/textViewName"
-                android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:text="@string/Name"
-                android:textColor="@color/black"
-                android:textSize="18sp"
-                app:layout_constraintStart_toEndOf="@+id/imageViewUserPost"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/textViewContent"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:text="@string/Content"
-                app:layout_constraintStart_toEndOf="@+id/imageViewUserPost"
-                app:layout_constraintTop_toBottomOf="@+id/textViewName" />
-
             <ImageView
-                android:id="@+id/imageViewUserPost"
-                android:layout_width="79dp"
-                android:layout_height="71dp"
+                android:id="@+id/imageView"
+                android:layout_width="93dp"
+                android:layout_height="95dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@mipmap/benfit_logo_round" />
+                app:srcCompat="@drawable/sessions" />
 
             <TextView
-                android:id="@+id/textViewDate"
+                android:id="@+id/sessionNameTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/date"
-                android:textSize="12sp"
-                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginStart="4dp"
+                android:text="Nom de la séance"
+                android:textStyle="bold"
+                app:layout_constraintStart_toEndOf="@+id/imageView"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/textViewLikeNumberPost"
+                android:id="@+id/descriptionSessionTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="24dp"
-                android:text="0"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="@+id/btnLikePost" />
-
-            <TextView
-                android:id="@+id/textViewCommentsNumberPost"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="22dp"
-                android:text="0"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="@+id/btnCommentExo" />
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="4dp"
+                android:text="Description de la séance"
+                app:layout_constraintStart_toEndOf="@+id/imageView"
+                app:layout_constraintTop_toBottomOf="@+id/sessionNameTextView" />
 
             <ImageView
-                android:id="@+id/btnCommentExo"
-                android:layout_width="19dp"
-                android:layout_height="19dp"
-                android:layout_marginEnd="16dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/textViewLikeNumberPost"
-                app:srcCompat="@drawable/comment" />
-
-            <ImageView
-                android:id="@+id/btnLikePost"
+                android:id="@+id/btnLikeFeedSession"
                 android:layout_width="19dp"
                 android:layout_height="19dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:srcCompat="@drawable/dislike" />
 
+            <TextView
+                android:id="@+id/nbLikeTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="21dp"
+                android:text="0"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/btnLikeFeedSession" />
+
+            <ImageView
+                android:id="@+id/btnComFeedSession"
+                android:layout_width="19dp"
+                android:layout_height="19dp"
+                android:layout_marginEnd="16dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/nbLikeTextView"
+                app:srcCompat="@drawable/comment" />
+
+            <TextView
+                android:id="@+id/nbCommentTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="3dp"
+                android:text="0"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/btnComFeedSession" />
+
+            <ImageView
+                android:id="@+id/btnNotifFeedSession"
+                android:layout_width="29dp"
+                android:layout_height="26dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/notification" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
+
     </com.google.android.material.card.MaterialCardView>
 </androidx.constraintlayout.widget.ConstraintLayout>

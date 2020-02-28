@@ -43,7 +43,6 @@ class PostActivity : MenuActivity() {
             if(content != ""){
                 postId?.let { it1 -> newComment(it1,content) }
                 editTextComment.setText("")
-                Toast.makeText(this, "Commentaire posté!", Toast.LENGTH_LONG).show()
             }else{
                 Toast.makeText(this, "Veuillez entrer un commentaire", Toast.LENGTH_LONG).show()
             }
@@ -139,7 +138,6 @@ class PostActivity : MenuActivity() {
 
     //allows to redirect on the user activity
     private fun userClicked(commentItem : Comment) {
-        Toast.makeText(this, "Clicked: ${commentItem.userid}", Toast.LENGTH_LONG).show()
         redirectToUserActivity(this,commentItem.userid)
     }
 

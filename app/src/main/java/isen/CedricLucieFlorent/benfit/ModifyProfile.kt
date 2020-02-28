@@ -19,6 +19,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
@@ -76,37 +77,15 @@ class ModifyProfile : MenuActivity() {
                 dataSnapshot.children.forEach {
                     sportArray.add(it.child("name").value.toString())
                 }
+                Log.d("SPORTS_AVANT", "sport array ${sportArray}")
+                getSports(sportArray)
             }
-
             override fun onCancelled(error: DatabaseError) {
                 Log.w("post", "Failed to read value.", error.toException())
             }
-
         })
 
 
-
-        val mySpo = database.getReference("users").child(userId)
-        mySpo.addValueEventListener(object : ValueEventListener {
-            override fun onDataChange(dataSnapshot: DataSnapshot) {
-                dataSnapshot.child("sports").children.forEach {
-                    sportSel.add(it.child("name").value.toString())
-                }
-                val sportList = sportArray.toList()
-                Log.d("SPORTS", "${sportSel}")
-                for (sport in sportSel){
-                    Log.d("SPORTS", "${sport}")
-                    if (sportArray.indexOf(sport) != -1){
-                        sportSelectedModif.add(Sport(sportList[sportArray.indexOf(sport)], ArrayList()))
-                    }
-                }
-            }
-
-            override fun onCancelled(error: DatabaseError) {
-                Log.w("post", "Failed to read value.", error.toException())
-            }
-
-        })
 
         if (intent != null) {
             if (userId != "") {
@@ -146,11 +125,13 @@ class ModifyProfile : MenuActivity() {
             startActivity(Intent(this, ProfileActivity::class.java))
         }
 
-
-
         sportTextViewModify.setOnClickListener(){
             val checkedColorsArray = BooleanArray(166)
-            for (sport in sportSel){
+            var listSportselec : ArrayList<String> = ArrayList()
+            for (sport in sportSelectedModif){
+                listSportselec.add(sport.getSportName())
+            }
+            for (sport in listSportselec){
                 if (sportArray.indexOf(sport) != -1){
                     checkedColorsArray[sportArray.indexOf(sport)] = true
                 }
@@ -186,6 +167,31 @@ class ModifyProfile : MenuActivity() {
                 .show()
         }
 
+    }
+
+    private fun getSports (sportArray: ArrayList<String>) {
+        val mySpo = database.getReference("users").child(userId)
+        mySpo.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                dataSnapshot.child("sports").children.forEach {
+                    sportSel.add(it.child("name").value.toString())
+                }
+                val sportList = sportArray.toList()
+                Log.d("SPORTS_AVANT", "sport sel ${sportSel}")
+                for (sport in sportSel){
+                    Log.d("SPORTS_PENDANT", "sport dans sport sel ${sport}")
+                    if (sportArray.indexOf(sport) != -1){
+                        sportSelectedModif.add(Sport(sportList[sportArray.indexOf(sport)], ArrayList()))
+                    }
+                }
+                Log.d("SPORTS_APRES", "sport array a la fin de for${sportArray}")
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                Log.w("post", "Failed to read value.", error.toException())
+            }
+
+        })
     }
 
     private fun askCameraPermissions(){
@@ -299,8 +305,7 @@ class ModifyProfile : MenuActivity() {
             root.child(user?.uid).child("weight").setValue(weightnew)
             if (sportSelectedModif.isNotEmpty()){ root.child(user?.uid).child("sports").setValue(sportSelectedModif)}
             else{
-                toast(context, "liste vide")
-                root.child(user?.uid).child("sports").setValue(sportSel)}
+                toast(context, "liste vide")}
 
         } else
             Toast.makeText(this, getString(R.string.err_inscription), Toast.LENGTH_LONG).show()
