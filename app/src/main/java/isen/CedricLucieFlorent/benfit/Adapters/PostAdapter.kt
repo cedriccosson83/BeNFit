@@ -97,7 +97,6 @@ class PostAdapter(val posts: ArrayList<Post>, val clickListener: (Post) -> Unit,
             view.btnCommentExo.setOnClickListener {clickListenerPost(post) }
             view.btnLikePost.setOnClickListener { clickListenerLike(post) }
             showUserName(post.userid, view.textViewName)
-            view.cardViewPost.setOnClickListener {clickListenerPost(post) }
             val imgView = view.imageViewUserPost
             showUserNameImage(post.userid, view.textViewName, imgView)
             showLike(post)
