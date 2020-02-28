@@ -56,7 +56,7 @@ class SignInActivity : AppCompatActivity() {
             database.getReference("users")
                 .child(user.uid).child("lastConn")
                 .setValue(date)
-            startActivity(Intent(this, HomeActivity::class.java))
+            startActivity(Intent(this, SessionFeedActivity::class.java))
         } else {
             Toast.makeText(this, getString(R.string.mail_mdp_incorrect), Toast.LENGTH_LONG).show()
         }

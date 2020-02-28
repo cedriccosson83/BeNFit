@@ -10,11 +10,9 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import isen.CedricLucieFlorent.benfit.Adapters.SessionAdapter
+import isen.CedricLucieFlorent.benfit.Adapters.SessionFeedAdapter
 import isen.CedricLucieFlorent.benfit.Adapters.SessionProgramAdapter
-import isen.CedricLucieFlorent.benfit.Models.Exercice
-import isen.CedricLucieFlorent.benfit.Models.Session
-import isen.CedricLucieFlorent.benfit.Models.SessionExercice
-import isen.CedricLucieFlorent.benfit.Models.SessionProgram
+import isen.CedricLucieFlorent.benfit.Models.*
 
 
 fun addNewExo(database : FirebaseDatabase, nameExo: String, idUser: String, descExo: String, urlYtb: String, levelExo: String, sportExo: String) : Int{
@@ -358,6 +356,7 @@ fun showSessions(database: FirebaseDatabase, view: RecyclerView, context: Contex
         }
     })
 }
+//VOIR DANS FIREBASE POUR LES PATH
 
 fun showSessionsProgram(database: FirebaseDatabase,view: RecyclerView, context: Context, userId : String) {
 
@@ -409,6 +408,10 @@ private fun sessionChooseProgramClicked(context:Context, sessionItem : Session, 
 
 private fun sessionProgramClicked(context:Context, sessionItem : SessionProgram, database : FirebaseDatabase) {
 
+
+}
+
+private fun sessionsFeedClicked(context: Context, sessionItem: SessionFeed, database: FirebaseDatabase){
 
 }
 

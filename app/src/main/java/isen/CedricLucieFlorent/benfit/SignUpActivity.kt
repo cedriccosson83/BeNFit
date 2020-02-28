@@ -1,9 +1,11 @@
 package isen.CedricLucieFlorent.benfit
 
+import android.app.DatePickerDialog
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
@@ -15,6 +17,7 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import isen.CedricLucieFlorent.benfit.Models.Sport
 import isen.CedricLucieFlorent.benfit.Models.User
+import kotlinx.android.synthetic.main.activity_modify_profile.*
 import kotlinx.android.synthetic.main.activity_sign_up.*
 import java.text.SimpleDateFormat
 
@@ -28,6 +31,15 @@ class SignUpActivity : AppCompatActivity() {
     val database = FirebaseDatabase.getInstance()
     lateinit var currUser: User
     var sportSelected = ArrayList<Sport>()
+    val c = Calendar.getInstance()
+    val year = c.get(Calendar.YEAR)
+    val month = c.get(Calendar.MONTH)
+    val day = c.get(Calendar.DAY_OF_MONTH)
+    val dateFormat = "dd/MM/yyyy"
+    val sdf = SimpleDateFormat(dateFormat, Locale.FRANCE)
+    var dayselec : Int = 0
+    var monthselec : Int = 0
+    var yearselec : Int = 0
 
 
     override fun onCreate(saved: Bundle?) {
@@ -52,6 +64,27 @@ class SignUpActivity : AppCompatActivity() {
                 Log.w("post", "Failed to read value.", error.toException())
             }
 
+        })
+        birthdayEditTextSignUp.setOnFocusChangeListener(View.OnFocusChangeListener { view, hasFocus ->
+            if (hasFocus) {
+                val dpd = DatePickerDialog(
+                        this,
+                        DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
+                            c.set(Calendar.YEAR, year)
+                            c.set(Calendar.MONTH, monthOfYear)
+                            c.set(Calendar.DAY_OF_MONTH, dayOfMonth)
+                            // Display Selected date in TextView
+                            birthdateTextViewModify.setText(sdf.format(c.time))
+                            dayselec = dayOfMonth
+                            monthselec = monthOfYear
+                            yearselec = year
+                        },
+                        year,
+                        month,
+                        day
+                )
+                dpd.show()
+            }
         })
 
         sportTewtView.setOnClickListener(){
@@ -147,7 +180,7 @@ class SignUpActivity : AppCompatActivity() {
     fun updateUI(user: FirebaseUser?, firstname : String) {
         if (user != null) {
             Toast.makeText(this, getString(R.string.welcomeBack) + " " + firstname + " !", Toast.LENGTH_LONG).show()
-            startActivity(Intent(this, MainActivity::class.java))
+            startActivity(Intent(this, HomeActivity::class.java))
         } else {
             Toast.makeText(this, getString(R.string.vous_avez_un_compte), Toast.LENGTH_LONG).show()
         }

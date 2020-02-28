@@ -88,14 +88,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <EditText
+    <TextView
         android:id="@+id/birthdayEditTextSignUp"
         android:layout_width="161dp"
-        android:layout_height="42dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:layout_marginTop="252dp"
         android:ems="10"
-        android:inputType="date"
+        android:inputType="text"
+        android:text="JJ/MM/AAAA"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -169,7 +170,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="324dp"
+        android:layout_marginTop="304dp"
         android:text="@string/sport_pratiqu"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -197,11 +198,17 @@
     <TextView
         android:id="@+id/showsporttextView"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="28dp"
-        app:layout_constraintStart_toEndOf="@+id/sportTewtView"
-        app:layout_constraintTop_toBottomOf="@+id/birthdayEditTextSignUp" />
+        android:layout_height="70dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="356dp"
+        android:layout_marginEnd="246dp"
+        android:layout_marginBottom="356dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/weightEditText"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.509" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
