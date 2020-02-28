@@ -43,7 +43,7 @@ class FeedActivity : MenuActivity() {
                         arrayLikes.add(userId)
                     }
 
-                    var post : Post = Post(value.child("userid").value.toString(), value.child("postid").value.toString(), value.child("date").value.toString(), value.child("content").value.toString(),arrayLikes)
+                    var post : Post = Post(value.child("userid").value.toString(), value.child("postid").value.toString(), value.child("date").value.toString(), value.child("content").value.toString(),arrayLikes, value.child("postImgUID").value.toString())
                     posts.add(post)
                 }
                 posts.reverse()
