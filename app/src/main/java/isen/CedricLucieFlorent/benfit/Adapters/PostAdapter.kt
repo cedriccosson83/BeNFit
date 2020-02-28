@@ -15,10 +15,10 @@ import com.google.firebase.database.ValueEventListener
 import isen.CedricLucieFlorent.benfit.Models.Post
 import isen.CedricLucieFlorent.benfit.R
 import isen.CedricLucieFlorent.benfit.showDate
-import isen.CedricLucieFlorent.benfit.showUserName
 import isen.CedricLucieFlorent.benfit.*
 import kotlinx.android.synthetic.main.recycler_view_post_cell.view.*
 import kotlin.collections.ArrayList
+import androidx.constraintlayout.widget.ConstraintLayout
 
 
 class PostAdapter(val posts: ArrayList<Post>, val clickListener: (Post) -> Unit, val clickListenerPost: (Post) -> Unit, val clickListenerLike: (Post) -> Unit): RecyclerView.Adapter<PostAdapter.PostViewHolder>(){
@@ -96,9 +96,19 @@ class PostAdapter(val posts: ArrayList<Post>, val clickListener: (Post) -> Unit,
             view.imageViewUserPost.setOnClickListener { clickListener(post) }
             view.btnCommentExo.setOnClickListener {clickListenerPost(post) }
             view.btnLikePost.setOnClickListener { clickListenerLike(post) }
-            showUserName(post.userid, view.textViewName)
             val imgView = view.imageViewUserPost
             showUserNameImage(post.userid, view.textViewName, imgView)
+
+            if(post.postImgUID != "null"){
+                val layout = view.layoutImgPost
+                val postImView = ImageView(ApplicationContext.applicationContext())
+                postImView.layoutParams = ConstraintLayout.LayoutParams(
+                    ConstraintLayout.LayoutParams.WRAP_CONTENT,
+                    ConstraintLayout.LayoutParams.WRAP_CONTENT
+                )
+                setImageFromFirestore(ApplicationContext.applicationContext(),postImView, "posts/${post.postid}/${post.postImgUID}")
+                layout.addView(postImView)
+            }
             showLike(post)
             countComments(post.postid)
             countLikes(post)

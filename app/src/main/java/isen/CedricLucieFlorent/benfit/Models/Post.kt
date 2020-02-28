@@ -6,18 +6,21 @@ class Post {
     var date: String? = ""
     var content: String? = ""
     var likes: ArrayList<String> = ArrayList()
+    var postImgUID : String = ""
 
     constructor(
         userid: String,
         postid: String,
         date: String?,
         content: String?,
-        likes: ArrayList<String>
+        likes: ArrayList<String>,
+        postImgUID: String
     ) {
         this.userid = userid
         this.postid = postid
         this.date = date
         this.content = content
         this.likes = likes
+        this.postImgUID = postImgUID
     }
 }

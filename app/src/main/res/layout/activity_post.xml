@@ -28,12 +28,12 @@
             android:layout_marginTop="16dp"
             android:text="@string/Name"
             android:textSize="22sp"
-            app:layout_constraintStart_toEndOf="@+id/imageViewUser"
+            app:layout_constraintStart_toEndOf="@+id/imageViewUserPostAct"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/textViewContent2"
-            android:layout_width="0dp"
+            android:layout_width="280dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
             android:layout_marginTop="8dp"
@@ -41,11 +41,11 @@
             android:text="@string/Content"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/imageViewUser"
+            app:layout_constraintStart_toEndOf="@+id/imageViewUserPostAct"
             app:layout_constraintTop_toBottomOf="@+id/nameProfile" />
 
         <ImageView
-            android:id="@+id/imageViewUser"
+            android:id="@+id/imageViewUserPostAct"
             android:layout_width="67dp"
             android:layout_height="78dp"
             android:layout_marginStart="16dp"
