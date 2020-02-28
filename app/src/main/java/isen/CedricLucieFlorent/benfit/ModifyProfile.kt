@@ -77,7 +77,6 @@ class ModifyProfile : MenuActivity() {
                 dataSnapshot.children.forEach {
                     sportArray.add(it.child("name").value.toString())
                 }
-                Log.d("SPORTS_AVANT", "sport array ${sportArray}")
                 getSports(sportArray)
             }
             override fun onCancelled(error: DatabaseError) {
@@ -148,17 +147,12 @@ class ModifyProfile : MenuActivity() {
                     val currentItem = sportList[which]
                 }
                 .setPositiveButton("OK") { dialog, which ->
-                    var listSportselec : ArrayList<String> = ArrayList()
-                    for (sport in sportSelectedModif){
-                        listSportselec.add(sport.getSportName())
-                    }
+                    sportSelectedModif = ArrayList()
                     showdiffsports.text = "Vos sports préférés..... \n"
                     for (i in checkedColorsArray.indices) {
                         val checked = checkedColorsArray[i]
                         if (checked) {
                             showdiffsports.text = showdiffsports.text.toString() + sportList[i] + "\n"
-
-                            if (listSportselec.indexOf(sportList[i]) == -1)
                             sportSelectedModif.add(Sport(sportList[i], ArrayList()))
                         }
                     }
@@ -177,14 +171,11 @@ class ModifyProfile : MenuActivity() {
                     sportSel.add(it.child("name").value.toString())
                 }
                 val sportList = sportArray.toList()
-                Log.d("SPORTS_AVANT", "sport sel ${sportSel}")
                 for (sport in sportSel){
-                    Log.d("SPORTS_PENDANT", "sport dans sport sel ${sport}")
                     if (sportArray.indexOf(sport) != -1){
                         sportSelectedModif.add(Sport(sportList[sportArray.indexOf(sport)], ArrayList()))
                     }
                 }
-                Log.d("SPORTS_APRES", "sport array a la fin de for${sportArray}")
             }
 
             override fun onCancelled(error: DatabaseError) {

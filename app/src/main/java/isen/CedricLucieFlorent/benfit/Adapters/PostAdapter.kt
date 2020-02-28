@@ -17,9 +17,6 @@ import isen.CedricLucieFlorent.benfit.R
 import isen.CedricLucieFlorent.benfit.showDate
 import isen.CedricLucieFlorent.benfit.showUserName
 import isen.CedricLucieFlorent.benfit.*
-import isen.CedricLucieFlorent.benfit.Models.Comment
-import isen.CedricLucieFlorent.benfit.Models.Post
-import isen.CedricLucieFlorent.benfit.Models.User
 import kotlinx.android.synthetic.main.recycler_view_post_cell.view.*
 import kotlin.collections.ArrayList
 
@@ -100,8 +97,6 @@ class PostAdapter(val posts: ArrayList<Post>, val clickListener: (Post) -> Unit,
             view.btnCommentExo.setOnClickListener {clickListenerPost(post) }
             view.btnLikePost.setOnClickListener { clickListenerLike(post) }
             showUserName(post.userid, view.textViewName)
-            view.cardViewPost.setOnClickListener {clickListenerPost(post) }
-            view.imageViewStar.setOnClickListener { clickListenerLike(post) }
             val imgView = view.imageViewUserPost
             showUserNameImage(post.userid, view.textViewName, imgView)
             showLike(post)
