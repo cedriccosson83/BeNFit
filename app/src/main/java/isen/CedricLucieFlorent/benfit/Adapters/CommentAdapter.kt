@@ -10,6 +10,7 @@ import isen.CedricLucieFlorent.benfit.Models.Comment
 import isen.CedricLucieFlorent.benfit.R
 import isen.CedricLucieFlorent.benfit.showDate
 import isen.CedricLucieFlorent.benfit.showUserName
+import isen.CedricLucieFlorent.benfit.showUserNameImage
 import kotlinx.android.synthetic.main.recycler_view_comment_cell.view.*
 
 
@@ -40,7 +41,8 @@ class CommentAdapter(val comments: ArrayList<Comment>, val clickListener: (Comme
         fun bind(comment: Comment, clickListener: (Comment) -> Unit){
             view.textViewContentComment.text = "${comment.content}"
             showDate(comment.date, view.textViewDateComment)
-            showUserName(comment.userid, view.textViewNameComment)
+            val imgView = view.profileImageViewComment
+            showUserNameImage(comment.userid, view.textViewNameComment, imgView)
             view.textViewNameComment.setOnClickListener { clickListener(comment) }
             view.profileImageViewComment.setOnClickListener { clickListener(comment) }
         }
