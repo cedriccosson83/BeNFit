@@ -117,6 +117,27 @@ fun showUserName(userId : String, textview: TextView) {
     })
 }
 
+fun showUserNameSessionFeed(userId: String, textview : TextView){
+    val database = FirebaseDatabase.getInstance()
+    val myRef = database.getReference("users")
+    myRef.addValueEventListener(object : ValueEventListener {
+        override fun onDataChange(dataSnapshot: DataSnapshot) {
+            for (value in dataSnapshot.children) {
+                val fname = value.child("firstname").value.toString()
+                val lname = value.child("lastname").value.toString()
+                val retrievedUserId = value.child("userid").value?.toString()
+                if (retrievedUserId == userId) {
+                    textview.text = "${fname} ${lname}"
+                }
+            }
+        }
+
+        override fun onCancelled(p0: DatabaseError) {
+            TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        }
+    })
+}
+
 fun showUserNameImage(userId : String, textview: TextView,  imgView : ImageView) {
 
     val database = FirebaseDatabase.getInstance()
@@ -126,7 +147,7 @@ fun showUserNameImage(userId : String, textview: TextView,  imgView : ImageView)
             for (value in dataSnapshot.children) {
                 val fname = value.child("firstname").value.toString()
                 val lname = value.child("lastname").value.toString()
-                val imgPath =  value.child("pictureUID").value.toString()
+                val imgPath = value.child("pictureUID").value.toString()
                 val retrievedUserId = value.child("userid").value?.toString()
                 if (retrievedUserId == userId) {
                     textview.text = "$fname $lname"
@@ -134,7 +155,6 @@ fun showUserNameImage(userId : String, textview: TextView,  imgView : ImageView)
                 }
             }
         }
-
         override fun onCancelled(error: DatabaseError) {
 
             Log.w("post", "Failed to read value.", error.toException())

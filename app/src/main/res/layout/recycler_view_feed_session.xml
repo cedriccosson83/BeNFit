@@ -40,13 +40,14 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="4dp"
                 android:text="Nom de la séance"
+                android:textSize="24sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toEndOf="@+id/imageView"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/descriptionSessionTextView"
-                android:layout_width="wrap_content"
+                android:layout_width="230dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="4dp"
                 android:layout_marginTop="4dp"
@@ -72,30 +73,32 @@
                 app:layout_constraintEnd_toEndOf="@+id/btnLikeFeedSession" />
 
             <ImageView
-                android:id="@+id/btnComFeedSession"
-                android:layout_width="19dp"
-                android:layout_height="19dp"
-                android:layout_marginEnd="16dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/nbLikeTextView"
-                app:srcCompat="@drawable/comment" />
-
-            <TextView
-                android:id="@+id/nbCommentTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="3dp"
-                android:text="0"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/btnComFeedSession" />
-
-            <ImageView
                 android:id="@+id/btnNotifFeedSession"
                 android:layout_width="29dp"
                 android:layout_height="26dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/notification" />
+
+            <TextView
+                android:id="@+id/authorSessionFeed"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="94dp"
+                android:text="TextView"
+                android:textSize="8sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/imageView" />
+
+            <TextView
+                android:id="@+id/levelSessionFeed"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="36dp"
+                android:text="TextView"
+                android:textSize="8sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/authorSessionFeed" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
