@@ -47,6 +47,7 @@
         <activity android:name=".ListExercicesActivity" />
         <activity android:name=".FullScreenImageView" />
         <activity android:name=".StreamToUri" />
+        <activity android:name=".ProgramFeedActivity" />
     </application>
 
 </manifest>
