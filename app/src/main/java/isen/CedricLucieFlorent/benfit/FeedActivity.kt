@@ -61,8 +61,7 @@ class FeedActivity : MenuActivity() {
     //allows to redirect on the user activity
     private fun userClicked(postItem : Post) {
         val intent = Intent(this, ProfileActivity::class.java)
-        val id = auth.currentUser?.uid
-        intent.putExtra("userId", id)
+        intent.putExtra("userId", postItem.userid)
         startActivity(intent)
     }
 

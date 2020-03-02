@@ -6,5 +6,6 @@ data class SessionFeed (
         var descrSessionFeed: String = "",
         var userID :String ="",
         var nbrRound :String ="",
-        var levelSession :String =""
+        var levelSession :String ="",
+        var likes: ArrayList<String> =ArrayList()
 )

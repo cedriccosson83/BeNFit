@@ -3,6 +3,7 @@ package isen.CedricLucieFlorent.benfit
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -25,10 +26,15 @@ class ProfileActivity : MenuActivity() {
         context = this
 
         val intent = intent
-
+        val userFromIntent = intent.getStringExtra("userId")
         if (intent != null)
-            if (userId != "")
+            if (userId != userFromIntent) {
+                showUser(userFromIntent)
+                settingsButton.visibility = View.INVISIBLE
+            }
+            else {
                 showUser(userId)
+            }
 
         settingsButton.setOnClickListener {
             startActivity(Intent(this, ModifyProfile::class.java))
