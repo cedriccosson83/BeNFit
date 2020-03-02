@@ -26,9 +26,9 @@ class ProfileActivity : MenuActivity() {
         context = this
 
         val intent = intent
-        val userFromIntent = intent.getStringExtra("userId")
+        val userFromIntent = intent.getStringExtra("userId")?: ""
         if (intent != null)
-            if (userId != userFromIntent) {
+            if (userId != userFromIntent && userFromIntent != "") {
                 showUser(userFromIntent)
                 settingsButton.visibility = View.INVISIBLE
             }

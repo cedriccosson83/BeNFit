@@ -102,12 +102,18 @@ class PostAdapter(val posts: ArrayList<Post>, val clickListener: (Post) -> Unit,
             if(post.postImgUID != "null"){
                 val layout = view.layoutImgPost
                 val postImView = ImageView(ApplicationContext.applicationContext())
-                postImView.layoutParams = ConstraintLayout.LayoutParams(
-                    ConstraintLayout.LayoutParams.WRAP_CONTENT,
+                //var lp = postImView.layoutParams as ConstraintLayout.LayoutParams
+                //lp.height = 400
+                //image_view.getLayoutParams().height = 20;
+
+                /*postImView.layoutParams = ConstraintLayout.LayoutParams(
+                    ConstraintLayout.LayoutParams.MATCH_CONSTRAINT,
                     ConstraintLayout.LayoutParams.WRAP_CONTENT
-                )
+                )*/
                 setImageFromFirestore(ApplicationContext.applicationContext(),postImView, "posts/${post.postid}/${post.postImgUID}")
+
                 layout.addView(postImView)
+                postImView.layoutParams.height = 400
             }
             showLike(post)
             countComments(post.postid)
