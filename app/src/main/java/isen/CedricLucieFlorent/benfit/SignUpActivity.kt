@@ -49,20 +49,16 @@ class SignUpActivity : AppCompatActivity() {
     var monthselec : Int = 0
     var yearselec : Int = 0
     private lateinit var image_uri : Uri
-    private val code_perm_image = 101
-    private val code_req_image = 102
-    private val code_res_ext = 101
     private lateinit var storageReference: StorageReference
-    private lateinit var pictureUID : String
-
+    private lateinit var stu: StreamToUri
     override fun onCreate(saved: Bundle?) {
         super.onCreate(saved)
         setContentView(R.layout.activity_sign_up)
         auth = FirebaseAuth.getInstance()
         val showdiffsportss = findViewById<TextView>(R.id.showsporttextView)
+        stu = StreamToUri(this, this, contentResolver)
 
-
-        storageReference = FirebaseStorage.getInstance().getReference()
+        storageReference = FirebaseStorage.getInstance().reference
 
         val sportArray = arrayListOf<String>()
 
@@ -102,9 +98,9 @@ class SignUpActivity : AppCompatActivity() {
         })
 
         newPictureImageView.setOnClickListener{
-            askCameraPermissions()
+            stu.askCameraPermissions()
         }
-        sportTewtView.setOnClickListener(){
+        sportTewtView.setOnClickListener{
             val checkedColorsArray = BooleanArray(166)
             val sportList = sportArray.toList()
             AlertDialog.Builder(this@SignUpActivity)
@@ -149,57 +145,16 @@ class SignUpActivity : AppCompatActivity() {
         }
     }
 
-    private fun askCameraPermissions(){
-        if(ContextCompat.checkSelfPermission(this, android.Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED){
-            ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.CAMERA), code_perm_image)
-        }
-        else if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.WRITE_EXTERNAL_STORAGE), code_res_ext)
-        }
-        else { openCamera()}
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        stu.manageActivityResult(requestCode, data)
+        image_uri = stu.imageUri
+        newPictureImageView.setImageURI(image_uri)
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        if (requestCode == code_perm_image){
-            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED ){
-                openCamera()
-            }else{
-                Toast.makeText(this, "Camera permissions required", Toast.LENGTH_LONG).show()
-            }
-        }
-    }
-
-    fun openCamera() {
-        val values = ContentValues()
-        values.put(MediaStore.Images.Media.DESCRIPTION, "New Picture")
-        values.put(MediaStore.Images.Media.DESCRIPTION, "From the Camera")
-        val notsureuri = contentResolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values)
-        if (notsureuri != null ){
-            image_uri = notsureuri}
-        val imagefromgalleryIntent = Intent(Intent.ACTION_PICK)
-        imagefromgalleryIntent.setType("image/png")
-        imagefromgalleryIntent.putExtra(MediaStore.EXTRA_OUTPUT, image_uri)
-
-        val cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-        cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, image_uri)
-
-
-        val chooseIntent= Intent.createChooser(imagefromgalleryIntent, "Gallery")
-        chooseIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, arrayOf(cameraIntent))
-
-        startActivityForResult(chooseIntent, code_req_image)
-
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == code_req_image){
-            if(data?.data != null){
-                image_uri = data.data as Uri
-            }
-            newPictureImageView.setImageURI(image_uri)
-        }
+        stu.manageRequestPermissionResult(requestCode, grantResults)
     }
 
     fun signup() {

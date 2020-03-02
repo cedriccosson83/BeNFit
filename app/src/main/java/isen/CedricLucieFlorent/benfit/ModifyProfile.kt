@@ -26,6 +26,7 @@ import com.google.firebase.storage.StorageReference
 import isen.CedricLucieFlorent.benfit.Models.Sport
 import isen.CedricLucieFlorent.benfit.Models.User
 import kotlinx.android.synthetic.main.activity_modify_profile.*
+import kotlinx.android.synthetic.main.activity_sign_up.*
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
@@ -39,11 +40,9 @@ class ModifyProfile : MenuActivity() {
 
     private lateinit var storageReference: StorageReference
     val sportSel = arrayListOf<String>()
-
-    private val code_perm_image = 101
-    private val code_req_image = 102
-    private val code_res_ext = 101
     private lateinit var image_uri : Uri
+
+    private lateinit var stu: StreamToUri
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -64,7 +63,7 @@ class ModifyProfile : MenuActivity() {
 
         auth = FirebaseAuth.getInstance()
         storageReference = FirebaseStorage.getInstance().getReference()
-
+        stu = StreamToUri(this, this, contentResolver)
         userId = auth.currentUser?.uid ?: ""
 
         val intent = intent
@@ -115,7 +114,7 @@ class ModifyProfile : MenuActivity() {
         })
 
         changeProfilImageModify.setOnClickListener(){
-            askCameraPermissions()
+            stu.askCameraPermissions()
         }
 
         validateModifyButton.setOnClickListener(){
@@ -185,7 +184,7 @@ class ModifyProfile : MenuActivity() {
         })
     }
 
-    private fun askCameraPermissions(){
+   /* private fun askCameraPermissions(){
         if(ContextCompat.checkSelfPermission(this, android.Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED){
             ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.CAMERA), code_perm_image)
         }
@@ -194,8 +193,8 @@ class ModifyProfile : MenuActivity() {
         }
         else { openCamera()}
     }
-
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+*/
+    /*override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (requestCode == code_perm_image){
             if (grantResults.size > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED ){
@@ -204,9 +203,9 @@ class ModifyProfile : MenuActivity() {
                 Toast.makeText(this, "Camera permissions required", Toast.LENGTH_LONG).show()
             }
         }
-    }
+    }*/
 
-    fun openCamera() {
+    /*fun openCamera() {
         val values = ContentValues()
         values.put(MediaStore.Images.Media.DESCRIPTION, "New Picture")
         values.put(MediaStore.Images.Media.DESCRIPTION, "From the Camera")
@@ -227,8 +226,8 @@ class ModifyProfile : MenuActivity() {
         startActivityForResult(chooseIntent, code_req_image)
 
     }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+    */
+    /*override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         val userid = auth.currentUser?.uid ?: ""
         val uniqID = UUID.randomUUID().toString()
@@ -248,6 +247,27 @@ class ModifyProfile : MenuActivity() {
                 }
             }
         }
+    }*/
+
+
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        val userid = auth.currentUser?.uid ?: ""
+        val uniqID = UUID.randomUUID().toString()
+        stu.manageActivityResult(requestCode, data)
+        image_uri = stu.imageUri
+        val riversRef = storageReference.child("users/$userid/$uniqID")
+        val result = riversRef.putFile(image_uri)
+        result.addOnSuccessListener {
+            changeProfilImageModify.setImageURI(image_uri)
+            database.getReference("users/$userid/pictureUID").setValue(uniqID)
+        }
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        stu.manageRequestPermissionResult(requestCode, grantResults)
     }
 
     fun showUserM(userId: String) {

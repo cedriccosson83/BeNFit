@@ -10,19 +10,19 @@
         android:id="@+id/publishBTN"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="124dp"
+        android:layout_marginTop="25dp"
         android:text="@string/publish"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayout" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textInputLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="200dp"
+        android:layout_marginTop="50dp"
         android:layout_marginEnd="32dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -30,7 +30,7 @@
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/publish_field"
-            android:layout_width="300dp"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:hint="@string/hint_publication"
             android:singleLine="false" />
@@ -50,12 +50,19 @@
 
     <ImageView
         android:id="@+id/imageViewWritePost"
-        android:layout_width="145dp"
-        android:layout_height="145dp"
+        android:layout_width="200dp"
+        android:layout_height="160dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/buttonlikebackground"
+        android:contentDescription="@string/img"
+        android:paddingStart="16dp"
+        android:paddingTop="10dp"
+        android:paddingEnd="20dp"
+        android:paddingBottom="20dp"
         app:layout_constraintBottom_toTopOf="@+id/textInputLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView2"
-        app:srcCompat="@drawable/profile" />
+        app:srcCompat="@drawable/picture" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

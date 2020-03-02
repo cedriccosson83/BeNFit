@@ -46,6 +46,7 @@
         <receiver android:name=".ReminderBroadcast"/>
         <activity android:name=".ListExercicesActivity" />
         <activity android:name=".FullScreenImageView" />
+        <activity android:name=".StreamToUri" />
     </application>
 
 </manifest>
