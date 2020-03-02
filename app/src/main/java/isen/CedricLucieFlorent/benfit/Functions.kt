@@ -4,11 +4,13 @@ import android.app.Notification
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
+import android.content.ContentResolver
 import android.content.Context
 import android.content.Intent
 import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.media.Image
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
@@ -115,6 +117,14 @@ fun showUserName(userId : String, textview: TextView) {
             Log.w("post", "Failed to read value.", error.toException())
         }
     })
+}
+
+fun getDrawableToURI( context : Context,  drawableId : Int) : Uri {
+    val imageUri = Uri.parse(ContentResolver.SCHEME_ANDROID_RESOURCE +
+            "://" + context.getResources().getResourcePackageName(drawableId)
+            + '/' + context.getResources().getResourceTypeName(drawableId)
+            + '/' + context.getResources().getResourceEntryName(drawableId) )
+    return imageUri
 }
 
 fun showUserNameSessionFeed(userId: String, textview : TextView){

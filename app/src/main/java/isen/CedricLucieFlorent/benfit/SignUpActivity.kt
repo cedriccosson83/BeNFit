@@ -1,6 +1,7 @@
 package isen.CedricLucieFlorent.benfit
 
 import android.app.DatePickerDialog
+import android.content.ContentResolver
 import android.content.ContentValues
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -23,10 +24,12 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
+import com.google.firebase.storage.UploadTask
 import isen.CedricLucieFlorent.benfit.Models.Sport
 import isen.CedricLucieFlorent.benfit.Models.User
 import kotlinx.android.synthetic.main.activity_modify_profile.*
 import kotlinx.android.synthetic.main.activity_sign_up.*
+import java.io.InputStream
 import java.text.SimpleDateFormat
 
 import java.util.*
@@ -38,17 +41,17 @@ class SignUpActivity : AppCompatActivity() {
     lateinit var auth: FirebaseAuth
     val database = FirebaseDatabase.getInstance()
     lateinit var currUser: User
-    var sportSelected = ArrayList<Sport>()
-    val c = Calendar.getInstance()
-    val year = c.get(Calendar.YEAR)
-    val month = c.get(Calendar.MONTH)
-    val day = c.get(Calendar.DAY_OF_MONTH)
-    val dateFormat = "dd/MM/yyyy"
-    val sdf = SimpleDateFormat(dateFormat, Locale.FRANCE)
-    var dayselec : Int = 0
-    var monthselec : Int = 0
-    var yearselec : Int = 0
-    private lateinit var image_uri : Uri
+    private var sportSelected = ArrayList<Sport>()
+    private val c = Calendar.getInstance()
+    private val year = c.get(Calendar.YEAR)
+    private val month = c.get(Calendar.MONTH)
+    private val day = c.get(Calendar.DAY_OF_MONTH)
+    private val dateFormat = "dd/MM/yyyy"
+    private val sdf = SimpleDateFormat(dateFormat, Locale.FRANCE)
+    private var dayselec : Int = 0
+    private var monthselec : Int = 0
+    private var yearselec : Int = 0
+    private var image_uri : Uri = Uri.EMPTY
     private lateinit var storageReference: StorageReference
     private lateinit var stu: StreamToUri
     override fun onCreate(saved: Bundle?) {
@@ -75,28 +78,47 @@ class SignUpActivity : AppCompatActivity() {
             }
 
         })
-        birthdayEditTextSignUp.setOnFocusChangeListener(View.OnFocusChangeListener { view, hasFocus ->
+        birthdayEditTextSignUp.setOnClickListener {
+
+            val dpd = DatePickerDialog(
+                this,
+                DatePickerDialog.OnDateSetListener { _, year, monthOfYear, dayOfMonth ->
+                    c.set(Calendar.YEAR, year)
+                    c.set(Calendar.MONTH, monthOfYear)
+                    c.set(Calendar.DAY_OF_MONTH, dayOfMonth)
+                    // Display Selected date in TextView
+                    birthdayEditTextSignUp.text = sdf.format(c.time)
+                    dayselec = dayOfMonth
+                    monthselec = monthOfYear
+                    yearselec = year
+                },
+                year,
+                month,
+                day
+            )
+            dpd.show()
+        }/* = View.OnFocusChangeListener { _, hasFocus ->
             if (hasFocus) {
                 val dpd = DatePickerDialog(
-                        this,
-                        DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
-                            c.set(Calendar.YEAR, year)
-                            c.set(Calendar.MONTH, monthOfYear)
-                            c.set(Calendar.DAY_OF_MONTH, dayOfMonth)
-                            // Display Selected date in TextView
-                            birthdateTextViewModify.setText(sdf.format(c.time))
-                            dayselec = dayOfMonth
-                            monthselec = monthOfYear
-                            yearselec = year
-                        },
-                        year,
-                        month,
-                        day
+                    this,
+                    DatePickerDialog.OnDateSetListener { _, year, monthOfYear, dayOfMonth ->
+                        c.set(Calendar.YEAR, year)
+                        c.set(Calendar.MONTH, monthOfYear)
+                        c.set(Calendar.DAY_OF_MONTH, dayOfMonth)
+                        // Display Selected date in TextView
+                        birthdayTextResult.text = sdf.format(c.time)
+                        dayselec = dayOfMonth
+                        monthselec = monthOfYear
+                        yearselec = year
+                    },
+                    year,
+                    month,
+                    day
                 )
                 dpd.show()
             }
-        })
-
+        }
+*/
         newPictureImageView.setOnClickListener{
             stu.askCameraPermissions()
         }
@@ -189,7 +211,6 @@ class SignUpActivity : AppCompatActivity() {
 
     private fun registerNewUser(user: FirebaseUser?, fname:String, lname:String, birthdate:String, sports:ArrayList<Sport>, weight:String): String {
 
-        Log.d("IMAGEURI", image_uri.toString())
         var userName = ""
         if (user?.uid != null) {
             val sdf = SimpleDateFormat("dd/mm/yyyy")
@@ -200,14 +221,19 @@ class SignUpActivity : AppCompatActivity() {
             userName = currUser.firstname.toString()
 
             // Photo
-
             val uniqID = UUID.randomUUID().toString()
-            //val riversRef = storageReference.child("users/${currUser.userid}/$uniqID")
-            val riversRef = storageReference.child("users/${currUser.userid}/$uniqID")
-            val result = riversRef.putFile(image_uri)
+            val stoRef = storageReference.child("users/${currUser.userid}/$uniqID")
+            val result: UploadTask
+            if(image_uri != Uri.EMPTY) {
+                result = stoRef.putFile(image_uri)
+            } else {
+                val uri = getDrawableToURI(this,R.drawable.default_profile)
+                result = stoRef.putFile(uri)
+            }
             result.addOnSuccessListener {
                 database.getReference("users/${currUser.userid}/pictureUID").setValue(uniqID)
             }
+
 
         } else
             Toast.makeText(this, getString(R.string.err_inscription), Toast.LENGTH_LONG).show()

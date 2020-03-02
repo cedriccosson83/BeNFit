@@ -34,8 +34,6 @@ import kotlin.collections.ArrayList
 class ModifyProfile : MenuActivity() {
 
     lateinit var userId: String
-    lateinit var currUser: User
-
     var sportSelectedModif  = ArrayList<Sport>()
 
     private lateinit var storageReference: StorageReference
@@ -91,27 +89,25 @@ class ModifyProfile : MenuActivity() {
             }
         }
 
-        birthdateTextViewModify.setOnFocusChangeListener(View.OnFocusChangeListener { view, hasFocus ->
-            if (hasFocus) {
-                val dpd = DatePickerDialog(
-                    this,
-                    DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
-                        c.set(Calendar.YEAR, year)
-                        c.set(Calendar.MONTH, monthOfYear)
-                        c.set(Calendar.DAY_OF_MONTH, dayOfMonth)
-                        // Display Selected date in TextView
-                        birthdateTextViewModify.setText(sdf.format(c.time))
-                        dayselec = dayOfMonth
-                        monthselec = monthOfYear
-                        yearselec = year
-                    },
-                    year,
-                    month,
-                    day
-                )
-                dpd.show()
-            }
-        })
+        birthdateTextViewModify.setOnClickListener {
+            val dpd = DatePickerDialog(
+                this,
+                DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
+                    c.set(Calendar.YEAR, year)
+                    c.set(Calendar.MONTH, monthOfYear)
+                    c.set(Calendar.DAY_OF_MONTH, dayOfMonth)
+                    // Display Selected date in TextView
+                    birthdateTextViewModify.setText(sdf.format(c.time))
+                    dayselec = dayOfMonth
+                    monthselec = monthOfYear
+                    yearselec = year
+                },
+                year,
+                month,
+                day
+            )
+            dpd.show()
+        }
 
         changeProfilImageModify.setOnClickListener(){
             stu.askCameraPermissions()
