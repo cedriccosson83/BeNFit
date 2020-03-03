@@ -78,26 +78,7 @@ class SignUpActivity : AppCompatActivity() {
             }
 
         })
-        birthdayEditTextSignUp.setOnClickListener {
-
-            val dpd = DatePickerDialog(
-                this,
-                DatePickerDialog.OnDateSetListener { _, year, monthOfYear, dayOfMonth ->
-                    c.set(Calendar.YEAR, year)
-                    c.set(Calendar.MONTH, monthOfYear)
-                    c.set(Calendar.DAY_OF_MONTH, dayOfMonth)
-                    // Display Selected date in TextView
-                    birthdayEditTextSignUp.text = sdf.format(c.time)
-                    dayselec = dayOfMonth
-                    monthselec = monthOfYear
-                    yearselec = year
-                },
-                year,
-                month,
-                day
-            )
-            dpd.show()
-        }/* = View.OnFocusChangeListener { _, hasFocus ->
+        birthdayEditTextSignUp.setOnFocusChangeListener(View.OnFocusChangeListener { _, hasFocus ->
             if (hasFocus) {
                 val dpd = DatePickerDialog(
                         this,
@@ -105,7 +86,6 @@ class SignUpActivity : AppCompatActivity() {
                             c.set(Calendar.YEAR, year)
                             c.set(Calendar.MONTH, monthOfYear)
                             c.set(Calendar.DAY_OF_MONTH, dayOfMonth)
-                            // Display Selected date in TextView
                             birthdayEditTextSignUp.setText(sdf.format(c.time))
                             dayselec = dayOfMonth
                             monthselec = monthOfYear
@@ -117,8 +97,8 @@ class SignUpActivity : AppCompatActivity() {
                 )
                 dpd.show()
             }
-        }
-*/
+        })
+
         newPictureImageView.setOnClickListener{
             stu.askCameraPermissions()
         }

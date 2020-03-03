@@ -87,8 +87,7 @@ fun creernotif(context: Context?, notificationManager:NotificationManager){
 
 fun redirectToUserActivity(context: Context, userID : String){
     val intent = Intent(context, ProfileActivity::class.java)
-    val id : String = userID
-    intent.putExtra("user", id)
+    intent.putExtra("userId", userID)
     context.startActivity(intent)
 }
 

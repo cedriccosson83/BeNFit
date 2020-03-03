@@ -1,6 +1,7 @@
 package isen.CedricLucieFlorent.benfit
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -58,13 +59,13 @@ class ProgramFeedActivity : MenuActivity() {
                 follow.add(idProg)
             Log.d("Follow", follow.toString() + "ifapres")
             myRef.child("currentPrograms").setValue(follow)
-                //btnSubscribeProg.setImageResource(R.drawable.remove)
+                btnSubscribeProg.setImageResource(R.drawable.remove)
             }else{
                 Log.d("follow", follow.toString() +"else")
                 follow.remove(idProg)
             Log.d("Follow", follow.toString() + "elseapres")
             myRef.child("currentPrograms").setValue(follow)
-                //btnSubscribeProg.setImageResource(R.drawable.add)
+                btnSubscribeProg.setImageResource(R.drawable.add)
             }
     }
 
@@ -114,8 +115,8 @@ class ProgramFeedActivity : MenuActivity() {
                 }
                 programs.reverse()
                 recycler_view_list_prog_feed.adapter = ProgramFeedAdapter(programs,
-                { programsItem : ProgramFeed -> subscribeClicked(programsItem) },
-                { programItem : ProgramFeed -> programLiked(programItem) },
+                { programsItem : ProgramFeed -> subscribeClicked(programsItem, userId) },
+                { programItem : ProgramFeed -> programLiked(programItem, userId) },
                 { programItem : ProgramFeed -> redirectToProgram(programItem) })
             }
             override fun onCancelled(error: DatabaseError) {

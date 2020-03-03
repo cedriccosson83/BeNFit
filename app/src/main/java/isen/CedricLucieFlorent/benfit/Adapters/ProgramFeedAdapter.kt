@@ -44,21 +44,23 @@ class ProgramFeedAdapter (val programs: ArrayList<ProgramFeed>,
 
 
         fun countLikes(program: ProgramFeed) {
-            var array: ArrayList<String> = program.likes
-            var count: Int = array.size
+            val array: ArrayList<String> = program.likes
+            val count: Int = array.size
             view.NbLikeProgram.text = "${count}"
         }
 
         fun showLike(program: ProgramFeed) {
             val likes = program.likes
             if (likes.all { it != currentUserID }) {
-                view.showProgramLikeIcon.setImageResource(R.drawable.like)
+                view.btnLikeProgram.setImageResource(R.drawable.like)
             } else {
                 view.btnLikeProgram.setImageResource(R.drawable.dislike)
             }
         }
 
-        fun bind(program: ProgramFeed, clickListenersubscribe: (ProgramFeed) -> Unit, clickListenerlike: (ProgramFeed) -> Unit) {
+        fun bind(program: ProgramFeed, clickListenersubscribe: (ProgramFeed) -> Unit,
+                 clickListenerlike: (ProgramFeed) -> Unit,
+                 clickListenerProgram: (ProgramFeed) -> Unit) {
             view.nameProgTextView.text = program.nameProgramFeed
             view.descriptionProgTextView.text = program.descrProgramFeed
             view.btnSubscribeProg.setOnClickListener { clickListenersubscribe(program) }
