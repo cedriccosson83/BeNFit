@@ -15,17 +15,17 @@ import isen.CedricLucieFlorent.benfit.Adapters.SessionProgramAdapter
 import isen.CedricLucieFlorent.benfit.Models.*
 
 
-fun addNewExo(database : FirebaseDatabase, nameExo: String, idUser: String, descExo: String, urlYtb: String, levelExo: String, sportExo: String) : Int{
+fun addNewExo(database : FirebaseDatabase, nameExo: String, idUser: String, descExo: String, urlYtb: String, levelExo: String, sportExo: String) : String{
     val database = FirebaseDatabase.getInstance()
     val dbExos = database.getReference("exos")
     val newId = dbExos.push().key
     if(newId == null){
         Log.d("ERROR", "Couldn't get push key for exos")
-        return -1
+        return "false"
     }
     val exo = Exercice(newId,nameExo,idUser,descExo, urlYtb,levelExo,sportExo)
     dbExos.child(newId).setValue(exo)
-    return 0
+    return newId
 }
 
 fun addTemporaryExoSession(database : FirebaseDatabase, idUser:String, exo : Exercice) : Int{
@@ -336,7 +336,7 @@ private fun exoSessionClicked(context:Context,exoItem : SessionExercice) {
 
 
 
-fun showSessions(database: FirebaseDatabase, view: RecyclerView, context: Context){
+fun showSessions(database: FirebaseDatabase, view: RecyclerView, context: Context, idUser: String){
 
     val myRef = database.getReference("sessions")
     myRef.addValueEventListener(object : ValueEventListener{
@@ -348,7 +348,7 @@ fun showSessions(database: FirebaseDatabase, view: RecyclerView, context: Contex
                 sessions.add(session)
             }
             sessions.reverse()
-            view.adapter = SessionAdapter(sessions,  { sessionItem : Session -> sessionChooseProgramClicked(context,sessionItem, database) } )
+            view.adapter = SessionAdapter(sessions,  { sessionItem : Session -> sessionChooseProgramClicked(context,sessionItem,idUser, database) } )
         }
 
         override fun onCancelled(error: DatabaseError) {
@@ -399,9 +399,9 @@ fun addTemporarySessionProgram(database : FirebaseDatabase, idUser:String, sessi
     return 0
 }
 
-private fun sessionChooseProgramClicked(context:Context, sessionItem : Session, database : FirebaseDatabase) {
+private fun sessionChooseProgramClicked(context:Context, sessionItem : Session, idUser: String, database : FirebaseDatabase) {
 
-    addTemporarySessionProgram(database, sessionItem.userID, sessionItem)
+    addTemporarySessionProgram(database, idUser, sessionItem)
     val intent = Intent(context, ProgramActivity::class.java)
     context.startActivity(intent)
 }

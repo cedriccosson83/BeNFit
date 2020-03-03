@@ -17,7 +17,7 @@ class ListSessionActivity : MenuActivity() {
 
 
         if (id != null) {
-            showSessions(database, recycler_view_list_session, this)
+            showSessions(database, recycler_view_list_session, this,id)
         }
         recycler_view_list_session.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
     }

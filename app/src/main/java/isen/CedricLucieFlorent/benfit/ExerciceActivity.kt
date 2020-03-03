@@ -8,6 +8,7 @@ import android.view.View
 import android.widget.*
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
+import isen.CedricLucieFlorent.benfit.Models.Exercice
 import kotlinx.android.synthetic.main.activity_exercice.*
 import kotlinx.android.synthetic.main.activity_session.*
 
@@ -32,15 +33,19 @@ class ExerciceActivity : MenuActivity() {
             var categoryExo :String = spinnerSportExo.selectedItem.toString()
             var levelExo : String = spinnerLevelExo.selectedItem.toString()
 
-
             var res_request =
                 id?.let { it1 ->
                     addNewExo(database,nameExo,
                         it1,descExo,urlExo,levelExo,categoryExo)
                 }
 
-            if(res_request == 0){
+            if(res_request != "false"){
                 Toast.makeText(this, "Nouvel exercice créé !", Toast.LENGTH_SHORT).show()
+                var exo : Exercice? = res_request?.let { it1 -> Exercice(it1, nameExo,id.toString(), descExo,urlExo,levelExo, "") }
+                if (exo != null) {
+                    addTemporaryExoSession(database,id.toString(), exo)
+                }
+
                 intent = Intent(this, SessionActivity::class.java)
                 startActivity(intent)
             }else{
