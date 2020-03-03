@@ -137,7 +137,7 @@ open class MenuActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
         val id = item.itemId
         val intent: Intent
         if (id == R.id.nav_programs) {
-            intent = Intent(this, ProgramActivity::class.java)
+            intent = Intent(this, ProgramFeedActivity::class.java)
             startActivity(intent)
             finish()
         } else if (id == R.id.nav_sessions) {
