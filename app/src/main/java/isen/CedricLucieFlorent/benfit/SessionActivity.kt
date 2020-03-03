@@ -29,7 +29,7 @@ class SessionActivity : MenuActivity(){
             showExosSession(database, recyclerViewExoSession, id,this)
         }
         recyclerViewExoSession.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-        //createSpinnerLevel()
+        createSpinnerLevel()
         showPopMenuExo()
 
         btnMinusRound.setOnClickListener {
@@ -52,7 +52,7 @@ class SessionActivity : MenuActivity(){
                 Toast.makeText(this,"Séance sauvegardée!", Toast.LENGTH_SHORT).show()
                 deleteExoSessionTemp(database, id)
                 val intent = Intent(this,SessionActivity::class.java)
-                //startActivity(intent)
+                startActivity(intent)
                 overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
             }
         }
