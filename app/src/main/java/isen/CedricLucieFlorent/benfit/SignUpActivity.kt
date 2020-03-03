@@ -84,7 +84,7 @@ class SignUpActivity : AppCompatActivity() {
                             c.set(Calendar.MONTH, monthOfYear)
                             c.set(Calendar.DAY_OF_MONTH, dayOfMonth)
                             // Display Selected date in TextView
-                            birthdateTextViewModify.setText(sdf.format(c.time))
+                            birthdayEditTextSignUp.setText(sdf.format(c.time))
                             dayselec = dayOfMonth
                             monthselec = monthOfYear
                             yearselec = year

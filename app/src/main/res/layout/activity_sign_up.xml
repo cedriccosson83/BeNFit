@@ -88,7 +88,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
+    <EditText
         android:id="@+id/birthdayEditTextSignUp"
         android:layout_width="161dp"
         android:layout_height="wrap_content"

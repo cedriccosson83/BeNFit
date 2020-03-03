@@ -1,21 +1,26 @@
 package isen.CedricLucieFlorent.benfit
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
-import isen.CedricLucieFlorent.benfit.Models.Sport
-import isen.CedricLucieFlorent.benfit.Models.User
+import isen.CedricLucieFlorent.benfit.Adapters.ProgramFollowAdapter
+import isen.CedricLucieFlorent.benfit.Models.*
 import kotlinx.android.synthetic.main.activity_profile.*
 import kotlin.collections.ArrayList
 
 class ProfileActivity : MenuActivity() {
 
     lateinit var userId: String
+    val follow = ArrayList<String>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,6 +29,22 @@ class ProfileActivity : MenuActivity() {
         auth = FirebaseAuth.getInstance()
         userId = auth.currentUser?.uid ?: ""
         context = this
+        programRecyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+
+        if (userId != null) {
+            val myRef = database.getReference("users").child(userId)
+
+            myRef.addValueEventListener(object : ValueEventListener {
+                override fun onDataChange(dataSnapshot: DataSnapshot) {
+                    for (value in dataSnapshot.child("currentPrograms").children) {
+                        follow.add(value.value.toString())
+                    }
+                }
+                override fun onCancelled(p0: DatabaseError) {
+                    Log.d("TAG", "Failed to read value")
+                }
+            })
+        }
 
         val intent = intent
         val userFromIntent = intent.getStringExtra("userId")?: ""
@@ -35,17 +56,17 @@ class ProfileActivity : MenuActivity() {
             else {
                 showUser(userId)
             }
-
+        showMyPrograms()
         settingsButton.setOnClickListener {
             startActivity(Intent(this, ModifyProfile::class.java))
         }
 
         myProgramButton.setOnClickListener(){
-            toast(context, "mes programmes actif")
+            showMyPrograms()
         }
 
         subscribeProgramButton.setOnClickListener(){
-            toast(context, "mes programmes suivis actif")
+            showSubPrograms()
         }
     }
 
@@ -88,5 +109,76 @@ class ProfileActivity : MenuActivity() {
             }
 
         })
+    }
+    fun showMyPrograms(){
+        val myRef = database.getReference("programs")
+
+        myRef.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                val programs: ArrayList<ProgramFollow> = ArrayList()
+                for (value in dataSnapshot.children) {
+                    if (userId == value.child("userID").value.toString()) {
+                        val arrayLikes: ArrayList<String> = ArrayList()
+                        /*for (childLike in value.child("likes").children) {
+                            val likesUserId: String = childLike.value.toString()
+                            arrayLikes.add(likesUserId)
+                        }*/
+
+                        val programFollow = ProgramFollow(
+                                value.child("programID").value.toString(),
+                                value.child("nameProgram").value.toString(),
+                                value.child("descProgram").value.toString(),
+                                value.child("userID").value.toString(),
+                                arrayLikes,
+                                ArrayList()
+                        )
+                        programs.add(programFollow)
+                    }
+                }
+                programs.reverse()
+                programRecyclerView.adapter = ProgramFollowAdapter(programs)
+            }
+            override fun onCancelled(error: DatabaseError) {
+                Log.w("session", "Failed to read value.", error.toException())
+            }
+        })
+
+
+    }
+    fun showSubPrograms(){
+        val myRef = database.getReference("programs")
+        myRef.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                val programs: ArrayList<ProgramFollow> = ArrayList()
+                for (value in dataSnapshot.children) {
+                    for (fo in follow){
+                        if (fo == value.child("programID").value.toString()) {
+                            val arrayLikes: ArrayList<String> = ArrayList()
+                            /*for (childLike in value.child("likes").children) {
+                                val likesUserId: String = childLike.value.toString()
+                                arrayLikes.add(likesUserId)
+                            }*/
+
+                            val myprogram = ProgramFollow(
+                                value.child("programID").value.toString(),
+                                value.child("nameProgram").value.toString(),
+                                value.child("descProgram").value.toString(),
+                                value.child("userID").value.toString(),
+                                arrayLikes,
+                                ArrayList()
+                            )
+                        programs.add(myprogram)
+                        }
+                    }
+                }
+                programs.reverse()
+                programRecyclerView.adapter = ProgramFollowAdapter(programs)
+            }
+            override fun onCancelled(error: DatabaseError) {
+                Log.w("session", "Failed to read value.", error.toException())
+            }
+        })
+
+
     }
 }

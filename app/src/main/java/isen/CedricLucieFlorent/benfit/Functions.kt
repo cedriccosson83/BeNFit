@@ -165,7 +165,7 @@ fun showUserNameImage(userId : String, textview: TextView,  imgView : ImageView)
 fun setImageFromFirestore(context: Context, target: ImageView, location: String) {
     val storeRef: StorageReference?
         = FirebaseStorage.getInstance().getReference(location)
-    GlideApp.with(context).load(storeRef).into(target)
+    GlideApp.with(ApplicationContext.applicationContext()).load(storeRef).into(target)
 }
 
 fun toast(context: Context, message: String) {

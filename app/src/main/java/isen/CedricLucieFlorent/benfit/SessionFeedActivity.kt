@@ -76,12 +76,7 @@ class SessionFeedActivity : MenuActivity() {
                             value.child("levelSession").value.toString(),
                             arrayLikes
                     )
-
-                    if (userId == sessionFeed.userID) {
-                        sessions.add(sessionFeed)
-                        Log.d("like", "${sessions}")
-
-                    }
+                    sessions.add(sessionFeed)
                 }
                 sessions.reverse()
                 recycler_view_session_feed.adapter = SessionFeedAdapter(sessions,{ sessionsItem : SessionFeed -> notifClicked(sessionsItem) },{ sessionItem : SessionFeed -> sessionLiked(sessionItem) })
