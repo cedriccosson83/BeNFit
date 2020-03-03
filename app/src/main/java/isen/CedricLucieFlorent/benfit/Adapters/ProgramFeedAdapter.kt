@@ -1,13 +1,10 @@
 package isen.CedricLucieFlorent.benfit.Adapters
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import isen.CedricLucieFlorent.benfit.Models.ProgramFeed
@@ -16,8 +13,9 @@ import kotlinx.android.synthetic.main.recycler_view_feed_program.view.*
 
 class ProgramFeedAdapter (val programs: ArrayList<ProgramFeed>,
                           val clickListenersubscribe: (ProgramFeed) -> Unit,
-                          val clickListenerlike: (ProgramFeed) -> Unit)
-    : RecyclerView.Adapter<ProgramFeedAdapter.ProgramViewHolder>(){
+                          val clickListenerlike: (ProgramFeed) -> Unit,
+                          val clickListenerProgram: (ProgramFeed) -> Unit
+): RecyclerView.Adapter<ProgramFeedAdapter.ProgramViewHolder>(){
 
     lateinit var auth: FirebaseAuth
     val database = FirebaseDatabase.getInstance()
@@ -31,7 +29,7 @@ class ProgramFeedAdapter (val programs: ArrayList<ProgramFeed>,
 
     override fun onBindViewHolder(holder: ProgramViewHolder, position: Int) {
         val program = programs[position]
-        holder.bind(program,clickListenersubscribe, clickListenerlike)
+        holder.bind(program,clickListenersubscribe, clickListenerlike, clickListenerProgram)
     }
 
     override fun getItemCount(): Int {
@@ -54,7 +52,7 @@ class ProgramFeedAdapter (val programs: ArrayList<ProgramFeed>,
         fun showLike(program: ProgramFeed) {
             val likes = program.likes
             if (likes.all { it != currentUserID }) {
-                view.btnLikeProgram.setImageResource(R.drawable.like)
+                view.showProgramLikeIcon.setImageResource(R.drawable.like)
             } else {
                 view.btnLikeProgram.setImageResource(R.drawable.dislike)
             }
@@ -65,6 +63,8 @@ class ProgramFeedAdapter (val programs: ArrayList<ProgramFeed>,
             view.descriptionProgTextView.text = program.descrProgramFeed
             view.btnSubscribeProg.setOnClickListener { clickListenersubscribe(program) }
             view.btnLikeProgram.setOnClickListener { clickListenerlike(program) }
+            view.nameProgTextView.setOnClickListener { clickListenerProgram(program) }
+            view.descriptionProgTextView.setOnClickListener { clickListenerProgram(program) }
             showLike(program)
             countLikes(program)
         }

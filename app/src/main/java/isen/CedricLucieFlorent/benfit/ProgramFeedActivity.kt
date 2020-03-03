@@ -80,7 +80,13 @@ class ProgramFeedActivity : MenuActivity() {
             likes.remove(currentUserID)
             myRef.child(programItem.programID).child("likes").setValue(likes)
         }
+    }
 
+    private fun redirectToProgram(programItem : ProgramFeed){
+        val intent = Intent(context, ShowProgramActivity::class.java)
+        val id : String = programItem.programID
+        intent.putExtra("program", id)
+        context.startActivity(intent)
     }
 
     fun showProgramFeed(database : FirebaseDatabase, view : RecyclerView, context: Context, userId: String) {
@@ -107,11 +113,10 @@ class ProgramFeedActivity : MenuActivity() {
                     programs.add(programFeed)
                 }
                 programs.reverse()
-                recycler_view_list_prog_feed.adapter =
-                    ProgramFeedAdapter(
-                        programs,
-                        { programItem : ProgramFeed -> subscribeClicked(programItem, userId) },
-                        { programItem : ProgramFeed -> programLiked(programItem, userId) })
+                recycler_view_list_prog_feed.adapter = ProgramFeedAdapter(programs,
+                { programsItem : ProgramFeed -> subscribeClicked(programsItem) },
+                { programItem : ProgramFeed -> programLiked(programItem) },
+                { programItem : ProgramFeed -> redirectToProgram(programItem) })
             }
             override fun onCancelled(error: DatabaseError) {
                 Log.w("session", "Failed to read value.", error.toException())
