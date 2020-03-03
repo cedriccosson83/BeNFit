@@ -15,10 +15,7 @@ import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.ImageView
-import android.widget.RemoteViews
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.core.content.ContextCompat.getSystemService
 import androidx.core.content.ContextCompat.startActivity
 import com.google.firebase.auth.FirebaseAuth
@@ -93,7 +90,6 @@ fun redirectToUserActivity(context: Context, userID : String){
     val id : String = userID
     intent.putExtra("user", id)
     context.startActivity(intent)
-    Toast.makeText(context, "Clicked: ${id}", Toast.LENGTH_LONG).show()
 }
 
 fun showUserName(userId : String, textview: TextView) {
@@ -172,10 +168,61 @@ fun showUserNameImage(userId : String, textview: TextView,  imgView : ImageView)
     })
 }
 
+fun convertLevelToImg(level: String, image: ImageView) {
+    Log.d("LEVEL", level)
+    when (level) {
+        "Expert" -> image.setImageResource(R.drawable.level_3)
+        "Intermédiaire" -> image.setImageResource(R.drawable.level_2)
+        else -> image.setImageResource(R.drawable.level_1)
+    }
+}
+
+fun showLikes(database: FirebaseDatabase, currentUserID: String?, pathToLikes : String, textTarget : TextView, icon: ImageView) {
+
+    val myRef = database.getReference(pathToLikes)
+    myRef.addValueEventListener(object : ValueEventListener {
+        override fun onDataChange(dataSnapshot: DataSnapshot) {
+            val arrayLikes :ArrayList<String> = ArrayList()
+            for (value in dataSnapshot.children) {
+                arrayLikes.add(value.value.toString())
+            }
+            textTarget.text = arrayLikes.size.toString()
+
+            if (arrayLikes.all { it != currentUserID }) {
+                icon.setImageResource(R.drawable.like)
+            } else {
+                icon.setImageResource(R.drawable.dislike)
+
+            }
+        }
+        override fun onCancelled(error: DatabaseError) {
+            Log.w("Likes", "Failed to read value.", error.toException())
+        }
+    })
+}
+
+fun likesHandler(database: FirebaseDatabase,
+                 currentUserID: String?,
+                 pathToLikes : String,
+                 likes : ArrayList<String>,
+                 likeIcon: ImageView
+) {
+    val myRef = database.getReference(pathToLikes)
+    if(likes.all { it != currentUserID }) {
+        likes.add(currentUserID ?: "")
+        myRef.setValue(likes)
+        likeIcon.setImageResource(R.drawable.dislike)
+    }else{
+        likes.remove(currentUserID)
+        myRef.setValue(likes)
+        likeIcon.setImageResource(R.drawable.like)
+    }
+}
+
 fun setImageFromFirestore(context: Context, target: ImageView, location: String) {
     val storeRef: StorageReference?
         = FirebaseStorage.getInstance().getReference(location)
-    GlideApp.with(context).load(storeRef).into(target)
+    GlideApp.with(ApplicationContext.applicationContext()).load(storeRef).into(target)
 }
 
 fun toast(context: Context, message: String) {

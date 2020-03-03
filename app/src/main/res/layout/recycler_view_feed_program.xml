@@ -42,31 +42,19 @@
                 android:text="Nom du programme"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="@+id/imageView2"
-                app:layout_constraintTop_toTopOf="parent" /><![CDATA[
-
-            ””
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="92dp"
-            android:layout_marginTop="12dp"
-            android:text="Description de la séance"/>
-
-            ]]>
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id=
-
-
-                    "@+id/NbLikeProgram"
+                android:id="@+id/showProgramLike"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="3dp"
                 android:text="0"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/btnLikeProgram" />
+                app:layout_constraintEnd_toStartOf="@+id/showProgramLikeIcon" />
 
             <ImageView
-                android:id="@+id/btnLikeProgram"
+                android:id="@+id/showProgramLikeIcon"
                 android:layout_width="19dp"
                 android:layout_height="19dp"
                 app:layout_constraintBottom_toBottomOf="parent"
