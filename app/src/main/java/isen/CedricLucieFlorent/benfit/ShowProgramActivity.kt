@@ -94,13 +94,10 @@ class ShowProgramActivity : MenuActivity() {
     }
 
     private fun sessionClicked(session : ShowSessionProgram) {
-
-        // quand la vue session sera créée "ShowSessionActivity" il faudra juste tout décommenter ci dessous
-
-        // val intent = Intent(context, ShowSessionActivity::class.java)
-        // val id : String = session.sessionID
-        // intent.putExtra("session", id)
-        // context.startActivity(intent)
+         val intent = Intent(context, ShowSessionActivity::class.java)
+         val id : String = session.sessionID
+         intent.putExtra("session", id)
+         context.startActivity(intent)
     }
 
     fun showSessionsFromProgram(database : FirebaseDatabase, prog_sessions: ArrayList<String>) {

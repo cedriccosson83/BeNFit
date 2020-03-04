@@ -50,6 +50,7 @@
         <activity android:name=".FullScreenImageView" />
         <activity android:name=".StreamToUri" />
         <activity android:name=".ProgramFeedActivity" />
+        <activity android:name=".ShowSessionActivity" />
     </application>
 
 </manifest>
