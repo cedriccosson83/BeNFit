@@ -1,22 +1,18 @@
 package isen.CedricLucieFlorent.benfit.Adapters
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ValueEventListener
 import isen.CedricLucieFlorent.benfit.Models.ProgramFeed
 import isen.CedricLucieFlorent.benfit.R
 import kotlinx.android.synthetic.main.recycler_view_feed_program.view.*
 
-class ProgramFeedAdapter (val programs: ArrayList<ProgramFeed>,
-                          val clickListenersubscribe: (ProgramFeed) -> Unit,
-                          val clickListenerlike: (ProgramFeed) -> Unit)
+class ProgramFeedAdapter (private val programs: ArrayList<ProgramFeed>,
+                          private val clickListenersubscribe: (ProgramFeed) -> Unit,
+                          private val clickListenerlike: (ProgramFeed) -> Unit)
     : RecyclerView.Adapter<ProgramFeedAdapter.ProgramViewHolder>(){
 
     lateinit var auth: FirebaseAuth
