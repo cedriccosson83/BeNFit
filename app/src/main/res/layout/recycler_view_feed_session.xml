@@ -21,7 +21,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/cardViewPost"
             android:layout_width="match_parent"
-            android:layout_height="98dp"
+            android:layout_height="wrap_content"
             android:orientation="vertical"
             android:padding="8dp">
 
@@ -84,11 +84,13 @@
                 android:id="@+id/authorSessionFeed"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="94dp"
+                android:layout_marginStart="96dp"
                 android:text="TextView"
                 android:textSize="8sp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="@+id/imageView" />
+                app:layout_constraintStart_toStartOf="@+id/imageView"
+                app:layout_constraintTop_toBottomOf="@+id/descriptionSessionTextView"
+                app:layout_constraintVertical_bias="1.0" />
 
             <ImageView
                 android:id="@+id/levelSessionFeed"
