@@ -51,7 +51,7 @@ class SessionActivity : MenuActivity(){
                 saveSession(database, idUser,inputNameSession.text.toString(),inputDescSession.text.toString(),spinnerLevelSession.selectedItem.toString(), editTextNumberSerie.text.toString().toInt() )
                 Toast.makeText(this,"Séance sauvegardée!", Toast.LENGTH_SHORT).show()
 
-                val intent = Intent(this,SessionActivity::class.java)
+                val intent = Intent(this,SessionFeedActivity::class.java)
                 finish();
 
                 startActivity(intent)
