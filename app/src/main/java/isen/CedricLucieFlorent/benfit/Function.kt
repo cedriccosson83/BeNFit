@@ -72,9 +72,6 @@ fun showExos(database : FirebaseDatabase, view: RecyclerView, context: Context, 
 
 }
 
-
-
-
 fun showRepExosSession(database: FirebaseDatabase, idExoSession: String, textView: TextView){
     val myRef = database.getReference("temporary_exos_session")
     myRef.addValueEventListener(object : ValueEventListener {
@@ -92,6 +89,7 @@ fun showRepExosSession(database: FirebaseDatabase, idExoSession: String, textVie
         }
     })
 }
+
 fun showExosSession(database : FirebaseDatabase, view: RecyclerView, userId :String, context: Context) {
 
     val myRef = database.getReference("temporary_exos_session")
@@ -162,7 +160,13 @@ fun saveProgram(database : FirebaseDatabase, userId :String,nameProgram:String, 
             for(value in dataSnapshot.children ) {
 
                 var exosSession : ArrayList<SessionExercice> = ArrayList()
-                var session : Session = Session(value.child("sessionID").value.toString(),value.child("userID").value.toString(),value.child("nameSession").value.toString(),value.child("descSession").value.toString(),value.child("levelSession").value.toString(),exosSession,value.child("nbrRound").value.toString().toInt())
+                var session : Session = Session(
+                    value.child("sessionID").value.toString(),
+                    value.child("userID").value.toString(),
+                    value.child("nameSession").value.toString(),
+                    value.child("descSession").value.toString(),
+                    value.child("levelSession").value.toString(),
+                    exosSession,value.child("nbrRound").value.toString().toInt())
                 if(session.userID== userId){
                     sessions.add(session)
                 }
@@ -205,7 +209,6 @@ fun showExo(database: FirebaseDatabase, exoId : String, textView: TextView) {
         }
     })
 }
-
 
 fun deleteExosSession(database : FirebaseDatabase, userId :String) {
 
@@ -268,7 +271,6 @@ fun deleteExoSessionTemp(database : FirebaseDatabase, userID :String) {
     })
 }
 
-
 fun deleteSessionProgram(database : FirebaseDatabase, sessionTempId :String) {
 
     val myRef = database.getReference("temporary_session_program")
@@ -307,9 +309,6 @@ fun deleteSessionsTempProgram(database : FirebaseDatabase, idUser :String) {
     })
 }
 
-
-
-
 private fun exoChooseSessionClicked(context:Context, exoItem : Exercice, database : FirebaseDatabase, userId :String) {
     Log.d("exo", userId)
 
@@ -317,8 +316,6 @@ private fun exoChooseSessionClicked(context:Context, exoItem : Exercice, databas
     val intent = Intent(context, SessionActivity::class.java)
     context.startActivity(intent)
 }
-
-
 
 private fun deleteExoSessionClicked(firebase : FirebaseDatabase, exoItem : SessionExercice) {
     deleteExoSession(firebase, exoItem.exoSessionID)
@@ -333,8 +330,6 @@ private fun exoSessionClicked(context:Context,exoItem : SessionExercice) {
     context.startActivity(intent)
     Log.d("session", exoItem.exoID)
 }
-
-
 
 fun showSessions(database: FirebaseDatabase, view: RecyclerView, context: Context, idUser: String){
 
@@ -382,7 +377,6 @@ fun showSessionsProgram(database: FirebaseDatabase,view: RecyclerView, context: 
         }
     })
 }
-
 
 fun addTemporarySessionProgram(database : FirebaseDatabase, idUser:String, session : Session) : Int{
     val database = FirebaseDatabase.getInstance()
