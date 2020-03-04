@@ -15,7 +15,6 @@ import isen.CedricLucieFlorent.benfit.Adapters.ProgramFeedAdapter
 import isen.CedricLucieFlorent.benfit.Models.ProgramFeed
 import kotlinx.android.synthetic.main.activity_program_feed.*
 import kotlinx.android.synthetic.main.recycler_view_feed_program.*
-import kotlinx.android.synthetic.main.recycler_view_feed_program.view.*
 
 class ProgramFeedActivity : MenuActivity() {
     val follow = ArrayList<String>()
@@ -69,20 +68,6 @@ class ProgramFeedActivity : MenuActivity() {
             }
     }
 
-
-    private fun programLiked(programItem : ProgramFeed, currentUserID: String) {
-        val myRef = database.getReference("programs")
-
-        val likes = programItem.likes
-        if(likes.all { it != currentUserID }) {
-            likes.add(currentUserID)
-            myRef.child(programItem.programID).child("likes").setValue(likes)
-        }else{
-            likes.remove(currentUserID)
-            myRef.child(programItem.programID).child("likes").setValue(likes)
-        }
-    }
-
     private fun redirectToProgram(programItem : ProgramFeed){
         val intent = Intent(context, ShowProgramActivity::class.java)
         val id : String = programItem.programID
@@ -116,7 +101,6 @@ class ProgramFeedActivity : MenuActivity() {
                 programs.reverse()
                 recycler_view_list_prog_feed.adapter = ProgramFeedAdapter(programs,
                 { programsItem : ProgramFeed -> subscribeClicked(programsItem, userId) },
-                { programItem : ProgramFeed -> programLiked(programItem, userId) },
                 { programItem : ProgramFeed -> redirectToProgram(programItem) })
             }
             override fun onCancelled(error: DatabaseError) {

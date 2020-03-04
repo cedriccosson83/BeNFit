@@ -168,7 +168,6 @@ fun showUserNameImage(userId : String, textview: TextView,  imgView : ImageView)
 }
 
 fun convertLevelToImg(level: String, image: ImageView) {
-    Log.d("LEVEL", level)
     when (level) {
         "Expert" -> image.setImageResource(R.drawable.level_3)
         "Intermédiaire" -> image.setImageResource(R.drawable.level_2)

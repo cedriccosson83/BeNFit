@@ -10,15 +10,17 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import isen.CedricLucieFlorent.benfit.*
 import isen.CedricLucieFlorent.benfit.Models.Post
 import isen.CedricLucieFlorent.benfit.Models.Session
 import isen.CedricLucieFlorent.benfit.Models.SessionFeed
-import isen.CedricLucieFlorent.benfit.R
-import isen.CedricLucieFlorent.benfit.showUserNameSessionFeed
+import kotlinx.android.synthetic.main.recycler_view_feed_session.*
 import kotlinx.android.synthetic.main.recycler_view_feed_session.view.*
 import kotlinx.android.synthetic.main.recycler_view_post_cell.view.*
 
-class SessionFeedAdapter (val sessions: ArrayList<SessionFeed>, val clickListenernotif: (SessionFeed) -> Unit, val clickListenerlike: (SessionFeed) -> Unit): RecyclerView.Adapter<SessionFeedAdapter.SessionViewHolder>(){
+class SessionFeedAdapter (val sessions: ArrayList<SessionFeed>, val clickListenernotif: (SessionFeed) -> Unit): RecyclerView.Adapter<SessionFeedAdapter.SessionViewHolder>(){
+
+    lateinit var auth: FirebaseAuth
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SessionFeedAdapter.SessionViewHolder {
         val view = LayoutInflater.from(parent.context)
@@ -28,7 +30,7 @@ class SessionFeedAdapter (val sessions: ArrayList<SessionFeed>, val clickListene
 
     override fun onBindViewHolder(holder: SessionFeedAdapter.SessionViewHolder, position: Int) {
         val session = sessions[position]
-        holder.bind(session,clickListenernotif, clickListenerlike)
+        holder.bind(session,clickListenernotif)
     }
 
     override fun getItemCount(): Int {
@@ -36,37 +38,20 @@ class SessionFeedAdapter (val sessions: ArrayList<SessionFeed>, val clickListene
     }
 
     class SessionViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
-        lateinit var auth: FirebaseAuth
+
         val database = FirebaseDatabase.getInstance()
+        val auth = FirebaseAuth.getInstance()
 
-        fun countLikes(session: SessionFeed) {
-            var array: ArrayList<String> = session.likes
-
-            var count: Int = array.size
-            view.nbLikeTextView.text = "${count}"
-
-        }
-
-        fun showLike(session: SessionFeed) {
-            auth = FirebaseAuth.getInstance()
-            val currentUserID = auth.currentUser?.uid
-            val likes = session.likes
-            if (likes.all { it != currentUserID }) {
-                view.btnLikeFeedSession.setImageResource(R.drawable.like)
-            } else {
-                view.btnLikeFeedSession.setImageResource(R.drawable.dislike)
-
-            }
-        }
-        fun bind(session: SessionFeed, clickListenernotif: (SessionFeed) -> Unit, clickListenerlike: (SessionFeed) -> Unit) {
+        fun bind(session: SessionFeed, clickListenernotif: (SessionFeed) -> Unit) {
             view.sessionNameTextView.text = session.nameSessionFeed
             view.descriptionSessionTextView.text = session.descrSessionFeed
             view.btnNotifFeedSession.setOnClickListener { clickListenernotif(session) }
-            view.btnLikeFeedSession.setOnClickListener { clickListenerlike(session) }
+            view.btnLikeFeedSession.setOnClickListener {
+                likesHandler(database,auth.currentUser?.uid, "sessions/${session.sessionID}/likes",session.likes, view.btnLikeFeedSession)
+            }
             showUserNameSessionFeed(session.userID, view.authorSessionFeed)
-            view.levelSessionFeed.text = "Niveau " + session.levelSession
-            showLike(session)
-            countLikes(session)
+            convertLevelToImg(session.levelSession, view.levelSessionFeed)
+            showLikes(database, auth.currentUser?.uid, "sessions/${session.sessionID}/likes",view.nbLikeTextView, view.btnLikeFeedSession)
         }
     }
 

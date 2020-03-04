@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
@@ -19,12 +18,10 @@ import isen.CedricLucieFlorent.benfit.showDate
 import isen.CedricLucieFlorent.benfit.*
 import kotlinx.android.synthetic.main.recycler_view_post_cell.view.*
 import kotlin.collections.ArrayList
-import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.content.ContextCompat.startActivity
 
 
-class PostAdapter(val posts: ArrayList<Post>, val clickListener: (Post) -> Unit, val clickListenerPost: (Post) -> Unit, val clickListenerLike: (Post) -> Unit): RecyclerView.Adapter<PostAdapter.PostViewHolder>(){
-
+class PostAdapter(val posts: ArrayList<Post>, val clickListener: (Post) -> Unit, val clickListenerPost: (Post) -> Unit): RecyclerView.Adapter<PostAdapter.PostViewHolder>(){
+    lateinit var auth: FirebaseAuth
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostAdapter.PostViewHolder {
         val view = LayoutInflater.from(parent.context)
@@ -38,19 +35,12 @@ class PostAdapter(val posts: ArrayList<Post>, val clickListener: (Post) -> Unit,
 
     override fun onBindViewHolder(holder: PostAdapter.PostViewHolder, position: Int) {
         val post = posts[position]
-        holder.bind(post,clickListener, clickListenerPost, clickListenerLike)
+        holder.bind(post,clickListener, clickListenerPost)
     }
 
     class PostViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
-        lateinit var auth: FirebaseAuth
+        val auth = FirebaseAuth.getInstance()
         val database = FirebaseDatabase.getInstance()
-
-        fun countLikes(post: Post) {
-            var array: ArrayList<String> = post.likes
-            var count: Int = array.size
-            view.textViewLikeNumberPost.text="${count}"
-            Log.d("like", array.toString())
-        }
 
         fun countComments(postId: String) {
 
@@ -75,29 +65,17 @@ class PostAdapter(val posts: ArrayList<Post>, val clickListener: (Post) -> Unit,
 
         }
 
-        fun showLike(post: Post){
-            auth = FirebaseAuth.getInstance()
-            val currentUserID = auth.currentUser?.uid
-            val likes = post.likes
-            Log.d("like", likes.toString())
-            if(likes.all { it != currentUserID }) {
-                //likes.add(currentUserID ?: "")
-                view.btnLikePost.setImageResource(R.drawable.like)
-            }else{
-                //likes.remove(currentUserID)
-                view.btnLikePost.setImageResource(R.drawable.dislike)
 
-            }
-        }
-
-        fun bind(post: Post, clickListener: (Post) -> Unit, clickListenerPost: (Post) -> Unit, clickListenerLike: (Post) -> Unit){
+        fun bind(post: Post, clickListener: (Post) -> Unit, clickListenerPost: (Post) -> Unit){
             //view.textViewName.text = "${post.userid}"
             view.textViewContent.text = "${post.content}"
             showDate(post.date, view.textViewDate)
             view.textViewName.setOnClickListener { clickListener(post) }
             view.imageViewUserPost.setOnClickListener { clickListener(post) }
             view.btnCommentExo.setOnClickListener {clickListenerPost(post) }
-            view.btnLikePost.setOnClickListener { clickListenerLike(post) }
+            view.btnLikePost.setOnClickListener {
+                likesHandler(database, auth.currentUser?.uid, "posts/${post.postid}/likes",post.likes, view.btnLikePost)
+            }
             val imgView = view.imageViewUserPost
             showUserNameImage(post.userid, view.textViewName, imgView)
 
@@ -116,9 +94,9 @@ class PostAdapter(val posts: ArrayList<Post>, val clickListener: (Post) -> Unit,
                     ApplicationContext.applicationContext().startActivity(fullScreenIntent)
                 }
             }
-            showLike(post)
+            showLikes(database, auth.currentUser?.uid, "posts/${post.postid}/likes",view.textViewLikeNumberPost, view.btnLikePost)
             countComments(post.postid)
-            countLikes(post)
+
         }
     }
 

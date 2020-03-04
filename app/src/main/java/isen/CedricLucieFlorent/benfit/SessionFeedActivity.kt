@@ -14,7 +14,6 @@ import com.google.firebase.database.ValueEventListener
 import isen.CedricLucieFlorent.benfit.Adapters.SessionFeedAdapter
 import isen.CedricLucieFlorent.benfit.Models.SessionFeed
 import kotlinx.android.synthetic.main.activity_session_feed.*
-import kotlinx.android.synthetic.main.recycler_view_post_cell.*
 
 class SessionFeedActivity : MenuActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,27 +35,11 @@ class SessionFeedActivity : MenuActivity() {
         startActivity(intent)
     }
 
-    private fun sessionLiked(sessionItem : SessionFeed) {
-        auth = FirebaseAuth.getInstance()
-        val currentUserID = auth.currentUser?.uid
-
-        val sessRef = database.getReference("sessions")
-
-        val likes = sessionItem.likes
-        Log.d("LIKEES", likes.toString())
-        if(likes.all { it != currentUserID }) {
-            likes.add(currentUserID ?: "")
-            sessRef.child(sessionItem.sessionID).child("likes").setValue(likes)
-        }else{
-            likes.remove(currentUserID)
-            sessRef.child(sessionItem.sessionID).child("likes").setValue(likes)
-        }
-
-    }
-
     fun showSessionsFeed(database : FirebaseDatabase, view : RecyclerView, context: Context, userId: String) {
 
         val myRef = database.getReference("sessions")
+        auth = FirebaseAuth.getInstance()
+        val currentUserID = auth.currentUser?.uid
 
         myRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
@@ -80,7 +63,7 @@ class SessionFeedActivity : MenuActivity() {
                     sessions.add(sessionFeed)
                 }
                 sessions.reverse()
-                recycler_view_session_feed.adapter = SessionFeedAdapter(sessions,{ sessionsItem : SessionFeed -> notifClicked(sessionsItem) },{ sessionItem : SessionFeed -> sessionLiked(sessionItem) })
+                recycler_view_session_feed.adapter = SessionFeedAdapter(sessions,{ sessionsItem : SessionFeed -> notifClicked(sessionsItem)})
             }
             override fun onCancelled(error: DatabaseError) {
                 Log.w("session", "Failed to read value.", error.toException())

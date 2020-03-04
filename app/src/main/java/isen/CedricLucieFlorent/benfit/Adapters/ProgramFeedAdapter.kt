@@ -8,11 +8,12 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import isen.CedricLucieFlorent.benfit.Models.ProgramFeed
 import isen.CedricLucieFlorent.benfit.R
+import isen.CedricLucieFlorent.benfit.likesHandler
+import isen.CedricLucieFlorent.benfit.showLikes
 import kotlinx.android.synthetic.main.recycler_view_feed_program.view.*
 
 class ProgramFeedAdapter (val programs: ArrayList<ProgramFeed>,
                           val clickListenersubscribe: (ProgramFeed) -> Unit,
-                          val clickListenerlike: (ProgramFeed) -> Unit,
                           val clickListenerProgram: (ProgramFeed) -> Unit
 ): RecyclerView.Adapter<ProgramFeedAdapter.ProgramViewHolder>(){
 
@@ -28,7 +29,7 @@ class ProgramFeedAdapter (val programs: ArrayList<ProgramFeed>,
 
     override fun onBindViewHolder(holder: ProgramViewHolder, position: Int) {
         val program = programs[position]
-        holder.bind(program,clickListenersubscribe, clickListenerlike, clickListenerProgram)
+        holder.bind(program,clickListenersubscribe, clickListenerProgram)
     }
 
     override fun getItemCount(): Int {
@@ -41,33 +42,17 @@ class ProgramFeedAdapter (val programs: ArrayList<ProgramFeed>,
         val currentUserID = auth.currentUser?.uid
         val database = FirebaseDatabase.getInstance()
 
-
-        fun countLikes(program: ProgramFeed) {
-            val array: ArrayList<String> = program.likes
-            val count: Int = array.size
-            view.NbLikeProgram.text = "${count}"
-        }
-
-        fun showLike(program: ProgramFeed) {
-            val likes = program.likes
-            if (likes.all { it != currentUserID }) {
-                view.btnLikeProgram.setImageResource(R.drawable.like)
-            } else {
-                view.btnLikeProgram.setImageResource(R.drawable.dislike)
-            }
-        }
-
         fun bind(program: ProgramFeed, clickListenersubscribe: (ProgramFeed) -> Unit,
-                 clickListenerlike: (ProgramFeed) -> Unit,
                  clickListenerProgram: (ProgramFeed) -> Unit) {
             view.nameProgTextView.text = program.nameProgramFeed
             view.descriptionProgTextView.text = program.descrProgramFeed
             view.btnSubscribeProg.setOnClickListener { clickListenersubscribe(program) }
-            view.btnLikeProgram.setOnClickListener { clickListenerlike(program) }
+            view.btnLikeProgram.setOnClickListener {
+                likesHandler(database,auth.currentUser?.uid, "programs/${program.programID}/likes",program.likes, view.btnLikeProgram)
+            }
             view.nameProgTextView.setOnClickListener { clickListenerProgram(program) }
             view.descriptionProgTextView.setOnClickListener { clickListenerProgram(program) }
-            showLike(program)
-            countLikes(program)
+            showLikes(database, currentUserID, "programs/${program.programID}/likes",view.NbLikeProgram, view.btnLikeProgram)
         }
     }
 
