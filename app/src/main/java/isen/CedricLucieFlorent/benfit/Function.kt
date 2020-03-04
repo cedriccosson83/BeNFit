@@ -16,6 +16,8 @@ import isen.CedricLucieFlorent.benfit.Models.*
 
 
 fun addNewExo(database : FirebaseDatabase, nameExo: String, idUser: String, descExo: String, urlYtb: String, levelExo: String, sportExo: String) : String{
+    Log.d("function", "addNewExo")
+
     val database = FirebaseDatabase.getInstance()
     val dbExos = database.getReference("exos")
     val newId = dbExos.push().key
@@ -29,6 +31,8 @@ fun addNewExo(database : FirebaseDatabase, nameExo: String, idUser: String, desc
 }
 
 fun addTemporaryExoSession(database : FirebaseDatabase, idUser:String, exo : Exercice) : Int{
+    Log.d("function", "addTemporaryExoSession")
+
     val database = FirebaseDatabase.getInstance()
     val dbExos = database.getReference("temporary_exos_session")
     val newId = dbExos.push().key
@@ -50,14 +54,13 @@ fun updateRepExoSession(database: FirebaseDatabase, idExoSession: String, rep: S
 
 //This function get the posts on the database and show them on the feed
 fun showExos(database : FirebaseDatabase, view: RecyclerView, context: Context, userId: String) {
+    Log.d("function", "showExos")
 
     val myRef = database.getReference("exos")
     myRef.addValueEventListener(object : ValueEventListener {
         override fun onDataChange(dataSnapshot: DataSnapshot){
             val exos : ArrayList<Exercice> = ArrayList<Exercice>()
             for(value in dataSnapshot.children ) {
-
-
                 var exo : Exercice = Exercice(value.child("id").value.toString(), value.child("name").value.toString(), value.child("idUser").value.toString(), value.child("description").value.toString(),value.child("urlYTB").value.toString(),value.child("difficulty").value.toString(), value.child("sport").value.toString())
                 exos.add(exo)
             }
@@ -76,6 +79,8 @@ fun showExos(database : FirebaseDatabase, view: RecyclerView, context: Context, 
 
 
 fun showRepExosSession(database: FirebaseDatabase, idExoSession: String, textView: TextView){
+    Log.d("function", "showRepExosSession")
+
     val myRef = database.getReference("temporary_exos_session")
     myRef.addValueEventListener(object : ValueEventListener {
         override fun onDataChange(dataSnapshot: DataSnapshot){
@@ -86,21 +91,19 @@ fun showRepExosSession(database: FirebaseDatabase, idExoSession: String, textVie
                 }
             }
         }
-
         override fun onCancelled(error: DatabaseError) {
             Log.w("post", "Failed to read value.", error.toException())
         }
     })
 }
 fun showExosSession(database : FirebaseDatabase, view: RecyclerView, userId :String, context: Context) {
+    Log.d("function", "showExosSession")
 
     val myRef = database.getReference("temporary_exos_session")
     myRef.addValueEventListener(object : ValueEventListener {
         override fun onDataChange(dataSnapshot: DataSnapshot){
             val exos : ArrayList<SessionExercice> = ArrayList<SessionExercice>()
             for(value in dataSnapshot.children ) {
-
-
                 var exo : SessionExercice = SessionExercice(value.child("exoSessionID").value.toString(),value.child("userID").value.toString(), value.child("exoID").value.toString())
                 if(exo.userID== userId){
                     exos.add(exo)
@@ -118,12 +121,12 @@ fun showExosSession(database : FirebaseDatabase, view: RecyclerView, userId :Str
 }
 
 fun saveSession(database : FirebaseDatabase, userId :String,nameSession:String, descSession: String, levelSession:String, nbrRound: Int) {
-
+    Log.d("function", "saveSession")
     val myRef = database.getReference("temporary_exos_session")
     val dbSession = database.getReference("sessions")
 
     val newId = dbSession.push().key
-    myRef.addValueEventListener(object : ValueEventListener {
+    myRef.addListenerForSingleValueEvent(object : ValueEventListener {
         override fun onDataChange(dataSnapshot: DataSnapshot){
             val exos : ArrayList<SessionExercice> = ArrayList<SessionExercice>()
             for(value in dataSnapshot.children ) {
@@ -133,6 +136,7 @@ fun saveSession(database : FirebaseDatabase, userId :String,nameSession:String, 
                 if(exo.userID== userId){
                     exos.add(exo)
                 }
+                Log.d("Exo", exo.toString())
 
             }
 
@@ -151,12 +155,13 @@ fun saveSession(database : FirebaseDatabase, userId :String,nameSession:String, 
 }
 
 fun saveProgram(database : FirebaseDatabase, userId :String,nameProgram:String, descProgram: String, levelProgram:String) {
+    Log.d("function", "saveProgram")
 
     val myRef = database.getReference("temporary_session_program")
     val dbProgram = database.getReference("programs")
 
     val newId = dbProgram.push().key
-    myRef.addValueEventListener(object : ValueEventListener {
+    myRef.addListenerForSingleValueEvent(object : ValueEventListener {
         override fun onDataChange(dataSnapshot: DataSnapshot){
             val sessions : ArrayList<Session> = ArrayList<Session>()
             for(value in dataSnapshot.children ) {
@@ -184,6 +189,7 @@ fun saveProgram(database : FirebaseDatabase, userId :String,nameProgram:String, 
 }
 
 fun showExo(database: FirebaseDatabase, exoId : String, textView: TextView) {
+    Log.d("function", "showExo")
 
     val myRef = database.getReference("exos")
     myRef.addValueEventListener(object : ValueEventListener {
@@ -208,6 +214,7 @@ fun showExo(database: FirebaseDatabase, exoId : String, textView: TextView) {
 
 
 fun deleteExosSession(database : FirebaseDatabase, userId :String) {
+    Log.d("function", "deleteExosSession")
 
     val myRef = database.getReference("temporary_exos_session")
     myRef.addValueEventListener(object : ValueEventListener {
@@ -230,7 +237,7 @@ fun deleteExosSession(database : FirebaseDatabase, userId :String) {
 }
 
 fun deleteExoSession(database : FirebaseDatabase, exoSessionId :String) {
-
+    Log.d("function", "deleteExoSession")
     val myRef = database.getReference("temporary_exos_session")
     myRef.addValueEventListener(object : ValueEventListener {
         override fun onDataChange(dataSnapshot: DataSnapshot){
@@ -250,9 +257,10 @@ fun deleteExoSession(database : FirebaseDatabase, exoSessionId :String) {
 }
 
 fun deleteExoSessionTemp(database : FirebaseDatabase, userID :String) {
+    Log.d("delete", "suppressionexo")
 
     val myRef = database.getReference("temporary_exos_session")
-    myRef.addValueEventListener(object : ValueEventListener {
+    myRef.addListenerForSingleValueEvent(object : ValueEventListener {
         override fun onDataChange(dataSnapshot: DataSnapshot){
             for(value in dataSnapshot.children ) {
 
@@ -270,6 +278,7 @@ fun deleteExoSessionTemp(database : FirebaseDatabase, userID :String) {
 
 
 fun deleteSessionProgram(database : FirebaseDatabase, sessionTempId :String) {
+    Log.d("delete", "suppressionprog")
 
     val myRef = database.getReference("temporary_session_program")
     myRef.addValueEventListener(object : ValueEventListener {
@@ -289,9 +298,9 @@ fun deleteSessionProgram(database : FirebaseDatabase, sessionTempId :String) {
 }
 
 fun deleteSessionsTempProgram(database : FirebaseDatabase, idUser :String) {
-
+    Log.d("delete", "suppression")
     val myRef = database.getReference("temporary_session_program")
-    myRef.addValueEventListener(object : ValueEventListener {
+    myRef.addListenerForSingleValueEvent(object : ValueEventListener {
         override fun onDataChange(dataSnapshot: DataSnapshot){
             for(value in dataSnapshot.children ) {
 
@@ -337,6 +346,7 @@ private fun exoSessionClicked(context:Context,exoItem : SessionExercice) {
 
 
 fun showSessions(database: FirebaseDatabase, view: RecyclerView, context: Context, idUser: String){
+    Log.d("function", "showSessions")
 
     val myRef = database.getReference("sessions")
     myRef.addValueEventListener(object : ValueEventListener{
@@ -385,9 +395,12 @@ fun showSessionsProgram(database: FirebaseDatabase,view: RecyclerView, context: 
 
 
 fun addTemporarySessionProgram(database : FirebaseDatabase, idUser:String, session : Session) : Int{
+    Log.d("function", "addTemporarySessionProgram")
     val database = FirebaseDatabase.getInstance()
     val dbSession = database.getReference("temporary_session_program")
     val newId = dbSession.push().key
+    Log.d("idSession",newId)
+
     Log.d("id",session.userID)
     if(newId == null){
         Log.d("ERROR", "Couldn't get push key for exos")
@@ -401,9 +414,10 @@ fun addTemporarySessionProgram(database : FirebaseDatabase, idUser:String, sessi
 
 private fun sessionChooseProgramClicked(context:Context, sessionItem : Session, idUser: String, database : FirebaseDatabase) {
 
-    addTemporarySessionProgram(database, idUser, sessionItem)
+    Log.d("function", "sessionChooseProgramClicked")
     val intent = Intent(context, ProgramActivity::class.java)
     context.startActivity(intent)
+    addTemporarySessionProgram(database, idUser, sessionItem)
 }
 
 private fun sessionProgramClicked(context:Context, sessionItem : SessionProgram, database : FirebaseDatabase) {
