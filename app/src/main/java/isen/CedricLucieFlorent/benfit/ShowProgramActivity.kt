@@ -1,16 +1,16 @@
 package isen.CedricLucieFlorent.benfit
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.widget.ImageView
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
-import isen.CedricLucieFlorent.benfit.Models.Post
-import kotlinx.android.synthetic.main.activity_post.*
+import isen.CedricLucieFlorent.benfit.Adapters.ShowSessionsAdapter
+import isen.CedricLucieFlorent.benfit.Models.SessionFeed
 import kotlinx.android.synthetic.main.activity_show_program.*
 
 class ShowProgramActivity : MenuActivity() {
@@ -19,6 +19,9 @@ class ShowProgramActivity : MenuActivity() {
         super.onCreate(savedInstanceState)
         layoutInflater.inflate(R.layout.activity_show_program, frameLayout)
         auth = FirebaseAuth.getInstance()
+
+        showProgramRecyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+
 
         val intent = intent
         if (intent != null) {
@@ -42,7 +45,7 @@ class ShowProgramActivity : MenuActivity() {
                     }
 
                     val arraySession :ArrayList<String> = ArrayList()
-                    for (childSession in value.child("sessions").children){
+                    for (childSession in value.child("sessionsProgram").children){
                         val sessionId : String = childSession.value.toString()
                         arraySession.add(sessionId)
                     }
@@ -72,6 +75,9 @@ class ShowProgramActivity : MenuActivity() {
                         showProgramAuthor.setOnClickListener {
                             redirectToUserActivity(this@ShowProgramActivity, program.userID)
                         }
+
+                        showSessionsFromProgram(database, program.sessionsProgram)
+
                         break
                     }
 
@@ -84,4 +90,46 @@ class ShowProgramActivity : MenuActivity() {
             }
         })
     }
+
+    private fun sessionClicked(session : SessionFeed) {
+
+        // quand la vue session sera créée "ShowSessionActivity" il faudra juste tout décommenter ci dessous
+
+        // val intent = Intent(context, ShowSessionActivity::class.java)
+        // val id : String = session.sessionID
+        // intent.putExtra("session", id)
+        // context.startActivity(intent)
+    }
+
+    fun showSessionsFromProgram(database : FirebaseDatabase, prog_sessions: ArrayList<String>) {
+
+        val myRef = database.getReference("sessions")
+
+        myRef.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                val sessionsIn: ArrayList<SessionFeed> = ArrayList()
+                for (value in dataSnapshot.children) {
+                    val sessId = value.child("sessionID").value.toString()
+                    if (prog_sessions.indexOf(sessId) != -1) {
+                        val sess = SessionFeed(
+                            value.child("sessionID").value.toString(),
+                            value.child("nameSessionFeed").value.toString(),
+                            value.child("descrSessionFeed").value.toString(),
+                            value.child("userID").value.toString()
+                        )
+                        sessionsIn.add(sess)
+                    }
+
+                }
+                sessionsIn.reverse()
+
+                showProgramRecyclerView.adapter = ShowSessionsAdapter(sessionsIn,
+                    { session : SessionFeed -> sessionClicked(session) })
+            }
+            override fun onCancelled(error: DatabaseError) {
+                Log.w("session", "Failed to read value.", error.toException())
+            }
+        })
+    }
+
 }

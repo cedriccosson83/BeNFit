@@ -24,7 +24,6 @@ class ProgramActivity : MenuActivity() {
             showSessionsProgram(database,recyclerViewSessionProgram,this,id)
         }
 
-
         recyclerViewSessionProgram.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
 
         btnSaveProgram.setOnClickListener {
