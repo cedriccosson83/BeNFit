@@ -4,6 +4,8 @@ class SessionFeed {
         var sessionID: String = ""
         var nameSessionFeed :String = ""
         var descrSessionFeed: String = ""
+        var nameSession :String = ""
+        var descrSession: String = ""
         var userID :String =""
         var nbrRound :String =""
         var levelSession :String =""
@@ -29,13 +31,13 @@ class SessionFeed {
 
         constructor(
                 sessionID: String = "",
-                nameSessionFeed :String = "",
-                descrSessionFeed: String = "",
+                nameSession :String = "",
+                descrSession: String = "",
                 userID :String =""
         ) {
                 this.sessionID = sessionID
-                this.nameSessionFeed = nameSessionFeed
-                this.descrSessionFeed = descrSessionFeed
+                this.nameSession = nameSession
+                this.descrSession = descrSession
                 this.userID = userID
         }
 }

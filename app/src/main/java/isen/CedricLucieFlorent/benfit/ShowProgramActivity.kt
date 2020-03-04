@@ -11,6 +11,7 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import isen.CedricLucieFlorent.benfit.Adapters.ShowSessionsAdapter
 import isen.CedricLucieFlorent.benfit.Models.SessionFeed
+import isen.CedricLucieFlorent.benfit.Models.ShowSessionProgram
 import kotlinx.android.synthetic.main.activity_show_program.*
 
 class ShowProgramActivity : MenuActivity() {
@@ -46,7 +47,8 @@ class ShowProgramActivity : MenuActivity() {
 
                     val arraySession :ArrayList<String> = ArrayList()
                     for (childSession in value.child("sessionsProgram").children){
-                        val sessionId : String = childSession.value.toString()
+                        val sessionId : String = childSession.child("sessionID").value.toString()
+                        Log.d("SESSIONID", sessionId)
                         arraySession.add(sessionId)
                     }
 
@@ -91,7 +93,7 @@ class ShowProgramActivity : MenuActivity() {
         })
     }
 
-    private fun sessionClicked(session : SessionFeed) {
+    private fun sessionClicked(session : ShowSessionProgram) {
 
         // quand la vue session sera créée "ShowSessionActivity" il faudra juste tout décommenter ci dessous
 
@@ -107,14 +109,13 @@ class ShowProgramActivity : MenuActivity() {
 
         myRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
-                val sessionsIn: ArrayList<SessionFeed> = ArrayList()
+                val sessionsIn: ArrayList<ShowSessionProgram> = ArrayList()
                 for (value in dataSnapshot.children) {
                     val sessId = value.child("sessionID").value.toString()
                     if (prog_sessions.indexOf(sessId) != -1) {
-                        val sess = SessionFeed(
+                        val sess = ShowSessionProgram(
                             value.child("sessionID").value.toString(),
-                            value.child("nameSessionFeed").value.toString(),
-                            value.child("descrSessionFeed").value.toString(),
+                            value.child("nameSession").value.toString(),
                             value.child("userID").value.toString()
                         )
                         sessionsIn.add(sess)
@@ -124,7 +125,7 @@ class ShowProgramActivity : MenuActivity() {
                 sessionsIn.reverse()
 
                 showProgramRecyclerView.adapter = ShowSessionsAdapter(sessionsIn,
-                    { session : SessionFeed -> sessionClicked(session) })
+                    { session : ShowSessionProgram -> sessionClicked(session) })
             }
             override fun onCancelled(error: DatabaseError) {
                 Log.w("session", "Failed to read value.", error.toException())

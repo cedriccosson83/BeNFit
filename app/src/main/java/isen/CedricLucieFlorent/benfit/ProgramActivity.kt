@@ -31,9 +31,10 @@ class ProgramActivity : MenuActivity() {
                 saveProgram(database, id,inputNameProgram.text.toString(),inputDescProgram.text.toString(),spinnerLevelProgram.selectedItem.toString() )
                 Toast.makeText(this,"Programme sauvegardé!", Toast.LENGTH_SHORT).show()
                 deleteSessionsTempProgram(database,id)
-                val intent = Intent(this,ProgramActivity::class.java)
+                val intent = Intent(this,ProgramFeedActivity::class.java)
                 startActivity(intent)
-                overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
+                finish()
+                //overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right)
             }
         }
     }
