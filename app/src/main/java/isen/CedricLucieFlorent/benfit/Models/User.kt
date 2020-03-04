@@ -16,7 +16,7 @@ class User {
     var weight: String? = ""
     var sports: ArrayList<Sport> = ArrayList()
     var temporrary_sports: String? = ""
-    var currentPrograms: ArrayList<UserCurrentProgram> = ArrayList()
+    var currentPrograms: ArrayList<String> = ArrayList()
     var history: ArrayList<UserHistory> = ArrayList()
     var pictureUID: String? = ""
 
@@ -32,7 +32,7 @@ class User {
         grade: String?,
         weight: String?,
         sports: ArrayList<Sport>,
-        currentPrograms: ArrayList<UserCurrentProgram>,
+        currentPrograms: ArrayList<String>,
         history: ArrayList<UserHistory>
     ) {
         this.userid = userid

@@ -47,7 +47,7 @@ class FeedActivity : MenuActivity() {
                     posts.add(post)
                 }
                 posts.reverse()
-                recyclerViewFeed.adapter = PostAdapter(posts,  { postItem : Post -> userClicked(postItem) }, { postItem : Post -> postClicked(postItem) },{ post : Post -> postLiked(post) } )
+                recyclerViewFeed.adapter = PostAdapter(posts,  { postItem : Post -> userClicked(postItem) }, { postItem : Post -> postClicked(postItem) })
                 Log.d("post", posts.toString())
             }
 

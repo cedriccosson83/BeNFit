@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:layout_editor_absoluteX="1dp"
+    tools:layout_editor_absoluteY="84dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="500dp"
+    tools:context=".ShowProgramActivity">
+
+        <TextView
+            android:id="@+id/showProgramAuthor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="@string/author"
+            app:layout_constraintBottom_toTopOf="@+id/showProgramDesc"
+            app:layout_constraintEnd_toEndOf="@+id/showProgramName"
+            app:layout_constraintStart_toStartOf="@+id/showProgramName"
+            app:layout_constraintTop_toBottomOf="@+id/showProgramName" />
+
+        <ImageView
+            android:id="@+id/showProgramLevelIcon"
+            android:layout_width="47dp"
+            android:layout_height="38dp"
+            android:layout_marginStart="16dp"
+            android:contentDescription="@string/img"
+            app:layout_constraintEnd_toStartOf="@+id/showProgramName"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/showProgramName"
+            app:srcCompat="@drawable/level_3" />
+
+        <TextView
+            android:id="@+id/showProgramName"
+            android:layout_width="259dp"
+            android:layout_height="33dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="8dp"
+            android:gravity="center"
+            android:text="@string/program_name"
+            android:textColor="#000000"
+            android:textSize="24sp"
+            app:autoSizeMinTextSize="12sp"
+            app:layout_constraintBottom_toTopOf="@+id/showProgramAuthor"
+            app:layout_constraintEnd_toStartOf="@+id/showProgramLike"
+            app:layout_constraintStart_toEndOf="@+id/showProgramLevelIcon"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/showProgramLike"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="3dp"
+            android:text="@string/_0"
+            app:layout_constraintBottom_toBottomOf="@+id/showProgramLikeIcon"
+            app:layout_constraintEnd_toStartOf="@+id/showProgramLikeIcon"
+            app:layout_constraintTop_toTopOf="@+id/showProgramLikeIcon" />
+
+        <ImageView
+            android:id="@+id/showProgramLikeIcon"
+            android:layout_width="19dp"
+            android:layout_height="19dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:contentDescription="@string/img"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/showProgramName"
+            app:srcCompat="@drawable/dislike" />
+
+        <TextView
+            android:id="@+id/showProgramDesc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="30dp"
+            android:text="@string/prog_descr"
+            app:layout_constraintBottom_toTopOf="@+id/showProgramRecyclerView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/showProgramAuthor" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/showProgramRecyclerView"
+            android:layout_width="296dp"
+            android:layout_height="507dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="44dp"
+            android:layout_marginEnd="24dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/showProgramDesc" />
+
+        <TextView
+            android:id="@+id/showProgramLevelText"
+            android:layout_width="wrap_content"
+            android:layout_height="22dp"
+            android:layout_marginTop="2dp"
+            android:text="@string/level"
+            android:textSize="12sp"
+            app:autoSizeMaxTextSize="13sp"
+            app:autoSizeMinTextSize="10sp"
+            app:layout_constraintEnd_toEndOf="@+id/showProgramLevelIcon"
+            app:layout_constraintStart_toStartOf="@+id/showProgramLevelIcon"
+            app:layout_constraintTop_toBottomOf="@+id/showProgramLevelIcon" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

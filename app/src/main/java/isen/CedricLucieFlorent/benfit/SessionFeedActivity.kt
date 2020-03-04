@@ -14,7 +14,6 @@ import com.google.firebase.database.ValueEventListener
 import isen.CedricLucieFlorent.benfit.Adapters.SessionFeedAdapter
 import isen.CedricLucieFlorent.benfit.Models.SessionFeed
 import kotlinx.android.synthetic.main.activity_session_feed.*
-import kotlinx.android.synthetic.main.recycler_view_post_cell.*
 
 class SessionFeedActivity : MenuActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,26 +35,11 @@ class SessionFeedActivity : MenuActivity() {
         startActivity(intent)
     }
 
-    private fun sessionLiked(sessionItem : SessionFeed) {
-        auth = FirebaseAuth.getInstance()
-        val currentUserID = auth.currentUser?.uid
-
-        val myRef = database.getReference("sessions")
-
-        val likes = sessionItem.likes
-        if(likes.all { it != currentUserID }) {
-            likes.add(currentUserID ?: "")
-            myRef.child(sessionItem.sessionID).child("likes").setValue(likes)
-        }else{
-            likes.remove(currentUserID)
-            myRef.child(sessionItem.sessionID).child("likes").setValue(likes)
-        }
-
-    }
-
     fun showSessionsFeed(database : FirebaseDatabase, view : RecyclerView, context: Context, userId: String) {
 
         val myRef = database.getReference("sessions")
+        auth = FirebaseAuth.getInstance()
+        val currentUserID = auth.currentUser?.uid
 
         myRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
@@ -64,7 +48,7 @@ class SessionFeedActivity : MenuActivity() {
                     val arrayLikes :ArrayList<String> = ArrayList()
                     for (childLike in value.child("likes").children){
                         val likesUserId : String = childLike.value.toString()
-                        arrayLikes.add(userId)
+                        arrayLikes.add(likesUserId)
                     }
 
                     val sessionFeed = SessionFeed(
@@ -76,15 +60,10 @@ class SessionFeedActivity : MenuActivity() {
                             value.child("levelSession").value.toString(),
                             arrayLikes
                     )
-
-                    if (userId == sessionFeed.userID) {
-                        sessions.add(sessionFeed)
-                        Log.d("like", "${sessions}")
-
-                    }
+                    sessions.add(sessionFeed)
                 }
                 sessions.reverse()
-                recycler_view_session_feed.adapter = SessionFeedAdapter(sessions,{ sessionsItem : SessionFeed -> notifClicked(sessionsItem) },{ sessionItem : SessionFeed -> sessionLiked(sessionItem) })
+                recycler_view_session_feed.adapter = SessionFeedAdapter(sessions,{ sessionsItem : SessionFeed -> notifClicked(sessionsItem)})
             }
             override fun onCancelled(error: DatabaseError) {
                 Log.w("session", "Failed to read value.", error.toException())

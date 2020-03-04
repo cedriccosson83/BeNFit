@@ -5,9 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.database.FirebaseDatabase
-import isen.CedricLucieFlorent.benfit.Models.Exercice
 import isen.CedricLucieFlorent.benfit.Models.SessionExercice
-import kotlinx.android.synthetic.main.recycler_view_exo_cell.view.*
 import kotlinx.android.synthetic.main.recycler_view_exo_session.view.*
 
 

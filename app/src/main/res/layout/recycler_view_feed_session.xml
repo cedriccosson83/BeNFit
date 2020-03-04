@@ -90,15 +90,13 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/imageView" />
 
-            <TextView
+            <ImageView
                 android:id="@+id/levelSessionFeed"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="36dp"
-                android:text="TextView"
-                android:textSize="8sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/authorSessionFeed" />
+                android:layout_width="18dp"
+                android:layout_height="16dp"
+                app:layout_constraintStart_toEndOf="@+id/sessionNameTextView"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/level_1" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
