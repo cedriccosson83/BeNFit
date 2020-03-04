@@ -45,24 +45,20 @@ class ProgramFeedActivity : MenuActivity() {
         if (currentUserID != null) {
             showProgramFeed(database, recycler_view_list_prog_feed, this, currentUserID)
         }
-
         recycler_view_list_prog_feed.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
 
     }
+
+
     private fun subscribeClicked(programItem : ProgramFeed, currentUserID : String) {
         val myRef = database.getReference("users").child(currentUserID)
         var idProg = programItem.programID
-        Log.d("Follow", follow.toString() + "clicklistener")
         if(follow.all { it != idProg}) {
-                Log.d("Follow", follow.toString() + "if")
                 follow.add(idProg)
-            Log.d("Follow", follow.toString() + "ifapres")
             myRef.child("currentPrograms").setValue(follow)
                 btnSubscribeProg.setImageResource(R.drawable.remove)
             }else{
-                Log.d("follow", follow.toString() +"else")
                 follow.remove(idProg)
-            Log.d("Follow", follow.toString() + "elseapres")
             myRef.child("currentPrograms").setValue(follow)
                 btnSubscribeProg.setImageResource(R.drawable.add)
             }

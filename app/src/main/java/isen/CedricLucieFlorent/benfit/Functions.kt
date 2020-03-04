@@ -25,6 +25,7 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
+import isen.CedricLucieFlorent.benfit.Models.ProgramFeed
 import isen.CedricLucieFlorent.benfit.Models.User
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.recycler_view_comment_cell.view.*
@@ -173,6 +174,28 @@ fun convertLevelToImg(level: String, image: ImageView) {
         "Intermédiaire" -> image.setImageResource(R.drawable.level_2)
         else -> image.setImageResource(R.drawable.level_1)
     }
+}
+
+fun showFollowers(database: FirebaseDatabase, currentUserID: String?, programID : String, pathToFollowers : String, icon : ImageView){
+    val myRef = database.getReference(pathToFollowers)
+
+    myRef.addValueEventListener(object : ValueEventListener {
+        override fun onDataChange(dataSnapshot: DataSnapshot) {
+            val arrayFollowers :ArrayList<String> = ArrayList()
+            for (value in dataSnapshot.children) {
+                arrayFollowers.add(value.value.toString())
+            }
+            if (arrayFollowers.all { it != programID }) {
+                icon.setImageResource(R.drawable.add)
+            } else {
+                icon.setImageResource(R.drawable.remove)
+
+            }
+        }
+        override fun onCancelled(error: DatabaseError) {
+            Log.w("Likes", "Failed to read value.", error.toException())
+        }
+    })
 }
 
 fun showLikes(database: FirebaseDatabase, currentUserID: String?, pathToLikes : String, textTarget : TextView, icon: ImageView) {

@@ -24,9 +24,9 @@ class SessionActivity : MenuActivity(){
         layoutInflater.inflate(R.layout.activity_session, frameLayout)
         Log.d("state", "oncreate")
         auth = FirebaseAuth.getInstance()
-        val id = auth.currentUser?.uid
-        if (id != null) {
-            showExosSession(database, recyclerViewExoSession, id,this)
+        val idUser = auth.currentUser?.uid
+        if (idUser != null) {
+            showExosSession(database, recyclerViewExoSession, idUser,this)
         }
         recyclerViewExoSession.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         createSpinnerLevel()
@@ -47,12 +47,15 @@ class SessionActivity : MenuActivity(){
         }
 
         btnSaveSession.setOnClickListener {
-            if (id != null) {
-                saveSession(database, id,inputNameSession.text.toString(),inputDescSession.text.toString(),spinnerLevelSession.selectedItem.toString(), editTextNumberSerie.text.toString().toInt() )
+            if (idUser != null) {
+                saveSession(database, idUser,inputNameSession.text.toString(),inputDescSession.text.toString(),spinnerLevelSession.selectedItem.toString(), editTextNumberSerie.text.toString().toInt() )
                 Toast.makeText(this,"Séance sauvegardée!", Toast.LENGTH_SHORT).show()
-                deleteExoSessionTemp(database, id)
+
                 val intent = Intent(this,SessionActivity::class.java)
+                finish();
+
                 startActivity(intent)
+                deleteExoSessionTemp(database, idUser)
                 overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
             }
         }
@@ -72,12 +75,8 @@ class SessionActivity : MenuActivity(){
 
     override fun onDestroy() {
         super.onDestroy()
-        Log.d("state", "ondestroy")
-       /* auth = FirebaseAuth.getInstance()
-        val id = auth.currentUser?.uid
-        if (id != null) {
-            deleteExoSession(database, id)
-        }*/
+        Log.d("destroy", "ondestroy")
+
 
     }
 

@@ -47,12 +47,14 @@ class ProgramActivity : MenuActivity() {
                 when (item.itemId){
                     R.id.menu_create_session -> {
                         val intent = Intent(this,SessionActivity::class.java)
+                        finish()
                         startActivity(intent)
                         overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
                         true
                     }
                     R.id.menu_choose_session -> {
                         val intent = Intent(this,ListSessionActivity::class.java)
+                        finish()
                         startActivity(intent)
                         overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
                         true
