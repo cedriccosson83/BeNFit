@@ -8,4 +8,5 @@ data class Session (
         var levelSession: String = "",
         var exosSession : ArrayList<SessionExercice> = ArrayList(),
         var nbrRound : Int = 0
-){}
+){
+}
