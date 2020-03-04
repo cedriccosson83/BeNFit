@@ -9,6 +9,7 @@ import com.google.firebase.database.FirebaseDatabase
 import isen.CedricLucieFlorent.benfit.Models.ProgramFeed
 import isen.CedricLucieFlorent.benfit.R
 import isen.CedricLucieFlorent.benfit.likesHandler
+import isen.CedricLucieFlorent.benfit.showFollowers
 import isen.CedricLucieFlorent.benfit.showLikes
 import kotlinx.android.synthetic.main.recycler_view_feed_program.view.*
 
@@ -53,6 +54,7 @@ class ProgramFeedAdapter (val programs: ArrayList<ProgramFeed>,
             view.nameProgTextView.setOnClickListener { clickListenerProgram(program) }
             view.descriptionProgTextView.setOnClickListener { clickListenerProgram(program) }
             showLikes(database, currentUserID, "programs/${program.programID}/likes",view.NbLikeProgram, view.btnLikeProgram)
+            showFollowers(database, currentUserID,program.programID,"users/${currentUserID}/currentPrograms", view.btnSubscribeProg)
         }
     }
 
