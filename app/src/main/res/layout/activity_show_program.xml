@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginTop="@dimen/top_button_size_marge"
     tools:layout_editor_absoluteX="1dp"
     tools:layout_editor_absoluteY="84dp">
 
@@ -39,7 +40,7 @@
             android:layout_width="259dp"
             android:layout_height="33dp"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="5dp"
             android:layout_marginEnd="8dp"
             android:gravity="center"
             android:text="@string/program_name"

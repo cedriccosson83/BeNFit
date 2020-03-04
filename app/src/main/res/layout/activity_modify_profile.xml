@@ -4,7 +4,8 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+    android:layout_marginTop="@dimen/top_button_size_marge">
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -45,7 +46,7 @@
             android:id="@+id/changeProfilImageModify"
             android:layout_width="137dp"
             android:layout_height="133dp"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="5dp"
             android:layout_marginBottom="17dp"
             app:layout_constraintBottom_toTopOf="@+id/lastNameTextViewModify"
             app:layout_constraintEnd_toEndOf="parent"

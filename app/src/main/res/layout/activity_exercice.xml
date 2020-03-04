@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimary"
+    android:layout_marginTop="@dimen/top_button_size_marge"
     tools:context=".ExerciceActivity">
 
 
@@ -24,6 +24,7 @@
         <!-- Card contents. -->
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:background="@color/colorPrimary"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 

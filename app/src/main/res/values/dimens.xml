@@ -24,4 +24,5 @@
     <dimen name="fab_margin" tools:keep="@dimen/fab_margin">20dp</dimen>
     <dimen name="btn_size" tools:keep="@dimen/btn_size">20dp</dimen>
     <dimen name="design_navigation_icon_size" tools:override="true">20sp</dimen>
+    <dimen name="top_button_size_marge">45dp</dimen>
 </resources>
