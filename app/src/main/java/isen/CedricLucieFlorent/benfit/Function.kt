@@ -121,7 +121,7 @@ fun saveSession(database : FirebaseDatabase, userId :String,nameSession:String, 
     val dbSession = database.getReference("sessions")
 
     val newId = dbSession.push().key
-    myRef.addValueEventListener(object : ValueEventListener {
+    myRef.addListenerForSingleValueEvent(object : ValueEventListener {
         override fun onDataChange(dataSnapshot: DataSnapshot){
             val exos : ArrayList<SessionExercice> = ArrayList<SessionExercice>()
             for(value in dataSnapshot.children ) {
@@ -154,7 +154,7 @@ fun saveProgram(database : FirebaseDatabase, userId :String,nameProgram:String, 
     val dbProgram = database.getReference("programs")
 
     val newId = dbProgram.push().key
-    myRef.addValueEventListener(object : ValueEventListener {
+    myRef.addListenerForSingleValueEvent(object : ValueEventListener {
         override fun onDataChange(dataSnapshot: DataSnapshot){
             val sessions : ArrayList<Session> = ArrayList<Session>()
             for(value in dataSnapshot.children ) {
@@ -167,13 +167,13 @@ fun saveProgram(database : FirebaseDatabase, userId :String,nameProgram:String, 
                     value.child("descSession").value.toString(),
                     value.child("levelSession").value.toString(),
                     exosSession,value.child("nbrRound").value.toString().toInt())
-                if(session.userID== userId){
+                if(session.userID == userId){
                     sessions.add(session)
                 }
 
             }
 
-            var program : Program = Program(newId,userId,nameProgram,descProgram,levelProgram,sessions)
+            var program = Program(newId,userId,nameProgram,descProgram,levelProgram,sessions)
             if (newId != null) {
                 dbProgram.child(newId).setValue(program)
             }
