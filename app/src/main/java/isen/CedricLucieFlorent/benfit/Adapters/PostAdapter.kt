@@ -1,5 +1,6 @@
 package isen.CedricLucieFlorent.benfit.Adapters
 
+import android.content.Intent
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -19,6 +20,7 @@ import isen.CedricLucieFlorent.benfit.*
 import kotlinx.android.synthetic.main.recycler_view_post_cell.view.*
 import kotlin.collections.ArrayList
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.ContextCompat.startActivity
 
 
 class PostAdapter(val posts: ArrayList<Post>, val clickListener: (Post) -> Unit, val clickListenerPost: (Post) -> Unit, val clickListenerLike: (Post) -> Unit): RecyclerView.Adapter<PostAdapter.PostViewHolder>(){
@@ -102,18 +104,17 @@ class PostAdapter(val posts: ArrayList<Post>, val clickListener: (Post) -> Unit,
             if(post.postImgUID != "null"){
                 val layout = view.layoutImgPost
                 val postImView = ImageView(ApplicationContext.applicationContext())
-                //var lp = postImView.layoutParams as ConstraintLayout.LayoutParams
-                //lp.height = 400
-                //image_view.getLayoutParams().height = 20;
-
-                /*postImView.layoutParams = ConstraintLayout.LayoutParams(
-                    ConstraintLayout.LayoutParams.MATCH_CONSTRAINT,
-                    ConstraintLayout.LayoutParams.WRAP_CONTENT
-                )*/
                 setImageFromFirestore(ApplicationContext.applicationContext(),postImView, "posts/${post.postid}/${post.postImgUID}")
 
                 layout.addView(postImView)
                 postImView.layoutParams.height = 400
+
+                postImView.setOnClickListener {
+                    val fullScreenIntent = Intent(ApplicationContext.applicationContext(), FullScreenImageView::class.java)
+                    fullScreenIntent.putExtra("url", "posts/${post.postid}/${post.postImgUID}")
+                    fullScreenIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                    ApplicationContext.applicationContext().startActivity(fullScreenIntent)
+                }
             }
             showLike(post)
             countComments(post.postid)

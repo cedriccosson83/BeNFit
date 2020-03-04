@@ -40,15 +40,16 @@ class SessionFeedActivity : MenuActivity() {
         auth = FirebaseAuth.getInstance()
         val currentUserID = auth.currentUser?.uid
 
-        val myRef = database.getReference("sessions")
+        val sessRef = database.getReference("sessions")
 
         val likes = sessionItem.likes
+        Log.d("LIKEES", likes.toString())
         if(likes.all { it != currentUserID }) {
             likes.add(currentUserID ?: "")
-            myRef.child(sessionItem.sessionID).child("likes").setValue(likes)
+            sessRef.child(sessionItem.sessionID).child("likes").setValue(likes)
         }else{
             likes.remove(currentUserID)
-            myRef.child(sessionItem.sessionID).child("likes").setValue(likes)
+            sessRef.child(sessionItem.sessionID).child("likes").setValue(likes)
         }
 
     }
@@ -64,7 +65,7 @@ class SessionFeedActivity : MenuActivity() {
                     val arrayLikes :ArrayList<String> = ArrayList()
                     for (childLike in value.child("likes").children){
                         val likesUserId : String = childLike.value.toString()
-                        arrayLikes.add(userId)
+                        arrayLikes.add(likesUserId)
                     }
 
                     val sessionFeed = SessionFeed(

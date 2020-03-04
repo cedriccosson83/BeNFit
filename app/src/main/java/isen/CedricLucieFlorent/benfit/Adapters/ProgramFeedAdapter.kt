@@ -10,10 +10,11 @@ import isen.CedricLucieFlorent.benfit.Models.ProgramFeed
 import isen.CedricLucieFlorent.benfit.R
 import kotlinx.android.synthetic.main.recycler_view_feed_program.view.*
 
-class ProgramFeedAdapter (private val programs: ArrayList<ProgramFeed>,
-                          private val clickListenersubscribe: (ProgramFeed) -> Unit,
-                          private val clickListenerlike: (ProgramFeed) -> Unit)
-    : RecyclerView.Adapter<ProgramFeedAdapter.ProgramViewHolder>(){
+class ProgramFeedAdapter (val programs: ArrayList<ProgramFeed>,
+                          val clickListenersubscribe: (ProgramFeed) -> Unit,
+                          val clickListenerlike: (ProgramFeed) -> Unit,
+                          val clickListenerProgram: (ProgramFeed) -> Unit
+): RecyclerView.Adapter<ProgramFeedAdapter.ProgramViewHolder>(){
 
     lateinit var auth: FirebaseAuth
     val database = FirebaseDatabase.getInstance()
@@ -27,7 +28,7 @@ class ProgramFeedAdapter (private val programs: ArrayList<ProgramFeed>,
 
     override fun onBindViewHolder(holder: ProgramViewHolder, position: Int) {
         val program = programs[position]
-        holder.bind(program,clickListenersubscribe, clickListenerlike)
+        holder.bind(program,clickListenersubscribe, clickListenerlike, clickListenerProgram)
     }
 
     override fun getItemCount(): Int {
@@ -42,8 +43,8 @@ class ProgramFeedAdapter (private val programs: ArrayList<ProgramFeed>,
 
 
         fun countLikes(program: ProgramFeed) {
-            var array: ArrayList<String> = program.likes
-            var count: Int = array.size
+            val array: ArrayList<String> = program.likes
+            val count: Int = array.size
             view.NbLikeProgram.text = "${count}"
         }
 
@@ -56,11 +57,15 @@ class ProgramFeedAdapter (private val programs: ArrayList<ProgramFeed>,
             }
         }
 
-        fun bind(program: ProgramFeed, clickListenersubscribe: (ProgramFeed) -> Unit, clickListenerlike: (ProgramFeed) -> Unit) {
+        fun bind(program: ProgramFeed, clickListenersubscribe: (ProgramFeed) -> Unit,
+                 clickListenerlike: (ProgramFeed) -> Unit,
+                 clickListenerProgram: (ProgramFeed) -> Unit) {
             view.nameProgTextView.text = program.nameProgramFeed
             view.descriptionProgTextView.text = program.descrProgramFeed
             view.btnSubscribeProg.setOnClickListener { clickListenersubscribe(program) }
             view.btnLikeProgram.setOnClickListener { clickListenerlike(program) }
+            view.nameProgTextView.setOnClickListener { clickListenerProgram(program) }
+            view.descriptionProgTextView.setOnClickListener { clickListenerProgram(program) }
             showLike(program)
             countLikes(program)
         }

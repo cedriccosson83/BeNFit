@@ -1,6 +1,7 @@
 package isen.CedricLucieFlorent.benfit
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -58,13 +59,13 @@ class ProgramFeedActivity : MenuActivity() {
                 follow.add(idProg)
             Log.d("Follow", follow.toString() + "ifapres")
             myRef.child("currentPrograms").setValue(follow)
-                //btnSubscribeProg.setImageResource(R.drawable.remove)
+                btnSubscribeProg.setImageResource(R.drawable.remove)
             }else{
                 Log.d("follow", follow.toString() +"else")
                 follow.remove(idProg)
             Log.d("Follow", follow.toString() + "elseapres")
             myRef.child("currentPrograms").setValue(follow)
-                //btnSubscribeProg.setImageResource(R.drawable.add)
+                btnSubscribeProg.setImageResource(R.drawable.add)
             }
     }
 
@@ -80,7 +81,13 @@ class ProgramFeedActivity : MenuActivity() {
             likes.remove(currentUserID)
             myRef.child(programItem.programID).child("likes").setValue(likes)
         }
+    }
 
+    private fun redirectToProgram(programItem : ProgramFeed){
+        val intent = Intent(context, ShowProgramActivity::class.java)
+        val id : String = programItem.programID
+        intent.putExtra("program", id)
+        context.startActivity(intent)
     }
 
     fun showProgramFeed(database : FirebaseDatabase, view : RecyclerView, context: Context, userId: String) {
@@ -107,11 +114,10 @@ class ProgramFeedActivity : MenuActivity() {
                     programs.add(programFeed)
                 }
                 programs.reverse()
-                recycler_view_list_prog_feed.adapter =
-                    ProgramFeedAdapter(
-                        programs,
-                        { programItem : ProgramFeed -> subscribeClicked(programItem, userId) },
-                        { programItem : ProgramFeed -> programLiked(programItem, userId) })
+                recycler_view_list_prog_feed.adapter = ProgramFeedAdapter(programs,
+                { programsItem : ProgramFeed -> subscribeClicked(programsItem, userId) },
+                { programItem : ProgramFeed -> programLiked(programItem, userId) },
+                { programItem : ProgramFeed -> redirectToProgram(programItem) })
             }
             override fun onCancelled(error: DatabaseError) {
                 Log.w("session", "Failed to read value.", error.toException())

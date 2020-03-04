@@ -4,19 +4,18 @@ import android.app.Notification
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
+import android.content.ContentResolver
 import android.content.Context
 import android.content.Intent
 import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.media.Image
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.ImageView
-import android.widget.RemoteViews
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.core.content.ContextCompat.getSystemService
 import androidx.core.content.ContextCompat.startActivity
 import com.google.firebase.auth.FirebaseAuth
@@ -88,10 +87,8 @@ fun creernotif(context: Context?, notificationManager:NotificationManager){
 
 fun redirectToUserActivity(context: Context, userID : String){
     val intent = Intent(context, ProfileActivity::class.java)
-    val id : String = userID
-    intent.putExtra("user", id)
+    intent.putExtra("userId", userID)
     context.startActivity(intent)
-    Toast.makeText(context, "Clicked: ${id}", Toast.LENGTH_LONG).show()
 }
 
 fun showUserName(userId : String, textview: TextView) {
@@ -115,6 +112,14 @@ fun showUserName(userId : String, textview: TextView) {
             Log.w("post", "Failed to read value.", error.toException())
         }
     })
+}
+
+fun getDrawableToURI( context : Context,  drawableId : Int) : Uri {
+    val imageUri = Uri.parse(ContentResolver.SCHEME_ANDROID_RESOURCE +
+            "://" + context.getResources().getResourcePackageName(drawableId)
+            + '/' + context.getResources().getResourceTypeName(drawableId)
+            + '/' + context.getResources().getResourceEntryName(drawableId) )
+    return imageUri
 }
 
 fun showUserNameSessionFeed(userId: String, textview : TextView){
@@ -160,6 +165,57 @@ fun showUserNameImage(userId : String, textview: TextView,  imgView : ImageView)
             Log.w("post", "Failed to read value.", error.toException())
         }
     })
+}
+
+fun convertLevelToImg(level: String, image: ImageView) {
+    Log.d("LEVEL", level)
+    when (level) {
+        "Expert" -> image.setImageResource(R.drawable.level_3)
+        "Intermédiaire" -> image.setImageResource(R.drawable.level_2)
+        else -> image.setImageResource(R.drawable.level_1)
+    }
+}
+
+fun showLikes(database: FirebaseDatabase, currentUserID: String?, pathToLikes : String, textTarget : TextView, icon: ImageView) {
+
+    val myRef = database.getReference(pathToLikes)
+    myRef.addValueEventListener(object : ValueEventListener {
+        override fun onDataChange(dataSnapshot: DataSnapshot) {
+            val arrayLikes :ArrayList<String> = ArrayList()
+            for (value in dataSnapshot.children) {
+                arrayLikes.add(value.value.toString())
+            }
+            textTarget.text = arrayLikes.size.toString()
+
+            if (arrayLikes.all { it != currentUserID }) {
+                icon.setImageResource(R.drawable.like)
+            } else {
+                icon.setImageResource(R.drawable.dislike)
+
+            }
+        }
+        override fun onCancelled(error: DatabaseError) {
+            Log.w("Likes", "Failed to read value.", error.toException())
+        }
+    })
+}
+
+fun likesHandler(database: FirebaseDatabase,
+                 currentUserID: String?,
+                 pathToLikes : String,
+                 likes : ArrayList<String>,
+                 likeIcon: ImageView
+) {
+    val myRef = database.getReference(pathToLikes)
+    if(likes.all { it != currentUserID }) {
+        likes.add(currentUserID ?: "")
+        myRef.setValue(likes)
+        likeIcon.setImageResource(R.drawable.dislike)
+    }else{
+        likes.remove(currentUserID)
+        myRef.setValue(likes)
+        likeIcon.setImageResource(R.drawable.like)
+    }
 }
 
 fun setImageFromFirestore(context: Context, target: ImageView, location: String) {
