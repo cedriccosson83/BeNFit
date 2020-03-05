@@ -87,20 +87,13 @@ class ShowSessionActivity : MenuActivity() {
         })
     }
 
-    private fun exerciceClicked(session : ShowExerciceSession) {
-
-        // Lancer la popup
-
-        // val intent = Intent(context, ShowSessionActivity::class.java)
-        // val id : String = session.sessionID
-        // intent.putExtra("session", id)
-        // context.startActivity(intent)
+    private fun exerciceClicked(exoID : String) {
+        showPopUpExercice(database,context,exoID)
     }
 
     fun showExercicesFromSession(database : FirebaseDatabase, sess_exercices: ArrayList<String>) {
 
         val myRef = database.getReference("exos")
-        Log.d("SESS_EXO", sess_exercices.toString())
 
         myRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
@@ -121,7 +114,7 @@ class ShowSessionActivity : MenuActivity() {
                 exercicesIn.reverse()
 
                 showSessionRecyclerView.adapter = ShowExercicesAdapter(exercicesIn,
-                    { exo : ShowExerciceSession -> exerciceClicked(exo) })
+                    { exo : ShowExerciceSession -> exerciceClicked(exo.id) })
             }
             override fun onCancelled(error: DatabaseError) {
                 Log.w("session", "Failed to read value.", error.toException())

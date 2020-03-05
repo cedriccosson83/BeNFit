@@ -1,36 +1,30 @@
 package isen.CedricLucieFlorent.benfit
 
-import android.app.Notification
-import android.app.NotificationChannel
-import android.app.NotificationManager
-import android.app.PendingIntent
+import android.annotation.SuppressLint
+import android.app.*
 import android.content.ContentResolver
 import android.content.Context
 import android.content.Intent
 import android.graphics.BitmapFactory
 import android.graphics.Color
-import android.media.Image
 import android.net.Uri
 import android.os.Build
-import android.os.Bundle
+import android.text.Layout
+import android.text.TextUtils.replace
 import android.util.Log
 import android.view.View
+import android.view.Window
+import android.webkit.WebChromeClient
+import android.webkit.WebView
 import android.widget.*
-import androidx.core.content.ContextCompat.getSystemService
-import androidx.core.content.ContextCompat.startActivity
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
-import isen.CedricLucieFlorent.benfit.Models.ProgramFeed
-import isen.CedricLucieFlorent.benfit.Models.User
-import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.recycler_view_comment_cell.view.*
-import kotlinx.android.synthetic.main.recycler_view_post_cell.view.*
-import java.io.File
+import isen.CedricLucieFlorent.benfit.Models.ShowExerciceSession
+import kotlinx.android.synthetic.main.popup_show_exo.*
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -117,9 +111,9 @@ fun showUserName(userId : String, textview: TextView) {
 
 fun getDrawableToURI( context : Context,  drawableId : Int) : Uri {
     val imageUri = Uri.parse(ContentResolver.SCHEME_ANDROID_RESOURCE +
-            "://" + context.getResources().getResourcePackageName(drawableId)
-            + '/' + context.getResources().getResourceTypeName(drawableId)
-            + '/' + context.getResources().getResourceEntryName(drawableId) )
+            "://" + context.resources.getResourcePackageName(drawableId)
+            + '/' + context.resources.getResourceTypeName(drawableId)
+            + '/' + context.resources.getResourceEntryName(drawableId) )
     return imageUri
 }
 
@@ -248,4 +242,60 @@ fun setImageFromFirestore(context: Context, target: ImageView, location: String)
 
 fun toast(context: Context, message: String) {
     Toast.makeText(context, message, Toast.LENGTH_LONG).show()
+}
+
+fun showPopUpExercice(database: FirebaseDatabase, context : Context, exoID: String) {
+    val dialog = Dialog(context)
+    dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+    dialog.setContentView(R.layout.popup_show_exo)
+    dialog.setTitle("titre")
+
+    val dbRef = database.getReference("exos/$exoID")
+
+    dbRef.addValueEventListener(object : ValueEventListener {
+        @SuppressLint("SetJavaScriptEnabled")
+        override fun onDataChange(dataSnapshot: DataSnapshot) {
+            val exercice = dataSnapshot.getValue(ShowExerciceSession::class.java)
+            if (exercice != null) {
+                showUserName(exercice.idUser,dialog.findViewById(R.id.showExoAuthor))
+                convertLevelToImg(exercice.difficulty,dialog.findViewById(R.id.showExoLevelIcon))
+                dialog.findViewById<TextView>(R.id.showExoName).text = exercice.name
+                dialog.findViewById<TextView>(R.id.showExoDesc).text = exercice.description
+                dialog.findViewById<TextView>(R.id.showExoLevelText).text = exercice.difficulty
+
+                // SI POPUP OUVERTE DEPUIS UNE SEANCE REMPLIR LES CHAMPS CI DESSOUS AVEC LES CONSIGNES (ex : 5 KM)
+                dialog.findViewById<TextView>(R.id.showExoRule).text = ""
+                dialog.findViewById<TextView>(R.id.showExoRuleValue).text = ""
+                val videoWeb : WebView = dialog.findViewById(R.id.showExoYTLayout)
+                if (exercice.urlPicture != "") {
+                    val layout = dialog.findViewById<LinearLayout>(R.id.showExoMediaLayout)
+                    val exoImView = ImageView(context)
+                    setImageFromFirestore(context,exoImView, "exercices/${exercice.id}/${exercice.urlPicture}")
+
+                    layout.addView(exoImView)
+                    exoImView.layoutParams.height = 400
+
+                    exoImView.setOnClickListener {
+                        val fullScreenIntent = Intent(ApplicationContext.applicationContext(), FullScreenImageView::class.java)
+                        fullScreenIntent.putExtra("url", "exercices/${exercice.id}/${exercice.urlPicture}")
+                        fullScreenIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                        ApplicationContext.applicationContext().startActivity(fullScreenIntent)
+                    }
+                    videoWeb.visibility = View.INVISIBLE
+                } else if(exercice.urlYTB != "") {
+                    val ytUrl = exercice.urlYTB.replace("watch?v=", "embed/")
+                    val url = "<iframe width=\"100%\" height=\"100%\" src=\"$ytUrl\" frameborder=\"0\" allowfullscreen></iframe>"
+                    videoWeb.settings.javaScriptEnabled = true
+                    videoWeb.loadData(url, "text/html" , "utf-8" )
+                    videoWeb.webChromeClient = WebChromeClient()
+                } else {
+                    videoWeb.visibility = View.INVISIBLE
+                }
+            }
+        }
+        override fun onCancelled(error: DatabaseError) {
+            Log.w("session", "Failed to read value.", error.toException())
+        }
+    })
+    dialog.show()
 }
