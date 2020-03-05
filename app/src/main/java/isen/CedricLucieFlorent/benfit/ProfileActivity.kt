@@ -12,6 +12,7 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import isen.CedricLucieFlorent.benfit.Adapters.MyProgAdapter
 import isen.CedricLucieFlorent.benfit.Adapters.ProgramFollowAdapter
 import isen.CedricLucieFlorent.benfit.Models.*
 import kotlinx.android.synthetic.main.activity_profile.*
@@ -119,10 +120,10 @@ class ProfileActivity : MenuActivity() {
                 for (value in dataSnapshot.children) {
                     if (userId == value.child("userID").value.toString()) {
                         val arrayLikes: ArrayList<String> = ArrayList()
-                        /*for (childLike in value.child("likes").children) {
+                        for (childLike in value.child("likes").children) {
                             val likesUserId: String = childLike.value.toString()
                             arrayLikes.add(likesUserId)
-                        }*/
+                        }
 
                         val programFollow = ProgramFollow(
                                 value.child("programID").value.toString(),
@@ -136,7 +137,7 @@ class ProfileActivity : MenuActivity() {
                     }
                 }
                 programs.reverse()
-                programRecyclerView.adapter = ProgramFollowAdapter(programs)
+                programRecyclerView.adapter = MyProgAdapter(programs)
             }
             override fun onCancelled(error: DatabaseError) {
                 Log.w("session", "Failed to read value.", error.toException())
@@ -159,7 +160,7 @@ class ProfileActivity : MenuActivity() {
                                 arrayLikes.add(likesUserId)
                             }*/
 
-                            val myprogram = ProgramFollow(
+                            val programfollow = ProgramFollow(
                                 value.child("programID").value.toString(),
                                 value.child("nameProgram").value.toString(),
                                 value.child("descProgram").value.toString(),
@@ -167,7 +168,7 @@ class ProfileActivity : MenuActivity() {
                                 arrayLikes,
                                 ArrayList()
                             )
-                        programs.add(myprogram)
+                        programs.add(programfollow)
                         }
                     }
                 }

@@ -198,6 +198,22 @@ fun showFollowers(database: FirebaseDatabase, currentUserID: String?, programID 
     })
 }
 
+fun showNumberLikes(database: FirebaseDatabase, pathToLikes : String, textTarget : TextView){
+    val myRef = database.getReference(pathToLikes)
+    myRef.addValueEventListener(object : ValueEventListener {
+        override fun onDataChange(dataSnapshot: DataSnapshot) {
+            val arrayLikes: ArrayList<String> = ArrayList()
+            for (value in dataSnapshot.children) {
+                arrayLikes.add(value.value.toString())
+            }
+            textTarget.text = arrayLikes.size.toString()
+        }
+        override fun onCancelled(p0: DatabaseError) {
+            Log.d("TAG", "Failed to read value")
+        }
+    })
+}
+
 fun showLikes(database: FirebaseDatabase, currentUserID: String?, pathToLikes : String, textTarget : TextView, icon: ImageView) {
 
     val myRef = database.getReference(pathToLikes)

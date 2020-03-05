@@ -6,12 +6,10 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
+import isen.CedricLucieFlorent.benfit.*
 import isen.CedricLucieFlorent.benfit.Models.ProgramFeed
-import isen.CedricLucieFlorent.benfit.R
-import isen.CedricLucieFlorent.benfit.likesHandler
-import isen.CedricLucieFlorent.benfit.showFollowers
-import isen.CedricLucieFlorent.benfit.showLikes
 import kotlinx.android.synthetic.main.recycler_view_feed_program.view.*
+import kotlinx.android.synthetic.main.recycler_view_feed_session.view.*
 
 class ProgramFeedAdapter (val programs: ArrayList<ProgramFeed>,
                           val clickListenersubscribe: (ProgramFeed) -> Unit,
@@ -53,6 +51,8 @@ class ProgramFeedAdapter (val programs: ArrayList<ProgramFeed>,
             }
             view.nameProgTextView.setOnClickListener { clickListenerProgram(program) }
             view.descriptionProgTextView.setOnClickListener { clickListenerProgram(program) }
+            showUserNameSessionFeed(program.userID, view.authorProgramFeed)
+            convertLevelToImg(program.levelProgram, view.btnLevelProgFeed)
             showLikes(database, currentUserID, "programs/${program.programID}/likes",view.NbLikeProgram, view.btnLikeProgram)
             showFollowers(database, currentUserID,program.programID,"users/${currentUserID}/currentPrograms", view.btnSubscribeProg)
         }

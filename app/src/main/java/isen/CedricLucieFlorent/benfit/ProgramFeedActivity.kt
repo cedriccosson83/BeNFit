@@ -90,6 +90,7 @@ class ProgramFeedActivity : MenuActivity() {
                             value.child("nameProgram").value.toString(),
                             value.child("descProgram").value.toString(),
                             value.child("userID").value.toString(),
+                            value.child("levelProgram").value.toString(),
                             arrayLikes
                     )
                     programs.add(programFeed)

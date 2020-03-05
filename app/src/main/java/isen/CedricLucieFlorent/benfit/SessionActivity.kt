@@ -51,8 +51,8 @@ class SessionActivity : MenuActivity(){
                 saveSession(database, idUser,inputNameSession.text.toString(),inputDescSession.text.toString(),spinnerLevelSession.selectedItem.toString(), editTextNumberSerie.text.toString().toInt() )
                 Toast.makeText(this,"Séance sauvegardée!", Toast.LENGTH_SHORT).show()
 
-                val intent = Intent(this,SessionActivity::class.java)
-                finish();
+                val intent = Intent(this,SessionFeedActivity::class.java)
+                finish()
 
                 startActivity(intent)
                 deleteExoSessionTemp(database, idUser)
@@ -119,15 +119,12 @@ class SessionActivity : MenuActivity(){
     fun createSpinnerLevel(){
         val spinner: Spinner = findViewById(R.id.spinnerLevelSession)
 
-        // Create an ArrayAdapter using the string array and a default spinner layout
         ArrayAdapter.createFromResource(
             this,
             R.array.level_array,
             android.R.layout.simple_spinner_item
         ).also { adapter ->
-            // Specify the layout to use when the list of choices appears
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-            // Apply the adapter to the spinner
             spinner.adapter = adapter
         }
 

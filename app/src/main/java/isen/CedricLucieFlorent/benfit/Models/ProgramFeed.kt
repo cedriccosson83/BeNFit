@@ -5,5 +5,6 @@ data class ProgramFeed (
         var nameProgramFeed :String = "",
         var descrProgramFeed: String = "",
         var userID :String ="",
+        var levelProgram : String="",
         var likes: ArrayList<String> = ArrayList()
 )
