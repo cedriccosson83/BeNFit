@@ -40,6 +40,7 @@
                 android:layout_marginStart="101dp"
                 android:text="Nom du programme"
                 android:textStyle="bold"
+                android:maxWidth="200dp"
                 app:layout_constraintStart_toStartOf="@+id/imageView2"
                 app:layout_constraintTop_toTopOf="parent" />
 

@@ -20,6 +20,7 @@ import android.view.WindowManager
 import android.webkit.WebChromeClient
 import android.webkit.WebView
 import android.widget.*
+import androidx.core.content.ContextCompat.startActivity
 import com.airbnb.lottie.LottieAnimationView
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -412,6 +413,10 @@ fun showPopUpCongratz(userFirstName: String, newScore : Int, context: Context) {
     dialog.findViewById<TextView>(R.id.popUpCongratzName).text = "Félicitation $userFirstName !"
     dialog.findViewById<TextView>(R.id.popUpCongratzScore).text = "Score Sportif : $newScore"
     dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+    dialog.setOnDismissListener {
+        val intent = Intent(context, ProfileActivity::class.java)
+        context.startActivity(intent)
+    }
     dialog.show()
 }
 

@@ -39,6 +39,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
+                android:maxWidth="300dp"
                 android:text="@string/nameSession"
                 android:textSize="18sp"
                 app:layout_constraintBottom_toBottomOf="@+id/imageViewExerciceShowSession"

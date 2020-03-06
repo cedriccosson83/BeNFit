@@ -42,6 +42,7 @@
                 android:text="Nom de la séance"
                 android:textSize="24sp"
                 android:textStyle="bold"
+                android:maxWidth="200dp"
                 app:layout_constraintStart_toEndOf="@+id/imageViewFeedSession"
                 app:layout_constraintTop_toTopOf="parent" />
 
