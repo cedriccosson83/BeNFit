@@ -10,7 +10,7 @@ import isen.CedricLucieFlorent.benfit.Models.ProgramFollow
 import isen.CedricLucieFlorent.benfit.R
 import kotlinx.android.synthetic.main.recycler_view_followed_programs.view.*
 
-class ProgramFollowAdapter (private val programs: ArrayList<ProgramFollow>)
+class ProgramFollowAdapter (private val programs: ArrayList<ProgramFollow>, val clickListenerProgram: (ProgramFollow) -> Unit)
     : RecyclerView.Adapter<ProgramFollowAdapter.ProgramViewHolder>(){
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProgramViewHolder {
@@ -21,7 +21,7 @@ class ProgramFollowAdapter (private val programs: ArrayList<ProgramFollow>)
 
     override fun onBindViewHolder(holder: ProgramViewHolder, position: Int) {
         val program = programs[position]
-        holder.bind(program)
+        holder.bind(program, clickListenerProgram)
     }
 
     override fun getItemCount(): Int {
@@ -32,9 +32,10 @@ class ProgramFollowAdapter (private val programs: ArrayList<ProgramFollow>)
         lateinit var auth: FirebaseAuth
         val database = FirebaseDatabase.getInstance()
 
-        fun bind(program: ProgramFollow) {
+        fun bind(program: ProgramFollow, clickListenerProgram: (ProgramFollow) -> Unit) {
             view.nameProgFollow.text = program.nameProgramFollow
             view.descrProgFollow.text = program.descrProgramFollow
+            view.nameProgFollow.setOnClickListener{clickListenerProgram(program)}
         }
     }
 

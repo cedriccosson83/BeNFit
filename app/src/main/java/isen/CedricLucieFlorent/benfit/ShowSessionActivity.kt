@@ -12,6 +12,7 @@ import com.google.firebase.database.ValueEventListener
 import isen.CedricLucieFlorent.benfit.Adapters.ShowExercicesAdapter
 import isen.CedricLucieFlorent.benfit.Models.ShowExerciceSession
 import kotlinx.android.synthetic.main.activity_show_session.*
+import kotlinx.android.synthetic.main.recycler_view_show_program_sessions.*
 
 class ShowSessionActivity : MenuActivity() {
 
@@ -68,10 +69,10 @@ class ShowSessionActivity : MenuActivity() {
                             likesHandler(database,userId,path,session.likes, showSessionLikeIcon)
                         }
 
+
                         showSessionAuthor.setOnClickListener {
                             redirectToUserActivity(this@ShowSessionActivity, session.userID)
                         }
-
                         showExercicesFromSession(database, session.exosSession)
 
                         break
