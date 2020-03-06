@@ -31,10 +31,6 @@
         <activity android:name=".SignUpActivity" />
         <activity android:name=".ModifyProfile" />
         <activity android:name=".MainActivity" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".HomeActivity" />
         <activity android:name=".SessionFeedActivity" />
@@ -42,6 +38,10 @@
         <activity android:name=".NotifActivity" />
         <activity android:name=".SplashActivity" android:theme="@style/AppTheme">
 
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
 
         </activity>
 

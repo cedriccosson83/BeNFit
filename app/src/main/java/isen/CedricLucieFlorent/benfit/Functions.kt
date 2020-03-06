@@ -8,6 +8,7 @@ import android.content.Intent
 import android.content.res.Resources
 import android.graphics.BitmapFactory
 import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.net.Uri
 import android.os.Build
 import android.util.DisplayMetrics
@@ -19,6 +20,7 @@ import android.view.WindowManager
 import android.webkit.WebChromeClient
 import android.webkit.WebView
 import android.widget.*
+import com.airbnb.lottie.LottieAnimationView
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
@@ -312,21 +314,26 @@ fun checkCompleteProgram(database: FirebaseDatabase,
     val myRef = database
         .getReference("users")
         .child(userId)
-        .child("currentProgram")
+        .child("currentPrograms")
         .child(programId)
 
+    Log.d("CEDRIC_ref", "users/$userId/currentPrograms/$programId")
     val sessionAchieve: ArrayList<String> = ArrayList()
 
     myRef.addListenerForSingleValueEvent(object : ValueEventListener {
         override fun onDataChange(dataSnapshot: DataSnapshot) {
-            var nbSupposedToBeOK = dataSnapshot.childrenCount
+            var nbSupposedToBeOK = 0
             for (value in dataSnapshot.children) {
+                Log.d("CEDRIC_for", "tour")
                 sessionAchieve.add(value.key.toString())
                 if (value.value.toString() == "OK")
-                    nbSupposedToBeOK--
+                    nbSupposedToBeOK++
             }
-            if (nbSupposedToBeOK == 0L) { // 0L to compare a LONG type
-                computeScore(database, sessionAchieve, userId, context)
+            Log.d("CEDRIC_nbSupposedToBeOK", nbSupposedToBeOK.toString())
+            if (nbSupposedToBeOK == sessionAchieve.size) { // 0L to compare a LONG type
+                Log.d("CEDRIC_nbSupposed", "IS OK")
+                computeScore(database, sessionAchieve, userId, context, programId)
+                dataSnapshot.ref.removeValue()
             }
         }
         override fun onCancelled(error: DatabaseError) {
@@ -335,7 +342,7 @@ fun checkCompleteProgram(database: FirebaseDatabase,
     })
 }
 
-fun computeScore(database: FirebaseDatabase, sessionAchieve : ArrayList<String>, userId: String, context: Context) {
+fun computeScore(database: FirebaseDatabase, sessionAchieve : ArrayList<String>, userId: String, context: Context, programId:String) {
     val myRef = database.getReference("sessions")
 
     myRef.addListenerForSingleValueEvent(object : ValueEventListener {
@@ -349,7 +356,9 @@ fun computeScore(database: FirebaseDatabase, sessionAchieve : ArrayList<String>,
                     sumScore += difficultyToValue(sessDiff)
             }
 
-            updateUserGrade(database, userId, sumScore, context)
+            Log.d("CEDRIC_sumScore", sumScore.toString())
+
+            updateUserGrade(database, userId, sumScore, context, programId)
         }
         override fun onCancelled(error: DatabaseError) {
             Log.w("session", "Failed to read value.", error.toException())
@@ -357,7 +366,7 @@ fun computeScore(database: FirebaseDatabase, sessionAchieve : ArrayList<String>,
     })
 }
 
-fun updateUserGrade(database: FirebaseDatabase, userId: String, sumScore : Int, context: Context) {
+fun updateUserGrade(database: FirebaseDatabase, userId: String, sumScore : Int, context: Context, programId: String) {
     val myRef = database.getReference("users").child(userId)
 
     myRef.addListenerForSingleValueEvent(object : ValueEventListener {
@@ -365,13 +374,19 @@ fun updateUserGrade(database: FirebaseDatabase, userId: String, sumScore : Int, 
             var newScore = 0
             var userFN = ""
             for (value in dataSnapshot.children) {
-                val currScore = value.child("grade").value.toString()
-                newScore = if (currScore != "") currScore.toInt() + sumScore else sumScore
-                userFN = value.child("firstname").value.toString()
+                if (value.key.toString() == "grade") {
+                    val currScore = value.value.toString()
+                    newScore = if (currScore != "" && currScore != "null") currScore.toInt() + sumScore else sumScore
+                } else if (value.key.toString() == "firstname") {
+                    userFN = value.value.toString()
+                }
             }
+            Log.d("CEDRIC_newScore", newScore.toString())
 
             myRef.child("grade").setValue(newScore.toString())
+            Log.d("CEDRIC_SCORE", newScore.toString())
             showPopUpCongratz(userFN, newScore, context)
+           // removeProgramFromCurrentProgram(database, userId,programId)
         }
         override fun onCancelled(error: DatabaseError) {
             Log.w("session", "Failed to read value.", error.toException())
@@ -387,12 +402,16 @@ fun difficultyToValue(sessDiff : String) : Int {
     return 1
 }
 
+//fun removeProgramFromCurrentProgram(database, userId,programId)
+
 fun showPopUpCongratz(userFirstName: String, newScore : Int, context: Context) {
     val dialog = Dialog(context)
     dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
     dialog.setContentView(R.layout.popup_congratz)
+    dialog.setTitle("titre")
     dialog.findViewById<TextView>(R.id.popUpCongratzName).text = "Félicitation $userFirstName !"
     dialog.findViewById<TextView>(R.id.popUpCongratzScore).text = "Score Sportif : $newScore"
+    dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
     dialog.show()
 }
 
