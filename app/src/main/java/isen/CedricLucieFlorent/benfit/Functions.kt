@@ -5,15 +5,17 @@ import android.app.*
 import android.content.ContentResolver
 import android.content.Context
 import android.content.Intent
+import android.content.res.Resources
 import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.net.Uri
 import android.os.Build
-import android.text.Layout
-import android.text.TextUtils.replace
+import android.util.DisplayMetrics
 import android.util.Log
 import android.view.View
+import android.view.ViewGroup
 import android.view.Window
+import android.view.WindowManager
 import android.webkit.WebChromeClient
 import android.webkit.WebView
 import android.widget.*
@@ -24,7 +26,6 @@ import com.google.firebase.database.ValueEventListener
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import isen.CedricLucieFlorent.benfit.Models.ShowExerciceSession
-import kotlinx.android.synthetic.main.popup_show_exo.*
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -244,7 +245,7 @@ fun toast(context: Context, message: String) {
     Toast.makeText(context, message, Toast.LENGTH_LONG).show()
 }
 
-fun showPopUpExercice(database: FirebaseDatabase, context : Context, exoID: String) {
+fun showPopUpExercice(database: FirebaseDatabase, context : Context, exoID: String, windowManager: WindowManager) {
     val dialog = Dialog(context)
     dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
     dialog.setContentView(R.layout.popup_show_exo)
@@ -283,11 +284,43 @@ fun showPopUpExercice(database: FirebaseDatabase, context : Context, exoID: Stri
                     }
                     videoWeb.visibility = View.INVISIBLE
                 } else if(exercice.urlYTB != "") {
+
+                    // compute margin based on screen width to set specific margin for Responsive WebView
+                    val displayMetrics = DisplayMetrics()
+                    windowManager.defaultDisplay.getMetrics(displayMetrics)
+                    var marginWidth = pxToDp(displayMetrics.widthPixels)
+                    val minWidth = 355
+                    var difference = marginWidth - minWidth
+                    if (difference > 0) {
+                        if (difference > 20)
+                            marginWidth = (marginWidth - 320 - ((marginWidth-320)/2)) + (difference/2)
+                        else
+                            marginWidth = difference/2
+                        val p : ViewGroup.MarginLayoutParams = videoWeb.layoutParams as  ViewGroup.MarginLayoutParams
+                        p.leftMargin = marginWidth
+                        videoWeb.layoutParams = p
+                    }
+
+                    videoWeb.visibility = View.VISIBLE
+                    videoWeb.setInitialScale(1)
+                    videoWeb.settings.loadWithOverviewMode = true
+                    videoWeb.settings.useWideViewPort = true
                     val ytUrl = exercice.urlYTB.replace("watch?v=", "embed/")
+
                     val url = "<iframe width=\"100%\" height=\"100%\" src=\"$ytUrl\" frameborder=\"0\" allowfullscreen></iframe>"
+
+                    Log.d("VIDEOOO", url)
                     videoWeb.settings.javaScriptEnabled = true
                     videoWeb.loadData(url, "text/html" , "utf-8" )
                     videoWeb.webChromeClient = WebChromeClient()
+
+
+
+                    /*val lp: ConstraintLayout.LayoutParams = ConstraintLayout.LayoutParams(
+                        ConstraintLayout.LayoutParams.WRAP_CONTENT,
+                        ConstraintLayout.LayoutParams.WRAP_CONTENT)
+                    lp.setMargins(10, 0, 0, 0)
+                    videoWeb.layoutParams = lp*/
                 } else {
                     videoWeb.visibility = View.INVISIBLE
                 }
@@ -298,4 +331,8 @@ fun showPopUpExercice(database: FirebaseDatabase, context : Context, exoID: Stri
         }
     })
     dialog.show()
+}
+
+fun pxToDp(px: Int): Int {
+    return (px / Resources.getSystem().displayMetrics.density).toInt()
 }

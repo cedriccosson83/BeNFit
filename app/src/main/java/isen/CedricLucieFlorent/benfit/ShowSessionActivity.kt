@@ -88,7 +88,7 @@ class ShowSessionActivity : MenuActivity() {
     }
 
     private fun exerciceClicked(exoID : String) {
-        showPopUpExercice(database,context,exoID)
+        showPopUpExercice(database,context,exoID, windowManager)
     }
 
     fun showExercicesFromSession(database : FirebaseDatabase, sess_exercices: ArrayList<String>) {
