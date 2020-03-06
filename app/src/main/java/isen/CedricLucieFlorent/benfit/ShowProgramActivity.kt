@@ -10,9 +10,9 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import isen.CedricLucieFlorent.benfit.Adapters.ShowSessionsAdapter
-import isen.CedricLucieFlorent.benfit.Models.SessionFeed
 import isen.CedricLucieFlorent.benfit.Models.ShowSessionProgram
 import kotlinx.android.synthetic.main.activity_show_program.*
+import kotlinx.android.synthetic.main.recycler_view_show_program_sessions.*
 
 class ShowProgramActivity : MenuActivity() {
 
@@ -23,7 +23,6 @@ class ShowProgramActivity : MenuActivity() {
 
         showProgramRecyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
 
-
         val intent = intent
         if (intent != null) {
             showProgram(intent)
@@ -33,25 +32,24 @@ class ShowProgramActivity : MenuActivity() {
     private fun showProgram(intent: Intent) {
 
         val programId: String? = intent.getStringExtra("program") ?: ""
+        val activity:String? = intent.getStringExtra("activity") ?: ""
+
         val myRef = database.getReference("programs")
         myRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot){
                 var program: ShowProgram
                 for(value in dataSnapshot.children ) {
-
                     val arrayLikes :ArrayList<String> = ArrayList()
                     for (childLike in value.child("likes").children){
                         val userId : String = childLike.value.toString()
                         arrayLikes.add(userId)
                     }
-
                     val arraySession :ArrayList<String> = ArrayList()
                     for (childSession in value.child("sessionsProgram").children){
                         val sessionId : String = childSession.child("sessionID").value.toString()
                         Log.d("SESSIONID", sessionId)
                         arraySession.add(sessionId)
                     }
-
                     program = ShowProgram(
                         value.child("programID").value.toString(),
                         value.child("userID").value.toString(),
@@ -77,15 +75,11 @@ class ShowProgramActivity : MenuActivity() {
                         showProgramAuthor.setOnClickListener {
                             redirectToUserActivity(this@ShowProgramActivity, program.userID)
                         }
-
-                        showSessionsFromProgram(database, program.sessionsProgram)
-
+                        if (activity != null && programId != null )
+                        showSessionsFromProgram(database, program.sessionsProgram, activity, program)
                         break
                     }
-
-
                 }
-
             }
             override fun onCancelled(error: DatabaseError) {
                 Log.w("post", "Failed to read value.", error.toException())
@@ -100,7 +94,22 @@ class ShowProgramActivity : MenuActivity() {
          context.startActivity(intent)
     }
 
-    fun showSessionsFromProgram(database : FirebaseDatabase, prog_sessions: ArrayList<String>) {
+    private fun sessionFinished(session: ShowSessionProgram, program: ShowProgram){
+        var currentUser = auth.currentUser
+        var id = currentUser?.uid ?:""
+        var programID = program.programID ?: ""
+        if (id != ""){
+            val myRef = database.getReference("users").child(id).child("currentPrograms").child(programID)
+            for (value in program.sessionsProgram) {
+                if (session.sessionID == value) {
+                    myRef.child(session.sessionID).setValue("OK")
+                    finishedSessionBtn.setImageResource(R.drawable.checked)
+                }
+            }
+        }
+    }
+
+    fun showSessionsFromProgram(database : FirebaseDatabase, prog_sessions: ArrayList<String>, activity : String, program : ShowProgram) {
 
         val myRef = database.getReference("sessions")
 
@@ -117,17 +126,16 @@ class ShowProgramActivity : MenuActivity() {
                         )
                         sessionsIn.add(sess)
                     }
-
                 }
                 sessionsIn.reverse()
-
-                showProgramRecyclerView.adapter = ShowSessionsAdapter(sessionsIn,
-                    { session : ShowSessionProgram -> sessionClicked(session) })
+                val reference = "users/${auth.currentUser?.uid}/currentPrograms/${program.programID}/"
+                showProgramRecyclerView.adapter = ShowSessionsAdapter(sessionsIn, activity, database, reference,
+                    {session : ShowSessionProgram -> sessionClicked(session)},
+                    {session : ShowSessionProgram -> sessionFinished(session, program)})
             }
             override fun onCancelled(error: DatabaseError) {
                 Log.w("session", "Failed to read value.", error.toException())
             }
         })
     }
-
 }

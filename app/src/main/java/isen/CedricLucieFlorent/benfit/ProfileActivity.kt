@@ -1,16 +1,13 @@
 package isen.CedricLucieFlorent.benfit
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import isen.CedricLucieFlorent.benfit.Adapters.MyProgAdapter
 import isen.CedricLucieFlorent.benfit.Adapters.ProgramFollowAdapter
@@ -38,7 +35,7 @@ class ProfileActivity : MenuActivity() {
             myRef.addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(dataSnapshot: DataSnapshot) {
                     for (value in dataSnapshot.child("currentPrograms").children) {
-                        follow.add(value.value.toString())
+                        follow.add(value.key.toString())
                     }
                 }
                 override fun onCancelled(p0: DatabaseError) {
@@ -58,20 +55,21 @@ class ProfileActivity : MenuActivity() {
                 showUser(userId)
             }
         showMyPrograms()
+
         settingsButton.setOnClickListener {
             startActivity(Intent(this, ModifyProfile::class.java))
         }
 
-        myProgramButton.setOnClickListener(){
+        myProgramButton.setOnClickListener{
             showMyPrograms()
         }
 
-        subscribeProgramButton.setOnClickListener(){
+        subscribeProgramButton.setOnClickListener{
             showSubPrograms()
         }
     }
 
-        fun showUser(userId: String) {
+        private fun showUser(userId: String) {
         val myRef = database.getReference("users")
         myRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
@@ -111,7 +109,7 @@ class ProfileActivity : MenuActivity() {
 
         })
     }
-    fun showMyPrograms(){
+    private fun showMyPrograms(){
         val myRef = database.getReference("programs")
 
         myRef.addValueEventListener(object : ValueEventListener {
@@ -137,16 +135,16 @@ class ProfileActivity : MenuActivity() {
                     }
                 }
                 programs.reverse()
-                programRecyclerView.adapter = MyProgAdapter(programs)
+                programRecyclerView.adapter = MyProgAdapter(programs,
+                    { programItem : ProgramFollow -> redirectToProgram(context, programItem.programID, "MyProg")})
             }
             override fun onCancelled(error: DatabaseError) {
                 Log.w("session", "Failed to read value.", error.toException())
             }
         })
-
-
     }
-    fun showSubPrograms(){
+
+    private fun showSubPrograms(){
         val myRef = database.getReference("programs")
         myRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
@@ -173,13 +171,12 @@ class ProfileActivity : MenuActivity() {
                     }
                 }
                 programs.reverse()
-                programRecyclerView.adapter = ProgramFollowAdapter(programs)
+                programRecyclerView.adapter = ProgramFollowAdapter(programs,
+                    {programItem : ProgramFollow -> redirectToProgram(context, programItem.programID, "SubProg")})
             }
             override fun onCancelled(error: DatabaseError) {
                 Log.w("session", "Failed to read value.", error.toException())
             }
         })
-
-
     }
 }
