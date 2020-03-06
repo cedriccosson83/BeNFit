@@ -7,5 +7,6 @@ data class ProgramFeed (
         var userID :String ="",
         var levelProgram : String="",
         var likes: ArrayList<String> = ArrayList(),
-        var sessions: ArrayList<String> = ArrayList()
+        var sessions: ArrayList<String> = ArrayList(),
+        var imgURI : String
 )

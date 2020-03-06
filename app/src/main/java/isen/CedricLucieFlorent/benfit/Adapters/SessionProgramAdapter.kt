@@ -4,15 +4,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.google.firebase.database.FirebaseDatabase
-import isen.CedricLucieFlorent.benfit.ExoSessionAdapter
-import isen.CedricLucieFlorent.benfit.Models.Session
-import isen.CedricLucieFlorent.benfit.Models.SessionExercice
+import isen.CedricLucieFlorent.benfit.*
 import isen.CedricLucieFlorent.benfit.Models.SessionProgram
-import isen.CedricLucieFlorent.benfit.R
-import isen.CedricLucieFlorent.benfit.showExo
-import isen.CedricLucieFlorent.benfit.showRepExosSession
-import kotlinx.android.synthetic.main.recycler_view_exo_session.view.*
 import kotlinx.android.synthetic.main.recycler_view_session_program.view.*
 
 class SessionProgramAdapter(val sessions: ArrayList<SessionProgram>, val deleteListener: (SessionProgram) -> Unit, val sessionListener: (SessionProgram) -> Unit): RecyclerView.Adapter<SessionProgramAdapter.SessionProgramViewHolder>() {
@@ -40,6 +33,8 @@ class SessionProgramAdapter(val sessions: ArrayList<SessionProgram>, val deleteL
         fun bind(session: SessionProgram, deleteListener: (SessionProgram) -> Unit, sessionListener: (SessionProgram) -> Unit) {
             view.nameSessionCreateProgram.text = session.nameSessionProgram
             view.btnDeleteSessionCreateProgram.setOnClickListener { deleteListener(session) }
+            var img = session.imgURI
+            setImageFromFirestore(ApplicationContext.applicationContext(), view.imageViewSessionCreateProgram, "sessions/${session.sessionID}/${img}")
             //view.cardViewExoSession.setOnClickListener { exoListener(exo) }
         }
     }

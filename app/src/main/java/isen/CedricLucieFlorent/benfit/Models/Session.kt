@@ -9,6 +9,7 @@ data class Session (
         var descSession: String = "",
         var levelSession: String = "",
         var exosSession : ArrayList<SessionExercice> = ArrayList(),
-        var nbrRound : Int = 0
+        var nbrRound : Int = 0,
+        var imgURI : String
 ){
 }
