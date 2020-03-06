@@ -255,4 +255,12 @@
     <string name="congratz_text">Félicitation John Doe</string>
     <string name="score_sportif_text">Score Sportif : X</string>
 
+
+    <string name="grade0">Nouveau</string>
+    <string name="grade1">Amateur</string>
+    <string name="grade2">Sportif</string>
+    <string name="grade3">Athlète</string>
+    <string name="grade4">Professionnel</string>
+    <string name="grade5">Compétiteur</string>
+
 </resources>

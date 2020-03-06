@@ -10,7 +10,7 @@
         android:id="@+id/ProfilImage"
         android:layout_width="137dp"
         android:layout_height="133dp"
-        android:layout_marginTop="96dp"
+        android:layout_marginTop="50dp"
         android:layout_marginBottom="14dp"
         app:layout_constraintBottom_toTopOf="@+id/firstNameTextViewModify"
         app:layout_constraintEnd_toEndOf="parent"
@@ -33,10 +33,9 @@
         android:layout_marginStart="144dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="144dp"
-        android:layout_marginBottom="8dp"
         android:text="Nom et prénom"
         android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@+id/descriptionTextView"
+        app:layout_constraintBottom_toTopOf="@+id/profileGradeText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -47,12 +46,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="50dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="50dp"
         android:text="Description"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.504"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fullNameTextView" />
+        app:layout_constraintTop_toBottomOf="@+id/profileGradeText" />
 
     <com.google.android.material.button.MaterialButtonToggleGroup
         android:id="@+id/GroupButtonProg"
@@ -92,5 +92,37 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/GroupButtonProg" />
+
+    <TextView
+        android:id="@+id/profileGradeText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="TextView"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/descriptionTextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/fullNameTextView" />
+
+    <ImageView
+        android:id="@+id/profileGradeMedal1"
+        android:layout_width="21dp"
+        android:layout_height="23dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/profileGradeText"
+        app:layout_constraintEnd_toStartOf="@+id/profileGradeText"
+        app:layout_constraintTop_toTopOf="@+id/profileGradeText"
+        app:srcCompat="@drawable/grade1" />
+
+    <ImageView
+        android:id="@+id/profileGradeMedal2"
+        android:layout_width="21dp"
+        android:layout_height="23dp"
+        android:layout_marginStart="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/profileGradeText"
+        app:layout_constraintStart_toEndOf="@+id/profileGradeText"
+        app:layout_constraintTop_toTopOf="@+id/profileGradeText"
+        app:srcCompat="@drawable/grade1" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

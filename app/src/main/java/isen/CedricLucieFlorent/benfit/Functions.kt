@@ -302,6 +302,39 @@ fun setImageFromFirestore(context: Context, target: ImageView, location: String)
     GlideApp.with(ApplicationContext.applicationContext()).load(storeRef).into(target)
 }
 
+fun renderGrade(grade: String?, gradeText: TextView, gradeImg1: ImageView, gradeImg2: ImageView, context: Context) {
+    if (grade != null) {
+        val intGrade = grade.toInt()
+        when {
+            intGrade >= 150 -> {
+                gradeText.text = context.getString(R.string.grade5)
+                gradeImg1.setImageResource(R.drawable.grade5)
+                gradeImg2.setImageResource(R.drawable.grade5)
+            } intGrade >= 120 -> {
+                gradeText.text = context.getString(R.string.grade4)
+                gradeImg1.setImageResource(R.drawable.grade4)
+                gradeImg2.setImageResource(R.drawable.grade4)
+            } intGrade >= 90 -> {
+                gradeText.text = context.getString(R.string.grade3)
+                gradeImg1.setImageResource(R.drawable.grade3)
+                gradeImg2.setImageResource(R.drawable.grade3)
+            } intGrade >= 60 -> {
+                gradeText.text = context.getString(R.string.grade2)
+                gradeImg1.setImageResource(R.drawable.grade2)
+                gradeImg2.setImageResource(R.drawable.grade2)
+            } intGrade >= 30 -> {
+                gradeText.text = context.getString(R.string.grade1)
+                gradeImg1.setImageResource(R.drawable.grade1)
+                gradeImg2.setImageResource(R.drawable.grade1)
+            } intGrade < 30 -> {
+                gradeText.text = context.getString(R.string.grade0)
+                gradeImg1.setImageResource(R.drawable.grade0)
+                gradeImg2.setImageResource(R.drawable.grade0)
+            }
+        }
+    }
+}
+
 fun toast(context: Context, message: String) {
     Toast.makeText(context, message, Toast.LENGTH_LONG).show()
 }

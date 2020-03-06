@@ -58,7 +58,8 @@ class User {
         birthdate: String?,
         sports: ArrayList<Sport>,
         weight: String?,
-        pictureUID: String?= ""
+        pictureUID: String?= "",
+        grade: String
     ) {
         this.userid = userid
         this.email = email
@@ -68,6 +69,7 @@ class User {
         this.weight = weight
         this.sports = sports
         this.pictureUID = pictureUID
+        this.grade = grade
     }
 
 
