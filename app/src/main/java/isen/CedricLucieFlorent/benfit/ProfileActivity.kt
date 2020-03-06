@@ -129,7 +129,8 @@ class ProfileActivity : MenuActivity() {
                                 value.child("descProgram").value.toString(),
                                 value.child("userID").value.toString(),
                                 arrayLikes,
-                                ArrayList()
+                                ArrayList(),
+                                value.child("pictureUID").value.toString()
                         )
                         programs.add(programFollow)
                     }
@@ -164,7 +165,8 @@ class ProfileActivity : MenuActivity() {
                                 value.child("descProgram").value.toString(),
                                 value.child("userID").value.toString(),
                                 arrayLikes,
-                                ArrayList()
+                                ArrayList(),
+                                value.child("pictureUID").value.toString()
                             )
                         programs.add(programfollow)
                         }

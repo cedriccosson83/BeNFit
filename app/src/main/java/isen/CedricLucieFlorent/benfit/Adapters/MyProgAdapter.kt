@@ -6,8 +6,10 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
+import isen.CedricLucieFlorent.benfit.ApplicationContext
 import isen.CedricLucieFlorent.benfit.Models.ProgramFollow
 import isen.CedricLucieFlorent.benfit.R
+import isen.CedricLucieFlorent.benfit.setImageFromFirestore
 import isen.CedricLucieFlorent.benfit.showNumberLikes
 import kotlinx.android.synthetic.main.recycler_view_my_programs.view.*
 
@@ -37,6 +39,8 @@ class MyProgAdapter (private val programs: ArrayList<ProgramFollow>, val clickLi
             view.nameMyProgs.text = program.nameProgramFollow
             view.descMyProg.text = program.descrProgramFollow
             view.nameMyProgs.setOnClickListener{ clickListenerProgram(program)}
+            var img = program.imageURI
+            setImageFromFirestore(ApplicationContext.applicationContext(), view.imgViewMyProgs, "programs/${program.programID}/${img}")
             showNumberLikes(database, "programs/${program.programID}/likes", view.nbLikesMyProgs )
         }
     }
