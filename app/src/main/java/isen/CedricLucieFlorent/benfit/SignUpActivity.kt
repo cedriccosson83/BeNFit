@@ -188,7 +188,7 @@ class SignUpActivity : AppCompatActivity() {
         if (user?.uid != null) {
             val sdf = SimpleDateFormat("dd/mm/yyyy")
             val date = sdf.format(Date())
-            currUser = User(user.uid, user.email, fname, lname, birthdate,sports, weight)
+            currUser = User(user.uid, user.email, fname, lname, birthdate,sports, weight, "", "0")
             val root = database.getReference("users")
             root.child(currUser.userid).setValue(currUser)
             userName = currUser.firstname.toString()

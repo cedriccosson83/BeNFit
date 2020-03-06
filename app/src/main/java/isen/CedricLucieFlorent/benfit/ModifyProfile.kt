@@ -203,8 +203,8 @@ class ModifyProfile : MenuActivity() {
                         value.child("birthdate").value.toString(),
                         ArrayList(value.child("sports").children.map { Sport(it.child("name").value.toString(), arrayListOf()) }),
                         value.child("weight").value.toString(),
-                        value.child("pictureUID").value.toString()
-
+                        value.child("pictureUID").value.toString(),
+                        value.child("grade").value.toString()
                     )
 
                     if (user?.userid == userId) {
