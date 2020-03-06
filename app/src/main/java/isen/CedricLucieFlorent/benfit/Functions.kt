@@ -139,6 +139,13 @@ fun showUserNameSessionFeed(userId: String, textview : TextView){
     })
 }
 
+fun redirectToProgram(context : Context, programID : String, extra : String){
+    val intent = Intent(context, ShowProgramActivity::class.java)
+    intent.putExtra("activity", extra)
+    intent.putExtra("program", programID)
+    context.startActivity(intent)
+}
+
 fun showUserNameImage(userId : String, textview: TextView,  imgView : ImageView) {
 
     val database = FirebaseDatabase.getInstance()
@@ -171,24 +178,60 @@ fun convertLevelToImg(level: String, image: ImageView) {
     }
 }
 
+fun showChecked(database : FirebaseDatabase, pathToChecked : String, icon : ImageView ) {
+    val myRef = database.getReference(pathToChecked)
+    myRef.addListenerForSingleValueEvent(object : ValueEventListener {
+        override fun onDataChange(dataSnapshot: DataSnapshot) {
+            for (value in dataSnapshot.children) {
+                if (value.value.toString() == "OK"){
+                    icon.setImageResource(R.drawable.checked)
+                }
+                else{
+                    icon.setImageResource(R.drawable.tocheck)
+                }
+            }
+        }
+        override fun onCancelled(error: DatabaseError) {
+            Log.w("Likes", "Failed to read value.", error.toException())
+        }
+    })
+}
+
 fun showFollowers(database: FirebaseDatabase, currentUserID: String?, programID : String, pathToFollowers : String, icon : ImageView){
     val myRef = database.getReference(pathToFollowers)
-
     myRef.addValueEventListener(object : ValueEventListener {
         override fun onDataChange(dataSnapshot: DataSnapshot) {
             val arrayFollowers :ArrayList<String> = ArrayList()
             for (value in dataSnapshot.children) {
-                arrayFollowers.add(value.value.toString())
+                Log.d("img", value.toString())
+                if (arrayFollowers.all { it != value.key.toString()}) {
+                    arrayFollowers.add(value.key.toString())
+                }
             }
             if (arrayFollowers.all { it != programID }) {
                 icon.setImageResource(R.drawable.add)
             } else {
                 icon.setImageResource(R.drawable.remove)
-
             }
         }
         override fun onCancelled(error: DatabaseError) {
             Log.w("Likes", "Failed to read value.", error.toException())
+        }
+    })
+}
+
+fun showNumberLikes(database: FirebaseDatabase, pathToLikes : String, textTarget : TextView){
+    val myRef = database.getReference(pathToLikes)
+    myRef.addValueEventListener(object : ValueEventListener {
+        override fun onDataChange(dataSnapshot: DataSnapshot) {
+            val arrayLikes: ArrayList<String> = ArrayList()
+            for (value in dataSnapshot.children) {
+                arrayLikes.add(value.value.toString())
+            }
+            textTarget.text = arrayLikes.size.toString()
+        }
+        override fun onCancelled(p0: DatabaseError) {
+            Log.d("TAG", "Failed to read value")
         }
     })
 }

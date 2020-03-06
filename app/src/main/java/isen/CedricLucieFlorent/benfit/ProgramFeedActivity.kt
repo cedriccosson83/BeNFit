@@ -53,51 +53,58 @@ class ProgramFeedActivity : MenuActivity() {
     private fun subscribeClicked(programItem : ProgramFeed, currentUserID : String) {
         val myRef = database.getReference("users").child(currentUserID)
         var idProg = programItem.programID
+        var sessions = programItem.sessions
+
         if(follow.all { it != idProg}) {
-                follow.add(idProg)
-            myRef.child("currentPrograms").setValue(follow)
-                btnSubscribeProg.setImageResource(R.drawable.remove)
-            }else{
-                follow.remove(idProg)
-            myRef.child("currentPrograms").setValue(follow)
-                btnSubscribeProg.setImageResource(R.drawable.add)
-            }
+            follow.add(idProg)
+            //myRef.child("currentPrograms").setValue(follow)
+            val sessionMap = HashMap<String, String>()
+            for (sess in sessions)
+                sessionMap[sess] = "KO"
+            myRef.child("currentPrograms").child(idProg).setValue(sessionMap)
+            btnSubscribeProg.setImageResource(R.drawable.remove)
+
+        }else{
+            follow.remove(idProg)
+            myRef.child("currentPrograms").child(idProg).removeValue()
+            btnSubscribeProg.setImageResource(R.drawable.add)
+        }
     }
 
-    private fun redirectToProgram(programItem : ProgramFeed){
-        val intent = Intent(context, ShowProgramActivity::class.java)
-        val id : String = programItem.programID
-        intent.putExtra("program", id)
-        context.startActivity(intent)
-    }
-
-    fun showProgramFeed(database : FirebaseDatabase, view : RecyclerView, context: Context, userId: String) {
+    private fun showProgramFeed(database : FirebaseDatabase, view : RecyclerView, context: Context, userId: String) {
 
         val myRef = database.getReference("programs")
 
         myRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
+
                 val programs: ArrayList<ProgramFeed> = ArrayList()
                 for (value in dataSnapshot.children) {
+                    val arraySessions:ArrayList<String> = ArrayList()
+                    for (session in value.child("sessionsProgram").children){
+                        val sessionID = session.child("sessionID").value.toString()
+                        arraySessions.add(sessionID)
+                    }
                     val arrayLikes :ArrayList<String> = ArrayList()
                     for (childLike in value.child("likes").children){
                         val likesUserId : String = childLike.value.toString()
                         arrayLikes.add(likesUserId)
                     }
-
                     val programFeed = ProgramFeed(
                             value.child("programID").value.toString(),
                             value.child("nameProgram").value.toString(),
                             value.child("descProgram").value.toString(),
                             value.child("userID").value.toString(),
-                            arrayLikes
+                            value.child("levelProgram").value.toString(),
+                            arrayLikes,
+                            arraySessions
                     )
                     programs.add(programFeed)
                 }
                 programs.reverse()
                 recycler_view_list_prog_feed.adapter = ProgramFeedAdapter(programs,
                 { programsItem : ProgramFeed -> subscribeClicked(programsItem, userId) },
-                { programItem : ProgramFeed -> redirectToProgram(programItem) })
+                { programItem : ProgramFeed -> redirectToProgram(context, programItem.programID, "ProgFeed") })
             }
             override fun onCancelled(error: DatabaseError) {
                 Log.w("session", "Failed to read value.", error.toException())
