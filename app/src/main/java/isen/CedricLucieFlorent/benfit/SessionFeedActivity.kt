@@ -66,7 +66,8 @@ class SessionFeedActivity : MenuActivity() {
                             value.child("userID").value.toString(),
                             value.child("nbrRound").value.toString(),
                             value.child("levelSession").value.toString(),
-                            arrayLikes
+                            arrayLikes,
+                            value.child("pictureUID").value.toString()
                     )
                     sessions.add(sessionFeed)
                 }

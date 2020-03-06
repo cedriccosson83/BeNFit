@@ -1,5 +1,7 @@
 package isen.CedricLucieFlorent.benfit.Models
 
+import java.net.URI
+
 data class Session (
         var sessionID:String? = "",
         var userID : String = "",

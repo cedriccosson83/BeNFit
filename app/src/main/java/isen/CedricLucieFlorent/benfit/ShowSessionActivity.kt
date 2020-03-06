@@ -54,7 +54,9 @@ class ShowSessionActivity : MenuActivity() {
                         value.child("descSession").value.toString(),
                         value.child("nbrRound").value.toString(),
                         value.child("levelSession").value.toString(),
-                        arrayExercices
+                        arrayExercices,
+                        arrayLikes,
+                        value.child("pictureUID").value.toString()
                     )
                     if(session.sessionID == sessionId){
                         showSessionName.text = session.nameSession

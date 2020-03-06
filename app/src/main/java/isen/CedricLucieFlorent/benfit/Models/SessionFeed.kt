@@ -1,5 +1,7 @@
 package isen.CedricLucieFlorent.benfit.Models
 
+import android.net.Uri
+
 class SessionFeed {
         var sessionID: String = ""
         var nameSessionFeed :String = ""
@@ -10,6 +12,7 @@ class SessionFeed {
         var nbrRound :String =""
         var levelSession :String =""
         var likes: ArrayList<String> =ArrayList()
+        var imgURI : String = ""
 
         constructor(
                 sessionID: String = "",
@@ -18,7 +21,8 @@ class SessionFeed {
                 userID :String ="",
                 nbrRound :String ="",
                 levelSession :String ="",
-                likes: ArrayList<String> =ArrayList()) {
+                likes: ArrayList<String> =ArrayList(),
+                imgURI: String) {
 
                 this.sessionID = sessionID
                 this.nameSessionFeed = nameSessionFeed
@@ -27,6 +31,7 @@ class SessionFeed {
                 this.nbrRound = nbrRound
                 this.levelSession = levelSession
                 this.likes = likes
+                this.imgURI = imgURI
         }
 
         constructor(
