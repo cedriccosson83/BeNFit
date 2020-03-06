@@ -25,9 +25,12 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
+import isen.CedricLucieFlorent.benfit.Models.Session
 import isen.CedricLucieFlorent.benfit.Models.ShowExerciceSession
+import kotlinx.android.synthetic.main.recycler_view_post_cell.*
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.collections.ArrayList
 
 fun showDate(date : String?, textview: TextView){
 
@@ -288,6 +291,98 @@ fun toast(context: Context, message: String) {
     Toast.makeText(context, message, Toast.LENGTH_LONG).show()
 }
 
+fun checkCompleteProgram(database: FirebaseDatabase,
+                         userId: String,
+                         context: Context,
+                         programId : String
+) {
+    val myRef = database
+        .getReference("users")
+        .child(userId)
+        .child("currentProgram")
+        .child(programId)
+
+    val sessionAchieve: ArrayList<String> = ArrayList()
+
+    myRef.addListenerForSingleValueEvent(object : ValueEventListener {
+        override fun onDataChange(dataSnapshot: DataSnapshot) {
+            var nbSupposedToBeOK = dataSnapshot.childrenCount
+            for (value in dataSnapshot.children) {
+                sessionAchieve.add(value.key.toString())
+                if (value.value.toString() == "OK")
+                    nbSupposedToBeOK--
+            }
+            if (nbSupposedToBeOK == 0L) { // 0L to compare a LONG type
+                computeScore(database, sessionAchieve, userId, context)
+            }
+        }
+        override fun onCancelled(error: DatabaseError) {
+            Log.w("session", "Failed to read value.", error.toException())
+        }
+    })
+}
+
+fun computeScore(database: FirebaseDatabase, sessionAchieve : ArrayList<String>, userId: String, context: Context) {
+    val myRef = database.getReference("sessions")
+
+    myRef.addListenerForSingleValueEvent(object : ValueEventListener {
+        override fun onDataChange(dataSnapshot: DataSnapshot) {
+            var sumScore = 0
+            for (value in dataSnapshot.children) {
+                val sessCurr = value.child("sessionID").value.toString()
+                val sessDiff = value.child("levelSession").value.toString()
+
+                if (sessionAchieve.indexOf(sessCurr) != -1)
+                    sumScore += difficultyToValue(sessDiff)
+            }
+
+            updateUserGrade(database, userId, sumScore, context)
+        }
+        override fun onCancelled(error: DatabaseError) {
+            Log.w("session", "Failed to read value.", error.toException())
+        }
+    })
+}
+
+fun updateUserGrade(database: FirebaseDatabase, userId: String, sumScore : Int, context: Context) {
+    val myRef = database.getReference("users").child(userId)
+
+    myRef.addListenerForSingleValueEvent(object : ValueEventListener {
+        override fun onDataChange(dataSnapshot: DataSnapshot) {
+            var newScore = 0
+            var userFN = ""
+            for (value in dataSnapshot.children) {
+                val currScore = value.child("grade").value.toString()
+                newScore = if (currScore != "") currScore.toInt() + sumScore else sumScore
+                userFN = value.child("firstname").value.toString()
+            }
+
+            myRef.child("grade").setValue(newScore.toString())
+            showPopUpCongratz(userFN, newScore, context)
+        }
+        override fun onCancelled(error: DatabaseError) {
+            Log.w("session", "Failed to read value.", error.toException())
+        }
+    })
+}
+
+fun difficultyToValue(sessDiff : String) : Int {
+    if (sessDiff == "Expert")
+        return 5
+    else if (sessDiff == "Intermédiaire")
+        return 3
+    return 1
+}
+
+fun showPopUpCongratz(userFirstName: String, newScore : Int, context: Context) {
+    val dialog = Dialog(context)
+    dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+    dialog.setContentView(R.layout.popup_congratz)
+    dialog.findViewById<TextView>(R.id.popUpCongratzName).text = "Félicitation $userFirstName !"
+    dialog.findViewById<TextView>(R.id.popUpCongratzScore).text = "Score Sportif : $newScore"
+    dialog.show()
+}
+
 fun showPopUpExercice(database: FirebaseDatabase, context : Context, exoID: String, windowManager: WindowManager) {
     val dialog = Dialog(context)
     dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
@@ -311,61 +406,55 @@ fun showPopUpExercice(database: FirebaseDatabase, context : Context, exoID: Stri
                 dialog.findViewById<TextView>(R.id.showExoRule).text = ""
                 dialog.findViewById<TextView>(R.id.showExoRuleValue).text = ""
                 val videoWeb : WebView = dialog.findViewById(R.id.showExoYTLayout)
-                if (exercice.urlPicture != "") {
-                    val layout = dialog.findViewById<LinearLayout>(R.id.showExoMediaLayout)
-                    val exoImView = ImageView(context)
-                    setImageFromFirestore(context,exoImView, "exercices/${exercice.id}/${exercice.urlPicture}")
+                when {
+                    exercice.urlPicture != "" -> {
+                        val layout = dialog.findViewById<LinearLayout>(R.id.showExoMediaLayout)
+                        val exoImView = ImageView(context)
+                        setImageFromFirestore(context,exoImView, "exercices/${exercice.id}/${exercice.urlPicture}")
 
-                    layout.addView(exoImView)
-                    exoImView.layoutParams.height = 400
+                        layout.addView(exoImView)
+                        exoImView.layoutParams.height = 400
 
-                    exoImView.setOnClickListener {
-                        val fullScreenIntent = Intent(ApplicationContext.applicationContext(), FullScreenImageView::class.java)
-                        fullScreenIntent.putExtra("url", "exercices/${exercice.id}/${exercice.urlPicture}")
-                        fullScreenIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                        ApplicationContext.applicationContext().startActivity(fullScreenIntent)
+                        exoImView.setOnClickListener {
+                            val fullScreenIntent = Intent(ApplicationContext.applicationContext(), FullScreenImageView::class.java)
+                            fullScreenIntent.putExtra("url", "exercices/${exercice.id}/${exercice.urlPicture}")
+                            fullScreenIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                            ApplicationContext.applicationContext().startActivity(fullScreenIntent)
+                        }
+                        videoWeb.visibility = View.INVISIBLE
                     }
-                    videoWeb.visibility = View.INVISIBLE
-                } else if(exercice.urlYTB != "") {
+                    exercice.urlYTB != "" -> {
 
-                    // compute margin based on screen width to set specific margin for Responsive WebView
-                    val displayMetrics = DisplayMetrics()
-                    windowManager.defaultDisplay.getMetrics(displayMetrics)
-                    var marginWidth = pxToDp(displayMetrics.widthPixels)
-                    val minWidth = 355
-                    var difference = marginWidth - minWidth
-                    if (difference > 0) {
-                        if (difference > 20)
-                            marginWidth = (marginWidth - 320 - ((marginWidth-320)/2)) + (difference/2)
-                        else
-                            marginWidth = difference/2
-                        val p : ViewGroup.MarginLayoutParams = videoWeb.layoutParams as  ViewGroup.MarginLayoutParams
-                        p.leftMargin = marginWidth
-                        videoWeb.layoutParams = p
+                        // compute margin based on screen width to set specific margin for Responsive WebView
+                        val displayMetrics = DisplayMetrics()
+                        windowManager.defaultDisplay.getMetrics(displayMetrics)
+                        var marginWidth = pxToDp(displayMetrics.widthPixels)
+                        val minWidth = 355
+                        val difference = marginWidth - minWidth
+                        if (difference > 0) {
+                            marginWidth = if (difference > 20)
+                                (marginWidth - 320 - ((marginWidth-320)/2)) + (difference/2)
+                            else
+                                difference/2
+                            val p : ViewGroup.MarginLayoutParams = videoWeb.layoutParams as  ViewGroup.MarginLayoutParams
+                            p.leftMargin = marginWidth
+                            videoWeb.layoutParams = p
+                        }
+
+                        videoWeb.visibility = View.VISIBLE
+                        videoWeb.setInitialScale(1)
+                        videoWeb.settings.loadWithOverviewMode = true
+                        videoWeb.settings.useWideViewPort = true
+                        val ytUrl = exercice.urlYTB.replace("watch?v=", "embed/")
+
+                        val url = "<iframe width=\"100%\" height=\"100%\" src=\"$ytUrl\" frameborder=\"0\" allowfullscreen></iframe>"
+
+                        Log.d("VIDEOOO", url)
+                        videoWeb.settings.javaScriptEnabled = true
+                        videoWeb.loadData(url, "text/html" , "utf-8" )
+                        videoWeb.webChromeClient = WebChromeClient()
                     }
-
-                    videoWeb.visibility = View.VISIBLE
-                    videoWeb.setInitialScale(1)
-                    videoWeb.settings.loadWithOverviewMode = true
-                    videoWeb.settings.useWideViewPort = true
-                    val ytUrl = exercice.urlYTB.replace("watch?v=", "embed/")
-
-                    val url = "<iframe width=\"100%\" height=\"100%\" src=\"$ytUrl\" frameborder=\"0\" allowfullscreen></iframe>"
-
-                    Log.d("VIDEOOO", url)
-                    videoWeb.settings.javaScriptEnabled = true
-                    videoWeb.loadData(url, "text/html" , "utf-8" )
-                    videoWeb.webChromeClient = WebChromeClient()
-
-
-
-                    /*val lp: ConstraintLayout.LayoutParams = ConstraintLayout.LayoutParams(
-                        ConstraintLayout.LayoutParams.WRAP_CONTENT,
-                        ConstraintLayout.LayoutParams.WRAP_CONTENT)
-                    lp.setMargins(10, 0, 0, 0)
-                    videoWeb.layoutParams = lp*/
-                } else {
-                    videoWeb.visibility = View.INVISIBLE
+                    else -> videoWeb.visibility = View.INVISIBLE
                 }
             }
         }

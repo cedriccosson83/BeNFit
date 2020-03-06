@@ -252,5 +252,7 @@
     <string name="exo_descr">Description de l\'exercice</string>
     <string name="consigne">Consigne : </string>
     <string name="value">Valeur Consigne</string>
+    <string name="congratz_text">Félicitation John Doe</string>
+    <string name="score_sportif_text">Score Sportif : X</string>
 
 </resources>
