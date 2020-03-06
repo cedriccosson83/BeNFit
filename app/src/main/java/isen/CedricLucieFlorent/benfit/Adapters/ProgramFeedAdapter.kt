@@ -46,6 +46,8 @@ class ProgramFeedAdapter (val programs: ArrayList<ProgramFeed>,
             view.nameProgTextView.text = program.nameProgramFeed
             view.descriptionProgTextView.text = program.descrProgramFeed
             view.btnSubscribeProg.setOnClickListener { clickListenersubscribe(program) }
+            var img = program.imgURI
+            setImageFromFirestore(ApplicationContext.applicationContext(), view.imageViewFeedProg, "programs/${program.programID}/${img}")
             view.btnLikeProgram.setOnClickListener {
                 likesHandler(database,auth.currentUser?.uid, "programs/${program.programID}/likes",program.likes, view.btnLikeProgram)
             }

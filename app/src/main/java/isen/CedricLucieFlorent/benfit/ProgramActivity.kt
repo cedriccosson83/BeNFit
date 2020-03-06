@@ -1,6 +1,7 @@
 package isen.CedricLucieFlorent.benfit
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -8,10 +9,17 @@ import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
 import kotlinx.android.synthetic.main.activity_program.*
 import kotlinx.android.synthetic.main.activity_session.*
 
 class ProgramActivity : MenuActivity() {
+
+    private lateinit var stu: StreamToUri
+    private var image_uri : Uri = Uri.EMPTY
+    private lateinit var storageReference : StorageReference
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -19,16 +27,20 @@ class ProgramActivity : MenuActivity() {
         showPopMenuSession()
         createSpinnerLevel()
         auth = FirebaseAuth.getInstance()
+        storageReference = FirebaseStorage.getInstance().reference
+        stu = StreamToUri(this, this, contentResolver)
         val id = auth.currentUser?.uid
         if (id != null) {
             showSessionsProgram(database,recyclerViewSessionProgram,this,id)
         }
-
+        imageViewCreateProg.setOnClickListener{
+            stu.askCameraPermissions()
+        }
         recyclerViewSessionProgram.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
 
         btnSaveProgram.setOnClickListener {
             if (id != null) {
-                saveProgram(database, id,inputNameProgram.text.toString(),inputDescProgram.text.toString(),spinnerLevelProgram.selectedItem.toString() )
+                saveProgram(database, storageReference,image_uri,context, id,inputNameProgram.text.toString(),inputDescProgram.text.toString(),spinnerLevelProgram.selectedItem.toString() )
                 Toast.makeText(this,"Programme sauvegardé!", Toast.LENGTH_SHORT).show()
                 deleteSessionsTempProgram(database,id)
                 val intent = Intent(this,ProgramFeedActivity::class.java)
@@ -76,6 +88,18 @@ class ProgramActivity : MenuActivity() {
                 popupMenu.show()
             }
         }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        stu.manageActivityResult(requestCode, data)
+        image_uri = stu.imageUri
+        imageViewCreateProg.setImageURI(image_uri)
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        stu.manageRequestPermissionResult(requestCode, grantResults)
     }
 
     fun createSpinnerLevel(){

@@ -25,7 +25,7 @@
             android:padding="8dp">
 
             <ImageView
-                android:id="@+id/imageView2"
+                android:id="@+id/imageViewFeedProg"
                 android:layout_width="93dp"
                 android:layout_height="95dp"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -40,7 +40,7 @@
                 android:layout_marginStart="101dp"
                 android:text="Nom du programme"
                 android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="@+id/imageView2"
+                app:layout_constraintStart_toStartOf="@+id/imageViewFeedProg"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
@@ -67,7 +67,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="12dp"
                 android:text="Description du programme"
-                app:layout_constraintStart_toEndOf="@+id/imageView2"
+                app:layout_constraintStart_toEndOf="@+id/imageViewFeedProg"
                 app:layout_constraintTop_toBottomOf="@+id/nameProgTextView" />
 
             <ImageView
@@ -97,7 +97,7 @@
                 android:text="TextView"
                 android:textSize="8sp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/imageView2"
+                app:layout_constraintStart_toEndOf="@+id/imageViewFeedProg"
                 app:layout_constraintTop_toBottomOf="@+id/descriptionProgTextView"
                 app:layout_constraintVertical_bias="1.0" />
 
