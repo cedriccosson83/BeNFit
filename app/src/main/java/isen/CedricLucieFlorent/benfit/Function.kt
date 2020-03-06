@@ -2,6 +2,7 @@ package isen.CedricLucieFlorent.benfit
 
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.util.Log
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
@@ -9,10 +10,14 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import com.google.firebase.storage.StorageReference
+import com.google.firebase.storage.UploadTask
 import isen.CedricLucieFlorent.benfit.Adapters.SessionAdapter
 import isen.CedricLucieFlorent.benfit.Adapters.SessionFeedAdapter
 import isen.CedricLucieFlorent.benfit.Adapters.SessionProgramAdapter
 import isen.CedricLucieFlorent.benfit.Models.*
+import java.util.*
+import kotlin.collections.ArrayList
 
 
 fun addNewExo(database : FirebaseDatabase, nameExo: String, idUser: String, descExo: String, urlYtb: String, levelExo: String, sportExo: String) : String{
@@ -118,8 +123,7 @@ fun showExosSession(database : FirebaseDatabase, view: RecyclerView, userId :Str
 
 }
 
-fun saveSession(database : FirebaseDatabase, userId :String,nameSession:String, descSession: String, levelSession:String, nbrRound: Int) {
-    Log.d("function", "saveSession")
+fun saveSession(database : FirebaseDatabase, storageReference : StorageReference, image_uri : Uri, context : Context, userId :String,nameSession:String, descSession: String, levelSession:String, nbrRound: Int) {
     val myRef = database.getReference("temporary_exos_session")
     val dbSession = database.getReference("sessions")
 
@@ -141,6 +145,19 @@ fun saveSession(database : FirebaseDatabase, userId :String,nameSession:String, 
             var session : Session = Session(newId,userId,nameSession,descSession,levelSession,exos,nbrRound)
             if (newId != null) {
                 dbSession.child(newId).setValue(session)
+            }
+
+            val uniqID = UUID.randomUUID().toString()
+            val stoRef = storageReference.child("sessions/${session.sessionID}/$uniqID")
+            val result: UploadTask
+            if(image_uri != Uri.EMPTY) {
+                result = stoRef.putFile(image_uri)
+            } else {
+                val uri = getDrawableToURI(context,R.drawable.sessions)
+                result = stoRef.putFile(uri)
+            }
+            result.addOnSuccessListener {
+                database.getReference("sessions/${session.sessionID}/pictureUID").setValue(uniqID)
             }
 
         }

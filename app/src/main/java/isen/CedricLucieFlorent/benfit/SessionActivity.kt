@@ -11,19 +11,30 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
+import com.google.firebase.storage.UploadTask
 import kotlinx.android.synthetic.main.activity_session.*
 import kotlinx.android.synthetic.main.activity_splash.view.*
+import java.util.*
+import kotlin.collections.ArrayList
 
 
 class SessionActivity : MenuActivity(){
 
     var array : ArrayList<String> ?= ArrayList()
+    private lateinit var stu: StreamToUri
+    private lateinit var storageReference: StorageReference
+    private var image_uri : Uri = Uri.EMPTY
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         layoutInflater.inflate(R.layout.activity_session, frameLayout)
-        Log.d("state", "oncreate")
+        stu = StreamToUri(this, this, contentResolver)
         auth = FirebaseAuth.getInstance()
+        storageReference = FirebaseStorage.getInstance().reference
+
         val idUser = auth.currentUser?.uid
         if (idUser != null) {
             showExosSession(database, recyclerViewExoSession, idUser,this)
@@ -46,9 +57,13 @@ class SessionActivity : MenuActivity(){
             editTextNumberSerie.setText(round.toString())
         }
 
+        imageViewCreateSession.setOnClickListener(){
+            stu.askCameraPermissions()
+        }
+
         btnSaveSession.setOnClickListener {
             if (idUser != null) {
-                saveSession(database, idUser,inputNameSession.text.toString(),inputDescSession.text.toString(),spinnerLevelSession.selectedItem.toString(), editTextNumberSerie.text.toString().toInt() )
+                saveSession(database, storageReference, image_uri, context, idUser,inputNameSession.text.toString(),inputDescSession.text.toString(),spinnerLevelSession.selectedItem.toString(), editTextNumberSerie.text.toString().toInt() )
                 Toast.makeText(this,"Séance sauvegardée!", Toast.LENGTH_SHORT).show()
 
                 val intent = Intent(this,SessionFeedActivity::class.java)
@@ -70,14 +85,22 @@ class SessionActivity : MenuActivity(){
     override fun onRestart() {
         super.onRestart()
         Log.d("state", "onrestart")
-
     }
 
     override fun onDestroy() {
         super.onDestroy()
         Log.d("destroy", "ondestroy")
+    }
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        stu.manageActivityResult(requestCode, data)
+        image_uri = stu.imageUri
+        imageViewCreateSession.setImageURI(image_uri)
+    }
 
-
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        stu.manageRequestPermissionResult(requestCode, grantResults)
     }
 
 

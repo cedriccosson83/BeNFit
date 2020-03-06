@@ -8,5 +8,6 @@ data class ShowSession (
         var nbrRound: String = "",
         var levelSession: String = "",
         var exosSession : ArrayList<String> = ArrayList(),
-        var likes : ArrayList<String> = ArrayList()
+        var likes : ArrayList<String> = ArrayList(),
+        var imgURI : String
 )

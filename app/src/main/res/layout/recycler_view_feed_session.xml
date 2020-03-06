@@ -26,7 +26,7 @@
             android:padding="8dp">
 
             <ImageView
-                android:id="@+id/imageView"
+                android:id="@+id/imageViewFeedSession"
                 android:layout_width="93dp"
                 android:layout_height="95dp"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -42,7 +42,7 @@
                 android:text="Nom de la séance"
                 android:textSize="24sp"
                 android:textStyle="bold"
-                app:layout_constraintStart_toEndOf="@+id/imageView"
+                app:layout_constraintStart_toEndOf="@+id/imageViewFeedSession"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
@@ -52,7 +52,7 @@
                 android:layout_marginStart="4dp"
                 android:layout_marginTop="4dp"
                 android:text="Description de la séance"
-                app:layout_constraintStart_toEndOf="@+id/imageView"
+                app:layout_constraintStart_toEndOf="@+id/imageViewFeedSession"
                 app:layout_constraintTop_toBottomOf="@+id/sessionNameTextView" />
 
             <ImageView
@@ -88,7 +88,7 @@
                 android:text="TextView"
                 android:textSize="8sp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="@+id/imageView"
+                app:layout_constraintStart_toStartOf="@+id/imageViewFeedSession"
                 app:layout_constraintTop_toBottomOf="@+id/descriptionSessionTextView"
                 app:layout_constraintVertical_bias="1.0" />
 

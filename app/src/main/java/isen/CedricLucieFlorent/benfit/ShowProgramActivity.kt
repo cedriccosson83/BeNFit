@@ -94,20 +94,7 @@ class ShowProgramActivity : MenuActivity() {
          context.startActivity(intent)
     }
 
-    private fun sessionFinished(session: ShowSessionProgram, program: ShowProgram){
-        var currentUser = auth.currentUser
-        var id = currentUser?.uid ?:""
-        var programID = program.programID ?: ""
-        if (id != ""){
-            val myRef = database.getReference("users").child(id).child("currentPrograms").child(programID)
-            for (value in program.sessionsProgram) {
-                if (session.sessionID == value) {
-                    myRef.child(session.sessionID).setValue("OK")
-                    finishedSessionBtn.setImageResource(R.drawable.checked)
-                }
-            }
-        }
-    }
+
 
     fun showSessionsFromProgram(database : FirebaseDatabase, prog_sessions: ArrayList<String>, activity : String, program : ShowProgram) {
 
@@ -122,16 +109,16 @@ class ShowProgramActivity : MenuActivity() {
                         val sess = ShowSessionProgram(
                             value.child("sessionID").value.toString(),
                             value.child("nameSession").value.toString(),
-                            value.child("userID").value.toString()
+                            value.child("userID").value.toString(),
+                            value.child("pictureUID").value.toString()
                         )
                         sessionsIn.add(sess)
                     }
                 }
                 sessionsIn.reverse()
                 val reference = "users/${auth.currentUser?.uid}/currentPrograms/${program.programID}/"
-                showProgramRecyclerView.adapter = ShowSessionsAdapter(sessionsIn, activity, database, reference,
-                    {session : ShowSessionProgram -> sessionClicked(session)},
-                    {session : ShowSessionProgram -> sessionFinished(session, program)})
+                showProgramRecyclerView.adapter = ShowSessionsAdapter(sessionsIn, program, activity, database, reference,
+                    {session : ShowSessionProgram -> sessionClicked(session)})
             }
             override fun onCancelled(error: DatabaseError) {
                 Log.w("session", "Failed to read value.", error.toException())

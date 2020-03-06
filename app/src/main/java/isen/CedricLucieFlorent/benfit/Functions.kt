@@ -26,6 +26,7 @@ import com.google.firebase.database.ValueEventListener
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import isen.CedricLucieFlorent.benfit.Models.ProgramFeed
+import isen.CedricLucieFlorent.benfit.Models.ShowSessionProgram
 import isen.CedricLucieFlorent.benfit.Models.User
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.recycler_view_comment_cell.view.*
@@ -180,6 +181,20 @@ fun convertLevelToImg(level: String, image: ImageView) {
         "Expert" -> image.setImageResource(R.drawable.level_3)
         "Intermédiaire" -> image.setImageResource(R.drawable.level_2)
         else -> image.setImageResource(R.drawable.level_1)
+    }
+}
+
+fun sessionFinished(database: FirebaseDatabase,session: ShowSessionProgram, program: ShowProgram, currentUserID: String?, icon: ImageView){
+    var programID = program.programID ?: ""
+    var id = currentUserID ?:""
+    if (id != ""){
+        val myRef = database.getReference("users").child(id).child("currentPrograms").child(programID)
+        for (value in program.sessionsProgram) {
+            if (session.sessionID == value) {
+                myRef.child(session.sessionID).setValue("OK")
+                icon.setImageResource(R.drawable.checked)
+            }
+        }
     }
 }
 
