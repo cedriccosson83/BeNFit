@@ -304,9 +304,10 @@ fun setImageFromFirestore(context: Context, target: ImageView, location: String)
     GlideApp.with(ApplicationContext.applicationContext()).load(storeRef).into(target)
 }
 
-fun getProgramProgression(database: FirebaseDatabase, userId: String?, programID: String/*, programProgress: ProgressBar*/) {
+fun getProgramProgression(database: FirebaseDatabase, userId: String?,
+                          programID: String, programProgress: ProgressBar) {
     val myRef = database.getReference("programs").child(programID)
-    myRef.addValueEventListener(object : ValueEventListener {
+    myRef.addListenerForSingleValueEvent(object : ValueEventListener {
         override fun onDataChange(dataSnapshot: DataSnapshot) {
             var countTotalSess = 0
             for (value in dataSnapshot.children) {
@@ -316,7 +317,7 @@ fun getProgramProgression(database: FirebaseDatabase, userId: String?, programID
                     break
                 }
             }
-            checkUserSessionDone(database, userId, programID, countTotalSess/*, programProgress*/)
+            checkUserSessionDone(database, userId, programID, countTotalSess, programProgress)
         }
         override fun onCancelled(error: DatabaseError) {
             Log.w("programs", "Failed to read value.", error.toException())
@@ -324,19 +325,18 @@ fun getProgramProgression(database: FirebaseDatabase, userId: String?, programID
     })
 }
 
-fun checkUserSessionDone(database: FirebaseDatabase, userId: String?, programID: String, countSessTotProgram: Int/*, programProgress: ProgressBar*/) {
+fun checkUserSessionDone(database: FirebaseDatabase, userId: String?, programID: String,
+                         countSessTotProgram: Int, programProgress: ProgressBar) {
     if (userId == null) return
     val myRef = database.getReference("users").child(userId).child("currentPrograms").child(programID)
-    myRef.addValueEventListener(object : ValueEventListener {
+    myRef.addListenerForSingleValueEvent(object : ValueEventListener {
         override fun onDataChange(dataSnapshot: DataSnapshot) {
             var countTotalDoneSess = 0
-            for (value in dataSnapshot.children) {
-                for (childSess in value.children)
+            for (value in dataSnapshot.children)
+                if (value.value.toString() == "OK")
                     countTotalDoneSess++
-                break
-            }
 
-            renderProgressProgram(countSessTotProgram,countTotalDoneSess/*, programProgress*/)
+            renderProgressProgram(countSessTotProgram,countTotalDoneSess, programProgress)
 
         }
         override fun onCancelled(error: DatabaseError) {
@@ -345,14 +345,15 @@ fun checkUserSessionDone(database: FirebaseDatabase, userId: String?, programID:
     })
 }
 
-fun renderProgressProgram(countSessTotProgram : Int,countTotalDoneSess : Int/*, programProgress*/) {
+fun renderProgressProgram(countSessTotProgram : Int,countTotalDoneSess : Int, programProgress: ProgressBar) {
     Log.d("CEDRIC_TOT", countSessTotProgram.toString())
     Log.d("CEDRIC_SUB", countTotalDoneSess.toString())
     val percent : Float = if (countTotalDoneSess > 0)
-        round(((countSessTotProgram / countTotalDoneSess) * 100).toFloat())
+        round(((countTotalDoneSess.toFloat()/ countSessTotProgram.toFloat())  * 100).toFloat())
     else
         0F
     Log.d("CEDRIC_percent", percent.toString())
+    programProgress.progress = percent.toInt()
 }
 
 fun countTotalProgramLikes(database: FirebaseDatabase, userId: String,
