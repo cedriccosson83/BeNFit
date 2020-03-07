@@ -83,7 +83,7 @@ class NotifActivity : AppCompatActivity() {
             }
         })
 
-        btn_create.setOnClickListener(){
+        btn_create.setOnClickListener{
 
             val calendar = Calendar.getInstance()
             calendar.setTimeInMillis(System.currentTimeMillis())
@@ -95,7 +95,10 @@ class NotifActivity : AppCompatActivity() {
             Toast.makeText(this, "reminder set!" , Toast.LENGTH_SHORT).show()
 
             intent = Intent(this, ReminderBroadcast::class.java)
-            var pendingIntent = PendingIntent.getBroadcast(this, 0, intent, 0)
+
+            val random = (1 until 9).random()
+
+            var pendingIntent = PendingIntent.getBroadcast(this, random, intent, 0)
 
             var alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
 

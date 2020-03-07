@@ -22,6 +22,7 @@ import android.webkit.WebView
 import android.widget.*
 import androidx.core.content.ContextCompat.startActivity
 import com.airbnb.lottie.LottieAnimationView
+import com.google.android.material.button.MaterialButton
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
@@ -152,6 +153,16 @@ fun redirectToProgram(context : Context, programID : String, extra : String){
     context.startActivity(intent)
 }
 
+fun constraintValidateYoutube(btn : MaterialButton, inputText : String) : Boolean{
+    if (btn.isChecked) {
+        var position = inputText.indexOf("https://www.youtube.com/watch?v=")
+        if(position == -1){
+            return false
+        }
+    }
+    return true
+}
+
 fun showUserNameImage(userId : String, textview: TextView,  imgView : ImageView) {
 
     val database = FirebaseDatabase.getInstance()
@@ -198,13 +209,14 @@ fun sessionFinished(database: FirebaseDatabase,session: ShowSessionProgram, prog
     }
 }
 
-fun showChecked(database : FirebaseDatabase, pathToChecked : String, icon : ImageView ) {
+fun showChecked(database : FirebaseDatabase, pathToChecked : String, icon : ImageView, sessionID :String ) {
     val myRef = database.getReference(pathToChecked)
     myRef.addListenerForSingleValueEvent(object : ValueEventListener {
         override fun onDataChange(dataSnapshot: DataSnapshot) {
             for (value in dataSnapshot.children) {
-                if (value.value.toString() == "OK"){
+                if (value.key.toString() == sessionID && value.value.toString() == "OK"){
                     icon.setImageResource(R.drawable.checked)
+                    break
                 }
                 else{
                     icon.setImageResource(R.drawable.tocheck)

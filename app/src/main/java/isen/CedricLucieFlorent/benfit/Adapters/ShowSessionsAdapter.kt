@@ -57,7 +57,7 @@ class ShowSessionsAdapter (val sessions: ArrayList<ShowSessionProgram>, val prog
                     }
 
                 }
-                showChecked(database, reference, view.finishedSessionBtn)
+                showChecked(database, reference, view.finishedSessionBtn, session.sessionID)
             }
         }
     }
