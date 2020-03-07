@@ -13,7 +13,7 @@ class HomeActivity : AppCompatActivity() {
 
 
         home_programs.setOnClickListener {
-            startActivity(Intent(this, MainActivity::class.java))
+            startActivity(Intent(this, ProgramFeedActivity::class.java))
         }
 
         home_sessions.setOnClickListener {

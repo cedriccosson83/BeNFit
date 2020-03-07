@@ -1,21 +1,15 @@
 package isen.CedricLucieFlorent.benfit
 
 import android.app.DatePickerDialog
-import android.content.ContentResolver
-import android.content.ContentValues
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.provider.MediaStore
 import android.util.Log
 import android.view.View
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.DataSnapshot
@@ -27,9 +21,7 @@ import com.google.firebase.storage.StorageReference
 import com.google.firebase.storage.UploadTask
 import isen.CedricLucieFlorent.benfit.Models.Sport
 import isen.CedricLucieFlorent.benfit.Models.User
-import kotlinx.android.synthetic.main.activity_modify_profile.*
 import kotlinx.android.synthetic.main.activity_sign_up.*
-import java.io.InputStream
 import java.text.SimpleDateFormat
 
 import java.util.*
@@ -102,6 +94,7 @@ class SignUpActivity : AppCompatActivity() {
         newPictureImageView.setOnClickListener{
             stu.askCameraPermissions()
         }
+
         sportTewtView.setOnClickListener{
             val checkedColorsArray = BooleanArray(166)
             val sportList = sportArray.toList()
@@ -195,7 +188,7 @@ class SignUpActivity : AppCompatActivity() {
         if (user?.uid != null) {
             val sdf = SimpleDateFormat("dd/mm/yyyy")
             val date = sdf.format(Date())
-            currUser = User(user.uid, user.email, fname, lname, birthdate,sports, weight)
+            currUser = User(user.uid, user.email, fname, lname, birthdate,sports, weight, "", "0")
             val root = database.getReference("users")
             root.child(currUser.userid).setValue(currUser)
             userName = currUser.firstname.toString()

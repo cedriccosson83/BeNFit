@@ -35,6 +35,14 @@ class SessionFeedActivity : MenuActivity() {
         startActivity(intent)
     }
 
+
+    private fun sessionClicked(session : SessionFeed) {
+        val intent = Intent(context, ShowSessionActivity::class.java)
+        val id : String = session.sessionID
+        intent.putExtra("session", id)
+        context.startActivity(intent)
+    }
+
     fun showSessionsFeed(database : FirebaseDatabase, view : RecyclerView, context: Context, userId: String) {
 
         val myRef = database.getReference("sessions")
@@ -58,12 +66,16 @@ class SessionFeedActivity : MenuActivity() {
                             value.child("userID").value.toString(),
                             value.child("nbrRound").value.toString(),
                             value.child("levelSession").value.toString(),
-                            arrayLikes
+                            arrayLikes,
+                            value.child("pictureUID").value.toString()
                     )
                     sessions.add(sessionFeed)
                 }
                 sessions.reverse()
-                recycler_view_session_feed.adapter = SessionFeedAdapter(sessions,{ sessionsItem : SessionFeed -> notifClicked(sessionsItem)})
+                recycler_view_session_feed.adapter = SessionFeedAdapter(
+                    sessions,
+                    { sessionsItem : SessionFeed -> notifClicked(sessionsItem)},
+                    { sess : SessionFeed -> sessionClicked(sess)})
             }
             override fun onCancelled(error: DatabaseError) {
                 Log.w("session", "Failed to read value.", error.toException())

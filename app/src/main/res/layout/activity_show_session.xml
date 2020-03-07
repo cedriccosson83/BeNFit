@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:layout_editor_absoluteX="1dp"
+    tools:layout_editor_absoluteY="84dp"
+    android:layout_marginTop="@dimen/top_button_size_marge">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="500dp"
+        tools:context=".ShowSessionActivity">
+
+        <TextView
+            android:id="@+id/showSessionAuthor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="@string/author"
+            app:layout_constraintBottom_toTopOf="@+id/showSessionDesc"
+            app:layout_constraintEnd_toEndOf="@+id/showSessionName"
+            app:layout_constraintStart_toStartOf="@+id/showSessionName"
+            app:layout_constraintTop_toBottomOf="@+id/showSessionName" />
+
+        <ImageView
+            android:id="@+id/showSessionLevelIcon"
+            android:layout_width="47dp"
+            android:layout_height="38dp"
+            android:layout_marginStart="16dp"
+            android:contentDescription="@string/img"
+            app:layout_constraintEnd_toStartOf="@+id/showSessionName"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/showSessionName"
+            app:srcCompat="@drawable/level_3" />
+
+        <TextView
+            android:id="@+id/showSessionName"
+            android:layout_width="259dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="8dp"
+            android:gravity="center"
+            android:text="@string/program_name"
+            android:textColor="#000000"
+            android:textSize="24sp"
+            app:autoSizeMinTextSize="12sp"
+            app:layout_constraintBottom_toTopOf="@+id/showSessionAuthor"
+            app:layout_constraintEnd_toStartOf="@+id/showSessionLike"
+            app:layout_constraintStart_toEndOf="@+id/showSessionLevelIcon"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/showSessionLike"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="3dp"
+            android:text="@string/_0"
+            app:layout_constraintBottom_toBottomOf="@+id/showSessionLikeIcon"
+            app:layout_constraintEnd_toStartOf="@+id/showSessionLikeIcon"
+            app:layout_constraintTop_toTopOf="@+id/showSessionLikeIcon" />
+
+        <ImageView
+            android:id="@+id/showSessionLikeIcon"
+            android:layout_width="19dp"
+            android:layout_height="19dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:contentDescription="@string/img"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/showSessionName"
+            app:srcCompat="@drawable/dislike" />
+
+        <TextView
+            android:id="@+id/showSessionDesc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="30dp"
+            android:text="@string/prog_descr"
+            app:layout_constraintBottom_toTopOf="@+id/showSessionRecyclerView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/showSessionAuthor" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/showSessionRecyclerView"
+            android:layout_width="296dp"
+            android:layout_height="507dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="44dp"
+            android:layout_marginEnd="24dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/showSessionDesc" />
+
+        <TextView
+            android:id="@+id/showSessionLevelText"
+            android:layout_width="wrap_content"
+            android:layout_height="22dp"
+            android:layout_marginTop="2dp"
+            android:text="@string/level"
+            android:textSize="12sp"
+            app:autoSizeMaxTextSize="13sp"
+            app:autoSizeMinTextSize="10sp"
+            app:layout_constraintEnd_toEndOf="@+id/showSessionLevelIcon"
+            app:layout_constraintStart_toStartOf="@+id/showSessionLevelIcon"
+            app:layout_constraintTop_toBottomOf="@+id/showSessionLevelIcon" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

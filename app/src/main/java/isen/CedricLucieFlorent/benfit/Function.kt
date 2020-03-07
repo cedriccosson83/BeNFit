@@ -2,16 +2,25 @@ package isen.CedricLucieFlorent.benfit
 
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.util.Log
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.database.*
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
+import com.google.firebase.storage.StorageReference
+import com.google.firebase.storage.UploadTask
 import isen.CedricLucieFlorent.benfit.Adapters.SessionAdapter
 import isen.CedricLucieFlorent.benfit.Adapters.SessionFeedAdapter
 import isen.CedricLucieFlorent.benfit.Adapters.SessionProgramAdapter
 import isen.CedricLucieFlorent.benfit.Models.*
 import kotlinx.android.synthetic.main.activity_program.*
 import kotlinx.android.synthetic.main.activity_session.*
+import java.util.*
+import kotlin.collections.ArrayList
 
 
 fun addNewExo(database : FirebaseDatabase, nameExo: String, idUser: String, descExo: String, urlYtb: String, levelExo: String, sportExo: String) : String{
@@ -210,8 +219,8 @@ fun deleteInfosTempSession(database : FirebaseDatabase, activity: SessionActivit
 
 
 }
-fun saveSession(database : FirebaseDatabase, userId :String,nameSession:String, descSession: String, levelSession:String, nbrRound: Int) {
-    Log.d("function", "saveSession")
+
+fun saveSession(database : FirebaseDatabase, storageReference : StorageReference, image_uri : Uri, context : Context, userId :String,nameSession:String, descSession: String, levelSession:String, nbrRound: Int) {
     val myRef = database.getReference("temporary_exos_session")
     val dbSession = database.getReference("sessions")
 
@@ -227,9 +236,24 @@ fun saveSession(database : FirebaseDatabase, userId :String,nameSession:String, 
                 Log.d("Exo", exo.toString())
             }
             var session : Session = Session(newId,userId,nameSession,descSession,levelSession,exos,nbrRound)
+
+            var session : Session = Session(newId,userId,nameSession,descSession,levelSession,exos,nbrRound,"")
             if (newId != null) {
                 dbSession.child(newId).setValue(session)
                 saveInfosSession(database,newId, userId,nameSession, descSession, levelSession)
+            }
+
+            val uniqID = UUID.randomUUID().toString()
+            val stoRef = storageReference.child("sessions/${session.sessionID}/$uniqID")
+            val result: UploadTask
+            if(image_uri != Uri.EMPTY) {
+                result = stoRef.putFile(image_uri)
+            } else {
+                val uri = getDrawableToURI(context,R.drawable.sessions)
+                result = stoRef.putFile(uri)
+            }
+            result.addOnSuccessListener {
+                database.getReference("sessions/${session.sessionID}/pictureUID").setValue(uniqID)
             }
 
         }
@@ -277,7 +301,7 @@ fun deleteInfosTempProgram(database : FirebaseDatabase, activity: ProgramActivit
         }
     })
 }
-fun saveProgram(database : FirebaseDatabase, userId :String,nameProgram:String, descProgram: String, levelProgram:String) {
+fun saveProgram(database : FirebaseDatabase,storageReference: StorageReference, image_uri : Uri, context: Context, userId :String,nameProgram:String, descProgram: String, levelProgram:String) {
     Log.d("function", "saveProgram")
 
     val myRef = database.getReference("temporary_session_program")
@@ -296,7 +320,10 @@ fun saveProgram(database : FirebaseDatabase, userId :String,nameProgram:String, 
                     value.child("nameSession").value.toString(),
                     value.child("descSession").value.toString(),
                     value.child("levelSession").value.toString(),
-                    exosSession,value.child("nbrRound").value.toString().toInt())
+                    exosSession,
+                    value.child("nbrRound").value.toString().toInt(),
+                    value.child("pictureUID").value.toString()
+                )
                 if(session.userID == userId){
                     sessions.add(session)
                 }
@@ -307,6 +334,19 @@ fun saveProgram(database : FirebaseDatabase, userId :String,nameProgram:String, 
             if (newId != null) {
                 dbProgram.child(newId).setValue(program)
                 saveInfosProgram(database,newId, userId,nameProgram, descProgram, levelProgram)
+            }
+
+            val uniqID = UUID.randomUUID().toString()
+            val stoRef = storageReference.child("programs/${program.programID}/$uniqID")
+            val result: UploadTask
+            if(image_uri != Uri.EMPTY) {
+                result = stoRef.putFile(image_uri)
+            } else {
+                val uri = getDrawableToURI(context,R.drawable.programs)
+                result = stoRef.putFile(uri)
+            }
+            result.addOnSuccessListener {
+                database.getReference("programs/${program.programID}/pictureUID").setValue(uniqID)
             }
 
         }
@@ -494,7 +534,14 @@ fun showSessions(database: FirebaseDatabase, view: RecyclerView, context: Contex
             val sessions : ArrayList<Session> = ArrayList<Session>()
             for(value in dataSnapshot.children ) {
                 var exosSession : ArrayList<SessionExercice> = ArrayList()
-                var session : Session = Session(value.child("sessionID").value.toString(),value.child("userID").value.toString(),value.child("nameSession").value.toString(),value.child("descSession").value.toString(),value.child("levelSession").value.toString(),exosSession,value.child("nbrRound").value.toString().toInt())
+                var session : Session = Session(value.child("sessionID").value.toString(),
+                    value.child("userID").value.toString(),
+                    value.child("nameSession").value.toString(),
+                    value.child("descSession").value.toString(),
+                    value.child("levelSession").value.toString(),
+                    exosSession,
+                    value.child("nbrRound").value.toString().toInt(),
+                    value.child("pictureUID").value.toString())
                 sessions.add(session)
             }
             sessions.reverse()
@@ -517,7 +564,12 @@ fun showSessionsProgram(database: FirebaseDatabase,view: RecyclerView, context: 
             for(value in dataSnapshot.children ) {
                 var exosSession : ArrayList<SessionExercice> = ArrayList()
                // var session : Session = Session(value.child("sessionID").value.toString(),value.child("userID").value.toString(),value.child("nameSession").value.toString(),value.child("descSession").value.toString(),value.child("levelSession").value.toString(),exosSession,value.child("nbrRound").value.toString().toInt())
-                var sessionProgram : SessionProgram = SessionProgram(value.child("idSessionTemp").value.toString(), value.child("sessionID").value.toString(), value.child("nameSession").value.toString(),value.child("userID").value.toString())
+                var sessionProgram : SessionProgram = SessionProgram(
+                    value.child("idSessionTemp").value.toString(),
+                    value.child("sessionID").value.toString(),
+                    value.child("nameSession").value.toString(),
+                    value.child("userID").value.toString(),
+                    value.child("pictureUID").value.toString())
                 if(userId == sessionProgram.userID){
                     sessions.add(sessionProgram)
                 }
@@ -545,7 +597,7 @@ fun addTemporarySessionProgram(database : FirebaseDatabase, idUser:String, sessi
         Log.d("ERROR", "Couldn't get push key for exos")
         return -1
     }
-    var newSession : Session = Session(session.sessionID, idUser,session.nameSession,session.descSession,session.levelSession,session.exosSession,session.nbrRound)
+    var newSession : Session = Session(session.sessionID, idUser,session.nameSession,session.descSession,session.levelSession,session.exosSession,session.nbrRound,session.imgURI)
     dbSession.child(newId).setValue(newSession)
     dbSession.child(newId).child("idSessionTemp").setValue(newId)
     return 0

@@ -152,5 +152,13 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/save" />
 
+    <ImageView
+        android:id="@+id/imageViewCreateSession"
+        android:layout_width="78dp"
+        android:layout_height="60dp"
+        app:layout_constraintBottom_toTopOf="@+id/recyclerViewExoSession"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/addpic" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -86,7 +86,7 @@ open class MenuActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
                         val navMailText = header.findViewById<TextView>(R.id.nav_mail)
                         val navPict = header.findViewById<ImageView>(R.id.nav_picture)
                         val homeBtn = header.findViewById<ImageView>(R.id.myHomeBTN)
-                        val logoutBtn = header.findViewById<ImageView>(R.id.myHomeBTN)
+                        val logoutBtn = header.findViewById<ImageView>(R.id.myLogoutBTN)
                         navNameText.text = "$fname $lname"
                         navMailText.text = mail
                         setImageFromFirestore(context, navPict, "users/$userId/$pictUID")
