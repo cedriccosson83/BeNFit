@@ -50,9 +50,8 @@
         android:layout_marginEnd="50dp"
         android:text="Description"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.504"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/profileGradeText" />
+        app:layout_constraintTop_toBottomOf="@+id/profileCoachGradeText" />
 
     <com.google.android.material.button.MaterialButtonToggleGroup
         android:id="@+id/GroupButtonProg"
@@ -98,9 +97,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="TextView"
+        android:text="@string/gradeText"
         android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@+id/descriptionTextView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/fullNameTextView" />
@@ -124,5 +122,37 @@
         app:layout_constraintStart_toEndOf="@+id/profileGradeText"
         app:layout_constraintTop_toTopOf="@+id/profileGradeText"
         app:srcCompat="@drawable/grade1" />
+
+
+    <TextView
+        android:id="@+id/profileCoachGradeText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/coachGradeText"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/profileGradeText" />
+
+    <ImageView
+        android:id="@+id/profileCoachGradeMedal1"
+        android:layout_width="21dp"
+        android:layout_height="23dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/profileCoachGradeText"
+        app:layout_constraintEnd_toStartOf="@+id/profileCoachGradeText"
+        app:layout_constraintTop_toTopOf="@+id/profileCoachGradeText"
+        app:srcCompat="@drawable/coach_grade_0" />
+
+    <ImageView
+        android:id="@+id/profileCoachGradeMedal2"
+        android:layout_width="21dp"
+        android:layout_height="23dp"
+        android:layout_marginStart="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/profileCoachGradeText"
+        app:layout_constraintStart_toEndOf="@+id/profileCoachGradeText"
+        app:layout_constraintTop_toTopOf="@+id/profileCoachGradeText"
+        app:srcCompat="@drawable/coach_grade_0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

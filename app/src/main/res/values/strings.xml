@@ -263,4 +263,11 @@
     <string name="grade4">Professionnel</string>
     <string name="grade5">Compétiteur</string>
 
+    <string name="coach_grade_0">Observateur</string>
+    <string name="coach_grade_1">Entraîneur apprenti</string>
+    <string name="coach_grade_2">Entraîneur sportif</string>
+    <string name="coach_grade_3">Entraîneur professionnel</string>
+    <string name="gradeText">Grade Sportif</string>
+    <string name="coachGradeText">Grade Entraineur</string>
+
 </resources>

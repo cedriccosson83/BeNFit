@@ -33,6 +33,7 @@ import isen.CedricLucieFlorent.benfit.Models.ShowSessionProgram
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
+import kotlin.math.round
 
 fun showDate(date : String?, textview: TextView){
 
@@ -302,6 +303,121 @@ fun setImageFromFirestore(context: Context, target: ImageView, location: String)
         = FirebaseStorage.getInstance().getReference(location)
     GlideApp.with(ApplicationContext.applicationContext()).load(storeRef).into(target)
 }
+
+fun getProgramProgression(database: FirebaseDatabase, userId: String?, programID: String/*, programProgress: ProgressBar*/) {
+    val myRef = database.getReference("programs").child(programID)
+    myRef.addValueEventListener(object : ValueEventListener {
+        override fun onDataChange(dataSnapshot: DataSnapshot) {
+            var countTotalSess = 0
+            for (value in dataSnapshot.children) {
+                if (value.key.toString() == "sessionsProgram") {
+                    for (childSess in value.children)
+                        countTotalSess++
+                    break
+                }
+            }
+            checkUserSessionDone(database, userId, programID, countTotalSess/*, programProgress*/)
+        }
+        override fun onCancelled(error: DatabaseError) {
+            Log.w("programs", "Failed to read value.", error.toException())
+        }
+    })
+}
+
+fun checkUserSessionDone(database: FirebaseDatabase, userId: String?, programID: String, countSessTotProgram: Int/*, programProgress: ProgressBar*/) {
+    if (userId == null) return
+    val myRef = database.getReference("users").child(userId).child("currentPrograms").child(programID)
+    myRef.addValueEventListener(object : ValueEventListener {
+        override fun onDataChange(dataSnapshot: DataSnapshot) {
+            var countTotalDoneSess = 0
+            for (value in dataSnapshot.children) {
+                for (childSess in value.children)
+                    countTotalDoneSess++
+                break
+            }
+
+            renderProgressProgram(countSessTotProgram,countTotalDoneSess/*, programProgress*/)
+
+        }
+        override fun onCancelled(error: DatabaseError) {
+            Log.w("programs", "Failed to read value.", error.toException())
+        }
+    })
+}
+
+fun renderProgressProgram(countSessTotProgram : Int,countTotalDoneSess : Int/*, programProgress*/) {
+    Log.d("CEDRIC_TOT", countSessTotProgram.toString())
+    Log.d("CEDRIC_SUB", countTotalDoneSess.toString())
+    val percent : Float = if (countTotalDoneSess > 0)
+        round(((countSessTotProgram / countTotalDoneSess) * 100).toFloat())
+    else
+        0F
+    Log.d("CEDRIC_percent", percent.toString())
+}
+
+fun countTotalProgramLikes(database: FirebaseDatabase, userId: String,
+                           gradeText: TextView, gradeImg1: ImageView,
+                           gradeImg2: ImageView, context: Context) {
+    val myRef = database.getReference("programs")
+    myRef.addValueEventListener(object : ValueEventListener {
+        override fun onDataChange(dataSnapshot: DataSnapshot) {
+            var countTotalLikes = 0
+            for (value in dataSnapshot.children)
+                if (value.child("userID").value.toString() == userId)
+                    for (childLike in value.child("likes").children)
+                        countTotalLikes++
+
+            countTotalSessionLikes(database, userId, countTotalLikes, gradeText, gradeImg1, gradeImg2, context)
+        }
+        override fun onCancelled(error: DatabaseError) {
+            Log.w("session", "Failed to read value.", error.toException())
+        }
+    })
+}
+
+fun countTotalSessionLikes(database: FirebaseDatabase, userId: String, countTotalLikesProgram: Int,
+                           gradeText: TextView, gradeImg1: ImageView, gradeImg2: ImageView, context: Context) {
+    val myRef = database.getReference("sessions")
+    myRef.addValueEventListener(object : ValueEventListener {
+        override fun onDataChange(dataSnapshot: DataSnapshot) {
+            var countTotalLikesSess = 0
+            for (value in dataSnapshot.children)
+                if (value.child("userID").value.toString() == userId)
+                    for (childLike in value.child("likes").children)
+                        countTotalLikesSess++
+            val countTotal = countTotalLikesProgram + countTotalLikesSess
+            renderCoachGrade(countTotal, gradeText, gradeImg1, gradeImg2, context)
+        }
+        override fun onCancelled(error: DatabaseError) {
+            Log.w("session", "Failed to read value.", error.toException())
+        }
+    })
+}
+
+fun renderCoachGrade(countTotal: Int, gradeText: TextView,
+                     gradeImg1: ImageView, gradeImg2: ImageView,
+                     context: Context) {
+    when {
+        countTotal >= 80 -> {
+            gradeText.text = context.getString(R.string.coach_grade_3)
+            gradeImg1.setImageResource(R.drawable.coach_grade_3)
+            gradeImg2.setImageResource(R.drawable.coach_grade_3)
+        } countTotal >= 45 -> {
+            gradeText.text = context.getString(R.string.coach_grade_2)
+            gradeImg1.setImageResource(R.drawable.coach_grade_2)
+            gradeImg2.setImageResource(R.drawable.coach_grade_2)
+        } countTotal >= 15 -> {
+            gradeText.text = context.getString(R.string.coach_grade_1)
+            gradeImg1.setImageResource(R.drawable.coach_grade_1)
+            gradeImg2.setImageResource(R.drawable.coach_grade_1)
+        } countTotal < 15 -> {
+            gradeText.text = context.getString(R.string.coach_grade_0)
+            gradeImg1.setImageResource(R.drawable.coach_grade_0)
+            gradeImg2.setImageResource(R.drawable.coach_grade_0)
+        }
+    }
+}
+
 
 fun renderGrade(grade: String?, gradeText: TextView, gradeImg1: ImageView, gradeImg2: ImageView, context: Context) {
     if (grade != null) {

@@ -67,6 +67,7 @@ class ProfileActivity : MenuActivity() {
         subscribeProgramButton.setOnClickListener{
             showSubPrograms()
         }
+        getProgramProgression(database, auth.currentUser?.uid, "-M1oT3a7ENpbTPrtMO8L")
     }
 
         private fun showUser(userId: String) {
@@ -94,6 +95,7 @@ class ProfileActivity : MenuActivity() {
                         }
                         fullNameTextView.text = "${user.firstname} ${user.lastname}"
                         renderGrade(user.grade,profileGradeText,profileGradeMedal1,profileGradeMedal2, context)
+                        countTotalProgramLikes(database, userId,profileCoachGradeText,profileCoachGradeMedal1,profileCoachGradeMedal2, context)
                         descriptionTextView.text = "Date de naissance : ${user.birthdate.toString()}" + "\nEmail : ${user.email} " + "\nPoids : ${user.weight} kg"  + "\nSport(s) pratiqué(s) : ${sportsaff}"
                         setImageFromFirestore(context, ProfilImage, "users/$userId/$imagePath")
 
