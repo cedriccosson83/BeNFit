@@ -17,6 +17,7 @@ import isen.CedricLucieFlorent.benfit.Adapters.SessionAdapter
 import isen.CedricLucieFlorent.benfit.Adapters.SessionFeedAdapter
 import isen.CedricLucieFlorent.benfit.Adapters.SessionProgramAdapter
 import isen.CedricLucieFlorent.benfit.Models.*
+import kotlinx.android.synthetic.main.activity_exercice_session.*
 import kotlinx.android.synthetic.main.activity_program.*
 import kotlinx.android.synthetic.main.activity_session.*
 import java.util.*
@@ -86,9 +87,28 @@ fun addTemporaryLevelProgram(database: FirebaseDatabase,idUser: String, levelPro
 fun updateRepExoSession(database: FirebaseDatabase, idExoSession: String, rep: String){
     val database = FirebaseDatabase.getInstance()
     val dbExos = database.getReference("temporary_exos_session")
+
     dbExos.child(idExoSession).child("rep").setValue(rep)
 }
 
+fun showInfosRep(database :  FirebaseDatabase, activity: ExerciceSessionActivity, userId: String){
+    val myRef = database.getReference("temporary_exos_session")
+    myRef.addListenerForSingleValueEvent(object : ValueEventListener {
+        override fun onDataChange(dataSnapshot: DataSnapshot){
+            for(value in dataSnapshot.children ) {
+                if(value.key == userId){
+                    val value  = value.child("rep").value.toString().split(" ")
+                    activity.inputValueExo.setText(value[0])
+                    activity.inputUnitExo.setText(value[1])
+
+                }
+            }
+        }
+        override fun onCancelled(error: DatabaseError) {
+            Log.w("post", "Failed to read value.", error.toException())
+        }
+    })
+}
 //This function get the posts on the database and show them on the feed
 fun showExos(database : FirebaseDatabase, view: RecyclerView, context: Context, userId: String) {
     Log.d("function", "showExos")
@@ -235,7 +255,7 @@ fun saveSession(database : FirebaseDatabase, storageReference : StorageReference
                 }
                 Log.d("Exo", exo.toString())
             }
-            var session : Session = Session(newId,userId,nameSession,descSession,levelSession,exos,nbrRound)
+            //var session : Session = Session(newId,userId,nameSession,descSession,levelSession,exos,nbrRound)
 
             var session : Session = Session(newId,userId,nameSession,descSession,levelSession,exos,nbrRound,"")
             if (newId != null) {
