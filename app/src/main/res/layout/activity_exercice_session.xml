@@ -37,8 +37,52 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
+            <TextView
+                android:id="@+id/textViewValue"
+                android:layout_width="49dp"
+                android:layout_height="20dp"
+                android:layout_marginBottom="10dp"
+                android:text="@string/valueExo"
+                app:layout_constraintBottom_toTopOf="@+id/inputValueExo"
+                app:layout_constraintEnd_toEndOf="@+id/inputValueExo"
+                app:layout_constraintStart_toStartOf="@+id/inputValueExo" />
 
-            <FrameLayout
+            <TextView
+                android:id="@+id/textViewUnit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:text="@string/unit"
+                app:layout_constraintBottom_toTopOf="@+id/inputUnitExo"
+                app:layout_constraintEnd_toEndOf="@+id/inputUnitExo"
+                app:layout_constraintStart_toStartOf="@+id/inputUnitExo" />
+
+            <EditText
+                android:id="@+id/inputValueExo"
+                android:layout_width="100dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="50dp"
+                android:ems="10"
+                android:inputType="textPersonName"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textNameExoSession" />
+
+            <EditText
+                android:id="@+id/inputUnitExo"
+                android:layout_width="100dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="50dp"
+                android:ems="10"
+                android:inputType="textPersonName"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/inputValueExo"
+                app:layout_constraintTop_toBottomOf="@+id/textNameExoSession" />
+
+
+            <!--<FrameLayout
                 android:id="@+id/fragmentContainer"
                 android:layout_width="316dp"
                 android:layout_height="149dp"
@@ -47,10 +91,10 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textNameExoSession">
 
-            </FrameLayout>
+            </FrameLayout> -->
 
 
-           <com.google.android.material.button.MaterialButtonToggleGroup
+           <!--<com.google.android.material.button.MaterialButtonToggleGroup
                android:id="@+id/toggleGroupRepTime"
                android:layout_width="wrap_content"
                android:layout_height="wrap_content"
@@ -79,7 +123,7 @@
                    app:shapeAppearance="@style/round" />
                />
 
-           </com.google.android.material.button.MaterialButtonToggleGroup>
+           </com.google.android.material.button.MaterialButtonToggleGroup>-->
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 

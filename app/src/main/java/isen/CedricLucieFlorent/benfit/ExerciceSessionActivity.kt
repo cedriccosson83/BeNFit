@@ -12,7 +12,7 @@ import kotlinx.android.synthetic.main.fragment_time.*
 import kotlinx.android.synthetic.main.recycler_view_exo_session.*
 import kotlinx.android.synthetic.main.recycler_view_exo_session.view.*
 
-class ExerciceSessionActivity : MenuActivity(), OnFragmentInteractionListener  {
+class ExerciceSessionActivity : MenuActivity()  {
     var etatFragment : Int = 0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,10 +24,13 @@ class ExerciceSessionActivity : MenuActivity(), OnFragmentInteractionListener  {
         val exoIdSession: String? = intent.getStringExtra("idExoSession")
         val exoId: String? = intent.getStringExtra("id")
         if (exoId != null) {
-            showExo(database, exoId,  textNameExoSession)
+            showExo(database, exoId, textNameExoSession)
+            if (exoIdSession != null) {
+                showInfosRep(database,  this, exoIdSession)
+            }
         }
 
-        val firstFragment = FragmentRepExo()
+        /*val firstFragment = FragmentRepExo()
         supportFragmentManager.beginTransaction().add(R.id.fragmentContainer, firstFragment).commit()
 
         btnRep.setOnClickListener {
@@ -40,11 +43,11 @@ class ExerciceSessionActivity : MenuActivity(), OnFragmentInteractionListener  {
             val timeFragment = FragmentTimeExo()
             etatFragment = 1
             supportFragmentManager.beginTransaction().replace(R.id.fragmentContainer, timeFragment).commit()
-        }
+        }*/
 
         btnDoneExo.setOnClickListener {
 
-            if(etatFragment == 0){
+            /*if(etatFragment == 0){
                 val numberPickerRep = numberPickerRep.value
                 Log.d("sessionExo", numberPickerRep.toString())
                 if (exoIdSession != null) {
@@ -59,9 +62,16 @@ class ExerciceSessionActivity : MenuActivity(), OnFragmentInteractionListener  {
                 }
                 Log.d("sessionExo", "${numberPickerMin} : ${numberPickerSec}")
 
+            }*/
+
+            val value = inputValueExo.text.toString()
+            val unit: String = inputUnitExo.text.toString()
+            if (exoIdSession != null) {
+                updateRepExoSession(database, exoIdSession, "${value} ${unit}")
             }
 
-            val intent = Intent(this,SessionActivity::class.java)
+
+            val intent = Intent(this, SessionActivity::class.java)
             startActivity(intent)
             overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
 
@@ -69,8 +79,8 @@ class ExerciceSessionActivity : MenuActivity(), OnFragmentInteractionListener  {
         }
     }
 
-    override fun swipeFragment() {
-        if(etatFragment == 0){
+    /*fun swipeFragment() {
+        /*if(etatFragment == 0){
             val secondFragment = FragmentTimeExo()
             supportFragmentManager.beginTransaction().replace(R.id.fragmentContainer, secondFragment).commit()
             etatFragment = 1
@@ -78,8 +88,8 @@ class ExerciceSessionActivity : MenuActivity(), OnFragmentInteractionListener  {
             val firstFragment = FragmentRepExo()
             supportFragmentManager.beginTransaction().replace(R.id.fragmentContainer, firstFragment).commit()
             etatFragment = 0
-        }
+        }*/
 
-    }
+    }*/
 
 }
