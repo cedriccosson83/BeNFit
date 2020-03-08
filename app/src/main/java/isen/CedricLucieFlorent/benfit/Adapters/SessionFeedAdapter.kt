@@ -19,7 +19,7 @@ import kotlinx.android.synthetic.main.recycler_view_feed_session.view.*
 import kotlinx.android.synthetic.main.recycler_view_post_cell.view.*
 
 class SessionFeedAdapter (val sessions: ArrayList<SessionFeed>,
-                          val clickListenernotif: (SessionFeed) -> Unit,
+                          val clickListenernotif: () -> Unit,
                           val sessionClicked: (SessionFeed) -> Unit): RecyclerView.Adapter<SessionFeedAdapter.SessionViewHolder>(){
 
     lateinit var auth: FirebaseAuth
@@ -44,12 +44,12 @@ class SessionFeedAdapter (val sessions: ArrayList<SessionFeed>,
         val database = FirebaseDatabase.getInstance()
         val auth = FirebaseAuth.getInstance()
 
-        fun bind(session: SessionFeed, clickListenernotif: (SessionFeed) -> Unit, sessionClicked: (SessionFeed) -> Unit) {
+        fun bind(session: SessionFeed, clickListenernotif: () -> Unit, sessionClicked: (SessionFeed) -> Unit) {
             view.sessionNameTextView.text = session.nameSessionFeed
             view.descriptionSessionTextView.text = session.descrSessionFeed
             view.sessionNameTextView.setOnClickListener { sessionClicked(session) }
             view.descriptionSessionTextView.setOnClickListener { sessionClicked(session) }
-            view.btnNotifFeedSession.setOnClickListener { clickListenernotif(session) }
+            view.btnNotifFeedSession.setOnClickListener { clickListenernotif() }
             var img = session.imgURI
             setImageFromFirestore(ApplicationContext.applicationContext(), view.imageViewFeedSession, "sessions/${session.sessionID}/${img}")
             view.btnLikeFeedSession.setOnClickListener {

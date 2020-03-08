@@ -15,6 +15,8 @@ import kotlinx.android.synthetic.main.activity_show_program.*
 import kotlinx.android.synthetic.main.recycler_view_show_program_sessions.*
 
 class ShowProgramActivity : MenuActivity() {
+    val follow = ArrayList<String>()
+    var currentUser: String? = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,15 +25,38 @@ class ShowProgramActivity : MenuActivity() {
 
         showProgramRecyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
 
+        currentUser = auth.currentUser?.uid
+
         val intent = intent
         if (intent != null) {
+            if (currentUser != "")
+                fillCurrentProg(currentUser)
             showProgram(intent)
+        }
+    }
+
+    private fun fillCurrentProg(currentUserID : String?) {
+        if (currentUserID != null) {
+            val myRef = database.getReference("users").child(currentUserID)
+
+            myRef.addValueEventListener(object : ValueEventListener {
+                override fun onDataChange(dataSnapshot: DataSnapshot) {
+                    for (value in dataSnapshot.child("currentPrograms").children) {
+                        if(follow.all { it != value.value.toString()}){
+                            follow.add(value.key.toString())
+                        }
+                    }
+                }
+                override fun onCancelled(p0: DatabaseError) {
+                    Log.d("TAG", "Failed to read value")
+                }
+            })
         }
     }
 
     private fun showProgram(intent: Intent) {
 
-        val programId: String? = intent.getStringExtra("programId") ?: ""
+        val programId: String = intent.getStringExtra("programId") ?: ""
         val activity:String? = intent.getStringExtra("activity") ?: ""
 
         val myRef = database.getReference("programs")
@@ -65,6 +90,8 @@ class ShowProgramActivity : MenuActivity() {
                         convertLevelToImg(program.levelProgram, showProgramLevelIcon)
                         showProgramLevelText.text = program.levelProgram
                         showUserName(program.userID, showProgramAuthor)
+                        showFollowers(database, currentUser,programId,"users/${currentUser}/currentPrograms", showProgramSub)
+
                         val path = "programs/${program.programID}/likes"
                         val userId = auth.currentUser?.uid
                         showLikes(database,userId ,path , showProgramLike, showProgramLikeIcon)
@@ -86,6 +113,10 @@ class ShowProgramActivity : MenuActivity() {
                             startActivity(writePostIntent)
                         }
 
+                        showProgramSub.setOnClickListener {
+                            subscribeClicked(program, currentUser)
+                        }
+
                         break
                     }
                 }
@@ -103,7 +134,35 @@ class ShowProgramActivity : MenuActivity() {
          context.startActivity(intent)
     }
 
+    private fun subscribeClicked(program : ShowProgram, currentUserID : String?) {
+        val idProg = program.programID
+        if (idProg == null || currentUserID == null) return
 
+        val myRef = database.getReference("users").child(currentUserID)
+        val sessions = program.sessionsProgram
+        if(follow.all { it != idProg}) {
+            follow.add(idProg)
+            //myRef.child("currentPrograms").setValue(follow)
+            val sessionMap = HashMap<String, String>()
+            for (sess in sessions)
+                sessionMap[sess] = "KO"
+            myRef.child("currentPrograms").child(idProg).setValue(sessionMap)
+            showProgramSub.setImageResource(R.drawable.remove)
+
+            val redirectIntent = Intent(this, ShowProgramActivity::class.java)
+            redirectIntent.putExtra("programId", program.programID)
+            redirectIntent.putExtra("activity", "SubProg")
+            redirectIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            startActivity(redirectIntent)
+
+        }else{
+            follow.remove(idProg)
+            myRef.child("currentPrograms").child(idProg).removeValue()
+            showProgramSub.setImageResource(R.drawable.add)
+            val redirectIntent = Intent(this, ProgramFeedActivity::class.java)
+            startActivity(redirectIntent)
+        }
+    }
 
     fun showSessionsFromProgram(database : FirebaseDatabase, prog_sessions: ArrayList<String>, activity : String, program : ShowProgram) {
 

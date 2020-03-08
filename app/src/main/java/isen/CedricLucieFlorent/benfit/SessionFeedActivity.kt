@@ -28,7 +28,7 @@ class SessionFeedActivity : MenuActivity() {
         recycler_view_session_feed.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
 
     }
-    private fun notifClicked(sessionItem : SessionFeed) {
+    private fun notifClicked() {
         val intent = Intent(this, NotifActivity::class.java)
         val id = auth.currentUser?.uid
         intent.putExtra("userId", id)
@@ -74,7 +74,7 @@ class SessionFeedActivity : MenuActivity() {
                 sessions.reverse()
                 recycler_view_session_feed.adapter = SessionFeedAdapter(
                     sessions,
-                    { sessionsItem : SessionFeed -> notifClicked(sessionsItem)},
+                    { notifClicked()},
                     { sess : SessionFeed -> sessionClicked(sess)})
             }
             override fun onCancelled(error: DatabaseError) {

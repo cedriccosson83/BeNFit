@@ -80,7 +80,7 @@
                 app:srcCompat="@drawable/dislike" />
 
             <ImageView
-                android:id="@+id/showProgramNotif"
+                android:id="@+id/showProgramSub"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:layout_marginTop="15dp"
@@ -88,7 +88,7 @@
                 android:contentDescription="@string/img"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/showProgramLikeIcon"
-                app:srcCompat="@drawable/notification" />
+                app:srcCompat="@drawable/add" />
 
             <ImageView
                 android:id="@+id/showProgramShare"
@@ -98,7 +98,7 @@
                 android:layout_marginEnd="16dp"
                 android:contentDescription="@string/img"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/showProgramNotif"
+                app:layout_constraintTop_toBottomOf="@+id/showProgramSub"
                 app:srcCompat="@drawable/share" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

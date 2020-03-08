@@ -52,9 +52,8 @@ class ProgramFeedActivity : MenuActivity() {
 
     private fun subscribeClicked(programItem : ProgramFeed, currentUserID : String) {
         val myRef = database.getReference("users").child(currentUserID)
-        var idProg = programItem.programID
-        var sessions = programItem.sessions
-
+        val idProg = programItem.programID
+        val sessions = programItem.sessions
         if(follow.all { it != idProg}) {
             follow.add(idProg)
             //myRef.child("currentPrograms").setValue(follow)

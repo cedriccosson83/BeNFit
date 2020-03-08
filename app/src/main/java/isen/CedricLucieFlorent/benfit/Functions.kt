@@ -229,7 +229,8 @@ fun showChecked(database : FirebaseDatabase, pathToChecked : String, icon : Imag
     })
 }
 
-fun showFollowers(database: FirebaseDatabase, currentUserID: String?, programID : String, pathToFollowers : String, icon : ImageView){
+fun showFollowers(database: FirebaseDatabase, currentUserID: String?, programID : String,
+                  pathToFollowers : String, icon : ImageView){
     val myRef = database.getReference(pathToFollowers)
     myRef.addValueEventListener(object : ValueEventListener {
         override fun onDataChange(dataSnapshot: DataSnapshot) {
