@@ -40,7 +40,7 @@ class WritePostActivity : MenuActivity() {
 
         auth = FirebaseAuth.getInstance()
         storageReference = FirebaseStorage.getInstance().getReference()
-
+        image_uri = Uri.EMPTY
         val intent = intent
         val programId = intent.getStringExtra("sharedProgram")?: ""
         val sessionId = intent.getStringExtra("sharedSession")?: ""

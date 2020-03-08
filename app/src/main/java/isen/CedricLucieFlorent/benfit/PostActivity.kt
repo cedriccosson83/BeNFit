@@ -83,21 +83,21 @@ class PostActivity : MenuActivity() {
                             redirectToUserActivity(this@PostActivity, post.userid)
                         }
 
-                        if (post.programId != "") {
+                        if (post.programId != "" && post.programId != "null") {
                             buttonLink.setOnClickListener {
                                 val sharedLinkIntent = Intent(ApplicationContext.applicationContext(), ShowProgramActivity::class.java)
                                 sharedLinkIntent.putExtra("programId", post.programId)
                                 sharedLinkIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                                 ApplicationContext.applicationContext().startActivity(sharedLinkIntent)
                             }
-                        } else if (post.sessionId != "") {
+                        } else if (post.sessionId != "" && post.sessionId != "null") {
                             buttonLink.setOnClickListener {
                                 val sharedLinkIntent = Intent(ApplicationContext.applicationContext(), ShowSessionActivity::class.java)
                                 sharedLinkIntent.putExtra("sessionId", post.sessionId)
                                 sharedLinkIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                                 ApplicationContext.applicationContext().startActivity(sharedLinkIntent)
                             }
-                        } else if (post.exoId != "") {
+                        } else if (post.exoId != "" && post.exoId != "null") {
                             buttonLink.setOnClickListener{
                                 showPopUpExercice(database, it.context, post.exoId, windowManager)
                             }
