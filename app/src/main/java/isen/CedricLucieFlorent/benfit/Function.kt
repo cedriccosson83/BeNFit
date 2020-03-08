@@ -68,6 +68,11 @@ fun addTemporaryLevelSession(database: FirebaseDatabase,idUser: String, levelSes
     dbInfos.child(idUser).child("levelSession").setValue(levelSession)
 }
 
+fun addTemporaryRoundSession(database: FirebaseDatabase,idUser: String, roundSession: String){
+    val dbInfos = database.getReference("temporary_infos_session")
+    dbInfos.child(idUser).child("roundSession").setValue(roundSession)
+}
+
 fun addTemporaryNameProgram(database: FirebaseDatabase,idUser: String, nameProgram: String){
     val dbInfos = database.getReference("temporary_infos_program")
     dbInfos.child(idUser).child("nameProgram").setValue(nameProgram)
@@ -192,6 +197,8 @@ fun showInfosSession(database :  FirebaseDatabase, activity: SessionActivity, us
 
                         activity.inputNameSession.setText(value.child("nameSession").value.toString())
                         activity.inputDescSession.setText(value.child("descSession").value.toString())
+                        activity.editTextNumberSerie.setText(value.child("roundSession").value.toString())
+
 
                 }
             }
@@ -202,16 +209,17 @@ fun showInfosSession(database :  FirebaseDatabase, activity: SessionActivity, us
     })
 }
 
-fun saveInfosSession(database : FirebaseDatabase,idSession: String, userId :String,nameSession:String, descSession: String, levelSession:String) {
+fun saveInfosSession(database : FirebaseDatabase,idSession: String, userId :String,nameSession:String, descSession: String, levelSession:String, roundSession: Int) {
     val myRef = database.getReference("temporary_infos_session")
     val dbSession = database.getReference("sessions")
     myRef.addListenerForSingleValueEvent(object : ValueEventListener {
         override fun onDataChange(dataSnapshot: DataSnapshot){
             for(value in dataSnapshot.children ) {
                 if(value.key == userId){
-                    dbSession.child(idSession).child("nameSession").setValue(value.child("nameSession").value.toString())
-                    dbSession.child(idSession).child("descSession").setValue(value.child("descSession").value.toString())
-                    dbSession.child(idSession).child("levelSession").setValue(value.child("levelSession").value.toString())
+                    dbSession.child(idSession).child("nameSession").setValue(nameSession)
+                    dbSession.child(idSession).child("descSession").setValue(descSession)
+                    dbSession.child(idSession).child("levelSession").setValue(levelSession)
+                    dbSession.child(idSession).child("roundSession").setValue(roundSession)
                 }
             }
         }
@@ -265,7 +273,7 @@ fun saveSession(database : FirebaseDatabase, storageReference : StorageReference
             var session : Session = Session(newId,userId,nameSession,descSession,levelSession,exos,nbrRound,"")
             if (newId != null) {
                 dbSession.child(newId).setValue(session)
-                saveInfosSession(database,newId, userId,nameSession, descSession, levelSession)
+                saveInfosSession(database,newId, userId,nameSession, descSession, levelSession,nbrRound)
             }
 
             val uniqID = UUID.randomUUID().toString()
