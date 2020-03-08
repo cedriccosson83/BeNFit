@@ -1,5 +1,7 @@
 package isen.CedricLucieFlorent.benfit
 
+import android.Manifest
+import android.app.Activity
 import android.content.ContentValues
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -26,9 +28,9 @@ import kotlin.collections.ArrayList
 class WritePostActivity : MenuActivity() {
 
 
-    private val code_perm_image = 101
-    private val code_req_image = 102
-    private val code_res_ext = 101
+    private val code_perm_image = 10115
+    private val code_req_image = 10116
+    private val code_res_ext = 10117
     private lateinit var image_uri : Uri
     private lateinit var storageReference: StorageReference
     private var uniqPostID = ""
@@ -87,23 +89,24 @@ class WritePostActivity : MenuActivity() {
     }
 
     private fun askCameraPermissions(){
-        if(ContextCompat.checkSelfPermission(this, android.Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED){
-            ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.CAMERA), code_perm_image)
+        if(ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED){
+            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE), code_perm_image)
         }
-        else if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.WRITE_EXTERNAL_STORAGE), code_res_ext)
+        else if (ContextCompat.checkSelfPermission(this,Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.CAMERA), code_res_ext)
         }
         else { openCamera()}
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        if (requestCode == code_perm_image){
-            if (grantResults.size > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED ){
+        if (requestCode == code_perm_image) {
+            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 openCamera()
-            }else{
-                Toast.makeText(this, "Camera permissions required", Toast.LENGTH_LONG).show()
+            } else {
+                Toast.makeText(this, "Permission Denied", Toast.LENGTH_SHORT).show()
             }
+            return
         }
     }
 
@@ -122,7 +125,7 @@ class WritePostActivity : MenuActivity() {
         cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, image_uri)
 
 
-        val chooseIntent= Intent.createChooser(imagefromgalleryIntent, "Gallery")
+        val chooseIntent= Intent.createChooser(imagefromgalleryIntent, getString(R.string.chooseImage))
         chooseIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, arrayOf(cameraIntent))
 
         startActivityForResult(chooseIntent, code_req_image)
@@ -131,14 +134,16 @@ class WritePostActivity : MenuActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         val userid = auth.currentUser?.uid ?: ""
-        if (requestCode == code_req_image){
-            if(data?.data == null){
+        if (resultCode != Activity.RESULT_CANCELED) {
+            if (requestCode == code_req_image){
+                if(data?.data == null){
                     imageViewWritePost.setImageURI(image_uri)
                     uniqPostID = UUID.randomUUID().toString()
-            }else{
-                uniqPostID = UUID.randomUUID().toString()
-                imageViewWritePost.setImageURI(data.data)
-                image_uri = data.data as Uri
+                }else{
+                    uniqPostID = UUID.randomUUID().toString()
+                    imageViewWritePost.setImageURI(data.data)
+                    image_uri = data.data as Uri
+                }
             }
         }
     }

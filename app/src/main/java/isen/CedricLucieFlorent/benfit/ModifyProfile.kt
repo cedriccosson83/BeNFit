@@ -60,7 +60,7 @@ class ModifyProfile : MenuActivity() {
         val sportArray = arrayListOf<String>()
 
         val myRef = database.getReference("sports")
-        myRef.addValueEventListener(object : ValueEventListener {
+        myRef.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 dataSnapshot.children.forEach {
                     sportArray.add(it.child("name").value.toString())
@@ -150,7 +150,7 @@ class ModifyProfile : MenuActivity() {
 
     private fun getSports (sportArray: ArrayList<String>) {
         val mySpo = database.getReference("users").child(userId)
-        mySpo.addValueEventListener(object : ValueEventListener {
+        mySpo.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 dataSnapshot.child("sports").children.forEach {
                     sportSel.add(it.child("name").value.toString())
@@ -191,7 +191,7 @@ class ModifyProfile : MenuActivity() {
 
     fun showUserM(userId: String) {
         val myRef = database.getReference("users")
-        myRef.addValueEventListener(object : ValueEventListener {
+        myRef.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 var user: User?
                 for (value in dataSnapshot.children) {

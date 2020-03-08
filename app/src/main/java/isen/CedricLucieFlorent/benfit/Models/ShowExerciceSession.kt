@@ -7,5 +7,5 @@ data class ShowExerciceSession (
         var difficulty : String ="",
         var description: String="",
         var urlYTB: String="",
-        var urlPicture: String=""
+        var pictureUID: String=""
 )
