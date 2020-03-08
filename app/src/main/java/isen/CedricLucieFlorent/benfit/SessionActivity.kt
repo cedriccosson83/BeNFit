@@ -3,6 +3,8 @@ package isen.CedricLucieFlorent.benfit
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.view.View
 import android.widget.*
@@ -37,6 +39,7 @@ class SessionActivity : MenuActivity(){
 
         val idUser = auth.currentUser?.uid
         if (idUser != null) {
+            showInfosSession(database, this, idUser)
             showExosSession(database, recyclerViewExoSession, idUser,this)
         }
         recyclerViewExoSession.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
@@ -71,10 +74,59 @@ class SessionActivity : MenuActivity(){
                 finish()
 
                 startActivity(intent)
+
                 deleteExoSessionTemp(database, idUser)
+                deleteInfosTempSession(database,this, idUser)
+
                 overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
             }
         }
+
+        spinnerLevelSession.onItemSelectedListener = object : OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
+                val selectedItem = parent.getItemAtPosition(position).toString()
+                if (idUser != null) {
+                    addTemporaryLevelSession(database,idUser, selectedItem)
+                }
+            } // to close the onItemSelected
+
+            override fun onNothingSelected(parent: AdapterView<*>) {
+
+            }
+        }
+
+        inputNameSession.addTextChangedListener(object : TextWatcher {
+
+            override fun afterTextChanged(s: Editable) {
+                if (idUser != null) {
+                    addTemporaryNameSession(database,idUser,inputNameSession.text.toString())
+                }
+            }
+
+            override fun beforeTextChanged(s: CharSequence, start: Int,
+                                           count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence, start: Int,
+                                       before: Int, count: Int) {
+            }
+        })
+        inputDescSession.addTextChangedListener(object : TextWatcher {
+
+            override fun afterTextChanged(s: Editable) {
+                if (idUser != null) {
+                    addTemporaryDescSession(database,idUser,inputDescSession.text.toString())
+                }
+            }
+
+            override fun beforeTextChanged(s: CharSequence, start: Int,
+                                           count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence, start: Int,
+                                       before: Int, count: Int) {
+            }
+        })
 
     }
 

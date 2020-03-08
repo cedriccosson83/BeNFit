@@ -262,6 +262,8 @@
     <string name="grade3">Athlète</string>
     <string name="grade4">Professionnel</string>
     <string name="grade5">Compétiteur</string>
+    <string name="unit">Unité</string>
+    <string name="valueExo">Valeur</string>
 
     <string name="coach_grade_0">Observateur</string>
     <string name="coach_grade_1">Entraîneur apprenti</string>

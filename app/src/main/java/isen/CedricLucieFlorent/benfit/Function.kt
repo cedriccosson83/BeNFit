@@ -6,6 +6,7 @@ import android.net.Uri
 import android.util.Log
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.database.*
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
@@ -16,6 +17,9 @@ import isen.CedricLucieFlorent.benfit.Adapters.SessionAdapter
 import isen.CedricLucieFlorent.benfit.Adapters.SessionFeedAdapter
 import isen.CedricLucieFlorent.benfit.Adapters.SessionProgramAdapter
 import isen.CedricLucieFlorent.benfit.Models.*
+import kotlinx.android.synthetic.main.activity_exercice_session.*
+import kotlinx.android.synthetic.main.activity_program.*
+import kotlinx.android.synthetic.main.activity_session.*
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -37,8 +41,6 @@ fun addNewExo(database : FirebaseDatabase, nameExo: String, idUser: String, desc
 
 fun addTemporaryExoSession(database : FirebaseDatabase, idUser:String, exo : Exercice) : Int{
     Log.d("function", "addTemporaryExoSession")
-
-    val database = FirebaseDatabase.getInstance()
     val dbExos = database.getReference("temporary_exos_session")
     val newId = dbExos.push().key
     Log.d("id",exo.idUser)
@@ -51,12 +53,67 @@ fun addTemporaryExoSession(database : FirebaseDatabase, idUser:String, exo : Exe
     return 0
 }
 
+fun addTemporaryNameSession(database: FirebaseDatabase,idUser: String, nameSession: String){
+    val dbInfos = database.getReference("temporary_infos_session")
+    dbInfos.child(idUser).child("nameSession").setValue(nameSession)
+}
+
+fun addTemporaryDescSession(database: FirebaseDatabase,idUser: String, descSession: String){
+    val dbInfos = database.getReference("temporary_infos_session")
+    dbInfos.child(idUser).child("descSession").setValue(descSession)
+}
+
+fun addTemporaryLevelSession(database: FirebaseDatabase,idUser: String, levelSession: String){
+    val dbInfos = database.getReference("temporary_infos_session")
+    dbInfos.child(idUser).child("levelSession").setValue(levelSession)
+}
+
+fun addTemporaryNameProgram(database: FirebaseDatabase,idUser: String, nameProgram: String){
+    val dbInfos = database.getReference("temporary_infos_program")
+    dbInfos.child(idUser).child("nameProgram").setValue(nameProgram)
+}
+
+fun addTemporaryDescProgram(database: FirebaseDatabase,idUser: String, descProgram: String){
+    val dbInfos = database.getReference("temporary_infos_program")
+    dbInfos.child(idUser).child("descProgram").setValue(descProgram)
+}
+
+fun addTemporaryLevelProgram(database: FirebaseDatabase,idUser: String, levelProgram: String){
+    val dbInfos = database.getReference("temporary_infos_program")
+    dbInfos.child(idUser).child("levelProgram").setValue(levelProgram)
+}
+
+
 fun updateRepExoSession(database: FirebaseDatabase, idExoSession: String, rep: String){
     val database = FirebaseDatabase.getInstance()
     val dbExos = database.getReference("temporary_exos_session")
+
     dbExos.child(idExoSession).child("rep").setValue(rep)
 }
 
+fun showInfosRep(database :  FirebaseDatabase, activity: ExerciceSessionActivity, userId: String){
+    val myRef = database.getReference("temporary_exos_session")
+    myRef.addListenerForSingleValueEvent(object : ValueEventListener {
+        override fun onDataChange(dataSnapshot: DataSnapshot){
+            for(value in dataSnapshot.children ) {
+                if(value.key == userId){
+                    val value  = value.child("rep").value.toString().split(" ")
+                    if(value.size > 1){
+                        activity.inputValueExo.setText(value[0])
+                        activity.inputUnitExo.setText(value[1])
+                    }else{
+                        activity.inputValueExo.setText("")
+                        activity.inputUnitExo.setText("")
+                    }
+
+                }
+            }
+        }
+        override fun onCancelled(error: DatabaseError) {
+            Log.w("post", "Failed to read value.", error.toException())
+        }
+    })
+}
 //This function get the posts on the database and show them on the feed
 fun showExos(database : FirebaseDatabase, view: RecyclerView, context: Context, userId: String) {
     Log.d("function", "showExos")
@@ -123,6 +180,71 @@ fun showExosSession(database : FirebaseDatabase, view: RecyclerView, userId :Str
 
 }
 
+fun showInfosSession(database :  FirebaseDatabase, activity: SessionActivity, userId: String){
+    Log.d("function", "showInfosSession")
+    val myRef = database.getReference("temporary_infos_session")
+    myRef.addListenerForSingleValueEvent(object : ValueEventListener {
+        override fun onDataChange(dataSnapshot: DataSnapshot){
+            for(value in dataSnapshot.children ) {
+                if(value.key == userId){
+                    Log.d("infos", value.key.toString())
+                    Log.d("infos", value.child("nameSession").value.toString())
+
+                        activity.inputNameSession.setText(value.child("nameSession").value.toString())
+                        activity.inputDescSession.setText(value.child("descSession").value.toString())
+
+                }
+            }
+        }
+        override fun onCancelled(error: DatabaseError) {
+            Log.w("post", "Failed to read value.", error.toException())
+        }
+    })
+}
+
+fun saveInfosSession(database : FirebaseDatabase,idSession: String, userId :String,nameSession:String, descSession: String, levelSession:String) {
+    val myRef = database.getReference("temporary_infos_session")
+    val dbSession = database.getReference("sessions")
+    myRef.addListenerForSingleValueEvent(object : ValueEventListener {
+        override fun onDataChange(dataSnapshot: DataSnapshot){
+            for(value in dataSnapshot.children ) {
+                if(value.key == userId){
+                    dbSession.child(idSession).child("nameSession").setValue(value.child("nameSession").value.toString())
+                    dbSession.child(idSession).child("descSession").setValue(value.child("descSession").value.toString())
+                    dbSession.child(idSession).child("levelSession").setValue(value.child("levelSession").value.toString())
+                }
+            }
+        }
+        override fun onCancelled(error: DatabaseError) {
+            Log.w("post", "Failed to read value.", error.toException())
+        }
+    })
+}
+fun deleteInfosTempSession(database : FirebaseDatabase, activity: SessionActivity, userId :String) {
+    activity.inputNameSession.setText("")
+    activity.inputDescSession.setText("")
+
+    val myRef = database.getReference("temporary_infos_session")
+    myRef.addListenerForSingleValueEvent(object : ValueEventListener {
+        override fun onDataChange(dataSnapshot: DataSnapshot){
+            for(value in dataSnapshot.children ) {
+                if(value.key == userId){
+                    myRef.child(userId).removeValue()
+                }
+            }
+        }
+        override fun onCancelled(error: DatabaseError) {
+            Log.w("temp", "Failed to read value.", error.toException())
+        }
+    })
+
+
+
+
+
+
+}
+
 fun saveSession(database : FirebaseDatabase, storageReference : StorageReference, image_uri : Uri, context : Context, userId :String,nameSession:String, descSession: String, levelSession:String, nbrRound: Int) {
     val myRef = database.getReference("temporary_exos_session")
     val dbSession = database.getReference("sessions")
@@ -132,19 +254,18 @@ fun saveSession(database : FirebaseDatabase, storageReference : StorageReference
         override fun onDataChange(dataSnapshot: DataSnapshot){
             val exos : ArrayList<SessionExercice> = ArrayList<SessionExercice>()
             for(value in dataSnapshot.children ) {
-
-
                 var exo : SessionExercice = SessionExercice(value.child("exoSessionID").value.toString(),value.child("userID").value.toString(), value.child("exoID").value.toString(),value.child("rep").value.toString())
                 if(exo.userID== userId){
                     exos.add(exo)
                 }
                 Log.d("Exo", exo.toString())
-
             }
+            //var session : Session = Session(newId,userId,nameSession,descSession,levelSession,exos,nbrRound)
 
             var session : Session = Session(newId,userId,nameSession,descSession,levelSession,exos,nbrRound,"")
             if (newId != null) {
                 dbSession.child(newId).setValue(session)
+                saveInfosSession(database,newId, userId,nameSession, descSession, levelSession)
             }
 
             val uniqID = UUID.randomUUID().toString()
@@ -161,14 +282,50 @@ fun saveSession(database : FirebaseDatabase, storageReference : StorageReference
             }
 
         }
-
         override fun onCancelled(error: DatabaseError) {
             Log.w("post", "Failed to read value.", error.toException())
         }
     })
-
 }
 
+
+
+fun saveInfosProgram(database : FirebaseDatabase,idProgram: String, userId :String,nameProgram:String, descProgram: String, levelProgral:String) {
+    val myRef = database.getReference("temporary_infos_program")
+    val dbSession = database.getReference("program")
+    myRef.addListenerForSingleValueEvent(object : ValueEventListener {
+        override fun onDataChange(dataSnapshot: DataSnapshot){
+            for(value in dataSnapshot.children ) {
+                if(value.key == userId){
+                    dbSession.child(idProgram).child("nameProgram").setValue(value.child("nameProgram").value.toString())
+                    dbSession.child(idProgram).child("descProgram").setValue(value.child("descProgram").value.toString())
+                    dbSession.child(idProgram).child("levelProgram").setValue(value.child("levelProgram").value.toString())
+                }
+            }
+        }
+        override fun onCancelled(error: DatabaseError) {
+            Log.w("post", "Failed to read value.", error.toException())
+        }
+    })
+}
+fun deleteInfosTempProgram(database : FirebaseDatabase, activity: ProgramActivity, userId :String) {
+    activity.inputNameProgram.setText("")
+    activity.inputDescProgram.setText("")
+
+    val myRef = database.getReference("temporary_infos_program")
+    myRef.addListenerForSingleValueEvent(object : ValueEventListener {
+        override fun onDataChange(dataSnapshot: DataSnapshot){
+            for(value in dataSnapshot.children ) {
+                if(value.key == userId){
+                    myRef.child(userId).removeValue()
+                }
+            }
+        }
+        override fun onCancelled(error: DatabaseError) {
+            Log.w("temp", "Failed to read value.", error.toException())
+        }
+    })
+}
 fun saveProgram(database : FirebaseDatabase,storageReference: StorageReference, image_uri : Uri, context: Context, userId :String,nameProgram:String, descProgram: String, levelProgram:String) {
     Log.d("function", "saveProgram")
 
@@ -201,6 +358,7 @@ fun saveProgram(database : FirebaseDatabase,storageReference: StorageReference, 
             var program = Program(newId,userId,nameProgram,descProgram,levelProgram,sessions)
             if (newId != null) {
                 dbProgram.child(newId).setValue(program)
+                saveInfosProgram(database,newId, userId,nameProgram, descProgram, levelProgram)
             }
 
             val uniqID = UUID.randomUUID().toString()
@@ -223,6 +381,25 @@ fun saveProgram(database : FirebaseDatabase,storageReference: StorageReference, 
         }
     })
 
+}
+fun showInfosProgram(database :  FirebaseDatabase, activity: ProgramActivity, userId: String){
+    Log.d("function", "showInfosProgram")
+    val myRef = database.getReference("temporary_infos_program")
+    myRef.addListenerForSingleValueEvent(object : ValueEventListener {
+        override fun onDataChange(dataSnapshot: DataSnapshot){
+            for(value in dataSnapshot.children ) {
+                if(value.key == userId){
+
+                    activity.inputNameProgram.setText(value.child("nameProgram").value.toString())
+                    activity.inputDescProgram.setText(value.child("descProgram").value.toString())
+
+                }
+            }
+        }
+        override fun onCancelled(error: DatabaseError) {
+            Log.w("post", "Failed to read value.", error.toException())
+        }
+    })
 }
 
 fun showExo(database: FirebaseDatabase, exoId : String, textView: TextView) {

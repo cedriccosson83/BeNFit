@@ -3,6 +3,8 @@ package isen.CedricLucieFlorent.benfit
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.view.View
 import android.widget.*
@@ -31,6 +33,7 @@ class ProgramActivity : MenuActivity() {
         stu = StreamToUri(this, this, contentResolver)
         val id = auth.currentUser?.uid
         if (id != null) {
+            showInfosProgram(database, this,id)
             showSessionsProgram(database,recyclerViewSessionProgram,this,id)
         }
         imageViewCreateProg.setOnClickListener{
@@ -43,12 +46,60 @@ class ProgramActivity : MenuActivity() {
                 saveProgram(database, storageReference,image_uri,context, id,inputNameProgram.text.toString(),inputDescProgram.text.toString(),spinnerLevelProgram.selectedItem.toString() )
                 Toast.makeText(this,"Programme sauvegardé!", Toast.LENGTH_SHORT).show()
                 deleteSessionsTempProgram(database,id)
+                deleteInfosTempProgram(database,this, id)
                 val intent = Intent(this,ProgramFeedActivity::class.java)
                 startActivity(intent)
                 finish()
                 //overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right)
             }
         }
+
+        spinnerLevelProgram.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id1: Long) {
+                val selectedItem = parent.getItemAtPosition(position).toString()
+                if (id != null) {
+                    addTemporaryLevelProgram(database,id, selectedItem)
+                }
+            } // to close the onItemSelected
+
+            override fun onNothingSelected(parent: AdapterView<*>) {
+
+            }
+        }
+
+        inputNameProgram.addTextChangedListener(object : TextWatcher {
+
+            override fun afterTextChanged(s: Editable) {
+                if (id != null) {
+                    addTemporaryNameProgram(database,id,inputNameProgram.text.toString())
+                }
+            }
+
+            override fun beforeTextChanged(s: CharSequence, start: Int,
+                                           count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence, start: Int,
+                                       before: Int, count: Int) {
+            }
+        })
+
+        inputDescProgram.addTextChangedListener(object : TextWatcher {
+
+            override fun afterTextChanged(s: Editable) {
+                if (id != null) {
+                    addTemporaryDescProgram(database,id,inputDescProgram.text.toString())
+                }
+            }
+
+            override fun beforeTextChanged(s: CharSequence, start: Int,
+                                           count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence, start: Int,
+                                       before: Int, count: Int) {
+            }
+        })
     }
 
 
