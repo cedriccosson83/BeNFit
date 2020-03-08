@@ -98,8 +98,13 @@ fun showInfosRep(database :  FirebaseDatabase, activity: ExerciceSessionActivity
             for(value in dataSnapshot.children ) {
                 if(value.key == userId){
                     val value  = value.child("rep").value.toString().split(" ")
-                    activity.inputValueExo.setText(value[0])
-                    activity.inputUnitExo.setText(value[1])
+                    if(value.size > 1){
+                        activity.inputValueExo.setText(value[0])
+                        activity.inputUnitExo.setText(value[1])
+                    }else{
+                        activity.inputValueExo.setText("")
+                        activity.inputUnitExo.setText("")
+                    }
 
                 }
             }
