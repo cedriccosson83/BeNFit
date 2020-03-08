@@ -614,14 +614,14 @@ fun showPopUpExercice(database: FirebaseDatabase, context : Context, exoID: Stri
                     exercice.urlPicture != "" -> {
                         val layout = dialog.findViewById<LinearLayout>(R.id.showExoMediaLayout)
                         val exoImView = ImageView(context)
-                        setImageFromFirestore(context,exoImView, "exercices/${exercice.id}/${exercice.urlPicture}")
+                        setImageFromFirestore(context,exoImView, "exos/${exercice.id}/${exercice.urlPicture}")
 
                         layout.addView(exoImView)
                         exoImView.layoutParams.height = 400
 
                         exoImView.setOnClickListener {
                             val fullScreenIntent = Intent(ApplicationContext.applicationContext(), FullScreenImageView::class.java)
-                            fullScreenIntent.putExtra("url", "exercices/${exercice.id}/${exercice.urlPicture}")
+                            fullScreenIntent.putExtra("url", "exos/${exercice.id}/${exercice.urlPicture}")
                             fullScreenIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                             ApplicationContext.applicationContext().startActivity(fullScreenIntent)
                         }
