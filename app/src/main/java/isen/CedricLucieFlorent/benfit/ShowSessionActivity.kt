@@ -32,7 +32,7 @@ class ShowSessionActivity : MenuActivity() {
 
     private fun showSession(intent: Intent) {
 
-        val sessionId: String? = intent.getStringExtra("session") ?: ""
+        val sessionId: String? = intent.getStringExtra("sessionId") ?: ""
         val myRef = database.getReference("sessions")
         myRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot){
@@ -77,6 +77,12 @@ class ShowSessionActivity : MenuActivity() {
                         }
                         showExercicesFromSession(database, session.exosSession)
 
+                        showSessionShare.setOnClickListener{
+                            val writePostIntent = Intent(context, WritePostActivity::class.java)
+                            writePostIntent.putExtra("sharedSession", session.sessionID)
+                            writePostIntent.putExtra("sharedName", session.nameSession)
+                            startActivity(writePostIntent)
+                        }
                         break
                     }
 

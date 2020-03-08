@@ -43,35 +43,13 @@
             android:layout_marginTop="5dp"
             android:layout_marginEnd="8dp"
             android:gravity="center"
-            android:text="@string/program_name"
+            android:text="@string/session_name"
             android:textColor="#000000"
             android:textSize="24sp"
             app:autoSizeMinTextSize="12sp"
             app:layout_constraintBottom_toTopOf="@+id/showSessionAuthor"
-            app:layout_constraintEnd_toStartOf="@+id/showSessionLike"
             app:layout_constraintStart_toEndOf="@+id/showSessionLevelIcon"
             app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/showSessionLike"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="3dp"
-            android:text="@string/_0"
-            app:layout_constraintBottom_toBottomOf="@+id/showSessionLikeIcon"
-            app:layout_constraintEnd_toStartOf="@+id/showSessionLikeIcon"
-            app:layout_constraintTop_toTopOf="@+id/showSessionLikeIcon" />
-
-        <ImageView
-            android:id="@+id/showSessionLikeIcon"
-            android:layout_width="19dp"
-            android:layout_height="19dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="16dp"
-            android:contentDescription="@string/img"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/showSessionName"
-            app:srcCompat="@drawable/dislike" />
 
         <TextView
             android:id="@+id/showSessionDesc"
@@ -79,10 +57,9 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="30dp"
             android:layout_marginTop="8dp"
-            android:layout_marginEnd="30dp"
             android:text="@string/prog_descr"
             app:layout_constraintBottom_toTopOf="@+id/showSessionRecyclerView"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/constraintLayout4"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/showSessionAuthor" />
 
@@ -96,6 +73,58 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/showSessionDesc" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/showSessionLike"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="3dp"
+                android:text="@string/_0"
+                app:layout_constraintBottom_toBottomOf="@+id/showSessionLikeIcon"
+                app:layout_constraintEnd_toStartOf="@+id/showSessionLikeIcon"
+                app:layout_constraintTop_toTopOf="@+id/showSessionLikeIcon" />
+
+            <ImageView
+                android:id="@+id/showSessionLikeIcon"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginEnd="16dp"
+                android:contentDescription="@string/img"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/dislike" />
+
+
+            <ImageView
+                android:id="@+id/showSessionNotif"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginEnd="16dp"
+                android:contentDescription="@string/img"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/showSessionLikeIcon"
+                app:srcCompat="@drawable/notification" />
+
+            <ImageView
+                android:id="@+id/showSessionShare"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginEnd="16dp"
+                android:contentDescription="@string/img"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/showSessionNotif"
+                app:srcCompat="@drawable/share" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <TextView
             android:id="@+id/showSessionLevelText"

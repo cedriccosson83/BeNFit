@@ -269,5 +269,8 @@
     <string name="coach_grade_3">Entraîneur professionnel</string>
     <string name="gradeText">Grade Sportif</string>
     <string name="coachGradeText">Grade Entraineur</string>
+    <string name="session_name">Nom de la séance</string>
+    <string name="shareName">Nom du partage</string>
+    <string name="reachLink">Accéder au Lien</string>
 
 </resources>

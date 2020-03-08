@@ -82,6 +82,17 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent">
 
+
+                <ImageView
+                    android:id="@+id/btnShareInFeed"
+                    android:layout_width="26dp"
+                    android:layout_height="27dp"
+                    android:layout_marginEnd="20dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/textViewCommentsNumberPost"
+                    app:layout_constraintEnd_toStartOf="@+id/textViewCommentsNumberPost"
+                    app:layout_constraintTop_toTopOf="@+id/textViewCommentsNumberPost"
+                    app:srcCompat="@drawable/link" />
+
                 <TextView
                     android:id="@+id/textViewLikeNumberPost"
                     android:layout_width="wrap_content"

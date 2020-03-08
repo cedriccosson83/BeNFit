@@ -145,10 +145,10 @@ fun showUserNameSessionFeed(userId: String, textview : TextView){
     })
 }
 
-fun redirectToProgram(context : Context, programID : String, extra : String){
+fun redirectToProgram(context : Context, programID : String, extra : String = ""){
     val intent = Intent(context, ShowProgramActivity::class.java)
     intent.putExtra("activity", extra)
-    intent.putExtra("program", programID)
+    intent.putExtra("programId", programID)
     context.startActivity(intent)
 }
 
@@ -588,7 +588,12 @@ fun showPopUpExercice(database: FirebaseDatabase, context : Context, exoID: Stri
                 dialog.findViewById<TextView>(R.id.showExoName).text = exercice.name
                 dialog.findViewById<TextView>(R.id.showExoDesc).text = exercice.description
                 dialog.findViewById<TextView>(R.id.showExoLevelText).text = exercice.difficulty
-
+                dialog.findViewById<ImageView>(R.id.showExoShare).setOnClickListener {
+                    val writePostIntent = Intent(context, WritePostActivity::class.java)
+                    writePostIntent.putExtra("sharedExo", exoID)
+                    writePostIntent.putExtra("sharedName", exercice.name)
+                    context.startActivity(writePostIntent)
+                }
                 // SI POPUP OUVERTE DEPUIS UNE SEANCE REMPLIR LES CHAMPS CI DESSOUS AVEC LES CONSIGNES (ex : 5 KM)
                 dialog.findViewById<TextView>(R.id.showExoRule).text = ""
                 dialog.findViewById<TextView>(R.id.showExoRuleValue).text = ""

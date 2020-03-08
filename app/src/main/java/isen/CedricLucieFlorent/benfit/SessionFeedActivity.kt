@@ -39,7 +39,7 @@ class SessionFeedActivity : MenuActivity() {
     private fun sessionClicked(session : SessionFeed) {
         val intent = Intent(context, ShowSessionActivity::class.java)
         val id : String = session.sessionID
-        intent.putExtra("session", id)
+        intent.putExtra("sessionId", id)
         context.startActivity(intent)
     }
 

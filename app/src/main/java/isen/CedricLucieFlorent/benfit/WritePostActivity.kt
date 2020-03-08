@@ -7,6 +7,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
+import android.view.View
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -40,13 +41,30 @@ class WritePostActivity : MenuActivity() {
         auth = FirebaseAuth.getInstance()
         storageReference = FirebaseStorage.getInstance().getReference()
 
+        val intent = intent
+        val programId = intent.getStringExtra("sharedProgram")?: ""
+        val sessionId = intent.getStringExtra("sharedSession")?: ""
+        val exoId = intent.getStringExtra("sharedExo")?: ""
+        val sharedName = intent.getStringExtra("sharedName")?: ""
+        if (programId != "") {
+            Log.d("CEDRIC_prog", programId)
+            sharedLink.text = sharedName
+        } else if (sessionId != "") {
+            Log.d("CEDRIC_sess", sessionId)
+            sharedLink.text = sharedName
+        } else if (exoId != "") {
+            Log.d("CEDRIC_exo", exoId)
+            sharedLink.text = sharedName
+        } else {
+            sharedLink.visibility = View.INVISIBLE
+        }
 
         publishBTN.setOnClickListener{
             val userid = auth.currentUser?.uid
 
             if (userid != null){
                 if(publish_field.text.toString() != ""){
-                    newPost(userid, publish_field.text.toString())
+                    newPost(userid, publish_field.text.toString(), programId, sessionId, exoId)
                     publish_field.setText("")
                     Toast.makeText(this, "Post publié!", Toast.LENGTH_LONG).show()
                     val intent = Intent(this, FeedActivity::class.java)
@@ -62,7 +80,7 @@ class WritePostActivity : MenuActivity() {
             }
         }
 
-        imageViewWritePost.setOnClickListener(){
+        imageViewWritePost.setOnClickListener{
             askCameraPermissions()
         }
 
@@ -125,7 +143,7 @@ class WritePostActivity : MenuActivity() {
         }
     }
 
-    private fun newPost(userId: String, content: String) {
+    private fun newPost(userId: String, content: String, programId : String, sessionId : String, exoId : String) {
         val dbPosts = database.getReference("posts")
         val newId = dbPosts.push().key
         if (newId == null) {
@@ -137,7 +155,7 @@ class WritePostActivity : MenuActivity() {
         val currentDateandTime: String = sdf.format(Date())
         Log.d("heure", currentDateandTime)
         val array : ArrayList<String> = ArrayList()
-        val post = Post(userId, newId, currentDateandTime, content,array, "")
+        val post = Post(userId, newId, currentDateandTime, content,array, "", programId, sessionId, exoId)
         dbPosts.child(newId).setValue(post)
 
         // Post photo

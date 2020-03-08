@@ -31,7 +31,7 @@ class ShowProgramActivity : MenuActivity() {
 
     private fun showProgram(intent: Intent) {
 
-        val programId: String? = intent.getStringExtra("program") ?: ""
+        val programId: String? = intent.getStringExtra("programId") ?: ""
         val activity:String? = intent.getStringExtra("activity") ?: ""
 
         val myRef = database.getReference("programs")
@@ -76,7 +76,16 @@ class ShowProgramActivity : MenuActivity() {
                             redirectToUserActivity(this@ShowProgramActivity, program.userID)
                         }
                         if (activity != null && programId != null )
-                        showSessionsFromProgram(database, program.sessionsProgram, activity, program)
+                            showSessionsFromProgram(database, program.sessionsProgram, activity, program)
+
+
+                        showProgramShare.setOnClickListener{
+                            val writePostIntent = Intent(context, WritePostActivity::class.java)
+                            writePostIntent.putExtra("sharedProgram", programId)
+                            writePostIntent.putExtra("sharedName", program.nameProgram)
+                            startActivity(writePostIntent)
+                        }
+
                         break
                     }
                 }
@@ -90,7 +99,7 @@ class ShowProgramActivity : MenuActivity() {
     private fun sessionClicked(session : ShowSessionProgram) {
          val intent = Intent(context, ShowSessionActivity::class.java)
          val id : String = session.sessionID
-         intent.putExtra("session", id)
+         intent.putExtra("sessionId", id)
          context.startActivity(intent)
     }
 

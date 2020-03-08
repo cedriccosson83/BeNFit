@@ -43,11 +43,20 @@ class FeedActivity : MenuActivity() {
                         arrayLikes.add(userId)
                     }
 
-                    var post : Post = Post(value.child("userid").value.toString(), value.child("postid").value.toString(), value.child("date").value.toString(), value.child("content").value.toString(),arrayLikes, value.child("postImgUID").value.toString())
+                    var post : Post = Post(
+                        value.child("userid").value.toString(),
+                        value.child("postid").value.toString(),
+                        value.child("date").value.toString(),
+                        value.child("content").value.toString(),
+                        arrayLikes,
+                        value.child("postImgUID").value.toString(),
+                        value.child("programId").value.toString(),
+                        value.child("sessionId").value.toString(),
+                        value.child("exoId").value.toString())
                     posts.add(post)
                 }
                 posts.reverse()
-                recyclerViewFeed.adapter = PostAdapter(posts,  { postItem : Post -> userClicked(postItem) }, { postItem : Post -> postClicked(postItem) })
+                recyclerViewFeed.adapter = PostAdapter(posts, windowManager, { postItem : Post -> userClicked(postItem) }, { postItem : Post -> postClicked(postItem) })
                 Log.d("post", posts.toString())
             }
 

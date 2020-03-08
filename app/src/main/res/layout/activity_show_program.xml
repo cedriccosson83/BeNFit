@@ -41,37 +41,67 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="5dp"
-            android:layout_marginEnd="8dp"
+            android:layout_marginEnd="16dp"
             android:gravity="center"
             android:text="@string/program_name"
             android:textColor="#000000"
             android:textSize="24sp"
             app:autoSizeMinTextSize="12sp"
             app:layout_constraintBottom_toTopOf="@+id/showProgramAuthor"
-            app:layout_constraintEnd_toStartOf="@+id/showProgramLike"
+            app:layout_constraintEnd_toStartOf="@+id/constraintLayout4"
             app:layout_constraintStart_toEndOf="@+id/showProgramLevelIcon"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/showProgramLike"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="3dp"
-            android:text="@string/_0"
-            app:layout_constraintBottom_toBottomOf="@+id/showProgramLikeIcon"
-            app:layout_constraintEnd_toStartOf="@+id/showProgramLikeIcon"
-            app:layout_constraintTop_toTopOf="@+id/showProgramLikeIcon" />
-
-        <ImageView
-            android:id="@+id/showProgramLikeIcon"
-            android:layout_width="19dp"
-            android:layout_height="19dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="16dp"
-            android:contentDescription="@string/img"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/showProgramName"
-            app:srcCompat="@drawable/dislike" />
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/showProgramLike"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="3dp"
+                android:text="@string/_0"
+                app:layout_constraintBottom_toBottomOf="@+id/showProgramLikeIcon"
+                app:layout_constraintEnd_toStartOf="@+id/showProgramLikeIcon"
+                app:layout_constraintTop_toTopOf="@+id/showProgramLikeIcon" />
+
+            <ImageView
+                android:id="@+id/showProgramLikeIcon"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginEnd="16dp"
+                android:contentDescription="@string/img"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/dislike" />
+
+            <ImageView
+                android:id="@+id/showProgramNotif"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginEnd="16dp"
+                android:contentDescription="@string/img"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/showProgramLikeIcon"
+                app:srcCompat="@drawable/notification" />
+
+            <ImageView
+                android:id="@+id/showProgramShare"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginEnd="16dp"
+                android:contentDescription="@string/img"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/showProgramNotif"
+                app:srcCompat="@drawable/share" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <TextView
             android:id="@+id/showProgramDesc"
@@ -79,10 +109,9 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="30dp"
             android:layout_marginTop="8dp"
-            android:layout_marginEnd="30dp"
             android:text="@string/prog_descr"
             app:layout_constraintBottom_toTopOf="@+id/showProgramRecyclerView"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/constraintLayout4"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/showProgramAuthor" />
 
