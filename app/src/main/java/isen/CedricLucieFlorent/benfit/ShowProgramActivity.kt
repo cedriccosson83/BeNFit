@@ -57,7 +57,8 @@ class ShowProgramActivity : MenuActivity() {
     private fun showProgram(intent: Intent) {
 
         val programId: String = intent.getStringExtra("programId") ?: ""
-        val activity:String? = intent.getStringExtra("activity") ?: ""
+
+        var activity:String? = intent.getStringExtra("activity") ?: ""
 
         val myRef = database.getReference("programs")
         myRef.addValueEventListener(object : ValueEventListener {
@@ -167,6 +168,11 @@ class ShowProgramActivity : MenuActivity() {
     fun showSessionsFromProgram(database : FirebaseDatabase, prog_sessions: ArrayList<String>, activity : String, program : ShowProgram) {
 
         val myRef = database.getReference("sessions")
+        var activityto = activity
+        if(!(follow.all { it != program.programID})){
+            activityto = "SubProg"
+        }
+
 
         myRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
@@ -185,7 +191,7 @@ class ShowProgramActivity : MenuActivity() {
                 }
                 sessionsIn.reverse()
                 val reference = "users/${auth.currentUser?.uid}/currentPrograms/${program.programID}/"
-                showProgramRecyclerView.adapter = ShowSessionsAdapter(sessionsIn, program, ApplicationContext.applicationContext(), activity, database, reference,
+                showProgramRecyclerView.adapter = ShowSessionsAdapter(sessionsIn, program, ApplicationContext.applicationContext(), activityto, database, reference,
                     {session : ShowSessionProgram -> sessionClicked(session)})
             }
             override fun onCancelled(error: DatabaseError) {
