@@ -95,6 +95,7 @@ class SessionActivity : MenuActivity(){
             }
         }
 
+
         inputNameSession.addTextChangedListener(object : TextWatcher {
 
             override fun afterTextChanged(s: Editable) {
@@ -127,6 +128,25 @@ class SessionActivity : MenuActivity(){
                                        before: Int, count: Int) {
             }
         })
+
+        editTextNumberSerie.addTextChangedListener(object : TextWatcher {
+
+            override fun afterTextChanged(s: Editable) {
+                if (idUser != null) {
+                    addTemporaryRoundSession(database,idUser,editTextNumberSerie.text.toString())
+                }
+            }
+
+            override fun beforeTextChanged(s: CharSequence, start: Int,
+                                           count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence, start: Int,
+                                       before: Int, count: Int) {
+            }
+        })
+
+
 
     }
 
