@@ -120,6 +120,8 @@ class NotifActivity : AppCompatActivity() {
 
             alarmManager.setExact(AlarmManager.RTC_WAKEUP, calendar.timeInMillis, pendingIntent)
 
+            //database.getReference("notifications/${userID}/${sessionId}").removeValue()
+
             if (fromAct == "Feed"){
                 this.startActivity(Intent(this, SessionFeedActivity::class.java))
             }

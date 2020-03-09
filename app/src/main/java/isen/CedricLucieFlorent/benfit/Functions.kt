@@ -229,6 +229,42 @@ fun showChecked(database : FirebaseDatabase, pathToChecked : String, icon : Imag
     })
 }
 
+fun showNotified(database: FirebaseDatabase, pathToNotif : String, sessionID: String, btn : ImageView){
+    val myRef = database.getReference(pathToNotif)
+    myRef.addValueEventListener(object : ValueEventListener{
+        override fun onDataChange(dataSnapshot: DataSnapshot) {
+            for (value in dataSnapshot.children){
+                if (value.key.toString() == sessionID){
+                    //btn.setImageResource(R.drawable.notificationSet)
+                }
+            }
+        }
+        override fun onCancelled(p0: DatabaseError) {
+            Log.d("TAG", "Failed to read values")
+        }
+    })
+}
+
+fun removePassedNotif(database: FirebaseDatabase, userId: String){
+    val myRef = database.getReference("notifications/${userId}")
+    myRef.addValueEventListener(object : ValueEventListener{
+        override fun onDataChange(dataSnapshot: DataSnapshot) {
+            for (value in dataSnapshot.children){
+                var time = value.value.toString()
+                var format = SimpleDateFormat("HH:mm dd/MM/yyyy")
+                var date = format.parse(time)
+
+
+            }
+        }
+
+        override fun onCancelled(p0: DatabaseError) {
+
+        }
+    })
+
+}
+
 fun showFollowers(database: FirebaseDatabase, currentUserID: String?, programID : String,
                   pathToFollowers : String, icon : ImageView){
     val myRef = database.getReference(pathToFollowers)

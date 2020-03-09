@@ -245,12 +245,6 @@ fun deleteInfosTempSession(database : FirebaseDatabase, activity: SessionActivit
             Log.w("temp", "Failed to read value.", error.toException())
         }
     })
-
-
-
-
-
-
 }
 
 fun saveSession(database : FirebaseDatabase, storageReference : StorageReference, image_uri : Uri, context : Context, userId :String,nameSession:String, descSession: String, levelSession:String, nbrRound: Int) {

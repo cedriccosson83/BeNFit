@@ -50,6 +50,7 @@ class SessionFeedAdapter (val sessions: ArrayList<SessionFeed>,
             view.sessionNameTextView.setOnClickListener { sessionClicked(session) }
             view.descriptionSessionTextView.setOnClickListener { sessionClicked(session) }
             view.btnNotifFeedSession.setOnClickListener { clickListenernotif(session) }
+            showNotified(database, "notifications/${auth.currentUser?.uid}", session.sessionID, view.btnNotifFeedSession)
             var img = session.imgURI
             setImageFromFirestore(ApplicationContext.applicationContext(), view.imageViewFeedSession, "sessions/${session.sessionID}/${img}")
             view.btnLikeFeedSession.setOnClickListener {
