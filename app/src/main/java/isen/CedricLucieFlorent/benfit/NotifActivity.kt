@@ -95,6 +95,8 @@ class NotifActivity : AppCompatActivity() {
 
             val sessionId = intent.getStringExtra("sessionID")
             val userID = intent.getStringExtra("userId")
+            val fromAct = intent.getStringExtra("fromAct")
+            val showSessionId = intent.getStringExtra("showSessionId")
 
             val calendar = Calendar.getInstance()
             calendar.setTimeInMillis(System.currentTimeMillis())
@@ -117,6 +119,16 @@ class NotifActivity : AppCompatActivity() {
             var alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
 
             alarmManager.setExact(AlarmManager.RTC_WAKEUP, calendar.timeInMillis, pendingIntent)
+
+            if (fromAct == "Feed"){
+                this.startActivity(Intent(this, SessionFeedActivity::class.java))
+            }
+
+            else if (fromAct == "Show"){
+                var intentshow = Intent(this, ShowSessionActivity::class.java)
+                intentshow.putExtra("sessionId",showSessionId)
+                this.startActivity(intentshow)
+            }
 
         }
 

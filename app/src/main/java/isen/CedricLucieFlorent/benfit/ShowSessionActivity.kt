@@ -30,10 +30,12 @@ class ShowSessionActivity : MenuActivity() {
         }
     }
 
-    private fun notifClicked() {
+    private fun notifClicked(sessionID : String) {
         val intent = Intent(this, NotifActivity::class.java)
         val id = auth.currentUser?.uid
         intent.putExtra("userId", id)
+        intent.putExtra("showSessionId",sessionID)
+        intent.putExtra("fromAct", "Show")
         startActivity(intent)
     }
 
@@ -92,7 +94,8 @@ class ShowSessionActivity : MenuActivity() {
                         }
 
                         showSessionNotif.setOnClickListener {
-                            notifClicked()
+                            var sessionID = session.sessionID ?: ""
+                            notifClicked(sessionID)
                         }
                         break
                     }
