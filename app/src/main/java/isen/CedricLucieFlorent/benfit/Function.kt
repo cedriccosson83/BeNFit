@@ -24,7 +24,7 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 
-fun addNewExo(database : FirebaseDatabase, nameExo: String, idUser: String, descExo: String, urlYtb: String, levelExo: String, sportExo: String) : String{
+fun addNewExo(database : FirebaseDatabase, nameExo: String, idUser: String, descExo: String, levelExo: String, sportExo: String) : String{
     Log.d("function", "addNewExo")
 
     val database = FirebaseDatabase.getInstance()
@@ -34,7 +34,7 @@ fun addNewExo(database : FirebaseDatabase, nameExo: String, idUser: String, desc
         Log.d("ERROR", "Couldn't get push key for exos")
         return "false"
     }
-    val exo = Exercice(newId,nameExo,idUser,descExo, urlYtb,levelExo,sportExo)
+    val exo = Exercice(newId,nameExo,idUser,descExo,levelExo,sportExo)
     dbExos.child(newId).setValue(exo)
     return newId
 }
@@ -140,7 +140,7 @@ fun showExos(database : FirebaseDatabase, view: RecyclerView, context: Context, 
         override fun onDataChange(dataSnapshot: DataSnapshot){
             val exos : ArrayList<Exercice> = ArrayList<Exercice>()
             for(value in dataSnapshot.children ) {
-                var exo : Exercice = Exercice(value.child("id").value.toString(), value.child("name").value.toString(), value.child("idUser").value.toString(), value.child("description").value.toString(),value.child("urlYTB").value.toString(),value.child("difficulty").value.toString(), value.child("sport").value.toString())
+                var exo : Exercice = Exercice(value.child("id").value.toString(), value.child("name").value.toString(), value.child("idUser").value.toString(), value.child("description").value.toString(),value.child("difficulty").value.toString(), value.child("sport").value.toString())
                 exos.add(exo)
             }
             exos.reverse()
@@ -437,7 +437,7 @@ fun showExo(database: FirebaseDatabase, exoId : String, textView: TextView) {
         override fun onDataChange(dataSnapshot: DataSnapshot){
             var exo: Exercice
             for(value in dataSnapshot.children ) {
-                var exo : Exercice = Exercice(value.child("id").value.toString(), value.child("name").value.toString(), value.child("idUser").value.toString(), value.child("description").value.toString(),value.child("urlYTB").value.toString(),value.child("difficulty").value.toString(), value.child("sport").value.toString())
+                var exo : Exercice = Exercice(value.child("id").value.toString(), value.child("name").value.toString(), value.child("idUser").value.toString(), value.child("description").value.toString(),value.child("difficulty").value.toString(), value.child("sport").value.toString())
                 if(exo.id == exoId){
                     Log.d("exo", "${exo.name}")
                     textView.text = "${exo.name}"

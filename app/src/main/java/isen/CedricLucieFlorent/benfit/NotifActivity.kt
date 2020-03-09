@@ -8,6 +8,8 @@ import android.content.Intent
 import android.os.Build
 import android.view.View
 import android.widget.Toast
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.FirebaseDatabase
 import kotlinx.android.synthetic.main.activity_notif.*
 import java.text.SimpleDateFormat
 import java.util.*
@@ -15,10 +17,16 @@ import java.util.*
 
 class NotifActivity : AppCompatActivity() {
 
+
+    val database = FirebaseDatabase.getInstance()
+    lateinit var auth: FirebaseAuth
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_notif)
         createNotificationChannel()
+
+        auth = FirebaseAuth.getInstance()
 
         val c = Calendar.getInstance()
         val year = c.get(Calendar.YEAR)
@@ -83,7 +91,10 @@ class NotifActivity : AppCompatActivity() {
             }
         })
 
-        btn_create.setOnClickListener(){
+        btn_create.setOnClickListener{
+
+            val sessionId = intent.getStringExtra("sessionID")
+            val userID = intent.getStringExtra("userId")
 
             val calendar = Calendar.getInstance()
             calendar.setTimeInMillis(System.currentTimeMillis())
@@ -92,10 +103,16 @@ class NotifActivity : AppCompatActivity() {
             calendar.set(Calendar.YEAR, yearselec)
             calendar.set(Calendar.HOUR_OF_DAY, hourselec)
             calendar.set(Calendar.MINUTE, minselec)
+
+            database.getReference("notifications/${userID}/${sessionId}").setValue("${hourselec}:${minselec} ${dayselec}/${monthselec}/${yearselec}")
+
             Toast.makeText(this, "reminder set!" , Toast.LENGTH_SHORT).show()
 
             intent = Intent(this, ReminderBroadcast::class.java)
-            var pendingIntent = PendingIntent.getBroadcast(this, 0, intent, 0)
+
+            val random = (1 until 9).random()
+
+            var pendingIntent = PendingIntent.getBroadcast(this, random, intent, 0)
 
             var alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
 

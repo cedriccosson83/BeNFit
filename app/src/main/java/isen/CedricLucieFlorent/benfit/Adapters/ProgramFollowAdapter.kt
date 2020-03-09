@@ -10,6 +10,7 @@ import isen.CedricLucieFlorent.benfit.ApplicationContext
 import isen.CedricLucieFlorent.benfit.Models.ProgramFollow
 import isen.CedricLucieFlorent.benfit.R
 import isen.CedricLucieFlorent.benfit.setImageFromFirestore
+import isen.CedricLucieFlorent.benfit.getProgramProgression
 import kotlinx.android.synthetic.main.recycler_view_followed_programs.view.*
 
 class ProgramFollowAdapter (private val programs: ArrayList<ProgramFollow>, val clickListenerProgram: (ProgramFollow) -> Unit)
@@ -35,10 +36,12 @@ class ProgramFollowAdapter (private val programs: ArrayList<ProgramFollow>, val 
         val database = FirebaseDatabase.getInstance()
 
         fun bind(program: ProgramFollow, clickListenerProgram: (ProgramFollow) -> Unit) {
+            auth = FirebaseAuth.getInstance()
             view.nameProgFollow.text = program.nameProgramFollow
             view.descrProgFollow.text = program.descrProgramFollow
             view.nameProgFollow.setOnClickListener{clickListenerProgram(program)}
-            var img = program.imageURI
+            getProgramProgression(database, auth.currentUser?.uid, program.programID, view.programProgress)
+            val img = program.imageURI
             setImageFromFirestore(ApplicationContext.applicationContext(), view.imageViewFollowedProg, "programs/${program.programID}/${img}")
         }
     }

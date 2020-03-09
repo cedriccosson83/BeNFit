@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.auth.FirebaseAuth
 import android.view.LayoutInflater
+import android.view.View
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
@@ -59,7 +60,16 @@ class PostActivity : MenuActivity() {
                 var post: Post
                 for(value in dataSnapshot.children ) {
                     val likes : ArrayList<String> = ArrayList()
-                    post = Post(value.child("userid").value.toString(), value.child("postid").value.toString(), value.child("date").value.toString(), value.child("content").value.toString(),likes, value.child("postImgUID").value.toString())
+                    post = Post(
+                        value.child("userid").value.toString(),
+                        value.child("postid").value.toString(),
+                        value.child("date").value.toString(),
+                        value.child("content").value.toString(),
+                        likes,
+                        value.child("postImgUID").value.toString(),
+                        value.child("programId").value.toString(),
+                        value.child("sessionId").value.toString(),
+                        value.child("exoId").value.toString())
                     val postId: String? = intent.getStringExtra("post") ?: ""
                     if(post.postid == postId){
                         textViewContent2.text = "${post.content}"
@@ -71,6 +81,28 @@ class PostActivity : MenuActivity() {
                         }
                         imageViewUserPostAct.setOnClickListener {
                             redirectToUserActivity(this@PostActivity, post.userid)
+                        }
+
+                        if (post.programId != "" && post.programId != "null") {
+                            buttonLink.setOnClickListener {
+                                val sharedLinkIntent = Intent(ApplicationContext.applicationContext(), ShowProgramActivity::class.java)
+                                sharedLinkIntent.putExtra("programId", post.programId)
+                                sharedLinkIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                                ApplicationContext.applicationContext().startActivity(sharedLinkIntent)
+                            }
+                        } else if (post.sessionId != "" && post.sessionId != "null") {
+                            buttonLink.setOnClickListener {
+                                val sharedLinkIntent = Intent(ApplicationContext.applicationContext(), ShowSessionActivity::class.java)
+                                sharedLinkIntent.putExtra("sessionId", post.sessionId)
+                                sharedLinkIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                                ApplicationContext.applicationContext().startActivity(sharedLinkIntent)
+                            }
+                        } else if (post.exoId != "" && post.exoId != "null") {
+                            buttonLink.setOnClickListener{
+                                showPopUpExercice(database, it.context, post.exoId, windowManager)
+                            }
+                        } else {
+                            buttonLink.visibility = View.INVISIBLE
                         }
                         break
                     }

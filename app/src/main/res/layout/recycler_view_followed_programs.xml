@@ -44,7 +44,7 @@
 
             <TextView
                 android:id="@+id/descrProgFollow"
-                android:layout_width="230dp"
+                android:layout_width="210dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
@@ -52,15 +52,21 @@
                 app:layout_constraintStart_toEndOf="@+id/imageViewFollowedProg"
                 app:layout_constraintTop_toBottomOf="@+id/nameProgFollow" />
 
-            <ImageView
-                android:id="@+id/imageView4"
+
+            <ProgressBar
+                android:id="@+id/programProgress"
                 android:layout_width="48dp"
-                android:layout_height="46dp"
+                android:layout_height="48dp"
+                android:indeterminate="false"
+                android:max="100"
+                style="?android:progressBarStyleHorizontal"
+                android:progress="90"
+                android:progressDrawable="@drawable/circularprogress"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/descrProgFollow"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/progress" />
+                app:layout_constraintTop_toTopOf="parent" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>
 </androidx.constraintlayout.widget.ConstraintLayout>

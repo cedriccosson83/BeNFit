@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
@@ -20,7 +21,7 @@ import kotlinx.android.synthetic.main.recycler_view_post_cell.view.*
 import kotlin.collections.ArrayList
 
 
-class PostAdapter(val posts: ArrayList<Post>, val clickListener: (Post) -> Unit, val clickListenerPost: (Post) -> Unit): RecyclerView.Adapter<PostAdapter.PostViewHolder>(){
+class PostAdapter(val posts: ArrayList<Post>, val windowManager: WindowManager, val clickListener: (Post) -> Unit, val clickListenerPost: (Post) -> Unit): RecyclerView.Adapter<PostAdapter.PostViewHolder>(){
     lateinit var auth: FirebaseAuth
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostAdapter.PostViewHolder {
@@ -35,7 +36,7 @@ class PostAdapter(val posts: ArrayList<Post>, val clickListener: (Post) -> Unit,
 
     override fun onBindViewHolder(holder: PostAdapter.PostViewHolder, position: Int) {
         val post = posts[position]
-        holder.bind(post,clickListener, clickListenerPost)
+        holder.bind(post, windowManager, clickListener, clickListenerPost)
     }
 
     class PostViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
@@ -66,7 +67,7 @@ class PostAdapter(val posts: ArrayList<Post>, val clickListener: (Post) -> Unit,
         }
 
 
-        fun bind(post: Post, clickListener: (Post) -> Unit, clickListenerPost: (Post) -> Unit){
+        fun bind(post: Post, windowManager: WindowManager, clickListener: (Post) -> Unit, clickListenerPost: (Post) -> Unit){
             //view.textViewName.text = "${post.userid}"
             view.textViewContent.text = "${post.content}"
             showDate(post.date, view.textViewDate)
@@ -97,6 +98,27 @@ class PostAdapter(val posts: ArrayList<Post>, val clickListener: (Post) -> Unit,
             showLikes(database, auth.currentUser?.uid, "posts/${post.postid}/likes",view.textViewLikeNumberPost, view.btnLikePost)
             countComments(post.postid)
 
+            if (post.programId != "" && post.programId != "null") {
+                view.btnShareInFeed.setOnClickListener {
+                    val sharedLinkIntent = Intent(ApplicationContext.applicationContext(), ShowProgramActivity::class.java)
+                    sharedLinkIntent.putExtra("programId", post.programId)
+                    sharedLinkIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                    ApplicationContext.applicationContext().startActivity(sharedLinkIntent)
+                }
+            } else if (post.sessionId != "" && post.sessionId != "null") {
+                view.btnShareInFeed.setOnClickListener {
+                    val sharedLinkIntent = Intent(ApplicationContext.applicationContext(), ShowSessionActivity::class.java)
+                    sharedLinkIntent.putExtra("sessionId", post.sessionId)
+                    sharedLinkIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                    ApplicationContext.applicationContext().startActivity(sharedLinkIntent)
+                }
+            } else if (post.exoId != "" && post.exoId != "null") {
+                view.btnShareInFeed.setOnClickListener{
+                    showPopUpExercice(database, it.context, post.exoId, windowManager)
+                }
+            } else {
+                view.btnShareInFeed.visibility = View.INVISIBLE
+            }
         }
     }
 

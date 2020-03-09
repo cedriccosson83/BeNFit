@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/showExoContainer"
-    android:layout_width="400dp"
+    android:layout_width="match_parent"
     android:layout_height="400dp">
 
     <WebView
@@ -11,8 +11,8 @@
         android:layout_width="320dp"
         android:layout_height="208dp"
         android:layout_marginTop="24dp"
-        android:padding="30dp"
         android:background="@color/redLogo"
+        android:padding="30dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/showExoRule" />
 
@@ -38,21 +38,39 @@
         app:layout_constraintTop_toTopOf="@+id/showExoName"
         app:srcCompat="@drawable/level_3" />
 
+
     <TextView
         android:id="@+id/showExoName"
-        android:layout_width="259dp"
+        android:layout_width="wrap_content"
         android:layout_height="33dp"
+        android:layout_marginStart="12dp"
         android:layout_marginTop="5dp"
+        android:layout_marginEnd="16dp"
         android:gravity="center"
         android:maxWidth="300dp"
+        android:minWidth="150dp"
         android:text="@string/exo_name"
         android:textColor="#000000"
         android:textSize="24sp"
         app:autoSizeMinTextSize="12sp"
         app:layout_constraintBottom_toTopOf="@+id/showExoAuthor"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/showExoShare"
+        app:layout_constraintStart_toEndOf="@+id/showExoLevelIcon"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/showExoShare"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:contentDescription="@string/img"
+        app:layout_constraintBottom_toBottomOf="@+id/showExoName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/showExoName"
+        app:layout_constraintTop_toTopOf="@+id/showExoName"
+        app:srcCompat="@drawable/share" />
+
 
     <TextView
         android:id="@+id/showExoDesc"
@@ -114,7 +132,7 @@
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/showExoRuleValue" >
+        app:layout_constraintTop_toBottomOf="@+id/showExoRuleValue">
 
     </LinearLayout>
 

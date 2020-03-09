@@ -18,7 +18,7 @@ import kotlin.collections.ArrayList
 class ProfileActivity : MenuActivity() {
 
     lateinit var userId: String
-    val follow = ArrayList<String>()
+    var follow = ArrayList<String>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,20 +29,19 @@ class ProfileActivity : MenuActivity() {
         context = this
         programRecyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
 
-        if (userId != null) {
-            val myRef = database.getReference("users").child(userId)
+        val myRef = database.getReference("users").child(userId)
 
-            myRef.addValueEventListener(object : ValueEventListener {
-                override fun onDataChange(dataSnapshot: DataSnapshot) {
-                    for (value in dataSnapshot.child("currentPrograms").children) {
-                        follow.add(value.key.toString())
-                    }
+        myRef.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                follow = ArrayList()
+                for (value in dataSnapshot.child("currentPrograms").children) {
+                    follow.add(value.key.toString())
                 }
-                override fun onCancelled(p0: DatabaseError) {
-                    Log.d("TAG", "Failed to read value")
-                }
-            })
-        }
+            }
+            override fun onCancelled(p0: DatabaseError) {
+                Log.d("TAG", "Failed to read value")
+            }
+        })
 
         val intent = intent
         val userFromIntent = intent.getStringExtra("userId")?: ""
@@ -67,6 +66,7 @@ class ProfileActivity : MenuActivity() {
         subscribeProgramButton.setOnClickListener{
             showSubPrograms()
         }
+        //getProgramProgression(database, auth.currentUser?.uid, "-M1oT3a7ENpbTPrtMO8L")
     }
 
         private fun showUser(userId: String) {
@@ -94,6 +94,7 @@ class ProfileActivity : MenuActivity() {
                         }
                         fullNameTextView.text = "${user.firstname} ${user.lastname}"
                         renderGrade(user.grade,profileGradeText,profileGradeMedal1,profileGradeMedal2, context)
+                        countTotalProgramLikes(database, userId,profileCoachGradeText,profileCoachGradeMedal1,profileCoachGradeMedal2, context)
                         descriptionTextView.text = "Date de naissance : ${user.birthdate.toString()}" + "\nEmail : ${user.email} " + "\nPoids : ${user.weight} kg"  + "\nSport(s) pratiqué(s) : ${sportsaff}"
                         setImageFromFirestore(context, ProfilImage, "users/$userId/$imagePath")
 

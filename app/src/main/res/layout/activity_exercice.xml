@@ -26,7 +26,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/colorPrimary">
+            android:background="@color/redLogo">
 
 
             <com.google.android.material.textfield.TextInputLayout
@@ -75,50 +75,6 @@
 
             </com.google.android.material.textfield.TextInputLayout>
 
-
-            <!-- <FrameLayout
-                android:id="@+id/fragmentContainer"
-                android:layout_width="316dp"
-                android:layout_height="149dp"
-                android:layout_marginTop="20dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textInputLayoutExo">
-
-            </FrameLayout>
-
-
-            <com.google.android.material.button.MaterialButtonToggleGroup
-                android:id="@+id/toggleGroupRepTime"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:checkedButton="@id/btnRep"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/fragmentContainer"
-                app:singleSelection="true">
-
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btnRep"
-                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:width="150dp"
-                    android:text="@string/repetition"
-                    app:shapeAppearance="@style/round" />
-
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btnTime"
-                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:width="150dp"
-                    android:text="@string/time"
-                    app:shapeAppearance="@style/round" />
-                />
-
-            </com.google.android.material.button.MaterialButtonToggleGroup> -->
-
             <com.google.android.material.button.MaterialButtonToggleGroup
                 android:id="@+id/groupButtonUrlImg"
                 android:layout_width="wrap_content"
@@ -135,37 +91,58 @@
                     style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="URL youtube" />
+                    android:text="URL youtube"
+                    app:iconTint="#0288D1"
+                    app:rippleColor="#1976D2"
+                    app:strokeColor="#1976D2" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/imgButton"
                     style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Image" />
+                    android:text="Image"
+                    app:iconTint="#1976D2"
+                    app:rippleColor="#1976D2"
+                    app:strokeColor="#1976D2" />
 
             </com.google.android.material.button.MaterialButtonToggleGroup>
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/textInputLayoutURLImg"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
+                app:checkedButton="@id/urlButton"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/groupButtonUrlImg">
+
+                <ImageView
+                    android:id="@+id/imgViewExo"
+                    android:layout_width="103dp"
+                    android:layout_height="63dp"
+                    android:layout_marginTop="12dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.501"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/addpic" />
 
                 <EditText
                     android:id="@+id/inputURLExo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="44dp"
                     android:ems="10"
                     android:inputType="textPersonName"
                     android:text="@string/urlYtb"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.502"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="1.0" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <TextView

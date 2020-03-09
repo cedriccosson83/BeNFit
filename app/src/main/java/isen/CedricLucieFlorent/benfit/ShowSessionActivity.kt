@@ -30,9 +30,16 @@ class ShowSessionActivity : MenuActivity() {
         }
     }
 
+    private fun notifClicked() {
+        val intent = Intent(this, NotifActivity::class.java)
+        val id = auth.currentUser?.uid
+        intent.putExtra("userId", id)
+        startActivity(intent)
+    }
+
     private fun showSession(intent: Intent) {
 
-        val sessionId: String? = intent.getStringExtra("session") ?: ""
+        val sessionId: String? = intent.getStringExtra("sessionId") ?: ""
         val myRef = database.getReference("sessions")
         myRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot){
@@ -77,6 +84,16 @@ class ShowSessionActivity : MenuActivity() {
                         }
                         showExercicesFromSession(database, session.exosSession)
 
+                        showSessionShare.setOnClickListener{
+                            val writePostIntent = Intent(context, WritePostActivity::class.java)
+                            writePostIntent.putExtra("sharedSession", session.sessionID)
+                            writePostIntent.putExtra("sharedName", session.nameSession)
+                            startActivity(writePostIntent)
+                        }
+
+                        showSessionNotif.setOnClickListener {
+                            notifClicked()
+                        }
                         break
                     }
 
