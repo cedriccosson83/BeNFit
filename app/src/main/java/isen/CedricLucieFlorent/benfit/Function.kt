@@ -55,32 +55,44 @@ fun addTemporaryExoSession(database : FirebaseDatabase, idUser:String, exo : Exe
 
 fun addTemporaryNameSession(database: FirebaseDatabase,idUser: String, nameSession: String){
     val dbInfos = database.getReference("temporary_infos_session")
-    dbInfos.child(idUser).child("nameSession").setValue(nameSession)
+    Log.d("infos", nameSession)
+    if(nameSession != "null"){
+        dbInfos.child(idUser).child("nameSession").setValue(nameSession)
+    }
 }
 
 fun addTemporaryDescSession(database: FirebaseDatabase,idUser: String, descSession: String){
     val dbInfos = database.getReference("temporary_infos_session")
-    dbInfos.child(idUser).child("descSession").setValue(descSession)
+    if(descSession != null){
+        dbInfos.child(idUser).child("descSession").setValue(descSession)
+    }
 }
 
 fun addTemporaryLevelSession(database: FirebaseDatabase,idUser: String, levelSession: String){
     val dbInfos = database.getReference("temporary_infos_session")
+
     dbInfos.child(idUser).child("levelSession").setValue(levelSession)
 }
 
 fun addTemporaryRoundSession(database: FirebaseDatabase,idUser: String, roundSession: String){
     val dbInfos = database.getReference("temporary_infos_session")
-    dbInfos.child(idUser).child("roundSession").setValue(roundSession)
+    if(roundSession != null){
+        dbInfos.child(idUser).child("roundSession").setValue(roundSession)
+    }
 }
 
 fun addTemporaryNameProgram(database: FirebaseDatabase,idUser: String, nameProgram: String){
     val dbInfos = database.getReference("temporary_infos_program")
-    dbInfos.child(idUser).child("nameProgram").setValue(nameProgram)
+    if(nameProgram != null){
+        dbInfos.child(idUser).child("nameProgram").setValue(nameProgram)
+    }
 }
 
 fun addTemporaryDescProgram(database: FirebaseDatabase,idUser: String, descProgram: String){
     val dbInfos = database.getReference("temporary_infos_program")
-    dbInfos.child(idUser).child("descProgram").setValue(descProgram)
+    if(descProgram !=null){
+        dbInfos.child(idUser).child("descProgram").setValue(descProgram)
+    }
 }
 
 fun addTemporaryLevelProgram(database: FirebaseDatabase,idUser: String, levelProgram: String){
@@ -194,12 +206,15 @@ fun showInfosSession(database :  FirebaseDatabase, activity: SessionActivity, us
                 if(value.key == userId){
                     Log.d("infos", value.key.toString())
                     Log.d("infos", value.child("nameSession").value.toString())
-
-                        activity.inputNameSession.setText(value.child("nameSession").value.toString())
-                        activity.inputDescSession.setText(value.child("descSession").value.toString())
-                        activity.editTextNumberSerie.setText(value.child("roundSession").value.toString())
-
-
+                        if(value.child("nameSession").exists()){
+                            activity.inputNameSession.setText(value.child("nameSession").value.toString())
+                        }
+                        if(value.child("descSession").exists()){
+                            activity.inputDescSession.setText(value.child("descSession").value.toString())
+                        }
+                        if(value.child("roundSession").exists()){
+                            activity.editTextNumberSerie.setText(value.child("roundSession").value.toString())
+                        }
                 }
             }
         }
@@ -391,9 +406,13 @@ fun showInfosProgram(database :  FirebaseDatabase, activity: ProgramActivity, us
         override fun onDataChange(dataSnapshot: DataSnapshot){
             for(value in dataSnapshot.children ) {
                 if(value.key == userId){
+                    if(value.child("nameProgram").exists()){
+                        activity.inputNameProgram.setText(value.child("nameProgram").value.toString())
+                    }
+                    if(value.child("descProgram").exists()){
+                        activity.inputDescProgram.setText(value.child("descProgram").value.toString())
 
-                    activity.inputNameProgram.setText(value.child("nameProgram").value.toString())
-                    activity.inputDescProgram.setText(value.child("descProgram").value.toString())
+                    }
 
                 }
             }
