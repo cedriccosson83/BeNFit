@@ -20,8 +20,6 @@ import android.view.WindowManager
 import android.webkit.WebChromeClient
 import android.webkit.WebView
 import android.widget.*
-import androidx.core.content.ContextCompat.startActivity
-import com.airbnb.lottie.LottieAnimationView
 import com.google.android.material.button.MaterialButton
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -227,6 +225,46 @@ fun showChecked(database : FirebaseDatabase, pathToChecked : String, icon : Imag
             Log.w("Likes", "Failed to read value.", error.toException())
         }
     })
+}
+
+fun showNotified(database: FirebaseDatabase, pathToNotif : String, sessionID: String, btn : ImageView){
+    val myRef = database.getReference(pathToNotif)
+    myRef.addValueEventListener(object : ValueEventListener{
+        override fun onDataChange(dataSnapshot: DataSnapshot) {
+            for (value in dataSnapshot.children){
+                if (value.key.toString() == sessionID){
+                    btn.setImageResource(R.drawable.notificationset)
+                }
+            }
+        }
+        override fun onCancelled(p0: DatabaseError) {
+            Log.d("TAG", "Failed to read values")
+        }
+    })
+}
+
+fun removePassedNotif(database: FirebaseDatabase, userId: String, lastConn : String){
+    Log.d("PASS", "on est la")
+    val myRef = database.getReference("notifications/${userId}")
+    myRef.addValueEventListener(object : ValueEventListener{
+        override fun onDataChange(dataSnapshot: DataSnapshot) {
+            for (value in dataSnapshot.children){
+                var time = value.value.toString()
+                var format = SimpleDateFormat("HH:mm dd/MM/yyyy")
+                var date = format.parse(time)
+                var lastCo = format.parse(lastConn)
+                if (lastCo.compareTo(date) > 0){
+                    myRef.child(value.key.toString()).removeValue()
+                }
+
+            }
+        }
+
+        override fun onCancelled(p0: DatabaseError) {
+
+        }
+    })
+
 }
 
 fun showFollowers(database: FirebaseDatabase, currentUserID: String?, programID : String,

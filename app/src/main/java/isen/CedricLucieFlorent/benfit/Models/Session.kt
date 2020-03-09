@@ -9,7 +9,6 @@ data class Session (
         var descSession: String = "",
         var levelSession: String = "",
         var exosSession : ArrayList<SessionExercice> = ArrayList(),
-        var nbrRound : Int = 0,
-        var imgURI : String
-){
-}
+        var roundSession  : Int = 0,
+        var pictureUID : String
+)

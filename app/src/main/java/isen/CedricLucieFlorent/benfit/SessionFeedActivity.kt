@@ -33,6 +33,7 @@ class SessionFeedActivity : MenuActivity() {
         val id = auth.currentUser?.uid
         intent.putExtra("userId", id)
         intent.putExtra("sessionID", session.sessionID)
+        intent.putExtra("fromAct", "Feed")
         startActivity(intent)
     }
 
