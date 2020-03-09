@@ -227,7 +227,7 @@
     <string name="community">Communauté</string>
     <string name="myspace">Mon espace</string>
     <string name="programs_list">Liste des programmes</string>
-    <string name="sessions_list">Liste des sessions</string>
+    <string name="sessions_list">Liste des séances</string>
     <string name="new_program">Nouveau programme</string>
     <string name="new_session">Nouvelle Séance</string>
     <string name="feed">Fil d\'actualité</string>
@@ -275,5 +275,11 @@
     <string name="shareName">Nom du partage</string>
     <string name="reachLink">Accéder au Lien</string>
     <string name="chooseImage">Choisir une photo</string>
+    <string name="birthdate">Date de naissance</string>
+    <string name="mailAddr">Adresse mail</string>
+    <string name="kg">kilos</string>
+    <string name="sports_list">Sports pratiqués</string>
+    <string name="sportsListLabel">Liste des sports</string>
+    <string name="fname_lname">Nom et prénom</string>
 
 </resources>
