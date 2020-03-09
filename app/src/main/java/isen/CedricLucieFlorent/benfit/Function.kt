@@ -643,7 +643,7 @@ fun addTemporarySessionProgram(database : FirebaseDatabase, idUser:String, sessi
         Log.d("ERROR", "Couldn't get push key for exos")
         return -1
     }
-    var newSession : Session = Session(session.sessionID, idUser,session.nameSession,session.descSession,session.levelSession,session.exosSession,session.nbrRound,session.imgURI)
+    var newSession : Session = Session(session.sessionID, idUser,session.nameSession,session.descSession,session.levelSession,session.exosSession,session.roundSession,session.pictureUID)
     dbSession.child(newId).setValue(newSession)
     dbSession.child(newId).child("idSessionTemp").setValue(newId)
     return 0
