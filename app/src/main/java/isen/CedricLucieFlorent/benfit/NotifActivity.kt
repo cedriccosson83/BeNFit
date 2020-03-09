@@ -105,10 +105,11 @@ class NotifActivity : AppCompatActivity() {
             calendar.set(Calendar.YEAR, yearselec)
             calendar.set(Calendar.HOUR_OF_DAY, hourselec)
             calendar.set(Calendar.MINUTE, minselec)
+            var monthr = monthselec + 1
 
-            database.getReference("notifications/${userID}/${sessionId}").setValue("${hourselec}:${minselec} ${dayselec}/${monthselec}/${yearselec}")
+            database.getReference("notifications/${userID}/${sessionId}").setValue("${hourselec}:${minselec} ${dayselec}/${monthr}/${yearselec}")
 
-            Toast.makeText(this, "reminder set!" , Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "reminder set! ${Calendar.MONTH}" , Toast.LENGTH_SHORT).show()
 
             intent = Intent(this, ReminderBroadcast::class.java)
 
@@ -119,8 +120,6 @@ class NotifActivity : AppCompatActivity() {
             var alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
 
             alarmManager.setExact(AlarmManager.RTC_WAKEUP, calendar.timeInMillis, pendingIntent)
-
-            //database.getReference("notifications/${userID}/${sessionId}").removeValue()
 
             if (fromAct == "Feed"){
                 this.startActivity(Intent(this, SessionFeedActivity::class.java))

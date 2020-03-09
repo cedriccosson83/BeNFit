@@ -51,12 +51,15 @@ class SignInActivity : AppCompatActivity() {
 
     private fun updateUI(user: FirebaseUser?) {
         if (user != null ) {
-            val sdf = SimpleDateFormat("dd/MM/yyyy HH:mm:ss")
+            val sdf = SimpleDateFormat("HH:mm dd/MM/yyyy")
             val date = sdf.format(Date())
             database.getReference("users")
                 .child(user.uid).child("lastConn")
                 .setValue(date)
-            startActivity(Intent(this, SessionFeedActivity::class.java))
+
+            var currentTime = sdf.format(Calendar.getInstance().time)
+            removePassedNotif(database, user.uid, currentTime)
+            startActivity(Intent(this, HomeActivity::class.java))
         } else {
             Toast.makeText(this, getString(R.string.mail_mdp_incorrect), Toast.LENGTH_LONG).show()
         }
