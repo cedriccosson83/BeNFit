@@ -10,8 +10,8 @@ import isen.CedricLucieFlorent.benfit.Models.ShowExerciceSession
 import isen.CedricLucieFlorent.benfit.R
 import kotlinx.android.synthetic.main.recycler_view_show_session_exercices.view.*
 
-class ShowExercicesAdapter (val exercices: ArrayList<ShowExerciceSession>,
-                            private val clickExercice: (ShowExerciceSession) -> Unit)
+class ShowExercicesAdapter (val exercices: ArrayList<ShowExerciceSession>, val sessionID: String?,
+                            private val clickExercice: (ShowExerciceSession, sessID: String?) -> Unit)
     : RecyclerView.Adapter<ShowExercicesAdapter.ExoViewHolder>(){
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ExoViewHolder {
@@ -22,7 +22,7 @@ class ShowExercicesAdapter (val exercices: ArrayList<ShowExerciceSession>,
 
     override fun onBindViewHolder(holder: ExoViewHolder, position: Int) {
         val exo = exercices[position]
-        holder.bind(exo,clickExercice)
+        holder.bind(exo,sessionID, clickExercice)
     }
 
     override fun getItemCount(): Int {
@@ -33,10 +33,10 @@ class ShowExercicesAdapter (val exercices: ArrayList<ShowExerciceSession>,
         lateinit var auth: FirebaseAuth
         val database = FirebaseDatabase.getInstance()
 
-        fun bind(exo: ShowExerciceSession,
-                 clickSession: (ShowExerciceSession) -> Unit) {
+        fun bind(exo: ShowExerciceSession, sessionID: String?,
+                 clickSession: (ShowExerciceSession, String?) -> Unit) {
             view.nameExerciceShowSession.text = exo.name
-            view.nameExerciceShowSession.setOnClickListener { clickSession(exo) }
+            view.nameExerciceShowSession.setOnClickListener { clickSession(exo, sessionID) }
         }
     }
 

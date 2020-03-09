@@ -583,7 +583,7 @@ fun showPopUpCongratz(userFirstName: String, newScore : Int, context: Context) {
     dialog.show()
 }
 
-fun showPopUpExercice(database: FirebaseDatabase, context : Context, exoID: String, windowManager: WindowManager) {
+fun showPopUpExercice(database: FirebaseDatabase, context : Context, exoID: String, windowManager: WindowManager, sessionParent: String? = "") {
     val dialog = Dialog(context)
     dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
     dialog.setContentView(R.layout.popup_show_exo)
@@ -607,9 +607,12 @@ fun showPopUpExercice(database: FirebaseDatabase, context : Context, exoID: Stri
                     writePostIntent.putExtra("sharedName", exercice.name)
                     context.startActivity(writePostIntent)
                 }
-                // SI POPUP OUVERTE DEPUIS UNE SEANCE REMPLIR LES CHAMPS CI DESSOUS AVEC LES CONSIGNES (ex : 5 KM)
-                dialog.findViewById<TextView>(R.id.showExoRule).text = ""
-                dialog.findViewById<TextView>(R.id.showExoRuleValue).text = ""
+
+
+                //consignes
+                setRulesIfInSession(database,dialog.findViewById(R.id.showExoRuleValue),
+                    dialog.findViewById(R.id.showExoRule),exercice.id,sessionParent)
+
                 val videoWeb : WebView = dialog.findViewById(R.id.showExoYTLayout)
                 when {
                     exercice.pictureUID != "" -> {
@@ -668,6 +671,34 @@ fun showPopUpExercice(database: FirebaseDatabase, context : Context, exoID: Stri
         }
     })
     dialog.show()
+}
+
+fun setRulesIfInSession(database: FirebaseDatabase, targetTextView : TextView
+                        , targetLabel : TextView , exerciceID: String, sessionParent: String?) {
+    if (sessionParent != "" && sessionParent != null) {
+        val myRef = database.getReference("sessions")
+                                    .child(sessionParent).child("exosSession")
+
+        myRef.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+
+                var consigne = ""
+                for (value in dataSnapshot.children) {
+                    if (value.child("exoID").value.toString() == exerciceID) {
+                        consigne = value.child("rep").value.toString()
+                    }
+                }
+
+                targetTextView.text = consigne
+            }
+            override fun onCancelled(error: DatabaseError) {
+                Log.w("session", "Failed to read value.", error.toException())
+            }
+        })
+    } else {
+        targetTextView.text = ""
+        targetLabel.text = ""
+    }
 }
 
 fun pxToDp(px: Int): Int {

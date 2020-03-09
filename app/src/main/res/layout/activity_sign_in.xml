@@ -80,14 +80,14 @@
 
     <ImageView
         android:id="@+id/iconView"
-        android:layout_width="129dp"
-        android:layout_height="123dp"
-        android:layout_marginTop="88dp"
+        android:layout_width="258dp"
+        android:layout_height="128dp"
+        android:layout_marginTop="120dp"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@mipmap/benfit_logo_foreground" />
+        app:srcCompat="@drawable/logo" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
