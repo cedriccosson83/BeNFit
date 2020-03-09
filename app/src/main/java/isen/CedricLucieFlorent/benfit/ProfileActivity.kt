@@ -2,8 +2,10 @@ package isen.CedricLucieFlorent.benfit
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.DisplayMetrics
 import android.util.Log
 import android.view.View
+import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
@@ -95,7 +97,11 @@ class ProfileActivity : MenuActivity() {
                         fullNameTextView.text = "${user.firstname} ${user.lastname}"
                         renderGrade(user.grade,profileGradeText,profileGradeMedal1,profileGradeMedal2, context)
                         countTotalProgramLikes(database, userId,profileCoachGradeText,profileCoachGradeMedal1,profileCoachGradeMedal2, context)
-                        descriptionTextView.text = "Date de naissance : ${user.birthdate.toString()}" + "\nEmail : ${user.email} " + "\nPoids : ${user.weight} kg"  + "\nSport(s) pratiqué(s) : ${sportsaff}"
+                        profileBirthdate.text = user.birthdate.toString()
+                        profileWeight.text = "${user.weight} kilos"
+                        profileEmail.text = user.email
+                        profileSportList.text = sportsaff
+                        //descriptionTextView.text = "Sport(s) pratiqué(s) : ${sportsaff}"
                         setImageFromFirestore(context, ProfilImage, "users/$userId/$imagePath")
 
                         ProfilImage.setOnClickListener {
@@ -112,6 +118,7 @@ class ProfileActivity : MenuActivity() {
 
         })
     }
+
     private fun showMyPrograms(){
         val myRef = database.getReference("programs")
 

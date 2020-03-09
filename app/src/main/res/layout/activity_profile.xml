@@ -6,153 +6,276 @@
     android:layout_height="match_parent"
     tools:context=".ProfileActivity">
 
-    <ImageView
-        android:id="@+id/ProfilImage"
-        android:layout_width="137dp"
-        android:layout_height="133dp"
-        android:layout_marginTop="50dp"
-        android:layout_marginBottom="14dp"
-        app:layout_constraintBottom_toTopOf="@+id/firstNameTextViewModify"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@mipmap/benfit_logo_round" />
-
-    <ImageButton
-        android:id="@+id/settingsButton"
-        android:layout_width="wrap_content"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/profileFirstPanel"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@android:drawable/ic_menu_edit" />
-
-    <TextView
-        android:id="@+id/fullNameTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="144dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="144dp"
-        android:text="Nom et prénom"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@+id/profileGradeText"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ProfilImage" />
+        app:layout_constraintTop_toTopOf="parent">
 
-    <TextView
-        android:id="@+id/descriptionTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="50dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="50dp"
-        android:text="Description"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/profileCoachGradeText" />
+        <ImageView
+            android:id="@+id/imageView"
+            android:contentDescription="@string/img"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ProfilImage"
+            app:srcCompat="@drawable/birthday" />
 
-    <com.google.android.material.button.MaterialButtonToggleGroup
-        android:id="@+id/GroupButtonProg"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="370dp"
-        app:checkedButton="@+id/myProgramButton"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:singleSelection="true">
+        <ImageView
+            android:id="@+id/settingsButton"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/borderradius"
+            android:contentDescription="@string/img"
+            android:padding="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/pencil" />
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/myProgramButton"
-            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+        <ImageView
+            android:id="@+id/imageView4"
+            android:contentDescription="@string/img"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView2"
+            app:srcCompat="@drawable/sports" />
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginEnd="8dp"
+            android:contentDescription="@string/img"
+            app:layout_constraintBottom_toBottomOf="@+id/profileEmail"
+            app:layout_constraintEnd_toStartOf="@+id/profileEmail"
+            app:layout_constraintTop_toTopOf="@+id/profileEmail"
+            app:srcCompat="@drawable/mail" />
+
+        <ScrollView
+            android:id="@+id/scrollView2"
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="5dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView4">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/profileSportList"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/sportsListLabel"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </LinearLayout>
+        </ScrollView>
+
+        <ImageView
+            android:id="@+id/profileCoachGradeMedal1"
+            android:contentDescription="@string/img"
+            android:layout_width="21dp"
+            android:layout_height="23dp"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintBottom_toBottomOf="@+id/profileCoachGradeText"
+            app:layout_constraintEnd_toStartOf="@+id/profileCoachGradeText"
+            app:layout_constraintTop_toTopOf="@+id/profileCoachGradeText"
+            app:srcCompat="@drawable/coach_grade_0" />
+
+        <TextView
+            android:id="@+id/profileGradeText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/gradeText"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/ProfilImage"
+            app:layout_constraintTop_toBottomOf="@+id/fullNameTextView" />
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="@string/sports_list"
+            app:layout_constraintBottom_toBottomOf="@+id/imageView4"
+            app:layout_constraintStart_toEndOf="@+id/imageView4"
+            app:layout_constraintTop_toTopOf="@+id/imageView4" />
+
+        <com.google.android.material.button.MaterialButtonToggleGroup
+            android:id="@+id/GroupButtonProg"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Mes programmes" />
+            android:layout_marginTop="8dp"
+            android:orientation="horizontal"
+            android:weightSum="2"
+            app:checkedButton="@+id/myProgramButton"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/scrollView2"
+            app:singleSelection="true">
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/subscribeProgramButton"
-            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-            android:layout_width="match_parent"
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/myProgramButton"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Mes programmes" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/subscribeProgramButton"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Programmes suivis" />
+
+        </com.google.android.material.button.MaterialButtonToggleGroup>
+
+        <TextView
+            android:id="@+id/profileBirthdate"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Programmes suivis" />
+            android:layout_marginStart="8dp"
+            android:text="@string/birthdate"
+            app:layout_constraintBottom_toBottomOf="@+id/imageView"
+            app:layout_constraintStart_toEndOf="@+id/imageView"
+            app:layout_constraintTop_toTopOf="@+id/imageView" />
 
-    </com.google.android.material.button.MaterialButtonToggleGroup>
+        <TextView
+            android:id="@+id/fullNameTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/fname_lname"
+            android:textColor="#000000"
+            android:textSize="24sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/ProfilImage"
+            app:layout_constraintTop_toTopOf="@+id/ProfilImage" />
+
+        <ImageView
+            android:id="@+id/profileCoachGradeMedal2"
+            android:contentDescription="@string/img"
+            android:layout_width="21dp"
+            android:layout_height="23dp"
+            android:layout_marginStart="8dp"
+            app:layout_constraintBottom_toBottomOf="@+id/profileCoachGradeText"
+            app:layout_constraintStart_toEndOf="@+id/profileCoachGradeText"
+            app:layout_constraintTop_toTopOf="@+id/profileCoachGradeText"
+            app:srcCompat="@drawable/coach_grade_0" />
+
+        <ImageView
+            android:id="@+id/profileGradeMedal1"
+            android:contentDescription="@string/img"
+            android:layout_width="21dp"
+            android:layout_height="23dp"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintBottom_toBottomOf="@+id/profileGradeText"
+            app:layout_constraintEnd_toStartOf="@+id/profileGradeText"
+            app:layout_constraintTop_toTopOf="@+id/profileGradeText"
+            app:layout_constraintVertical_bias="1.0"
+            app:srcCompat="@drawable/grade1" />
+
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginStart="45dp"
+            android:layout_marginTop="16dp"
+            android:contentDescription="@string/img"
+            app:layout_constraintStart_toEndOf="@+id/profileBirthdate"
+            app:layout_constraintTop_toBottomOf="@+id/ProfilImage"
+            app:srcCompat="@drawable/weight" />
+
+        <ImageView
+            android:id="@+id/profileGradeMedal2"
+            android:contentDescription="@string/img"
+            android:layout_width="21dp"
+            android:layout_height="23dp"
+            android:layout_marginStart="8dp"
+            app:layout_constraintBottom_toBottomOf="@+id/profileGradeText"
+            app:layout_constraintStart_toEndOf="@+id/profileGradeText"
+            app:layout_constraintTop_toTopOf="@+id/profileGradeText"
+            app:srcCompat="@drawable/grade1" />
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/ProfilImage"
+            android:layout_width="137dp"
+            android:layout_height="137dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="64dp"
+            android:src="@mipmap/benfit_logo_round"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/profileCoachGradeText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/coachGradeText"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/ProfilImage"
+            app:layout_constraintTop_toBottomOf="@+id/profileGradeText" />
+
+        <TextView
+            android:id="@+id/profileEmail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/mailAddr"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView" />
+
+        <TextView
+            android:id="@+id/profileWeight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="@string/kg"
+            app:layout_constraintBottom_toBottomOf="@+id/imageView3"
+            app:layout_constraintStart_toEndOf="@+id/imageView3"
+            app:layout_constraintTop_toTopOf="@+id/imageView3" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/programRecyclerView"
         android:layout_width="match_parent"
-        android:layout_height="310dp"
-        android:layout_marginStart="1dp"
-        android:layout_marginEnd="1dp"
-        android:layout_marginBottom="1dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/GroupButtonProg" />
+        app:layout_constraintTop_toBottomOf="@+id/profileFirstPanel"
+        app:layout_constraintVertical_bias="0.0" />
 
-    <TextView
-        android:id="@+id/profileGradeText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="@string/gradeText"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fullNameTextView" />
-
-    <ImageView
-        android:id="@+id/profileGradeMedal1"
-        android:layout_width="21dp"
-        android:layout_height="23dp"
-        android:layout_marginEnd="8dp"
-        app:layout_constraintBottom_toBottomOf="@+id/profileGradeText"
-        app:layout_constraintEnd_toStartOf="@+id/profileGradeText"
-        app:layout_constraintTop_toTopOf="@+id/profileGradeText"
-        app:srcCompat="@drawable/grade1" />
-
-    <ImageView
-        android:id="@+id/profileGradeMedal2"
-        android:layout_width="21dp"
-        android:layout_height="23dp"
-        android:layout_marginStart="8dp"
-        app:layout_constraintBottom_toBottomOf="@+id/profileGradeText"
-        app:layout_constraintStart_toEndOf="@+id/profileGradeText"
-        app:layout_constraintTop_toTopOf="@+id/profileGradeText"
-        app:srcCompat="@drawable/grade1" />
-
-
-    <TextView
-        android:id="@+id/profileCoachGradeText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="@string/coachGradeText"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/profileGradeText" />
-
-    <ImageView
-        android:id="@+id/profileCoachGradeMedal1"
-        android:layout_width="21dp"
-        android:layout_height="23dp"
-        android:layout_marginEnd="8dp"
-        app:layout_constraintBottom_toBottomOf="@+id/profileCoachGradeText"
-        app:layout_constraintEnd_toStartOf="@+id/profileCoachGradeText"
-        app:layout_constraintTop_toTopOf="@+id/profileCoachGradeText"
-        app:srcCompat="@drawable/coach_grade_0" />
-
-    <ImageView
-        android:id="@+id/profileCoachGradeMedal2"
-        android:layout_width="21dp"
-        android:layout_height="23dp"
-        android:layout_marginStart="8dp"
-        app:layout_constraintBottom_toBottomOf="@+id/profileCoachGradeText"
-        app:layout_constraintStart_toEndOf="@+id/profileCoachGradeText"
-        app:layout_constraintTop_toTopOf="@+id/profileCoachGradeText"
-        app:srcCompat="@drawable/coach_grade_0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
