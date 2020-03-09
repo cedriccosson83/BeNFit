@@ -5,6 +5,7 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
@@ -51,7 +52,7 @@ class ModifyProfile : MenuActivity() {
         val showdiffsports = findViewById<TextView>(R.id.showSports)
 
         auth = FirebaseAuth.getInstance()
-        storageReference = FirebaseStorage.getInstance().getReference()
+        storageReference = FirebaseStorage.getInstance().reference
         stu = StreamToUri(this, this, contentResolver)
         userId = auth.currentUser?.uid ?: ""
 
@@ -80,23 +81,25 @@ class ModifyProfile : MenuActivity() {
             }
         }
 
-        birthdateTextViewModify.setOnClickListener {
-            val dpd = DatePickerDialog(
-                this,
-                DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
-                    c.set(Calendar.YEAR, year)
-                    c.set(Calendar.MONTH, monthOfYear)
-                    c.set(Calendar.DAY_OF_MONTH, dayOfMonth)
-                    birthdateTextViewModify.text = sdf.format(c.time)
-                    dayselec = dayOfMonth
-                    monthselec = monthOfYear
-                    yearselec = year
-                },
-                year,
-                month,
-                day
-            )
-            dpd.show()
+        birthdateTextViewModify.onFocusChangeListener = View.OnFocusChangeListener { _, hasFocus ->
+            if (hasFocus) {
+                val dpd = DatePickerDialog(
+                    this,
+                    DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
+                        c.set(Calendar.YEAR, year)
+                        c.set(Calendar.MONTH, monthOfYear)
+                        c.set(Calendar.DAY_OF_MONTH, dayOfMonth)
+                        birthdateTextViewModify.setText(sdf.format(c.time))// = sdf.format(c.time)
+                        dayselec = dayOfMonth
+                        monthselec = monthOfYear
+                        yearselec = year
+                    },
+                    year,
+                    month,
+                    day
+                )
+                dpd.show()
+            }
         }
 
         changeProfilImageModify.setOnClickListener{
@@ -133,11 +136,11 @@ class ModifyProfile : MenuActivity() {
                 }
                 .setPositiveButton("OK") { dialog, which ->
                     sportSelectedModif = ArrayList()
-                    showdiffsports.text = "Vos sports préférés..... \n"
+                    showdiffsports.text = "Sports pratiqués : "
                     for (i in checkedColorsArray.indices) {
                         val checked = checkedColorsArray[i]
                         if (checked) {
-                            showdiffsports.text = showdiffsports.text.toString() + sportList[i] + "\n"
+                            showdiffsports.text = showdiffsports.text.toString() + sportList[i] + " "
                             sportSelectedModif.add(Sport(sportList[i], ArrayList()))
                         }
                     }
@@ -207,12 +210,19 @@ class ModifyProfile : MenuActivity() {
                         value.child("grade").value.toString()
                     )
 
-                    if (user?.userid == userId) {
+                    if (user.userid == userId) {
                         firstNameTextViewModify.setText("${user.firstname}")
                         lastNameTextViewModify.setText("${user.lastname}")
                         birthdateTextViewModify.setText("${user.birthdate.toString()}")
                         weightTextViewModify.setText("${user.weight}")
-                        showSports.setText("${user.sports.map { it.getSportName()}}")
+                        var sportText = "Sports pratiqués : "
+                        for (sp in user.sports)
+                            sportText += sp.getSportName() + " "
+
+                        if (user.sports.isEmpty())
+                            sportText = "Aucun sport sélectionné"
+
+                        showSports.text = sportText
                         setImageFromFirestore(context, changeProfilImageModify, "users/$userId/${user.pictureUID}")
                     }
                 }
@@ -229,11 +239,11 @@ class ModifyProfile : MenuActivity() {
     private fun ChangeUser(user: FirebaseUser?, fnamenew:String, lnamenew:String, birthdatenew:String, sportnew:String, weightnew:String) {
         if (user?.uid != null) {
             val root = database.getReference("users")
-            root.child(user?.uid).child("firstname").setValue(fnamenew)
-            root.child(user?.uid).child("lastname").setValue(lnamenew)
-            root.child(user?.uid).child("birthdate").setValue(birthdatenew)
-            root.child(user?.uid).child("weight").setValue(weightnew)
-            if (sportSelectedModif.isNotEmpty()){ root.child(user?.uid).child("sports").setValue(sportSelectedModif)}
+            root.child(user.uid).child("firstname").setValue(fnamenew)
+            root.child(user.uid).child("lastname").setValue(lnamenew)
+            root.child(user.uid).child("birthdate").setValue(birthdatenew)
+            root.child(user.uid).child("weight").setValue(weightnew)
+            if (sportSelectedModif.isNotEmpty()){ root.child(user.uid).child("sports").setValue(sportSelectedModif)}
             else{
                 toast(context, "liste vide")}
 
