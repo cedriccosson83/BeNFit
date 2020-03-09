@@ -39,17 +39,17 @@
         app:layout_constraintTop_toTopOf="@+id/myHomeBTN"
         app:srcCompat="@drawable/logout" />
 
-    <ImageView
+    <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/nav_picture"
-        android:layout_width="76dp"
-        android:layout_height="69dp"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         android:contentDescription="@string/nav_header_desc"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/linearLayout2"
         app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/icon" />
+        android:src="@drawable/icon" />
 
     <LinearLayout
         android:id="@+id/linearLayout2"
