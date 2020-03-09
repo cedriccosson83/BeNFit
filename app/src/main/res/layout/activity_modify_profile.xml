@@ -17,103 +17,91 @@
 
         <EditText
             android:id="@+id/weightTextViewModify"
-            android:layout_width="196dp"
+            android:layout_width="125dp"
             android:layout_height="47dp"
-            android:layout_marginBottom="8dp"
             android:ems="10"
-            android:inputType="textPersonName"
+            android:inputType="number"
+            android:layout_marginEnd="11dp"
             android:text="@string/poids"
-            app:layout_constraintBottom_toTopOf="@+id/sportTextViewModify"
+            app:layout_constraintBottom_toBottomOf="@+id/birthdateTextViewModify"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.46"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/birthdateTextViewModify" />
+            app:layout_constraintStart_toEndOf="@+id/birthdateTextViewModify"
+            app:layout_constraintTop_toTopOf="@+id/birthdateTextViewModify" />
 
-        <TextView
+        <EditText
             android:id="@+id/birthdateTextViewModify"
-            android:layout_width="wrap_content"
+            android:layout_width="140dp"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="16dp"
             android:ems="10"
             android:inputType="textPersonName"
             android:text="@string/date_de_naissance"
-            app:layout_constraintBottom_toTopOf="@+id/weightTextViewModify"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/firstNameTextViewModify" />
+            app:layout_constraintTop_toBottomOf="@+id/lastNameTextViewModify" />
 
-        <ImageView
+        <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/changeProfilImageModify"
             android:layout_width="137dp"
             android:layout_height="133dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="17dp"
-            app:layout_constraintBottom_toTopOf="@+id/lastNameTextViewModify"
+            android:layout_marginTop="16dp"
+            android:src="@mipmap/benfit_logo_round"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@mipmap/benfit_logo_round" />
+            app:layout_constraintTop_toBottomOf="@+id/textView6" />
 
 
         <EditText
             android:id="@+id/firstNameTextViewModify"
-            android:layout_width="wrap_content"
+            android:layout_width="140dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"
             android:ems="10"
             android:inputType="textPersonName"
             android:text="@string/prenom"
-            app:layout_constraintBottom_toTopOf="@+id/birthdateTextViewModify"
+            app:layout_constraintBottom_toBottomOf="@+id/lastNameTextViewModify"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/lastNameTextViewModify" />
+            app:layout_constraintStart_toEndOf="@+id/lastNameTextViewModify"
+            app:layout_constraintTop_toTopOf="@+id/lastNameTextViewModify" />
 
         <TextView
             android:id="@+id/sportTextViewModify"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"
-            android:text="Choisir un(des) sport(s)"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/borderradiusprimary"
+            android:paddingStart="25dp"
+            android:paddingTop="5dp"
+            android:paddingEnd="25dp"
+            android:paddingBottom="5dp"
+            android:text="@string/selectSports"
+            android:textColor="@color/white"
             android:textSize="18sp"
-            app:layout_constraintBottom_toTopOf="@id/showSports"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/weightTextViewModify" />
 
 
-        <TextView
-            android:id="@+id/showSports"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"
-            app:layout_constraintBottom_toBottomOf="@id/validateModifyButton"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/sportTextViewModify" />
-
         <com.google.android.material.button.MaterialButton
             android:id="@+id/validateModifyButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="24dp"
             android:text="Valider les modifications"
             android:textSize="12sp"
+            app:backgroundTint="@color/greenSuccess"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/showSports" />
+            app:layout_constraintTop_toBottomOf="@+id/modifySportsContainer" />
 
         <EditText
             android:id="@+id/lastNameTextViewModify"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="140dp"
+            android:layout_height="45dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="24dp"
             android:ems="10"
             android:inputType="textPersonName"
             android:text="@string/nom"
-            app:layout_constraintBottom_toTopOf="@+id/firstNameTextViewModify"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/changeProfilImageModify" />
 
@@ -127,6 +115,43 @@
             app:layout_constraintBottom_toBottomOf="@+id/weightTextViewModify"
             app:layout_constraintStart_toEndOf="@+id/weightTextViewModify"
             app:layout_constraintTop_toTopOf="@+id/weightTextViewModify" />
+
+        <TextView
+            android:id="@+id/textView6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/updateProfile"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ScrollView
+            android:id="@+id/modifySportsContainer"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="24dp"
+            app:layout_constraintBottom_toTopOf="@id/validateModifyButton"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/sportTextViewModify">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/showSports"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp" />
+            </LinearLayout>
+        </ScrollView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

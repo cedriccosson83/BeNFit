@@ -56,14 +56,14 @@
                     app:layout_constraintStart_toEndOf="@+id/imageViewUserPost"
                     app:layout_constraintTop_toBottomOf="@+id/textViewName" />
 
-                <ImageView
+                <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/imageViewUserPost"
                     android:layout_width="79dp"
                     android:layout_height="71dp"
                     android:contentDescription="@string/img"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@mipmap/benfit_logo_round" />
+                    android:src="@mipmap/benfit_logo_round" />
 
                 <TextView
                     android:id="@+id/textViewDate"

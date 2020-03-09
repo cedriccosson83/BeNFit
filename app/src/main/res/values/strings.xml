@@ -281,5 +281,7 @@
     <string name="sports_list">Sports pratiqués</string>
     <string name="sportsListLabel">Liste des sports</string>
     <string name="fname_lname">Nom et prénom</string>
+    <string name="updateProfile">Mise à jour du profil</string>
+    <string name="selectSports">Sélection de sports</string>
 
 </resources>
