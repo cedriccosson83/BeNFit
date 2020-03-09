@@ -82,7 +82,7 @@ class ShowSessionActivity : MenuActivity() {
                         showSessionAuthor.setOnClickListener {
                             redirectToUserActivity(this@ShowSessionActivity, session.userID)
                         }
-                        showExercicesFromSession(database, session.exosSession)
+                        showExercicesFromSession(database, session.exosSession, session.sessionID)
 
                         showSessionShare.setOnClickListener{
                             val writePostIntent = Intent(context, WritePostActivity::class.java)
@@ -107,11 +107,11 @@ class ShowSessionActivity : MenuActivity() {
         })
     }
 
-    private fun exerciceClicked(exoID : String) {
-        showPopUpExercice(database,context,exoID, windowManager)
+    private fun exerciceClicked(exoID : String, sessId: String?) {
+        showPopUpExercice(database,context,exoID, windowManager, sessId)
     }
 
-    fun showExercicesFromSession(database : FirebaseDatabase, sess_exercices: ArrayList<String>) {
+    fun showExercicesFromSession(database : FirebaseDatabase, sess_exercices: ArrayList<String>, sessId: String?) {
 
         val myRef = database.getReference("exos")
 
@@ -133,8 +133,8 @@ class ShowSessionActivity : MenuActivity() {
                 }
                 exercicesIn.reverse()
 
-                showSessionRecyclerView.adapter = ShowExercicesAdapter(exercicesIn,
-                    { exo : ShowExerciceSession -> exerciceClicked(exo.id) })
+                showSessionRecyclerView.adapter = ShowExercicesAdapter(exercicesIn, sessId
+                ) { exo : ShowExerciceSession, sessId: String? -> exerciceClicked(exo.id, sessId) }
             }
             override fun onCancelled(error: DatabaseError) {
                 Log.w("session", "Failed to read value.", error.toException())
