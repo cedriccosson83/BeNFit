@@ -6,6 +6,7 @@ data class ShowExerciceSession (
         var idUser :String ="",
         var difficulty : String ="",
         var description: String="",
-        var urlYTB: String="",
-        var pictureUID: String=""
+        var urlYt: String="",
+        var pictureUID: String="",
+        var sport: String=""
 )
