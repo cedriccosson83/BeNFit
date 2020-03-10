@@ -126,7 +126,7 @@ class ModifyProfile : MenuActivity() {
 
             val sportList = sportArray.toList()
             AlertDialog.Builder(this@ModifyProfile)
-                .setTitle("Select colors")
+                .setTitle("Select sports")
                 .setMultiChoiceItems(
                     sportArray.toTypedArray(),
                     checkedColorsArray

@@ -34,6 +34,7 @@ class SignUpActivity : AppCompatActivity() {
     val database = FirebaseDatabase.getInstance()
     lateinit var currUser: User
     private var sportSelected = ArrayList<Sport>()
+    val sportSel = arrayListOf<String>()
     private val c = Calendar.getInstance()
     private val year = c.get(Calendar.YEAR)
     private val month = c.get(Calendar.MONTH)
@@ -96,26 +97,28 @@ class SignUpActivity : AppCompatActivity() {
         }
 
         sportTewtView.setOnClickListener{
-            val checkedColorsArray = BooleanArray(166)
+            val checkedColorsArray = BooleanArray(34)
+            var listSportselec : ArrayList<String> = ArrayList()
+            for (sport in sportSelected){
+                listSportselec.add(sport.getSportName())
+            }
+            for (sport in listSportselec){
+                if (sportArray.indexOf(sport) != -1){
+                    checkedColorsArray[sportArray.indexOf(sport)] = true
+                }
+            }
             val sportList = sportArray.toList()
             AlertDialog.Builder(this@SignUpActivity)
-                .setTitle("Select colors")
+                .setTitle("Select sports")
                 .setMultiChoiceItems(
                     sportArray.toTypedArray(),
                     checkedColorsArray
                 ) { _, which, isChecked ->
-                    // Update the current focused item's checked status
                     checkedColorsArray[which] = isChecked
-                    // Get the current focused item
-                    val currentItem = sportList[which]
-                    // Notify the current action
-                    Toast.makeText(
-                        applicationContext,
-                        "$currentItem $isChecked",
-                        Toast.LENGTH_SHORT
-                    ).show()
                 }
                 .setPositiveButton("OK") { dialog, which ->
+                    sportSelected = ArrayList()
+                    showdiffsportss.text = ""
                     for (i in checkedColorsArray.indices) {
                         val checked = checkedColorsArray[i]
                         if (checked) {
