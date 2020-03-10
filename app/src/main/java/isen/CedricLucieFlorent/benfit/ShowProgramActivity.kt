@@ -89,7 +89,8 @@ class ShowProgramActivity : MenuActivity() {
                         showProgramName.text = program.nameProgram
                         showProgramDesc.text = program.descProgram
                         convertLevelToImg(program.levelProgram, showProgramLevelIcon)
-                        showProgramLevelText.text = program.levelProgram
+                        numberSessionProgram.text = arraySession.size.toString()
+                        //showProgramLevelText.text = program.levelProgram
                         showUserName(program.userID, showProgramAuthor)
                         showFollowers(database, currentUser,programId,"users/${currentUser}/currentPrograms", showProgramSub)
 

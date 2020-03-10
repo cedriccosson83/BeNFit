@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
+    <dimen name="size_title" tools:keep="@dimen/size_title">24sp</dimen>
+    <dimen name="size_subtitle" tools:keep="@dimens/size_subtitle">14sp</dimen>
+
     <dimen name="txt_size_16" tools:keep="@dimen/txt_size_16">16sp</dimen>
     <dimen name="txt_size_18" tools:keep="@dimen/txt_size_18">18sp</dimen>
     <dimen name="txt_size_20" tools:keep="@dimen/txt_size_20">20sp</dimen>
@@ -25,7 +28,6 @@
     <dimen name="btn_size" tools:keep="@dimen/btn_size">20dp</dimen>
     <dimen name="design_navigation_icon_size" tools:override="true">20sp</dimen>
     <dimen name="top_button_size_marge">45dp</dimen>
-
     <dimen name="icon_btn_height">40dp</dimen>
     <dimen name="icon_btn_width">40dp</dimen>
     <dimen name="icon_btn_inner_padding">8dp</dimen>
