@@ -38,7 +38,7 @@ class MyProgAdapter (private val programs: ArrayList<ProgramFollow>, val clickLi
         fun bind(program: ProgramFollow, clickListenerProgram: (ProgramFollow) -> Unit) {
             view.nameMyProgs.text = program.nameProgramFollow
             view.descMyProg.text = program.descrProgramFollow
-            view.nameMyProgs.setOnClickListener{ clickListenerProgram(program)}
+            view.parentMyProg.setOnClickListener{ clickListenerProgram(program)}
             var img = program.imageURI
             setImageFromFirestore(ApplicationContext.applicationContext(), view.imgViewMyProgs, "programs/${program.programID}/${img}")
             showNumberLikes(database, "programs/${program.programID}/likes", view.nbLikesMyProgs )

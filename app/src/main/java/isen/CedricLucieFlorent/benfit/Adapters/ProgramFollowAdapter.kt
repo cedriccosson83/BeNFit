@@ -39,7 +39,7 @@ class ProgramFollowAdapter (private val programs: ArrayList<ProgramFollow>, val 
             auth = FirebaseAuth.getInstance()
             view.nameProgFollow.text = program.nameProgramFollow
             view.descrProgFollow.text = program.descrProgramFollow
-            view.nameProgFollow.setOnClickListener{clickListenerProgram(program)}
+            view.parentProgramFollowed.setOnClickListener{clickListenerProgram(program)}
             getProgramProgression(database, auth.currentUser?.uid, program.programID, view.programProgress)
             val img = program.imageURI
             setImageFromFirestore(ApplicationContext.applicationContext(), view.imageViewFollowedProg, "programs/${program.programID}/${img}")

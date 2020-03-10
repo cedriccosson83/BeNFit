@@ -12,12 +12,10 @@
         android:layout_height="200dp"
         android:layout_marginTop="60dp"
         android:layout_weight="4"
-        app:layout_constraintBottom_toTopOf="@+id/linearHD"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
         app:lottie_autoPlay="true"
         app:lottie_loop="true"
         app:lottie_rawRes="@raw/notification" />
@@ -27,16 +25,14 @@
         android:id="@+id/btn_create"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="144dp"
+        android:layout_marginTop="45dp"
         android:layout_weight="1"
         android:text="Planifier"
         app:backgroundTint="#D0021B"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearHD"
-        app:layout_constraintVertical_bias="0.966"></Button>
+        app:layout_constraintTop_toBottomOf="@+id/linearHD"></Button>
 
     <TextView
         android:id="@+id/descriptionNotification"
@@ -55,11 +51,11 @@
         android:id="@+id/linearHD"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="400dp"
+        android:layout_marginTop="32dp"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/descriptionNotification">
 
         <EditText
             android:id="@+id/inputDate"
