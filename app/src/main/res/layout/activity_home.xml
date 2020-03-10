@@ -22,7 +22,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="100"
             android:contentDescription="@string/img"
-            app:srcCompat="@drawable/homeprograms"
+            app:srcCompat="@drawable/home_programs"
             tools:ignore="NestedWeights"
             android:scaleType = "centerCrop" />
 
@@ -35,15 +35,15 @@
     android:orientation="horizontal"
     android:layout_height="0dp">
 
-        <ImageButton
+        <ImageView
             android:id="@+id/home_sessions"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="100"
-            android:background="@drawable/homesession"
             android:contentDescription="@string/img"
-            android:scaleType="centerCrop"
-            tools:ignore="NestedWeights" />
+            app:srcCompat="@drawable/home_sessions"
+            tools:ignore="NestedWeights"
+            android:scaleType = "centerCrop" />
 
 </LinearLayout>
     <LinearLayout
@@ -59,7 +59,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="100"
             android:contentDescription="@string/img"
-            app:srcCompat="@drawable/homefeed"
+            app:srcCompat="@drawable/home_feed"
             tools:ignore="NestedWeights"
             android:scaleType = "centerCrop" />
 
@@ -79,7 +79,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="100"
             android:contentDescription="@string/img"
-            app:srcCompat="@drawable/homeprofile"
+            app:srcCompat="@drawable/home_profile"
             tools:ignore="NestedWeights"
             android:scaleType = "centerCrop" />
 

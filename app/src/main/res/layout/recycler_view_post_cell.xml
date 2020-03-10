@@ -85,9 +85,10 @@
 
                 <ImageView
                     android:id="@+id/btnShareInFeed"
-                    android:layout_width="26dp"
-                    android:layout_height="27dp"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
                     android:layout_marginEnd="20dp"
+                    android:padding="8dp"
                     app:layout_constraintBottom_toBottomOf="@+id/textViewCommentsNumberPost"
                     app:layout_constraintEnd_toStartOf="@+id/textViewCommentsNumberPost"
                     app:layout_constraintTop_toTopOf="@+id/textViewCommentsNumberPost"
@@ -97,34 +98,36 @@
                     android:id="@+id/textViewLikeNumberPost"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="24dp"
                     android:text="0"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="@+id/btnLikePost" />
+                    app:layout_constraintEnd_toStartOf="@+id/btnLikePost"
+                    app:layout_constraintTop_toTopOf="@+id/btnLikePost" />
 
                 <TextView
                     android:id="@+id/textViewCommentsNumberPost"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="24dp"
                     android:text="0"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="@+id/btnCommentExo" />
+                    app:layout_constraintBottom_toBottomOf="@+id/btnCommentExo"
+                    app:layout_constraintEnd_toStartOf="@+id/btnCommentExo"
+                    app:layout_constraintTop_toTopOf="@+id/btnCommentExo" />
 
                 <ImageView
                     android:id="@+id/btnCommentExo"
-                    android:layout_width="19dp"
-                    android:layout_height="19dp"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
                     android:layout_marginEnd="16dp"
+                    android:padding="8dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/textViewLikeNumberPost"
                     app:srcCompat="@drawable/comment" />
 
                 <ImageView
                     android:id="@+id/btnLikePost"
-                    android:layout_width="19dp"
-                    android:layout_height="19dp"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
                     android:layout_marginEnd="4dp"
+                    android:padding="8dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:srcCompat="@drawable/dislike" />
@@ -134,6 +137,10 @@
                 android:id="@+id/layoutImgPost"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="4dp"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp"
                 app:layout_constraintBottom_toTopOf="@+id/constraintLayout3"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
