@@ -2,22 +2,17 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/colorPrimary"
-    tools:context=".ExerciceSessionActivity">
+    android:id="@+id/constraintLayoutDetails"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
 
 
     <com.google.android.material.card.MaterialCardView
-        android:id="@+id/materialCardView"
+        android:id="@+id/materialCardViewDetails"
         style="@style/Widget.MaterialComponents.CardView"
-        android:layout_width="328dp"
-        android:layout_height="418dp"
-        android:layout_marginStart="25dp"
-        android:layout_marginEnd="25dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:minHeight="200dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -27,44 +22,70 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+            <Button
+                android:id="@+id/btnDoneExoDetails"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:layout_marginBottom="10dp"
+                android:text="@string/done"
+                android:textColor="@color/greenSuccess"
+                app:backgroundTint="@color/white"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/inputValueExo" />
+
             <TextView
                 android:id="@+id/textNameExoSession"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="25dp"
                 android:text="@string/nameExo"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/textViewValue"
-                android:layout_width="49dp"
+                android:layout_width="wrap_content"
                 android:layout_height="20dp"
-                android:layout_marginBottom="10dp"
-                android:text="@string/valueExo"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="8dp"
+                android:text="Valeur : (ex : 5)"
+                android:textStyle="bold"
                 app:layout_constraintBottom_toTopOf="@+id/inputValueExo"
                 app:layout_constraintEnd_toEndOf="@+id/inputValueExo"
-                app:layout_constraintStart_toStartOf="@+id/inputValueExo" />
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/inputValueExo"
+                app:layout_constraintTop_toBottomOf="@+id/textView2"
+                app:layout_constraintVertical_bias="0.974" />
 
             <TextView
                 android:id="@+id/textViewUnit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:text="@string/unit"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="8dp"
+                android:text="Unité : (ex : rep)"
+                android:textStyle="bold"
                 app:layout_constraintBottom_toTopOf="@+id/inputUnitExo"
                 app:layout_constraintEnd_toEndOf="@+id/inputUnitExo"
-                app:layout_constraintStart_toStartOf="@+id/inputUnitExo" />
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/inputUnitExo"
+                app:layout_constraintTop_toBottomOf="@+id/textView2"
+                app:layout_constraintVertical_bias="0.975" />
 
             <EditText
                 android:id="@+id/inputValueExo"
                 android:layout_width="100dp"
                 android:layout_height="50dp"
-                android:layout_marginStart="50dp"
+                android:layout_marginStart="48dp"
+                android:layout_marginTop="76dp"
                 android:ems="10"
                 android:inputType="textPersonName"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textNameExoSession" />
 
@@ -73,75 +94,28 @@
                 android:layout_width="100dp"
                 android:layout_height="50dp"
                 android:layout_marginStart="10dp"
+                android:layout_marginTop="76dp"
                 android:layout_marginEnd="50dp"
                 android:ems="10"
                 android:inputType="textPersonName"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toEndOf="@+id/inputValueExo"
                 app:layout_constraintTop_toBottomOf="@+id/textNameExoSession" />
 
-
-            <!--<FrameLayout
-                android:id="@+id/fragmentContainer"
-                android:layout_width="316dp"
-                android:layout_height="149dp"
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
+                android:text="Définissez les instructions de l'exercice"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textNameExoSession">
+                app:layout_constraintTop_toBottomOf="@+id/textNameExoSession" />
 
-            </FrameLayout> -->
-
-
-           <!--<com.google.android.material.button.MaterialButtonToggleGroup
-               android:id="@+id/toggleGroupRepTime"
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content"
-               app:checkedButton="@id/btnRep"
-               app:layout_constraintEnd_toEndOf="parent"
-               app:layout_constraintStart_toStartOf="parent"
-               app:layout_constraintTop_toBottomOf="@+id/fragmentContainer"
-               app:singleSelection="true">
-
-               <com.google.android.material.button.MaterialButton
-                   android:id="@+id/btnRep"
-                   style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-                   android:layout_width="match_parent"
-                   android:layout_height="wrap_content"
-                   android:width="150dp"
-                   android:text="@string/repetition"
-                   app:shapeAppearance="@style/round" />
-
-               <com.google.android.material.button.MaterialButton
-                   android:id="@+id/btnTime"
-                   style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-                   android:layout_width="match_parent"
-                   android:layout_height="wrap_content"
-                   android:width="150dp"
-                   android:text="@string/time"
-                   app:shapeAppearance="@style/round" />
-               />
-
-           </com.google.android.material.button.MaterialButtonToggleGroup>-->
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-
     </com.google.android.material.card.MaterialCardView>
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnDoneExo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/done"
-        android:textColor="@color/colorPrimary"
-        style="@style/Widget.MaterialComponents.Button"
-
-        app:backgroundTint="@color/white"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/materialCardView" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

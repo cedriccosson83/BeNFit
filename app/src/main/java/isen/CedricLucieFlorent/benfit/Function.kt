@@ -1,9 +1,12 @@
 package isen.CedricLucieFlorent.benfit
 
+import android.app.Dialog
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
+import android.text.Layout
 import android.util.Log
+import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
@@ -19,6 +22,7 @@ import isen.CedricLucieFlorent.benfit.Adapters.SessionFeedAdapter
 import isen.CedricLucieFlorent.benfit.Adapters.SessionProgramAdapter
 import isen.CedricLucieFlorent.benfit.Models.*
 import kotlinx.android.synthetic.main.activity_exercice_session.*
+import kotlinx.android.synthetic.main.activity_exercice_session.view.*
 import kotlinx.android.synthetic.main.activity_program.*
 import kotlinx.android.synthetic.main.activity_session.*
 import kotlinx.android.synthetic.main.recycler_view_exo_session.view.*
@@ -110,7 +114,7 @@ fun updateRepExoSession(database: FirebaseDatabase, idExoSession: String, rep: S
     dbExos.child(idExoSession).child("rep").setValue(rep)
 }
 
-fun showInfosRep(database :  FirebaseDatabase, activity: ExerciceSessionActivity, userId: String){
+fun showInfosRep(database :  FirebaseDatabase, activity: View, userId: String){
     val myRef = database.getReference("temporary_exos_session")
     myRef.addListenerForSingleValueEvent(object : ValueEventListener {
         override fun onDataChange(dataSnapshot: DataSnapshot){
@@ -135,7 +139,6 @@ fun showInfosRep(database :  FirebaseDatabase, activity: ExerciceSessionActivity
 }
 //This function get the posts on the database and show them on the feed
 fun showExos(database : FirebaseDatabase, view: RecyclerView, context: Context, userId: String) {
-    Log.d("function", "showExos")
 
     val myRef = database.getReference("exos")
     myRef.addValueEventListener(object : ValueEventListener {
@@ -195,7 +198,7 @@ fun showExosSession(database : FirebaseDatabase, view: RecyclerView, userId :Str
                 }
             }
             exos.reverse()
-            view.adapter = ExoSessionAdapter(exos,  { exoItem : SessionExercice -> deleteExoSessionClicked(database, exoItem) },  { exoItem : SessionExercice -> exoSessionClicked(context, exoItem) } )
+            view.adapter = ExoSessionAdapter(exos, { exoItem : SessionExercice -> deleteExoSessionClicked(database, exoItem)})
         }
 
         override fun onCancelled(error: DatabaseError) {
@@ -574,14 +577,6 @@ private fun exoChooseSessionClicked(context:Context, exoItem : Exercice, databas
 private fun deleteExoSessionClicked(firebase : FirebaseDatabase, exoItem : SessionExercice) {
     deleteExoSession(firebase, exoItem.exoSessionID)
 
-    Log.d("session", exoItem.exoID)
-}
-
-private fun exoSessionClicked(context:Context,exoItem : SessionExercice) {
-    val intent = Intent(context, ExerciceSessionActivity::class.java)
-    intent.putExtra("id", exoItem.exoID)
-    intent.putExtra("idExoSession", exoItem.exoSessionID)
-    context.startActivity(intent)
     Log.d("session", exoItem.exoID)
 }
 

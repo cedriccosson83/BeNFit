@@ -21,7 +21,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/cardViewExo"
             android:layout_width="match_parent"
-            android:layout_height="98dp"
+            android:layout_height="wrap_content"
             android:orientation="vertical"
             android:padding="8dp">
 
@@ -29,7 +29,8 @@
                 android:id="@+id/imageViewExo"
                 android:layout_width="62dp"
                 android:layout_height="69dp"
-                android:layout_marginStart="16dp"
+                android:layout_marginStart="8dp"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@mipmap/benfit_logo_round" />
@@ -39,8 +40,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
+                android:maxWidth="230dp"
                 android:text="@string/nameExo"
-                android:maxWidth="200dp"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                android:textSize="20sp"
+                android:textStyle="bold"
                 app:layout_constraintStart_toEndOf="@+id/imageViewExo"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -49,10 +53,10 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
-                android:layout_marginTop="12dp"
+                android:layout_marginTop="6dp"
                 android:layout_marginEnd="10dp"
-                android:text="@string/descExo"
                 android:maxWidth="200dp"
+                android:text="@string/descExo"
                 app:layout_constraintEnd_toStartOf="@+id/btn_validate_exo_list"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toEndOf="@+id/imageViewExo"
@@ -63,10 +67,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="6dp"
                 android:layout_marginBottom="10dp"
-                android:text="@string/difficultyExo"
                 android:maxWidth="200dp"
+                android:text="@string/difficultyExo"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/imageViewExo"
                 app:layout_constraintTop_toBottomOf="@+id/descExoListExo" />
@@ -75,10 +79,10 @@
                 android:id="@+id/sportExoListExo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:text="@string/sportExo"
+                android:layout_marginEnd="8dp"
                 android:maxWidth="100dp"
-                app:layout_constraintStart_toEndOf="@+id/nameExoListExo"
+                android:text="@string/sportExo"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
@@ -90,7 +94,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.509"
-                app:srcCompat="@drawable/tick" />
+                app:srcCompat="@drawable/plusexo" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

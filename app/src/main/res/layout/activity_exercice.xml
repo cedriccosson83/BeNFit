@@ -9,14 +9,13 @@
 
 
     <com.google.android.material.card.MaterialCardView
-        android:id="@+id/materialCardView"
+        android:id="@+id/materialCardViewDetails"
         style="@style/Widget.MaterialComponents.CardView"
-        android:layout_width="382dp"
-        android:layout_height="528dp"
+        android:layout_width="320dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="25dp"
         android:layout_marginEnd="25dp"
         android:minHeight="200dp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -25,8 +24,7 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/redLogo">
+            android:layout_height="match_parent">
 
 
             <com.google.android.material.textfield.TextInputLayout
@@ -34,11 +32,11 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="300dp"
                 android:layout_height="60dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="8dp"
                 android:hint="@string/nameExo"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                app:layout_constraintTop_toBottomOf="@+id/createExoTextView">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/inputNameExo"
@@ -79,11 +77,11 @@
                 android:id="@+id/groupButtonUrlImg"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="170dp"
+                android:layout_marginTop="8dp"
                 app:checkedButton="@+id/urlButton"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textInputLayoutExo"
                 app:singleSelection="true">
 
                 <com.google.android.material.button.MaterialButton
@@ -92,9 +90,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="URL youtube"
-                    app:iconTint="#0288D1"
-                    app:rippleColor="#1976D2"
-                    app:strokeColor="#1976D2" />
+                    app:iconTint="@color/colorPrimary"
+                    app:rippleColor="@color/colorPrimary"
+                    app:strokeColor="@color/colorPrimary" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/imgButton"
@@ -102,9 +100,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Image"
-                    app:iconTint="#1976D2"
-                    app:rippleColor="#1976D2"
-                    app:strokeColor="#1976D2" />
+                    app:iconTint="@color/colorPrimary"
+                    app:rippleColor="@color/colorPrimary"
+                    app:strokeColor="@color/colorPrimary" />
 
             </com.google.android.material.button.MaterialButtonToggleGroup>
 
@@ -112,7 +110,7 @@
                 android:id="@+id/textInputLayoutURLImg"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="20dp"
                 app:checkedButton="@id/urlButton"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -145,63 +143,58 @@
                     app:layout_constraintVertical_bias="1.0" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <TextView
-                android:id="@+id/textViewLevelExo"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="28dp"
-                android:layout_marginTop="40dp"
-                android:text="@string/levelSession"
-                android:textSize="16sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textInputLayoutURLImg" />
-
             <Spinner
                 android:id="@+id/spinnerLevelExo"
-                android:layout_width="158dp"
-                android:layout_height="40dp"
-                android:layout_marginStart="25dp"
-                app:layout_constraintBottom_toBottomOf="@+id/textViewLevelExo"
-                app:layout_constraintStart_toEndOf="@+id/textViewLevelExo"
-                app:layout_constraintTop_toTopOf="@+id/textViewLevelExo"
-                app:layout_constraintVertical_bias="0.444" />
-
-            <TextView
-                android:id="@+id/textView"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="28dp"
-                android:layout_marginTop="40dp"
-                android:text="@string/sportExo"
-                android:textSize="16sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textViewLevelExo" />
+                android:layout_height="40dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="8dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/spinnerSportExo"
+                app:layout_constraintStart_toStartOf="parent" />
 
             <Spinner
                 android:id="@+id/spinnerSportExo"
-                android:layout_width="158dp"
+                android:layout_width="wrap_content"
                 android:layout_height="40dp"
-                android:layout_marginStart="35dp"
-                app:layout_constraintBottom_toBottomOf="@+id/textView"
-                app:layout_constraintStart_toEndOf="@+id/textView"
-                app:layout_constraintTop_toTopOf="@+id/textView"
+                android:layout_marginTop="32dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="8dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textInputLayoutURLImg"
                 app:layout_constraintVertical_bias="0.0" />
+
+            <TextView
+                android:id="@+id/createExoTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Créez votre exercice"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </com.google.android.material.card.MaterialCardView>
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnDoneExo"
+        style="@style/Widget.MaterialComponents.Button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/done"
-        android:textColor="@color/colorPrimary"
-        style="@style/Widget.MaterialComponents.Button"
+        android:textColor="@color/greenSuccess"
 
         app:backgroundTint="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/materialCardView" />
+        app:layout_constraintTop_toBottomOf="@+id/materialCardViewDetails"
+        app:layout_constraintVertical_bias="0.393" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

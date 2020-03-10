@@ -27,8 +27,10 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
+import isen.CedricLucieFlorent.benfit.Models.SessionExercice
 import isen.CedricLucieFlorent.benfit.Models.ShowExerciceSession
 import isen.CedricLucieFlorent.benfit.Models.ShowSessionProgram
+import kotlinx.android.synthetic.main.activity_exercice_session.*
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
@@ -617,6 +619,33 @@ fun showPopUpCongratz(userFirstName: String, newScore : Int, context: Context) {
     dialog.setOnDismissListener {
         val intent = Intent(context, ProfileActivity::class.java)
         context.startActivity(intent)
+    }
+    dialog.show()
+}
+
+fun showPopUpDetails(database : FirebaseDatabase, context: Context, exoItem : SessionExercice){
+    var exoID = exoItem.exoID
+    var exoSessionID = exoItem.exoSessionID
+    val img : ImageView = ImageView(context)
+    val dialog = Dialog(context)
+    dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+    dialog.setContentView(R.layout.activity_exercice_session)
+    if (exoID != null) {
+        showExo(database, exoID, dialog.findViewById(R.id.textNameExoSession), img)
+        if (exoSessionID != null) {
+            showInfosRep(database, dialog.findViewById(R.id.constraintLayoutDetails) , exoSessionID)
+        }
+    }
+    //dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+
+    var btnDone = dialog.findViewById<Button>(R.id.btnDoneExoDetails)
+        btnDone.setOnClickListener {
+        val value = dialog.findViewById<EditText>(R.id.inputValueExo).text.toString()
+        val unit: String = dialog.findViewById<EditText>(R.id.inputUnitExo).text.toString()
+        if (exoSessionID != null) {
+            updateRepExoSession(database, exoSessionID, "${value} ${unit}")
+        }
+        dialog.dismiss()
     }
     dialog.show()
 }

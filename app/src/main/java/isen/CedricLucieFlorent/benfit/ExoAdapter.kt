@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import isen.CedricLucieFlorent.benfit.Models.Exercice
 import kotlinx.android.synthetic.main.recycler_view_exo_cell.view.*
+import kotlinx.android.synthetic.main.recycler_view_feed_session.view.*
 
 
 class ExoAdapter(val exos: ArrayList<Exercice>,  val clickListener: (Exercice) -> Unit): RecyclerView.Adapter<ExoAdapter.ExoViewHolder>(){
@@ -14,12 +15,10 @@ class ExoAdapter(val exos: ArrayList<Exercice>,  val clickListener: (Exercice) -
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ExoAdapter.ExoViewHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.recycler_view_exo_cell, parent, false)
-        return ExoAdapter.ExoViewHolder(view)
+        return ExoViewHolder(view)
     }
 
-
-
-    override fun onBindViewHolder(holder: ExoAdapter.ExoViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ExoViewHolder, position: Int) {
         val exo = exos[position]
         holder.bind(exo,clickListener)
     }
@@ -36,6 +35,11 @@ class ExoAdapter(val exos: ArrayList<Exercice>,  val clickListener: (Exercice) -
             view.descExoListExo.text = "${exo.description}"
             view.difficultyExoListExo.text = "Difficulté : ${exo.difficulty}"
             view.sportExoListExo.text = "(${exo.sport})"
+            if (exo.pictureUID != "null" && exo.pictureUID != ""){
+            setImageFromFirestore(ApplicationContext.applicationContext(), view.imageViewExo, "exos/${exo.id}/${exo.pictureUID}")
+            }else{
+                view.imageViewExo.setImageResource(R.drawable.ytb)
+            }
             view.btn_validate_exo_list.setOnClickListener { clickListener(exo) }
         }
     }

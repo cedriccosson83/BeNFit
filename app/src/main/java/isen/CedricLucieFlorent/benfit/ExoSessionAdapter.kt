@@ -6,10 +6,11 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.database.FirebaseDatabase
 import isen.CedricLucieFlorent.benfit.Models.SessionExercice
+import kotlinx.android.synthetic.main.activity_exercice_session.view.*
 import kotlinx.android.synthetic.main.recycler_view_exo_session.view.*
 
 
-class ExoSessionAdapter(val exos: ArrayList<SessionExercice>, val deleteListener: (SessionExercice) -> Unit, val exoListener: (SessionExercice) -> Unit): RecyclerView.Adapter<ExoSessionAdapter.ExoSessionViewHolder>(){
+class ExoSessionAdapter(val exos: ArrayList<SessionExercice>, val deleteListener: (SessionExercice) -> Unit): RecyclerView.Adapter<ExoSessionAdapter.ExoSessionViewHolder>(){
 
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ExoSessionViewHolder {
@@ -22,7 +23,7 @@ class ExoSessionAdapter(val exos: ArrayList<SessionExercice>, val deleteListener
 
         override fun onBindViewHolder(holder: ExoSessionViewHolder, position: Int) {
                 val exo = exos[position]
-                holder.bind(exo,deleteListener, exoListener)
+                holder.bind(exo,deleteListener)
         }
 
         override fun getItemCount(): Int {
@@ -32,11 +33,12 @@ class ExoSessionAdapter(val exos: ArrayList<SessionExercice>, val deleteListener
 
         class ExoSessionViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
 
-                fun bind(exo: SessionExercice, deleteListener: (SessionExercice) -> Unit, exoListener: (SessionExercice) -> Unit){
+                fun bind(exo: SessionExercice, deleteListener: (SessionExercice) -> Unit){
                         val database = FirebaseDatabase.getInstance()
                         showExo(database, exo.exoID,  view.nameExoSession, view.imageViewExoSession)
                         view.btnDeleteExoSession.setOnClickListener { deleteListener(exo) }
-                        view.textRepExoSession.setOnClickListener { exoListener(exo) }
+                        view.textRepExoSession.setOnClickListener { showPopUpDetails(database,
+                                it.context, exo) }
                 }
         }
 

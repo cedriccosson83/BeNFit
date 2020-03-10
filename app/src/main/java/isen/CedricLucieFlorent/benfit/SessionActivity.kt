@@ -60,7 +60,7 @@ class SessionActivity : MenuActivity(){
             editTextNumberSerie.setText(round.toString())
         }
 
-        imageViewCreateSession.setOnClickListener(){
+        imageViewCreateSession.setOnClickListener{
             stu.askCameraPermissions()
         }
 
