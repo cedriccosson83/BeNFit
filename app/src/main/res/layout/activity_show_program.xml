@@ -17,40 +17,42 @@
             android:id="@+id/showProgramAuthor"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:text="@string/author"
-            app:layout_constraintBottom_toTopOf="@+id/showProgramDesc"
-            app:layout_constraintEnd_toEndOf="@+id/showProgramName"
-            app:layout_constraintStart_toStartOf="@+id/showProgramName"
-            app:layout_constraintTop_toBottomOf="@+id/showProgramName" />
+            android:layout_marginTop="12dp"
+            android:fontFamily="sans-serif-condensed-medium"
+            android:text="John Doe"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="@+id/textView2"
+            app:layout_constraintHorizontal_bias="0.526"
+            app:layout_constraintStart_toStartOf="@+id/textView2"
+            app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
         <ImageView
             android:id="@+id/showProgramLevelIcon"
             android:layout_width="47dp"
             android:layout_height="38dp"
-            android:layout_marginStart="16dp"
             android:contentDescription="@string/img"
-            app:layout_constraintEnd_toStartOf="@+id/showProgramName"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/showProgramName"
+            app:layout_constraintEnd_toEndOf="@+id/textView8"
+            app:layout_constraintStart_toStartOf="@+id/textView8"
+            app:layout_constraintTop_toBottomOf="@+id/textView8"
             app:srcCompat="@drawable/level_3" />
 
         <TextView
             android:id="@+id/showProgramName"
             android:layout_width="259dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
             android:layout_marginTop="5dp"
-            android:layout_marginEnd="16dp"
+            android:fontFamily="sans-serif-condensed-medium"
             android:gravity="center"
             android:text="@string/program_name"
             android:textColor="#000000"
-            android:textSize="24sp"
+            android:textSize="@dimen/size_title"
+            android:textStyle="bold"
             app:autoSizeMinTextSize="12sp"
-            app:layout_constraintBottom_toTopOf="@+id/showProgramAuthor"
-            app:layout_constraintEnd_toStartOf="@+id/constraintLayout4"
-            app:layout_constraintStart_toEndOf="@+id/showProgramLevelIcon"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintBottom_toBottomOf="@+id/constraintLayout4"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/constraintLayout4" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraintLayout4"
@@ -105,39 +107,68 @@
 
         <TextView
             android:id="@+id/showProgramDesc"
-            android:layout_width="wrap_content"
+            android:layout_width="350dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="30dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="40dp"
             android:text="@string/prog_descr"
-            app:layout_constraintBottom_toTopOf="@+id/showProgramRecyclerView"
-            app:layout_constraintEnd_toStartOf="@+id/constraintLayout4"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.497"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/showProgramAuthor" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/showProgramRecyclerView"
-            android:layout_width="296dp"
-            android:layout_height="507dp"
+            android:layout_width="364dp"
+            android:layout_height="430dp"
             android:layout_marginStart="24dp"
-            android:layout_marginTop="44dp"
+            android:layout_marginTop="20dp"
             android:layout_marginEnd="24dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/showProgramDesc" />
 
         <TextView
-            android:id="@+id/showProgramLevelText"
+            android:id="@+id/textView2"
             android:layout_width="wrap_content"
-            android:layout_height="22dp"
-            android:layout_marginTop="2dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:text="@string/author"
+            android:textSize="@dimen/size_subtitle"
+            app:layout_constraintEnd_toEndOf="@+id/showProgramName"
+            app:layout_constraintStart_toStartOf="@+id/showProgramName"
+            app:layout_constraintTop_toBottomOf="@+id/showProgramName" />
+
+        <TextView
+            android:id="@+id/textView8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="50dp"
             android:text="@string/level"
-            android:textSize="12sp"
-            app:autoSizeMaxTextSize="13sp"
-            app:autoSizeMinTextSize="10sp"
-            app:layout_constraintEnd_toEndOf="@+id/showProgramLevelIcon"
-            app:layout_constraintStart_toStartOf="@+id/showProgramLevelIcon"
-            app:layout_constraintTop_toBottomOf="@+id/showProgramLevelIcon" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/showProgramName" />
+
+        <TextView
+            android:id="@+id/textView9"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:layout_marginEnd="40dp"
+            android:text="@string/session"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/showProgramName" />
+
+        <TextView
+            android:id="@+id/numberSessionProgram"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-condensed-medium"
+            android:text="4"
+            android:textColor="@color/black"
+            android:textSize="32sp"
+            app:layout_constraintEnd_toEndOf="@+id/textView9"
+            app:layout_constraintStart_toStartOf="@+id/textView9"
+            app:layout_constraintTop_toBottomOf="@+id/textView9" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

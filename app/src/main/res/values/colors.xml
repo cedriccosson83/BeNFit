@@ -9,6 +9,6 @@
     <color name="blue" tools:keep="@color/blue">#1E88E5</color>
     <color name="black">#000000</color>
     <color name="white">#FFFFFF</color>
-    <color name="gray" tools:keep="@color/gray">#FFF</color>
+    <color name="gray" tools:keep="@color/gray">#777777</color>
     <color name="greenSuccess">#43A047</color>
 </resources>

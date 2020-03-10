@@ -89,33 +89,18 @@ class PostAdapter(val posts: ArrayList<Post>, val windowManager: WindowManager, 
                 postImView.layoutParams.height = 400
 
                 postImView.setOnClickListener {
-                    val fullScreenIntent = Intent(ApplicationContext.applicationContext(), FullScreenImageView::class.java)
-                    fullScreenIntent.putExtra("url", "posts/${post.postid}/${post.postImgUID}")
-                    fullScreenIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                    ApplicationContext.applicationContext().startActivity(fullScreenIntent)
+                    fullScreenImage(ApplicationContext.applicationContext(), "posts/${post.postid}/${post.postImgUID}" )
                 }
             }
             showLikes(database, auth.currentUser?.uid, "posts/${post.postid}/likes",view.textViewLikeNumberPost, view.btnLikePost)
             countComments(post.postid)
 
             if (post.programId != "" && post.programId != "null") {
-                view.btnShareInFeed.setOnClickListener {
-                    val sharedLinkIntent = Intent(ApplicationContext.applicationContext(), ShowProgramActivity::class.java)
-                    sharedLinkIntent.putExtra("programId", post.programId)
-                    sharedLinkIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                    ApplicationContext.applicationContext().startActivity(sharedLinkIntent)
-                }
+                view.btnShareInFeed.setOnClickListener {linkToProgram(ApplicationContext.applicationContext(),post.programId)}
             } else if (post.sessionId != "" && post.sessionId != "null") {
-                view.btnShareInFeed.setOnClickListener {
-                    val sharedLinkIntent = Intent(ApplicationContext.applicationContext(), ShowSessionActivity::class.java)
-                    sharedLinkIntent.putExtra("sessionId", post.sessionId)
-                    sharedLinkIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                    ApplicationContext.applicationContext().startActivity(sharedLinkIntent)
-                }
+                view.btnShareInFeed.setOnClickListener  {linkToSession(ApplicationContext.applicationContext(), post.sessionId)}
             } else if (post.exoId != "" && post.exoId != "null") {
-                view.btnShareInFeed.setOnClickListener{
-                    showPopUpExercice(database, it.context, post.exoId, windowManager)
-                }
+                view.btnShareInFeed.setOnClickListener{showPopUpExercice(database, it.context, post.exoId, windowManager)}
             } else {
                 view.btnShareInFeed.visibility = View.INVISIBLE
             }

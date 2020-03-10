@@ -740,6 +740,27 @@ fun showPopUpExercice(database: FirebaseDatabase, context : Context, exoID: Stri
     dialog.show()
 }
 
+fun linkToProgram(context : Context,id : String) {
+    val sharedLinkIntent = Intent(context, ShowProgramActivity::class.java)
+    sharedLinkIntent.putExtra("programId", id)
+    sharedLinkIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+    context.startActivity(sharedLinkIntent)
+}
+
+fun linkToSession(context : Context,id : String) {
+    val sharedLinkIntent = Intent(context, ShowSessionActivity::class.java)
+    sharedLinkIntent.putExtra("sessionId", id)
+    sharedLinkIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+    context.startActivity(sharedLinkIntent)
+}
+
+fun fullScreenImage (context : Context,url : String) {
+    val fullScreenIntent = Intent(context, FullScreenImageView::class.java)
+    fullScreenIntent.putExtra("url", url)
+    fullScreenIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+    context.startActivity(fullScreenIntent)
+}
+
 fun setRulesIfInSession(database: FirebaseDatabase, targetTextView : TextView
                         , targetLabel : TextView , exerciceID: String, sessionParent: String?) {
     if (sessionParent != "" && sessionParent != null) {

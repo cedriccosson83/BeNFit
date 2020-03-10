@@ -24,6 +24,10 @@ class FeedActivity : MenuActivity() {
 
 
         showPosts()
+        feedPublishBtn.setOnClickListener {
+            startActivity(Intent(context, WritePostActivity::class.java))
+        }
+
         recyclerViewFeed.layoutManager =
             LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
     }

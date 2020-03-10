@@ -15,7 +15,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="35dp"
-        app:layout_constraintBottom_toTopOf="@id/editTextComment"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -24,6 +23,8 @@
             android:id="@+id/nameProfile"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:textStyle="bold"
             android:layout_marginStart="12dp"
             android:layout_marginTop="16dp"
             android:text="@string/Name"
@@ -39,21 +40,23 @@
             android:layout_marginTop="8dp"
             android:layout_marginBottom="15dp"
             android:text="@string/Content"
-            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/imageViewUserPostAct"
-            app:layout_constraintTop_toBottomOf="@+id/nameProfile" />
+            app:layout_constraintTop_toBottomOf="@+id/nameProfile"
+            app:layout_constraintVertical_bias="0.0" />
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/imageViewUserPostAct"
             android:layout_width="67dp"
             android:layout_height="78dp"
             android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
             android:contentDescription="@string/img"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:src="@mipmap/benfit_logo_round"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:src="@mipmap/benfit_logo_round" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/textViewDate2"
@@ -71,18 +74,20 @@
         android:id="@+id/textViewComments"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="44dp"
-        android:layout_marginBottom="14dp"
-        android:text="@string/comments"
+        android:layout_marginTop="24dp"
+        android:text="@string/commentList"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@+id/recyclerViewComments"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextComment" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewComments"
         android:layout_width="match_parent"
-        android:layout_height="400dp"
+        android:layout_height="0sp"
+        android:layout_marginTop="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -94,35 +99,64 @@
         android:id="@+id/editTextComment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="70dp"
-        android:layout_marginBottom="24dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
         android:ems="10"
         android:hint="@string/commentsText"
         android:importantForAutofill="no"
         android:inputType="textPersonName"
-        app:layout_constraintBottom_toTopOf="@+id/textViewComments"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
+        app:layout_constraintTop_toBottomOf="@+id/postShowImage" />
 
     <Button
         android:id="@+id/buttonPublishComment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/publish"
+        android:backgroundTint="@color/greenSuccess"
         app:layout_constraintBottom_toBottomOf="@+id/editTextComment"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/editTextComment"
         app:layout_constraintTop_toTopOf="@+id/editTextComment" />
 
-    <Button
+    <TextView
         android:id="@+id/buttonLink"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
         android:text="@string/reachLink"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:textColor="#C6000000"
+        android:textStyle="normal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
+
+    <ImageView
+        android:id="@+id/buttonLinkIcon"
+        android:layout_width="37dp"
+        android:layout_height="37dp"
+        android:layout_marginStart="8dp"
+        android:padding="@dimen/icon_btn_inner_padding"
+        app:layout_constraintBottom_toBottomOf="@+id/buttonLink"
+        app:layout_constraintStart_toEndOf="@+id/buttonLink"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout"
+        app:srcCompat="@drawable/link" />
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/postShowImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
+        android:paddingTop="4dp"
+        android:paddingBottom="4dp"
+        app:layout_constraintBottom_toTopOf="@+id/buttonPublishComment"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buttonLink">
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 

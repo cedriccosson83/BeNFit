@@ -374,7 +374,7 @@ fun saveProgram(database : FirebaseDatabase,storageReference: StorageReference, 
                     value.child("descSession").value.toString(),
                     value.child("levelSession").value.toString(),
                     exosSession,
-                    value.child("nbrRound").value.toString().toInt(),
+                    value.child("roundSession").value.toString().toInt(),
                     value.child("pictureUID").value.toString()
                 )
                 if(session.userID == userId){
