@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
     <color name="redLogo">#E51B23</color>
+    <color name="redLogoTransparent">#5CE51B23</color>
     <color name="dark_text_color">#000</color>
     <color name="colorPrimary">#E51B23</color>
     <color name="colorPrimaryDark">#E51B23</color>

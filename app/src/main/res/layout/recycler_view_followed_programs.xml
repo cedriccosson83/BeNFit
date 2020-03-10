@@ -38,6 +38,9 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="10dp"
                 android:text="@string/Name"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
                 android:maxWidth="300dp"
                 app:layout_constraintStart_toEndOf="@+id/imageViewFollowedProg"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -55,17 +58,32 @@
 
             <ProgressBar
                 android:id="@+id/programProgress"
+                style="?android:progressBarStyleHorizontal"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
+                android:layout_marginEnd="12dp"
                 android:indeterminate="false"
                 android:max="100"
-                style="?android:progressBarStyleHorizontal"
                 android:progress="90"
                 android:progressDrawable="@drawable/circularprogress"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/descrProgFollow"
                 app:layout_constraintTop_toTopOf="parent" />
+
+            <ProgressBar
+                android:id="@+id/programProcess2"
+                style="?android:progressBarStyleHorizontal"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginEnd="12dp"
+                android:indeterminate="false"
+                android:max="100"
+                android:progress="100"
+                android:progressDrawable="@drawable/circularprogressbackground"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>
