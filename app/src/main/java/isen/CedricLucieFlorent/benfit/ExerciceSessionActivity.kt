@@ -24,7 +24,7 @@ class ExerciceSessionActivity : MenuActivity()  {
         val exoIdSession: String? = intent.getStringExtra("idExoSession")
         val exoId: String? = intent.getStringExtra("id")
         if (exoId != null) {
-            showExo(database, exoId, textNameExoSession)
+            showExo(database, exoId, textNameExoSession, imageViewExoSession)
             if (exoIdSession != null) {
                 showInfosRep(database,  this, exoIdSession)
             }

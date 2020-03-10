@@ -8,8 +8,8 @@
 
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/writePostAnim"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
         android:layout_marginTop="28dp"
         android:layout_weight="4"
         app:layout_constraintEnd_toEndOf="parent"
@@ -24,20 +24,22 @@
         android:id="@+id/publishBTN"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="89dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginBottom="60dp"
         android:text="@string/publish"
-        app:backgroundTint="@color/redLogo"
+        app:backgroundTint="#0095FF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sharedLink" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textInputLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="30dp"
         android:layout_marginEnd="32dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -53,8 +55,8 @@
 
     <ImageView
         android:id="@+id/imageViewWritePost"
-        android:layout_width="227dp"
-        android:layout_height="166dp"
+        android:layout_width="210dp"
+        android:layout_height="140dp"
         android:layout_marginTop="20dp"
         android:contentDescription="@string/img"
         android:paddingStart="16dp"
@@ -74,19 +76,22 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
+        android:layout_marginTop="5dp"
         android:layout_marginEnd="24dp"
-        android:layout_marginBottom="32dp"
-        android:background="@color/redLogo"
+        android:layout_marginBottom="16dp"
         android:paddingStart="15dp"
         android:paddingTop="3dp"
         android:paddingEnd="15dp"
         android:paddingBottom="3dp"
         android:text="@string/shareName"
-        android:textColor="#FFFFFF"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:textColor="#050404"
         android:textSize="18sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/publishBTN"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/imageViewWritePost" />
 
     <TextView
         android:id="@+id/newPost"
@@ -98,5 +103,15 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/writePostAnim" />
+
+    <ImageView
+        android:id="@+id/imageViewSharedLink"
+        android:layout_width="30dp"
+        android:layout_height="34dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/sharedLink"
+        app:layout_constraintEnd_toStartOf="@+id/sharedLink"
+        app:layout_constraintTop_toTopOf="@+id/sharedLink"
+        app:srcCompat="@drawable/link" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

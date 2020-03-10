@@ -9,13 +9,13 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textInputLayout"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="300dp"
+        android:layout_width="250dp"
         android:layout_height="60dp"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="8dp"
         android:hint="@string/nameSession"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/createSeanceTextView">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/inputNameSession"
@@ -27,7 +27,7 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textInputLayout2"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="300dp"
+        android:layout_width="250dp"
         android:layout_height="60dp"
         android:layout_marginStart="20dp"
         android:layout_marginTop="20dp"
@@ -42,123 +42,148 @@
 
     </com.google.android.material.textfield.TextInputLayout>
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:text="@string/levelSession"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="@+id/spinnerLevelSession"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/spinnerLevelSession" />
 
     <Spinner
         android:id="@+id/spinnerLevelSession"
-        android:layout_width="158dp"
-        android:layout_height="40dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="20dp"
-        app:layout_constraintStart_toEndOf="@+id/textView"
-        app:layout_constraintTop_toBottomOf="@+id/textInputLayout2" />
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/buttonAddExoSession"
-        style="@style/Widget.MaterialComponents.FloatingActionButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom|right"
-        android:layout_margin="16dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@android:drawable/ic_menu_add" />
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="28dp"
+        app:layout_constraintEnd_toStartOf="@+id/constraintLayoutBtn"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/constraintLayout5"
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayout2" />
+
+    <TextView
+        android:id="@+id/createSeanceTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="15dp"
+        android:text="Créez votre séance"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewExoSession"
-        android:layout_width="401dp"
-        android:layout_height="358dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spinnerLevelSession" />
-
-    <TextView
-        android:id="@+id/textRepeatExoSession"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/repeat"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/recyclerViewExoSession" />
-
-    <TextView
-        android:id="@+id/textXexoSession"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="5dp"
-        android:text="X"
-        app:layout_constraintBottom_toBottomOf="@+id/editTextNumberSerie"
-        app:layout_constraintEnd_toStartOf="@+id/editTextNumberSerie"
-        app:layout_constraintTop_toTopOf="@+id/editTextNumberSerie" />
-
-    <EditText
-        android:id="@+id/editTextNumberSerie"
-        android:layout_width="34dp"
-        android:layout_height="48dp"
-        android:ems="10"
-        android:inputType="number"
-        android:text="1"
-        app:layout_constraintBottom_toTopOf="@+id/textRound"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textRepeatExoSession" />
-
-    <TextView
-        android:id="@+id/textRound"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/round"
+        android:layout_width="match_parent"
+        android:layout_height="0sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.502"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout5" />
 
-    <ImageView
-        android:id="@+id/btnPlusRound"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_marginStart="25dp"
-        app:layout_constraintBottom_toBottomOf="@+id/editTextNumberSerie"
-        app:layout_constraintStart_toEndOf="@+id/editTextNumberSerie"
-        app:layout_constraintTop_toTopOf="@+id/editTextNumberSerie"
-        app:srcCompat="@drawable/plus" />
 
-    <ImageView
-        android:id="@+id/btnMinusRound"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_marginEnd="25dp"
-        app:layout_constraintBottom_toBottomOf="@+id/editTextNumberSerie"
-        app:layout_constraintEnd_toEndOf="@+id/textXexoSession"
-        app:layout_constraintTop_toTopOf="@+id/editTextNumberSerie"
-        app:srcCompat="@drawable/minus" />
-
-    <ImageView
-        android:id="@+id/btnSaveSession"
-        android:layout_width="46dp"
-        android:layout_height="61dp"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout5"
+        android:layout_width="140dp"
+        android:layout_height="80dp"
         android:layout_marginTop="10dp"
-        android:layout_marginEnd="10dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/save" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayout2">
 
-    <ImageView
-        android:id="@+id/imageViewCreateSession"
-        android:layout_width="78dp"
-        android:layout_height="60dp"
-        app:layout_constraintBottom_toTopOf="@+id/recyclerViewExoSession"
+        <TextView
+            android:id="@+id/textXexoSession"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="5dp"
+            android:text="X"
+            app:layout_constraintBottom_toBottomOf="@+id/editTextNumberSerie"
+            app:layout_constraintEnd_toStartOf="@+id/editTextNumberSerie"
+            app:layout_constraintTop_toTopOf="@+id/editTextNumberSerie" />
+
+        <TextView
+            android:id="@+id/editTextNumberSerie"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="1"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textRound"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/round"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editTextNumberSerie" />
+
+        <ImageView
+            android:id="@+id/btnPlusRound"
+            android:layout_width="23dp"
+            android:layout_height="23dp"
+            android:layout_marginStart="15dp"
+            app:layout_constraintBottom_toBottomOf="@+id/editTextNumberSerie"
+            app:layout_constraintStart_toEndOf="@+id/editTextNumberSerie"
+            app:layout_constraintTop_toTopOf="@+id/editTextNumberSerie"
+            app:srcCompat="@drawable/plus" />
+
+        <ImageView
+            android:id="@+id/btnMinusRound"
+            android:layout_width="23dp"
+            android:layout_height="23dp"
+            android:layout_marginEnd="15dp"
+            app:layout_constraintBottom_toBottomOf="@+id/editTextNumberSerie"
+            app:layout_constraintEnd_toEndOf="@+id/textXexoSession"
+            app:layout_constraintTop_toTopOf="@+id/editTextNumberSerie"
+            app:srcCompat="@drawable/minus" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayoutBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/addpicture" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/buttonAddExoSession"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_margin="16dp"
+            android:layout_marginTop="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.4"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageViewCreateSession"
+            app:srcCompat="@drawable/addexo" />
+
+        <ImageView
+            android:id="@+id/imageViewCreateSession"
+            android:layout_width="70dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btnSaveSession"
+            app:srcCompat="@drawable/addpicture" />
+
+        <ImageView
+            android:id="@+id/btnSaveSession"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.475"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/save" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -287,5 +287,6 @@
     <string name="level">Niveau</string>
     <string name="exercices">Exercices</string>
     <string name="session">Séances</string>
+    <string name="commentList">Commentaires</string>
 
 </resources>
