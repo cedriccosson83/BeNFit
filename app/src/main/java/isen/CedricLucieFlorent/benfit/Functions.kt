@@ -668,6 +668,7 @@ fun showPopUpExercice(database: FirebaseDatabase, context : Context, exoID: Stri
                 dialog.findViewById<TextView>(R.id.showExoName).text = exercice.name
                 dialog.findViewById<TextView>(R.id.showExoDesc).text = exercice.description
                 dialog.findViewById<TextView>(R.id.showExoLevelText).text = exercice.difficulty
+                dialog.findViewById<TextView>(R.id.showExosport).text = exercice.sport
                 dialog.findViewById<ImageView>(R.id.showExoShare).setOnClickListener {
                     val writePostIntent = Intent(context, WritePostActivity::class.java)
                     writePostIntent.putExtra("sharedExo", exoID)
@@ -675,12 +676,17 @@ fun showPopUpExercice(database: FirebaseDatabase, context : Context, exoID: Stri
                     context.startActivity(writePostIntent)
                 }
 
+                dialog.findViewById<ImageView>(R.id.showExoDismiss).setOnClickListener {
+                    dialog.dismiss()
+                }
 
                 //consignes
                 setRulesIfInSession(database,dialog.findViewById(R.id.showExoRuleValue),
                     dialog.findViewById(R.id.showExoRule),exercice.id,sessionParent)
 
                 val videoWeb : WebView = dialog.findViewById(R.id.showExoYTLayout)
+
+
                 when {
                     exercice.pictureUID != "" -> {
                         val layout = dialog.findViewById<LinearLayout>(R.id.showExoMediaLayout)
@@ -698,10 +704,10 @@ fun showPopUpExercice(database: FirebaseDatabase, context : Context, exoID: Stri
                         }
                         videoWeb.visibility = View.INVISIBLE
                     }
-                    exercice.urlYTB != "" -> {
-
+                    exercice.urlYt != "" -> {
+                        Log.d("CEDRIC_HAS_URL", "oui")
                         // compute margin based on screen width to set specific margin for Responsive WebView
-                        val displayMetrics = DisplayMetrics()
+                        /*val displayMetrics = DisplayMetrics()
                         windowManager.defaultDisplay.getMetrics(displayMetrics)
                         var marginWidth = pxToDp(displayMetrics.widthPixels)
                         val minWidth = 355
@@ -714,17 +720,17 @@ fun showPopUpExercice(database: FirebaseDatabase, context : Context, exoID: Stri
                             val p : ViewGroup.MarginLayoutParams = videoWeb.layoutParams as  ViewGroup.MarginLayoutParams
                             p.leftMargin = marginWidth
                             videoWeb.layoutParams = p
-                        }
+                        }*/
 
                         videoWeb.visibility = View.VISIBLE
                         videoWeb.setInitialScale(1)
                         videoWeb.settings.loadWithOverviewMode = true
                         videoWeb.settings.useWideViewPort = true
-                        val ytUrl = exercice.urlYTB.replace("watch?v=", "embed/")
-
+                        var ytUrl = exercice.urlYt.replace("watch?v=", "embed/")
+                        ytUrl = ytUrl.replace("youtu.be", "youtube.com/embed/")
+                        Log.d("CEDRIC_URL1", ytUrl)
                         val url = "<iframe width=\"100%\" height=\"100%\" src=\"$ytUrl\" frameborder=\"0\" allowfullscreen></iframe>"
-
-                        Log.d("VIDEOOO", url)
+                        Log.d("CEDRIC_URL2", url)
                         videoWeb.settings.javaScriptEnabled = true
                         videoWeb.loadData(url, "text/html" , "utf-8" )
                         videoWeb.webChromeClient = WebChromeClient()

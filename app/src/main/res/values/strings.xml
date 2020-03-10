@@ -252,7 +252,7 @@
     <string name="author">Auteur</string>
     <string name="exo_name">Nom de l\'exercice</string>
     <string name="exo_descr">Description de l\'exercice</string>
-    <string name="consigne">Consigne : </string>
+    <string name="consigne">Instruction : </string>
     <string name="value">Valeur Consigne</string>
     <string name="congratz_text">Félicitation John Doe</string>
     <string name="score_sportif_text">Score Sportif : X</string>
@@ -289,5 +289,6 @@
     <string name="exercices">Exercices</string>
     <string name="session">Séances</string>
     <string name="commentList">Commentaires</string>
+    <string name="sportTemplate">Fitness</string>
 
 </resources>

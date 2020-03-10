@@ -3,108 +3,70 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/showExoContainer"
-    android:layout_width="match_parent"
-    android:layout_height="400dp">
+    android:layout_width="320dp"
+    android:layout_height="match_parent">
 
     <WebView
         android:id="@+id/showExoYTLayout"
-        android:layout_width="320dp"
-        android:layout_height="208dp"
+        android:layout_width="300dp"
+        android:layout_height="206dp"
+        android:layout_marginStart="10dp"
         android:layout_marginTop="24dp"
+        android:layout_marginBottom="15dp"
         android:background="@color/redLogo"
         android:padding="30dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/showExoRule" />
-
-    <TextView
-        android:id="@+id/showExoAuthor"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:text="@string/author"
-        app:layout_constraintBottom_toTopOf="@+id/showExoDesc"
-        app:layout_constraintEnd_toEndOf="@+id/showExoName"
-        app:layout_constraintStart_toStartOf="@+id/showExoName"
-        app:layout_constraintTop_toBottomOf="@+id/showExoName" />
-
-    <ImageView
-        android:id="@+id/showExoLevelIcon"
-        android:layout_width="47dp"
-        android:layout_height="38dp"
-        android:layout_marginStart="16dp"
-        android:contentDescription="@string/img"
-        app:layout_constraintEnd_toStartOf="@+id/showExoName"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/showExoName"
-        app:srcCompat="@drawable/level_3" />
+        app:layout_constraintTop_toBottomOf="@+id/showExoRule"
+        app:layout_constraintVertical_bias="0.0" />
 
 
     <TextView
         android:id="@+id/showExoName"
-        android:layout_width="wrap_content"
-        android:layout_height="33dp"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginEnd="16dp"
+        android:layout_width="211dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:fontFamily="sans-serif-condensed-medium"
         android:gravity="center"
-        android:maxWidth="300dp"
-        android:minWidth="150dp"
         android:text="@string/exo_name"
         android:textColor="#000000"
-        android:textSize="24sp"
+        android:textSize="@dimen/size_title"
+        android:textStyle="bold"
         app:autoSizeMinTextSize="12sp"
-        app:layout_constraintBottom_toTopOf="@+id/showExoAuthor"
-        app:layout_constraintEnd_toStartOf="@+id/showExoShare"
-        app:layout_constraintStart_toEndOf="@+id/showExoLevelIcon"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/showExoShare"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
+        android:layout_width="@dimen/icon_btn_width"
+        android:layout_height="@dimen/icon_btn_height"
+        android:layout_marginEnd="15dp"
         android:contentDescription="@string/img"
-        app:layout_constraintBottom_toBottomOf="@+id/showExoName"
+        android:padding="@dimen/icon_btn_inner_padding"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/showExoName"
-        app:layout_constraintTop_toTopOf="@+id/showExoName"
+        app:layout_constraintTop_toBottomOf="@+id/showExoDismiss"
         app:srcCompat="@drawable/share" />
 
 
     <TextView
         android:id="@+id/showExoDesc"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="30dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="24dp"
         android:text="@string/exo_descr"
-        app:layout_constraintBottom_toTopOf="@+id/showExoRule"
+        android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/showExoAuthor" />
-
-
-    <TextView
-        android:id="@+id/showExoLevelText"
-        android:layout_width="wrap_content"
-        android:layout_height="22dp"
-        android:layout_marginTop="2dp"
-        android:text="@string/level"
-        android:textSize="12sp"
-        app:autoSizeMaxTextSize="13sp"
-        app:autoSizeMinTextSize="10sp"
-        app:layout_constraintEnd_toEndOf="@+id/showExoLevelIcon"
-        app:layout_constraintStart_toStartOf="@+id/showExoLevelIcon"
-        app:layout_constraintTop_toBottomOf="@+id/showExoLevelIcon" />
 
     <TextView
         android:id="@+id/showExoRule"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:text="@string/consigne"
         app:layout_constraintEnd_toEndOf="parent"
@@ -136,5 +98,74 @@
 
     </LinearLayout>
 
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="@string/author"
+        android:textSize="@dimen/size_subtitle"
+        app:layout_constraintEnd_toEndOf="@+id/showExoAuthor"
+        app:layout_constraintStart_toStartOf="@+id/showExoAuthor"
+        app:layout_constraintTop_toBottomOf="@+id/showExoName" />
+
+    <TextView
+        android:id="@+id/showExoLevelText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="32dp"
+        android:text="@string/level"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/showExoName" />
+
+
+    <TextView
+        android:id="@+id/showExosport"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:fontFamily="sans-serif-condensed-medium"
+        android:text="@string/sportTemplate"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="@+id/showExoName"
+        app:layout_constraintStart_toStartOf="@+id/showExoName"
+        app:layout_constraintTop_toBottomOf="@+id/showExoName" />
+
+    <TextView
+        android:id="@+id/showExoAuthor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="40dp"
+        android:fontFamily="sans-serif-condensed-medium"
+        android:text="John Doe"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
+    <ImageView
+        android:id="@+id/showExoLevelIcon"
+        android:layout_width="47dp"
+        android:layout_height="38dp"
+        android:layout_marginTop="4dp"
+        android:contentDescription="@string/img"
+        app:layout_constraintEnd_toEndOf="@+id/showExoLevelText"
+        app:layout_constraintStart_toStartOf="@+id/showExoLevelText"
+        app:layout_constraintTop_toBottomOf="@+id/showExoLevelText"
+        app:srcCompat="@drawable/level_3" />
+
+    <ImageView
+        android:id="@+id/showExoDismiss"
+        android:layout_width="@android:dimen/notification_large_icon_width"
+        android:layout_height="@dimen/icon_btn_height"
+        android:layout_marginEnd="4dp"
+        android:padding="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/removeexo" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
