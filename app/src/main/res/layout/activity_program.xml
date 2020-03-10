@@ -9,13 +9,13 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textInputLayoutProgram"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="300dp"
+        android:layout_width="250dp"
         android:layout_height="60dp"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="60dp"
-        android:hint="@string/nameProgram"
+        android:layout_marginTop="8dp"
+        android:hint="Nom du programme"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/createProgramTextView">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/inputNameProgram"
@@ -27,11 +27,11 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textInputLayout2Program"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="300dp"
+        android:layout_width="250dp"
         android:layout_height="60dp"
         android:layout_marginStart="20dp"
         android:layout_marginTop="20dp"
-        android:hint="@string/descProgram"
+        android:hint="Description du programme"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textInputLayoutProgram">
 
@@ -42,65 +42,78 @@
 
     </com.google.android.material.textfield.TextInputLayout>
 
-    <TextView
-        android:id="@+id/textViewProgram"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:text="@string/levelSession"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="@+id/spinnerLevelProgram"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/spinnerLevelProgram" />
 
     <Spinner
         android:id="@+id/spinnerLevelProgram"
-        android:layout_width="158dp"
-        android:layout_height="40dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="20dp"
-        app:layout_constraintStart_toEndOf="@+id/textViewProgram"
-        app:layout_constraintTop_toBottomOf="@+id/textInputLayout2Program" />
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/buttonAddSessionProgram"
-        style="@style/Widget.MaterialComponents.FloatingActionButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom|right"
-        android:layout_margin="16dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@android:drawable/ic_menu_add" />
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayout2Program" />
+
+    <TextView
+        android:id="@+id/createProgramTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="15dp"
+        android:text="Créez votre programme"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewSessionProgram"
-        android:layout_width="401dp"
-        android:layout_height="358dp"
+        android:layout_width="match_parent"
+        android:layout_height="0sp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/spinnerLevelProgram" />
 
 
-
-    <ImageView
-        android:id="@+id/btnSaveProgram"
-        android:layout_width="46dp"
-        android:layout_height="61dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="10dp"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayoutBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/save" />
+        app:layout_constraintTop_toTopOf="parent">
 
-    <ImageView
-        android:id="@+id/imageViewCreateProg"
-        android:layout_width="71dp"
-        android:layout_height="53dp"
-        android:layout_marginEnd="4dp"
-        app:layout_constraintBottom_toBottomOf="@+id/spinnerLevelProgram"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/addpic" />
+        <ImageView
+            android:id="@+id/buttonAddSessionProgram"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_margin="16dp"
+            android:layout_marginTop="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageViewCreateProg"
+            app:srcCompat="@drawable/addexo" />
+
+        <ImageView
+            android:id="@+id/imageViewCreateProg"
+            android:layout_width="70dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btnSaveProgram"
+            app:srcCompat="@drawable/addpicture" />
+
+        <ImageView
+            android:id="@+id/btnSaveProgram"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/save" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -27,9 +27,9 @@
 
             <ImageView
                 android:id="@+id/imageViewSessionProgram"
-                android:layout_width="36dp"
-                android:layout_height="35dp"
-                android:layout_marginStart="16dp"
+                android:layout_width="93dp"
+                android:layout_height="74dp"
+                android:layout_marginStart="8dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -39,25 +39,47 @@
                 android:id="@+id/nameSessionProgram"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="12dp"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="10dp"
+                android:maxWidth="200dp"
                 android:text="@string/nameSession"
-                android:textSize="18sp"
-                android:maxWidth="250dp"
-                app:layout_constraintBottom_toBottomOf="@+id/imageViewSessionProgram"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                android:textSize="20sp"
+                android:textStyle="bold"
                 app:layout_constraintStart_toEndOf="@+id/imageViewSessionProgram"
-                app:layout_constraintTop_toTopOf="@+id/imageViewSessionProgram" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
                 android:id="@+id/btnAddSessionProgram"
                 android:layout_width="45dp"
                 android:layout_height="41dp"
-                android:tint="@color/redLogo"
+                android:layout_marginEnd="6dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/tick" />
+                app:srcCompat="@drawable/plusexo" />
 
+            <TextView
+                android:id="@+id/descrSessionCell"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="8dp"
+                android:maxWidth="200dp"
+                android:text="Description de la séance"
+                app:layout_constraintStart_toEndOf="@+id/imageViewSessionProgram"
+                app:layout_constraintTop_toBottomOf="@+id/nameSessionProgram" />
 
+            <TextView
+                android:id="@+id/levelSessionCell"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="8dp"
+                android:maxWidth="200dp"
+                android:text="Niveau"
+                app:layout_constraintStart_toEndOf="@+id/imageViewSessionProgram"
+                app:layout_constraintTop_toBottomOf="@+id/descrSessionCell" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

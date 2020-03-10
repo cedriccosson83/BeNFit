@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import isen.CedricLucieFlorent.benfit.*
 import isen.CedricLucieFlorent.benfit.Models.SessionProgram
+import kotlinx.android.synthetic.main.recycler_view_session_cell.view.*
 import kotlinx.android.synthetic.main.recycler_view_session_program.view.*
 
 class SessionProgramAdapter(val sessions: ArrayList<SessionProgram>, val deleteListener: (SessionProgram) -> Unit, val sessionListener: (SessionProgram) -> Unit): RecyclerView.Adapter<SessionProgramAdapter.SessionProgramViewHolder>() {

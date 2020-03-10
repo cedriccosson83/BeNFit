@@ -623,6 +623,8 @@ fun showSessionsProgram(database: FirebaseDatabase,view: RecyclerView, context: 
                     value.child("idSessionTemp").value.toString(),
                     value.child("sessionID").value.toString(),
                     value.child("nameSession").value.toString(),
+                    value.child("descSession").value.toString(),
+                    value.child("levelSession").value.toString(),
                     value.child("userID").value.toString(),
                     value.child("pictureUID").value.toString())
                 if(userId == sessionProgram.userID){

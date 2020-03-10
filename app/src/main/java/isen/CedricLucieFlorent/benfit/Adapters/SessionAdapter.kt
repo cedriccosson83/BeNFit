@@ -35,6 +35,8 @@ class SessionAdapter(val sessions: ArrayList<Session>, val clickListener: (Sessi
 
         fun bind(session: Session, clickListener: (Session) -> Unit){
             view.nameSessionProgram.text = session.nameSession
+            view.descrSessionCell.text = session.descSession
+            view.levelSessionCell.text = session.levelSession
             view.btnAddSessionProgram.setOnClickListener { clickListener(session) }
             var img = session.pictureUID
             setImageFromFirestore(ApplicationContext.applicationContext(), view.imageViewSessionProgram, "sessions/${session.sessionID}/${img}")
