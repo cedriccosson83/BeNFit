@@ -286,5 +286,6 @@
     <string name="selectSports">Sélection de sports</string>
     <string name="level">Niveau</string>
     <string name="exercices">Exercices</string>
+    <string name="session">Séances</string>
 
 </resources>

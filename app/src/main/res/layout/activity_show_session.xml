@@ -46,7 +46,7 @@
             android:gravity="center"
             android:text="@string/session_name"
             android:textColor="#000000"
-            android:textSize="24sp"
+            android:textSize="@dimen/size_title"
             android:textStyle="bold"
             app:autoSizeMinTextSize="12sp"
             app:layout_constraintBottom_toBottomOf="@+id/constraintLayout4"
@@ -57,9 +57,9 @@
 
         <TextView
             android:id="@+id/showSessionDesc"
-            android:layout_width="wrap_content"
+            android:layout_width="350dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="70dp"
+            android:layout_marginTop="40dp"
             android:layout_marginBottom="20dp"
             android:text="@string/prog_descr"
             app:layout_constraintBottom_toTopOf="@+id/showSessionRecyclerView"
@@ -71,7 +71,7 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/showSessionRecyclerView"
             android:layout_width="364dp"
-            android:layout_height="450dp"
+            android:layout_height="430dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.489"
@@ -138,6 +138,7 @@
             android:fontFamily="sans-serif-condensed-light"
             android:text="@string/level"
             android:textColor="@color/gray"
+            android:textSize="@dimen/size_subtitle"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/showSessionName" />
 
@@ -149,6 +150,7 @@
             android:fontFamily="sans-serif-condensed-light"
             android:text="@string/author"
             android:textColor="@color/gray"
+            android:textSize="@dimen/size_subtitle"
             app:layout_constraintEnd_toEndOf="@+id/showSessionName"
             app:layout_constraintStart_toStartOf="@+id/showSessionName"
             app:layout_constraintTop_toBottomOf="@+id/showSessionName" />
@@ -162,6 +164,7 @@
             android:fontFamily="sans-serif-condensed-light"
             android:text="@string/exercices"
             android:textColor="@color/gray"
+            android:textSize="@dimen/size_subtitle"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/showSessionName" />
 
