@@ -290,5 +290,7 @@
     <string name="session">Séances</string>
     <string name="commentList">Commentaires</string>
     <string name="sportTemplate">Fitness</string>
+    <string name="programList">Liste des programmes</string>
+    <string name="sessionList">Liste des séances</string>
 
 </resources>

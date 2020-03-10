@@ -282,9 +282,9 @@ fun showFollowers(database: FirebaseDatabase, currentUserID: String?, programID 
                 }
             }
             if (arrayFollowers.all { it != programID }) {
-                icon.setImageResource(R.drawable.add)
+                icon.setImageResource(R.drawable.follow)
             } else {
-                icon.setImageResource(R.drawable.remove)
+                icon.setImageResource(R.drawable.unfollow)
             }
         }
         override fun onCancelled(error: DatabaseError) {

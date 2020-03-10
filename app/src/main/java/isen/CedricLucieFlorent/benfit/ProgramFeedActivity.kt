@@ -42,6 +42,11 @@ class ProgramFeedActivity : MenuActivity() {
             })
         }
 
+
+        feedProgramNewBtn.setOnClickListener {
+            startActivity(Intent(this, ProgramActivity::class.java))
+        }
+
         if (currentUserID != null) {
             showProgramFeed(database, recycler_view_list_prog_feed, this, currentUserID)
         }
@@ -61,12 +66,12 @@ class ProgramFeedActivity : MenuActivity() {
             for (sess in sessions)
                 sessionMap[sess] = "KO"
             myRef.child("currentPrograms").child(idProg).setValue(sessionMap)
-            btnSubscribeProg.setImageResource(R.drawable.remove)
+            btnSubscribeProg.setImageResource(R.drawable.unfollow)
 
         }else{
             follow.remove(idProg)
             myRef.child("currentPrograms").child(idProg).removeValue()
-            btnSubscribeProg.setImageResource(R.drawable.add)
+            btnSubscribeProg.setImageResource(R.drawable.follow)
         }
     }
 
