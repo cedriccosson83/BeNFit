@@ -149,7 +149,7 @@ class ShowProgramActivity : MenuActivity() {
             for (sess in sessions)
                 sessionMap[sess] = "KO"
             myRef.child("currentPrograms").child(idProg).setValue(sessionMap)
-            showProgramSub.setImageResource(R.drawable.remove)
+            showProgramSub.setImageResource(R.drawable.unfollow)
 
             val redirectIntent = Intent(this, ShowProgramActivity::class.java)
             redirectIntent.putExtra("programId", program.programID)
@@ -160,7 +160,7 @@ class ShowProgramActivity : MenuActivity() {
         }else{
             follow.remove(idProg)
             myRef.child("currentPrograms").child(idProg).removeValue()
-            showProgramSub.setImageResource(R.drawable.add)
+            showProgramSub.setImageResource(R.drawable.follow)
             val redirectIntent = Intent(this, ProgramFeedActivity::class.java)
             startActivity(redirectIntent)
         }

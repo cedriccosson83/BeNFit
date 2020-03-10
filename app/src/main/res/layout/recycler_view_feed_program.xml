@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginTop="0dp"
+    android:id="@+id/parentFeedProgram"
     android:orientation="vertical">
 
     <com.google.android.material.card.MaterialCardView
@@ -35,13 +36,15 @@
 
             <TextView
                 android:id="@+id/nameProgTextView"
-                android:layout_width="wrap_content"
+                android:layout_width="0sp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="101dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="32dp"
+                android:maxWidth="200dp"
                 android:text="Nom du programme"
                 android:textStyle="bold"
-                android:maxWidth="200dp"
-                app:layout_constraintStart_toStartOf="@+id/imageViewFeedProg"
+                app:layout_constraintEnd_toStartOf="@+id/btnSubscribeProg"
+                app:layout_constraintStart_toEndOf="@+id/imageViewFeedProg"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
@@ -51,43 +54,52 @@
                 android:layout_marginEnd="3dp"
                 android:text="0"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/btnLikeProgram" />
+                app:layout_constraintEnd_toStartOf="@+id/btnLikeProgram"
+                app:layout_constraintTop_toTopOf="@+id/btnLikeProgram" />
 
             <ImageView
                 android:id="@+id/btnLikeProgram"
-                android:layout_width="19dp"
-                android:layout_height="19dp"
+                android:layout_width="@dimen/icon_btn_width"
+                android:layout_height="@dimen/icon_btn_height"
+                android:layout_marginTop="3dp"
+                android:layout_marginEnd="19dp"
+                android:padding="@dimen/icon_btn_inner_padding"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/btnSubscribeProg"
                 app:srcCompat="@drawable/dislike" />
 
             <TextView
                 android:id="@+id/descriptionProgTextView"
-                android:layout_width="180dp"
+                android:layout_width="0sp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="12dp"
+                android:layout_marginEnd="8dp"
                 android:text="Description du programme"
+                app:layout_constraintEnd_toStartOf="@+id/btnSubscribeProg"
                 app:layout_constraintStart_toEndOf="@+id/imageViewFeedProg"
                 app:layout_constraintTop_toBottomOf="@+id/nameProgTextView" />
 
             <ImageView
                 android:id="@+id/btnSubscribeProg"
-                android:layout_width="34dp"
-                android:layout_height="32dp"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="4dp"
+                android:padding="4dp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintStart_toEndOf="@+id/nameProgTextView"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/add" />
+                app:srcCompat="@drawable/follow" />
 
             <ImageView
                 android:id="@+id/btnLevelProgFeed"
-                android:layout_width="13dp"
-                android:layout_height="13dp"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
                 android:layout_marginStart="1dp"
+                app:layout_constraintBottom_toBottomOf="@+id/nameProgTextView"
                 app:layout_constraintStart_toEndOf="@+id/nameProgTextView"
-                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/nameProgTextView"
                 app:srcCompat="@drawable/level_1" />
 
             <TextView

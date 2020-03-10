@@ -48,7 +48,7 @@ class SessionFeedAdapter (val sessions: ArrayList<SessionFeed>,
             view.sessionNameTextView.text = session.nameSessionFeed
             view.descriptionSessionTextView.text = session.descrSessionFeed
             view.sessionNameTextView.setOnClickListener { sessionClicked(session) }
-            view.descriptionSessionTextView.setOnClickListener { sessionClicked(session) }
+            view.parentFeedSession.setOnClickListener { sessionClicked(session) }
             view.btnNotifFeedSession.setOnClickListener { clickListenernotif(session) }
             showNotified(database, "notifications/${auth.currentUser?.uid}", session.sessionID, view.btnNotifFeedSession)
             var img = session.imgURI

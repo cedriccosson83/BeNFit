@@ -25,6 +25,10 @@ class SessionFeedActivity : MenuActivity() {
             showSessionsFeed(database, recycler_view_session_feed, this, id)
         }
 
+        feedSessionNewBtn.setOnClickListener {
+            startActivity(Intent(this, SessionActivity::class.java))
+        }
+
         recycler_view_session_feed.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
 
     }

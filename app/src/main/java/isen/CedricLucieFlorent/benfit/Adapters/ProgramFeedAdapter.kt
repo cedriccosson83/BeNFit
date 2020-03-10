@@ -51,8 +51,7 @@ class ProgramFeedAdapter (val programs: ArrayList<ProgramFeed>,
             view.btnLikeProgram.setOnClickListener {
                 likesHandler(database,auth.currentUser?.uid, "programs/${program.programID}/likes",program.likes, view.btnLikeProgram)
             }
-            view.nameProgTextView.setOnClickListener { clickListenerProgram(program) }
-            view.descriptionProgTextView.setOnClickListener { clickListenerProgram(program) }
+            view.parentFeedProgram.setOnClickListener { clickListenerProgram(program) }
             showUserNameSessionFeed(program.userID, view.authorProgramFeed)
             convertLevelToImg(program.levelProgram, view.btnLevelProgFeed)
             showLikes(database, currentUserID, "programs/${program.programID}/likes",view.NbLikeProgram, view.btnLikeProgram)

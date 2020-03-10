@@ -37,7 +37,7 @@
 
     <TextView
         android:id="@+id/showSessionName"
-        android:layout_width="259dp"
+        android:layout_width="240dp"
         android:layout_height="wrap_content"
         android:fontFamily="sans-serif-condensed-medium"
         android:gravity="center"

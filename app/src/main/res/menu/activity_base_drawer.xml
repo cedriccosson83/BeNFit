@@ -11,7 +11,7 @@
                 android:title="@string/programs_list" />
             <item
                 android:id="@+id/nav_sessions"
-                android:icon="@drawable/sessions"
+                android:icon="@drawable/sessions_menu"
                 android:title="@string/sessions_list" />
             <item
                 android:id="@+id/nav_write_program"
