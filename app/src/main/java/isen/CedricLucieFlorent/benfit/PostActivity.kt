@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.auth.FirebaseAuth
 import android.view.LayoutInflater
 import android.view.View
+import android.widget.ImageView
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
@@ -19,6 +20,11 @@ import kotlinx.android.synthetic.main.activity_post.*
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
+import androidx.core.app.ComponentActivity.ExtraData
+import androidx.core.content.ContextCompat.getSystemService
+import android.icu.lang.UCharacter.GraphemeClusterBreak.T
+
+
 
 class PostActivity : MenuActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -46,9 +52,7 @@ class PostActivity : MenuActivity() {
             }else{
                 Toast.makeText(this, "Veuillez entrer un commentaire", Toast.LENGTH_LONG).show()
             }
-
         }
-
     }
 
     //This function allows to show the name of the user
@@ -83,26 +87,36 @@ class PostActivity : MenuActivity() {
                             redirectToUserActivity(this@PostActivity, post.userid)
                         }
 
-                        if (post.programId != "" && post.programId != "null") {
-                            buttonLink.setOnClickListener {
-                                val sharedLinkIntent = Intent(ApplicationContext.applicationContext(), ShowProgramActivity::class.java)
-                                sharedLinkIntent.putExtra("programId", post.programId)
-                                sharedLinkIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                                ApplicationContext.applicationContext().startActivity(sharedLinkIntent)
-                            }
-                        } else if (post.sessionId != "" && post.sessionId != "null") {
-                            buttonLink.setOnClickListener {
-                                val sharedLinkIntent = Intent(ApplicationContext.applicationContext(), ShowSessionActivity::class.java)
-                                sharedLinkIntent.putExtra("sessionId", post.sessionId)
-                                sharedLinkIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                                ApplicationContext.applicationContext().startActivity(sharedLinkIntent)
-                            }
-                        } else if (post.exoId != "" && post.exoId != "null") {
-                            buttonLink.setOnClickListener{
-                                showPopUpExercice(database, it.context, post.exoId, windowManager)
+                        if(post.postImgUID != "null" && post.postImgUID != ""){
+                            Log.d("CEDRIC_OK", "y'a une image")
+                            val layout = postShowImage
+                            val postImView = ImageView(ApplicationContext.applicationContext())
+                            setImageFromFirestore(ApplicationContext.applicationContext(),postImView, "posts/${post.postid}/${post.postImgUID}")
+
+                            layout.addView(postImView)
+                            postImView.layoutParams.height = 400
+
+                            postImView.setOnClickListener {
+                                fullScreenImage(ApplicationContext.applicationContext(), "posts/${post.postid}/${post.postImgUID}" )
                             }
                         } else {
+                            val params = postShowImage.layoutParams
+                            params.height = 1
+                            postShowImage.layoutParams = params
+                        }
+
+                        if (post.programId != "" && post.programId != "null") {
+                            buttonLink.setOnClickListener {linkToProgram(ApplicationContext.applicationContext(),post.programId)}
+                            buttonLinkIcon.setOnClickListener {linkToProgram(ApplicationContext.applicationContext(),post.programId)}
+                        } else if (post.sessionId != "" && post.sessionId != "null") {
+                            buttonLink.setOnClickListener {linkToSession(ApplicationContext.applicationContext(), post.sessionId)}
+                            buttonLinkIcon.setOnClickListener {linkToSession(ApplicationContext.applicationContext(), post.sessionId)}
+                        } else if (post.exoId != "" && post.exoId != "null") {
+                            buttonLink.setOnClickListener{showPopUpExercice(database, it.context, post.exoId, windowManager)}
+                            buttonLinkIcon.setOnClickListener{showPopUpExercice(database, it.context, post.exoId, windowManager)}
+                        } else {
                             buttonLink.visibility = View.INVISIBLE
+                            buttonLinkIcon.visibility = View.INVISIBLE
                         }
                         break
                     }

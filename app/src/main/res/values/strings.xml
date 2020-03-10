@@ -285,5 +285,6 @@
     <string name="fname_lname">Nom et prénom</string>
     <string name="updateProfile">Mise à jour du profil</string>
     <string name="selectSports">Sélection de sports</string>
+    <string name="commentList">Commentaires</string>
 
 </resources>
