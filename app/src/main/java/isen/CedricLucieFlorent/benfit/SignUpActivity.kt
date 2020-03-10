@@ -116,7 +116,6 @@ class SignUpActivity : AppCompatActivity() {
                     ).show()
                 }
                 .setPositiveButton("OK") { dialog, which ->
-                    showdiffsportss.text = "Vos sports préférés..... \n"
                     for (i in checkedColorsArray.indices) {
                         val checked = checkedColorsArray[i]
                         if (checked) {
