@@ -73,9 +73,10 @@
 
             <ImageView
                 android:id="@+id/showProgramLikeIcon"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:layout_marginEnd="16dp"
+                android:layout_width="@dimen/icon_btn_width"
+                android:layout_height="@dimen/icon_btn_height"
+                android:padding="@dimen/icon_btn_inner_padding"
+                android:layout_marginEnd="5dp"
                 android:contentDescription="@string/img"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -83,10 +84,11 @@
 
             <ImageView
                 android:id="@+id/showProgramSub"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:layout_marginTop="15dp"
-                android:layout_marginEnd="16dp"
+                android:layout_width="@dimen/icon_btn_width"
+                android:layout_height="@dimen/icon_btn_height"
+                android:padding="@dimen/icon_btn_inner_padding"
+                android:layout_marginEnd="5dp"
+                android:layout_marginTop="5dp"
                 android:contentDescription="@string/img"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/showProgramLikeIcon"
@@ -94,10 +96,11 @@
 
             <ImageView
                 android:id="@+id/showProgramShare"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:layout_marginTop="15dp"
-                android:layout_marginEnd="16dp"
+                android:layout_width="@dimen/icon_btn_width"
+                android:layout_height="@dimen/icon_btn_height"
+                android:padding="@dimen/icon_btn_inner_padding"
+                android:layout_marginEnd="5dp"
+                android:layout_marginTop="5dp"
                 android:contentDescription="@string/img"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/showProgramSub"
