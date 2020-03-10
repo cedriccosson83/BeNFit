@@ -38,9 +38,14 @@ class ShowSessionsAdapter (val sessions: ArrayList<ShowSessionProgram>, val prog
         fun bind(session: ShowSessionProgram, context: Context, program : ShowProgram, activity: String, database : FirebaseDatabase, reference: String,
                  clickSession: (ShowSessionProgram) -> Unit) {
             auth = FirebaseAuth.getInstance()
+            view.parentViewSessionShowProgram.setOnClickListener{clickSession(session)}
             view.nameSessionShowProgram.text = session.nameSession
-            view.nameSessionShowProgram.setOnClickListener { clickSession(session) }
-            setImageFromFirestore(ApplicationContext.applicationContext(), view.imageViewSessionShowProgram, "sessions/${session.sessionID}/${session.imgURI}")
+            //view.nameSessionShowProgram.setOnClickListener { clickSession(session) }
+            setImageFromFirestore(
+                ApplicationContext.applicationContext(),
+                view.imageViewSessionShowProgram,
+                "sessions/${session.sessionID}/${session.imgURI}")
+
             if (activity != "SubProg"){
                 view.finishedSessionBtn.visibility = View.INVISIBLE
             }

@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
+    android:id="@+id/parentViewExerciceShowSession"
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
@@ -29,20 +30,23 @@
                 android:layout_width="36dp"
                 android:layout_height="35dp"
                 android:layout_marginStart="16dp"
+                android:contentDescription="@string/img"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@mipmap/benfit_logo_round" />
+                app:srcCompat="@drawable/icon" />
 
             <TextView
                 android:id="@+id/nameExerciceShowSession"
-                android:layout_width="wrap_content"
+                android:layout_width="0sp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
                 android:maxWidth="300dp"
                 android:text="@string/nameSession"
                 android:textSize="18sp"
                 app:layout_constraintBottom_toBottomOf="@+id/imageViewExerciceShowSession"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toEndOf="@+id/imageViewExerciceShowSession"
                 app:layout_constraintTop_toTopOf="@+id/imageViewExerciceShowSession" />
 

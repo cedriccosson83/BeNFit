@@ -129,7 +129,11 @@ class ShowSessionActivity : MenuActivity() {
                             value.child("id").value.toString(),
                             value.child("name").value.toString(),
                             value.child("idUser").value.toString(),
-                            value.child("difficulty").value.toString()
+                            value.child("difficulty").value.toString(),
+                            value.child("description").value.toString(),
+                            value.child("urlYt").value.toString(),
+                            value.child("pictureUID").value.toString(),
+                            value.child("sport").value.toString()
                         )
                         exercicesIn.add(exo)
                     }
