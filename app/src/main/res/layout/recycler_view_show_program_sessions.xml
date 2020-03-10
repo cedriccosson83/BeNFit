@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:id="@+id/parentViewSessionShowProgram"
     android:orientation="vertical">
 
     <com.google.android.material.card.MaterialCardView
@@ -29,28 +30,33 @@
                 android:id="@+id/imageViewSessionShowProgram"
                 android:layout_width="36dp"
                 android:layout_height="35dp"
-                android:layout_marginStart="16dp"
+                android:layout_marginStart="8dp"
+                android:contentDescription="@string/img"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@mipmap/benfit_logo_round" />
+                app:srcCompat="@drawable/icon" />
 
             <TextView
                 android:id="@+id/nameSessionShowProgram"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="0sp"
+                android:layout_height="23dp"
                 android:layout_marginStart="12dp"
+                android:layout_marginEnd="8dp"
+                android:maxWidth="250dp"
                 android:text="@string/nameSession"
                 android:textSize="18sp"
-                android:maxWidth="250dp"
                 app:layout_constraintBottom_toBottomOf="@+id/imageViewSessionShowProgram"
+                app:layout_constraintEnd_toStartOf="@+id/finishedSessionBtn"
                 app:layout_constraintStart_toEndOf="@+id/imageViewSessionShowProgram"
                 app:layout_constraintTop_toTopOf="@+id/imageViewSessionShowProgram" />
 
             <ImageView
                 android:id="@+id/finishedSessionBtn"
-                android:layout_width="35dp"
-                android:layout_height="31dp"
+                android:layout_width="@dimen/icon_btn_width"
+                android:layout_height="@dimen/icon_btn_height"
+                android:contentDescription="@string/img"
+                android:padding="@dimen/icon_btn_inner_padding"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"

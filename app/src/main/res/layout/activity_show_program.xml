@@ -1,178 +1,177 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_marginTop="@dimen/top_button_size_marge"
+    tools:context=".ShowProgramActivity"
     tools:layout_editor_absoluteX="1dp"
     tools:layout_editor_absoluteY="84dp">
 
+    <TextView
+        android:id="@+id/showProgramAuthor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:fontFamily="sans-serif-condensed-medium"
+        android:text="John Doe"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="@+id/textView2"
+        app:layout_constraintHorizontal_bias="0.526"
+        app:layout_constraintStart_toStartOf="@+id/textView2"
+        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
+    <ImageView
+        android:id="@+id/showProgramLevelIcon"
+        android:layout_width="47dp"
+        android:layout_height="38dp"
+        android:layout_marginTop="4dp"
+        android:contentDescription="@string/img"
+        app:layout_constraintEnd_toEndOf="@+id/textView8"
+        app:layout_constraintStart_toStartOf="@+id/textView8"
+        app:layout_constraintTop_toBottomOf="@+id/textView8"
+        app:srcCompat="@drawable/level_3" />
+
+    <TextView
+        android:id="@+id/showProgramName"
+        android:layout_width="259dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:fontFamily="sans-serif-condensed-medium"
+        android:gravity="center"
+        android:text="@string/program_name"
+        android:textColor="#000000"
+        android:textSize="@dimen/size_title"
+        android:textStyle="bold"
+        app:autoSizeMinTextSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@+id/constraintLayout4"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/constraintLayout4" />
+
     <androidx.constraintlayout.widget.ConstraintLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    tools:context=".ShowProgramActivity">
+        android:id="@+id/constraintLayout4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:id="@+id/showProgramAuthor"
+            android:id="@+id/showProgramLike"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:fontFamily="sans-serif-condensed-medium"
-            android:text="John Doe"
-            android:textColor="@color/black"
-            android:textSize="18sp"
-            app:layout_constraintEnd_toEndOf="@+id/textView2"
-            app:layout_constraintHorizontal_bias="0.526"
-            app:layout_constraintStart_toStartOf="@+id/textView2"
-            app:layout_constraintTop_toBottomOf="@+id/textView2" />
+            android:layout_marginEnd="3dp"
+            android:text="@string/_0"
+            app:layout_constraintBottom_toBottomOf="@+id/showProgramLikeIcon"
+            app:layout_constraintEnd_toStartOf="@+id/showProgramLikeIcon"
+            app:layout_constraintTop_toTopOf="@+id/showProgramLikeIcon" />
 
         <ImageView
-            android:id="@+id/showProgramLevelIcon"
-            android:layout_width="47dp"
-            android:layout_height="38dp"
+            android:id="@+id/showProgramLikeIcon"
+            android:layout_width="@dimen/icon_btn_width"
+            android:layout_height="@dimen/icon_btn_height"
+            android:layout_marginEnd="5dp"
             android:contentDescription="@string/img"
-            app:layout_constraintEnd_toEndOf="@+id/textView8"
-            app:layout_constraintStart_toStartOf="@+id/textView8"
-            app:layout_constraintTop_toBottomOf="@+id/textView8"
-            app:srcCompat="@drawable/level_3" />
+            android:padding="@dimen/icon_btn_inner_padding"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/dislike" />
 
-        <TextView
-            android:id="@+id/showProgramName"
-            android:layout_width="259dp"
-            android:layout_height="wrap_content"
+        <ImageView
+            android:id="@+id/showProgramSub"
+            android:layout_width="@dimen/icon_btn_width"
+            android:layout_height="@dimen/icon_btn_height"
             android:layout_marginTop="5dp"
-            android:fontFamily="sans-serif-condensed-medium"
-            android:gravity="center"
-            android:text="@string/program_name"
-            android:textColor="#000000"
-            android:textSize="@dimen/size_title"
-            android:textStyle="bold"
-            app:autoSizeMinTextSize="12sp"
-            app:layout_constraintBottom_toBottomOf="@+id/constraintLayout4"
+            android:layout_marginEnd="5dp"
+            android:contentDescription="@string/img"
+            android:padding="@dimen/icon_btn_inner_padding"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/constraintLayout4" />
+            app:layout_constraintTop_toBottomOf="@+id/showProgramLikeIcon"
+            app:srcCompat="@drawable/add" />
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/constraintLayout4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <ImageView
+            android:id="@+id/showProgramShare"
+            android:layout_width="@dimen/icon_btn_width"
+            android:layout_height="@dimen/icon_btn_height"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="5dp"
+            android:contentDescription="@string/img"
+            android:padding="@dimen/icon_btn_inner_padding"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <TextView
-                android:id="@+id/showProgramLike"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="3dp"
-                android:text="@string/_0"
-                app:layout_constraintBottom_toBottomOf="@+id/showProgramLikeIcon"
-                app:layout_constraintEnd_toStartOf="@+id/showProgramLikeIcon"
-                app:layout_constraintTop_toTopOf="@+id/showProgramLikeIcon" />
-
-            <ImageView
-                android:id="@+id/showProgramLikeIcon"
-                android:layout_width="@dimen/icon_btn_width"
-                android:layout_height="@dimen/icon_btn_height"
-                android:padding="@dimen/icon_btn_inner_padding"
-                android:layout_marginEnd="5dp"
-                android:contentDescription="@string/img"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/dislike" />
-
-            <ImageView
-                android:id="@+id/showProgramSub"
-                android:layout_width="@dimen/icon_btn_width"
-                android:layout_height="@dimen/icon_btn_height"
-                android:padding="@dimen/icon_btn_inner_padding"
-                android:layout_marginEnd="5dp"
-                android:layout_marginTop="5dp"
-                android:contentDescription="@string/img"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/showProgramLikeIcon"
-                app:srcCompat="@drawable/add" />
-
-            <ImageView
-                android:id="@+id/showProgramShare"
-                android:layout_width="@dimen/icon_btn_width"
-                android:layout_height="@dimen/icon_btn_height"
-                android:padding="@dimen/icon_btn_inner_padding"
-                android:layout_marginEnd="5dp"
-                android:layout_marginTop="5dp"
-                android:contentDescription="@string/img"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/showProgramSub"
-                app:srcCompat="@drawable/share" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <TextView
-            android:id="@+id/showProgramDesc"
-            android:layout_width="350dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="40dp"
-            android:text="@string/prog_descr"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.497"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/showProgramAuthor" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/showProgramRecyclerView"
-            android:layout_width="match_parent"
-            android:layout_height="0sp"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="24dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/showProgramDesc" />
-
-        <TextView
-            android:id="@+id/textView2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="50dp"
-            android:text="@string/author"
-            android:textSize="@dimen/size_subtitle"
-            app:layout_constraintEnd_toEndOf="@+id/showProgramName"
-            app:layout_constraintStart_toStartOf="@+id/showProgramName"
-            app:layout_constraintTop_toBottomOf="@+id/showProgramName" />
-
-        <TextView
-            android:id="@+id/textView8"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="40dp"
-            android:layout_marginTop="50dp"
-            android:text="@string/level"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/showProgramName" />
-
-        <TextView
-            android:id="@+id/textView9"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="50dp"
-            android:layout_marginEnd="40dp"
-            android:text="@string/session"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/showProgramName" />
-
-        <TextView
-            android:id="@+id/numberSessionProgram"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="sans-serif-condensed-medium"
-            android:text="4"
-            android:textColor="@color/black"
-            android:textSize="32sp"
-            app:layout_constraintEnd_toEndOf="@+id/textView9"
-            app:layout_constraintStart_toStartOf="@+id/textView9"
-            app:layout_constraintTop_toBottomOf="@+id/textView9" />
-
+            app:layout_constraintTop_toBottomOf="@+id/showProgramSub"
+            app:srcCompat="@drawable/share" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-</ScrollView>
+
+    <TextView
+        android:id="@+id/showProgramDesc"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:text="@string/prog_descr"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/showProgramAuthor" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/showProgramRecyclerView"
+        android:layout_width="0dp"
+        android:layout_height="0sp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/showProgramDesc" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:text="@string/author"
+        android:textSize="@dimen/size_subtitle"
+        app:layout_constraintEnd_toEndOf="@+id/showProgramName"
+        app:layout_constraintStart_toStartOf="@+id/showProgramName"
+        app:layout_constraintTop_toBottomOf="@+id/showProgramName" />
+
+    <TextView
+        android:id="@+id/textView8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="50dp"
+        android:text="@string/level"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/showProgramName" />
+
+    <TextView
+        android:id="@+id/textView9"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="40dp"
+        android:text="@string/session"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/showProgramName" />
+
+    <TextView
+        android:id="@+id/numberSessionProgram"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-condensed-medium"
+        android:text="4"
+        android:textColor="@color/black"
+        android:textSize="32sp"
+        app:layout_constraintEnd_toEndOf="@+id/textView9"
+        app:layout_constraintStart_toStartOf="@+id/textView9"
+        app:layout_constraintTop_toBottomOf="@+id/textView9" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

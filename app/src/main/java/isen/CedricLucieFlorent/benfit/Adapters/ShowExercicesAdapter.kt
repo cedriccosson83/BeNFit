@@ -6,8 +6,10 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
+import isen.CedricLucieFlorent.benfit.ApplicationContext
 import isen.CedricLucieFlorent.benfit.Models.ShowExerciceSession
 import isen.CedricLucieFlorent.benfit.R
+import isen.CedricLucieFlorent.benfit.setImageFromFirestore
 import kotlinx.android.synthetic.main.recycler_view_show_session_exercices.view.*
 
 class ShowExercicesAdapter (val exercices: ArrayList<ShowExerciceSession>, val sessionID: String?,
@@ -35,8 +37,17 @@ class ShowExercicesAdapter (val exercices: ArrayList<ShowExerciceSession>, val s
 
         fun bind(exo: ShowExerciceSession, sessionID: String?,
                  clickSession: (ShowExerciceSession, String?) -> Unit) {
+            view.parentViewExerciceShowSession.setOnClickListener {clickSession(exo, sessionID)}
             view.nameExerciceShowSession.text = exo.name
-            view.nameExerciceShowSession.setOnClickListener { clickSession(exo, sessionID) }
+            if (exo.pictureUID != "" && exo.pictureUID != "null") {
+                setImageFromFirestore(
+                    ApplicationContext.applicationContext(),
+                    view.imageViewExerciceShowSession,
+                    "exos/${exo.id}/${exo.pictureUID}")
+            } else if(exo.urlYt != "" && exo.urlYt != "null") {
+                view.imageViewExerciceShowSession.setImageResource(R.drawable.ytb)
+            }
+            //view.nameExerciceShowSession.setOnClickListener { clickSession(exo, sessionID) }
         }
     }
 
