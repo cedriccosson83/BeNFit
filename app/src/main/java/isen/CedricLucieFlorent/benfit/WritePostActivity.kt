@@ -59,6 +59,7 @@ class WritePostActivity : MenuActivity() {
             sharedLink.text = sharedName
         } else {
             sharedLink.visibility = View.INVISIBLE
+            imageViewSharedLink.visibility = View.INVISIBLE
         }
 
         publishBTN.setOnClickListener{

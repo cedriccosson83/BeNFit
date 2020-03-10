@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.util.Log
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.database.*
@@ -20,6 +21,7 @@ import isen.CedricLucieFlorent.benfit.Models.*
 import kotlinx.android.synthetic.main.activity_exercice_session.*
 import kotlinx.android.synthetic.main.activity_program.*
 import kotlinx.android.synthetic.main.activity_session.*
+import kotlinx.android.synthetic.main.recycler_view_exo_session.view.*
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -140,7 +142,7 @@ fun showExos(database : FirebaseDatabase, view: RecyclerView, context: Context, 
         override fun onDataChange(dataSnapshot: DataSnapshot){
             val exos : ArrayList<Exercice> = ArrayList<Exercice>()
             for(value in dataSnapshot.children ) {
-                var exo : Exercice = Exercice(value.child("id").value.toString(), value.child("name").value.toString(), value.child("idUser").value.toString(), value.child("description").value.toString(),value.child("difficulty").value.toString(), value.child("sport").value.toString())
+                var exo : Exercice = Exercice(value.child("id").value.toString(), value.child("name").value.toString(), value.child("idUser").value.toString(), value.child("description").value.toString(),value.child("difficulty").value.toString(), value.child("sport").value.toString(), value.child("pictureUID").value.toString(), value.child("urlYt").value.toString())
                 exos.add(exo)
             }
             exos.reverse()
@@ -181,7 +183,13 @@ fun showExosSession(database : FirebaseDatabase, view: RecyclerView, userId :Str
         override fun onDataChange(dataSnapshot: DataSnapshot){
             val exos : ArrayList<SessionExercice> = ArrayList<SessionExercice>()
             for(value in dataSnapshot.children ) {
-                var exo : SessionExercice = SessionExercice(value.child("exoSessionID").value.toString(),value.child("userID").value.toString(), value.child("exoID").value.toString())
+                var exo : SessionExercice = SessionExercice(
+                    value.child("exoSessionID").value.toString(),
+                    value.child("userID").value.toString(),
+                    value.child("exoID").value.toString(),
+                    value.child("rep").value.toString(),
+                    value.child("pictureUID").value.toString(),
+                    value.child("urlYt").value.toString())
                 if(exo.userID== userId){
                     exos.add(exo)
                 }
@@ -423,19 +431,25 @@ fun showInfosProgram(database :  FirebaseDatabase, activity: ProgramActivity, us
     })
 }
 
-fun showExo(database: FirebaseDatabase, exoId : String, textView: TextView) {
-    Log.d("function", "showExo")
-
+fun showExo(database: FirebaseDatabase, exoId : String, textView: TextView, imageView : ImageView) {
     val myRef = database.getReference("exos")
     myRef.addValueEventListener(object : ValueEventListener {
         override fun onDataChange(dataSnapshot: DataSnapshot){
-            var exo: Exercice
             for(value in dataSnapshot.children ) {
-                var exo : Exercice = Exercice(value.child("id").value.toString(), value.child("name").value.toString(), value.child("idUser").value.toString(), value.child("description").value.toString(),value.child("difficulty").value.toString(), value.child("sport").value.toString())
+                var exo = Exercice(
+                    value.child("id").value.toString(),
+                    value.child("name").value.toString(),
+                    value.child("idUser").value.toString(),
+                    value.child("description").value.toString(),
+                    value.child("difficulty").value.toString(),
+                    value.child("sport").value.toString(),
+                    value.child("pictureUID").value.toString(),
+                    value.child("urlYt").value.toString())
                 if(exo.id == exoId){
-                    Log.d("exo", "${exo.name}")
                     textView.text = "${exo.name}"
-
+                    if (exo.pictureUID != "" && exo.pictureUID != "null"){
+                        setImageFromFirestore(ApplicationContext.applicationContext(), imageView, "exos/${exo.id}/${exo.pictureUID}")
+                    }
                 }
             }
         }
@@ -586,7 +600,7 @@ fun showSessions(database: FirebaseDatabase, view: RecyclerView, context: Contex
                     value.child("descSession").value.toString(),
                     value.child("levelSession").value.toString(),
                     exosSession,
-                    value.child("nbrRound").value.toString().toInt(),
+                    value.child("roundSession").value.toString().toInt(),
                     value.child("pictureUID").value.toString())
                 sessions.add(session)
             }

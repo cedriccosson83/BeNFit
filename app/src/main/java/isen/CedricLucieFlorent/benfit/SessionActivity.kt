@@ -66,7 +66,15 @@ class SessionActivity : MenuActivity(){
 
         btnSaveSession.setOnClickListener {
             if (idUser != null) {
-                saveSession(database, storageReference, image_uri, context, idUser,inputNameSession.text.toString(),inputDescSession.text.toString(),spinnerLevelSession.selectedItem.toString(), editTextNumberSerie.text.toString().toInt() )
+                saveSession(database,
+                    storageReference,
+                    image_uri,
+                    context,
+                    idUser,
+                    inputNameSession.text.toString(),
+                    inputDescSession.text.toString(),
+                    spinnerLevelSession.selectedItem.toString(),
+                    editTextNumberSerie.text.toString().toInt() )
                 Toast.makeText(this,"Séance sauvegardée!", Toast.LENGTH_SHORT).show()
 
                 val intent = Intent(this,SessionFeedActivity::class.java)
@@ -88,7 +96,7 @@ class SessionActivity : MenuActivity(){
                 if (idUser != null) {
                     addTemporaryLevelSession(database,idUser, selectedItem)
                 }
-            } // to close the onItemSelected
+            }
 
             override fun onNothingSelected(parent: AdapterView<*>) {
 
@@ -145,9 +153,6 @@ class SessionActivity : MenuActivity(){
                                        before: Int, count: Int) {
             }
         })
-
-
-
     }
 
     override fun onResume() {

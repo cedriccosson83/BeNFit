@@ -25,4 +25,7 @@
     <dimen name="btn_size" tools:keep="@dimen/btn_size">20dp</dimen>
     <dimen name="design_navigation_icon_size" tools:override="true">20sp</dimen>
     <dimen name="top_button_size_marge">45dp</dimen>
+    <dimen name="icon_btn_height">40dp</dimen>
+    <dimen name="icon_btn_width">40dp</dimen>
+    <dimen name="icon_btn_inner_padding">8dp</dimen>
 </resources>
