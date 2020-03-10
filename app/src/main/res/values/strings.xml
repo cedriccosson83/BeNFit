@@ -248,7 +248,6 @@
     <string name="program_name">Nom du programme</string>
     <string name="prog_descr">Description du programme</string>
     <string name="_0">0</string>
-    <string name="level">Niveau</string>
     <string name="author">Auteur</string>
     <string name="exo_name">Nom de l\'exercice</string>
     <string name="exo_descr">Description de l\'exercice</string>
@@ -285,5 +284,7 @@
     <string name="fname_lname">Nom et prénom</string>
     <string name="updateProfile">Mise à jour du profil</string>
     <string name="selectSports">Sélection de sports</string>
+    <string name="level">Niveau</string>
+    <string name="exercices">Exercices</string>
 
 </resources>

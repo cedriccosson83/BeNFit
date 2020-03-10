@@ -55,7 +55,6 @@ class ShowSessionActivity : MenuActivity() {
                     for (childExo in value.child("exosSession").children){
                         arrayExercices.add(childExo.child("exoID").value.toString())
                     }
-
                     session = ShowSession(
                         value.child("sessionID").value.toString(),
                         value.child("userID").value.toString(),
@@ -70,8 +69,10 @@ class ShowSessionActivity : MenuActivity() {
                     if(session.sessionID == sessionId){
                         showSessionName.text = session.nameSession
                         showSessionDesc.text = session.descSession
+                        textNumberExo.text = arrayExercices.size.toString()
+
                         convertLevelToImg(session.levelSession, showSessionLevelIcon)
-                        showSessionLevelText.text = session.levelSession
+                        //showSessionLevelText.text = session.levelSession
                         showUserName(session.userID, showSessionAuthor)
                         val path = "sessions/${session.sessionID}/likes"
                         val userId = auth.currentUser?.uid
