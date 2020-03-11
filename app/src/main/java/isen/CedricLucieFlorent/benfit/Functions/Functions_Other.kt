@@ -4,15 +4,12 @@ import android.app.*
 import android.content.ContentResolver
 import android.content.Context
 import android.content.Intent
-import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.net.Uri
-import android.os.Build
 import android.util.Log
 import android.view.Window
 import android.widget.ImageView
-import android.widget.RemoteViews
 import android.widget.TextView
 import android.widget.Toast
 import com.google.android.material.button.MaterialButton
@@ -37,49 +34,7 @@ fun showDate(date : String?, textview: TextView){
         textview.text = "${dateSplit?.get(1)}"
     }
 }
-fun creernotif(context: Context?, notificationManager: NotificationManager){
 
-    if (context == null) return
-
-    val notificationChannel : NotificationChannel
-    val builder : Notification.Builder
-    val channelId = "isen.CedricLucieFlorent.benfit"
-    val description = "Test notification"
-
-    val intent = Intent(context, NotifActivity::class.java)
-    val pendingIntent = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
-
-    val contentView = RemoteViews(context.packageName, R.layout.notification_layout)
-    contentView.setTextViewText(R.id.tv_title,"Mtextview.text = ApplicationContext.applicationContext().getString(\n" +
-            "                        R.string.doubleWordsSpaced,\n" +
-            "                        fname,\n" +
-            "                        lname\n" +
-            "                    ) ! ")
-    contentView.setTextViewText(R.id.tv_content, "N'oubliez pas votre séance d'entrainement")
-
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-        notificationChannel = NotificationChannel(channelId, description, NotificationManager.IMPORTANCE_HIGH)
-        notificationChannel.enableLights(true)
-        notificationChannel.lightColor = Color.GREEN
-        notificationChannel.enableVibration(false)
-        notificationManager.createNotificationChannel(notificationChannel) // ça tu l'init ou ?
-
-        builder = Notification.Builder(context,channelId)
-            .setContent(contentView)
-            .setSmallIcon(R.mipmap.benfit_logo_round)
-            .setLargeIcon(BitmapFactory.decodeResource(context.resources, R.mipmap.benfit_logo_round))
-            .setContentIntent(pendingIntent)
-
-    }
-    else{
-        builder = Notification.Builder(context)
-            .setContent(contentView)
-            .setSmallIcon(R.mipmap.benfit_logo_round)
-            .setLargeIcon(BitmapFactory.decodeResource(context.resources, R.mipmap.benfit_logo_round))
-            .setContentIntent(pendingIntent)
-    }
-    notificationManager.notify(123, builder.build())
-}
 fun redirectToUserActivity(context: Context, userID : String){
     val intent = Intent(context, ProfileActivity::class.java)
     intent.putExtra("userId", userID)
