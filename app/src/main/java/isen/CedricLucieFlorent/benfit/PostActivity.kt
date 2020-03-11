@@ -7,7 +7,6 @@ import android.widget.Toast
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.auth.FirebaseAuth
-import android.view.LayoutInflater
 import android.view.View
 import android.widget.ImageView
 import com.google.firebase.database.DataSnapshot
@@ -20,9 +19,6 @@ import kotlinx.android.synthetic.main.activity_post.*
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
-import androidx.core.app.ComponentActivity.ExtraData
-import androidx.core.content.ContextCompat.getSystemService
-import android.icu.lang.UCharacter.GraphemeClusterBreak.T
 
 
 
@@ -131,14 +127,13 @@ class PostActivity : MenuActivity() {
     }
 
 
-    fun showComments(postId: String) {
+    private fun showComments(postId: String) {
 
         val myRef = database.getReference("comments")
         myRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot){
                 val comments : ArrayList<Comment> = ArrayList()
                 for(value in dataSnapshot.children ) {
-
 
                     val comment = Comment(
                         value.child("userid").value.toString(),
@@ -151,9 +146,7 @@ class PostActivity : MenuActivity() {
                     if(comment.parentid == postId){
                         comments.add(comment)
                     }
-
                 }
-                //comments.reverse()
                 recyclerViewComments.adapter = CommentAdapter(comments) { commentItem : Comment -> userClicked(commentItem) }
             }
             override fun onCancelled(error: DatabaseError) {
@@ -180,7 +173,6 @@ class PostActivity : MenuActivity() {
         dbComments.child(newId).setValue(comment)
     }
 
-    //allows to redirect on the user activity
     private fun userClicked(commentItem : Comment) {
         redirectToUserActivity(this,commentItem.userid)
     }
