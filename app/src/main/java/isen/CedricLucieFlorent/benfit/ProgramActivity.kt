@@ -35,7 +35,7 @@ class ProgramActivity : MenuActivity() {
         val id = auth.currentUser?.uid
         if (id != null) {
             showInfosProgram(database, this,id)
-            showSessionsProgram(database,recyclerViewSessionProgram,this,id)
+            showSessionsProgram(database,recyclerViewSessionProgram,id)
         }
         imageViewCreateProg.setOnClickListener{
             stu.askCameraPermissions()
