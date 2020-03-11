@@ -38,7 +38,7 @@ fun addTemporaryLevelProgram(database: FirebaseDatabase,idUser: String, levelPro
 
 fun saveInfosProgram(database : FirebaseDatabase,idProgram: String, userId :String) {
     val myRef = database.getReference("temporary_infos_program")
-    val dbSession = database.getReference("program")
+    val dbSession = database.getReference("programs")
     myRef.addListenerForSingleValueEvent(object : ValueEventListener {
         override fun onDataChange(dataSnapshot: DataSnapshot){
             for(value in dataSnapshot.children ) {

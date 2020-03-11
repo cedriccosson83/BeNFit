@@ -56,7 +56,8 @@ fun redirectToProgram(context : Context, programID : String, extra : String = ""
 fun constraintValidateYoutube(btn : MaterialButton, inputText : String) : Boolean{
     if (btn.isChecked) {
         val position = inputText.indexOf("https://www.youtube.com/watch?v=")
-        if(position == -1){
+        val position2 = inputText.indexOf("https://youtu.be/")
+        if(position == -1 && position2 == -1){
             return false
         }
     }

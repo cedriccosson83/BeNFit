@@ -206,6 +206,9 @@ fun showPopUpExercice(database: FirebaseDatabase, context : Context, exoID: Stri
                 dialog.findViewById<TextView>(R.id.showExoDesc).text = exercice.description
                 dialog.findViewById<TextView>(R.id.showExoLevelText).text = exercice.difficulty
                 dialog.findViewById<TextView>(R.id.showExosport).text = exercice.sport
+                dialog.findViewById<TextView>(R.id.showExoAuthor).setOnClickListener{
+                    redirectToUserActivity(context, exercice.idUser)
+                }
                 dialog.findViewById<ImageView>(R.id.showExoShare).setOnClickListener {
                     val writePostIntent = Intent(context, WritePostActivity::class.java)
                     writePostIntent.putExtra("sharedExo", exoID)
