@@ -37,7 +37,8 @@ class SessionActivity : MenuActivity(){
             showInfosSession(database, this, idUser)
             showExosSession(database, recyclerViewExoSession, idUser,this)
         }
-        recyclerViewExoSession.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+        recyclerViewExoSession.layoutManager = LinearLayoutManager(
+            this, LinearLayoutManager.VERTICAL, false)
         createSpinnerLevel()
         showPopMenuExo()
 
@@ -155,7 +156,8 @@ class SessionActivity : MenuActivity(){
         imageViewCreateSession.setImageURI(imageUri)
     }
 
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+    override fun onRequestPermissionsResult(requestCode: Int,
+                                            permissions: Array<out String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         stu.manageRequestPermissionResult(requestCode, grantResults)
     }

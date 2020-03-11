@@ -26,7 +26,8 @@ class SessionFeedActivity : MenuActivity() {
             startActivity(Intent(this, SessionActivity::class.java))
         }
 
-        recycler_view_session_feed.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+        recycler_view_session_feed.layoutManager = LinearLayoutManager(
+            this, LinearLayoutManager.VERTICAL, false)
 
     }
     private fun notifClicked(session : SessionFeed) {
