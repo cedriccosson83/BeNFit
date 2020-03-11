@@ -47,7 +47,6 @@ class ProgramFeedAdapter (val programs: ArrayList<ProgramFeed>,
             view.btnSubscribeProg.setOnClickListener { clickListenersubscribe(program) }
             val img = program.imgURI
             setImageFromFirestore(
-                ApplicationContext.applicationContext(),
                 view.imageViewFeedProg,
                 "programs/${program.programID}/${img}")
             view.btnLikeProgram.setOnClickListener {
@@ -69,7 +68,6 @@ class ProgramFeedAdapter (val programs: ArrayList<ProgramFeed>,
 
             showFollowers(
                 database,
-                currentUserID,
                 program.programID,
                 "users/${currentUserID}/currentPrograms",
                 view.btnSubscribeProg)

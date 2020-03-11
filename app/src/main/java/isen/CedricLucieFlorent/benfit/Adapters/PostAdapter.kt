@@ -86,7 +86,7 @@ class PostAdapter(
             if(post.postImgUID != "null"){
                 val layout = view.layoutImgPost
                 val postImView = ImageView(ApplicationContext.applicationContext())
-                setImageFromFirestore(ApplicationContext.applicationContext(),postImView, "posts/${post.postid}/${post.postImgUID}")
+                setImageFromFirestore(postImView, "posts/${post.postid}/${post.postImgUID}")
 
                 layout.addView(postImView)
                 postImView.layoutParams.height = 400

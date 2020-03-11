@@ -43,7 +43,6 @@ class SessionAdapter(
             view.btnAddSessionProgram.setOnClickListener { clickListener(session) }
             val img = session.pictureUID
             setImageFromFirestore(
-                ApplicationContext.applicationContext(),
                 view.imageViewSessionProgram,
                 "sessions/${session.sessionID}/${img}")
         }

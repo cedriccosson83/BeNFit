@@ -105,7 +105,7 @@ fun showExo(database: FirebaseDatabase, exoId : String, textView: TextView, imag
                 if(exo.id == exoId){
                     textView.text = "${exo.name}"
                     if (exo.pictureUID != "" && exo.pictureUID != "null"){
-                        setImageFromFirestore(ApplicationContext.applicationContext(), imageView, "exos/${exo.id}/${exo.pictureUID}")
+                        setImageFromFirestore(imageView, "exos/${exo.id}/${exo.pictureUID}")
                     }
                 }
             }
@@ -245,7 +245,7 @@ fun showPopUpExercice(database: FirebaseDatabase, context : Context, exoID: Stri
                     exercice.pictureUID != "" -> {
                         val layout = dialog.findViewById<LinearLayout>(R.id.showExoMediaLayout)
                         val exoImView = ImageView(context)
-                        setImageFromFirestore(context,exoImView, "exos/${exercice.id}/${exercice.pictureUID}")
+                        setImageFromFirestore(exoImView, "exos/${exercice.id}/${exercice.pictureUID}")
 
                         layout.addView(exoImView)
                         exoImView.layoutParams.height = 400

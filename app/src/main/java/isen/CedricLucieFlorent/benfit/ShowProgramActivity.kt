@@ -91,7 +91,7 @@ class ShowProgramActivity : MenuActivity() {
                         numberSessionProgram.text = arraySession.size.toString()
                         //showProgramLevelText.text = program.levelProgram
                         showUserName(program.userID, showProgramAuthor)
-                        showFollowers(database, currentUser,programId,"users/${currentUser}/currentPrograms", showProgramSub)
+                        showFollowers(database,programId,"users/${currentUser}/currentPrograms", showProgramSub)
 
                         val path = "programs/${program.programID}/likes"
                         val userId = auth.currentUser?.uid

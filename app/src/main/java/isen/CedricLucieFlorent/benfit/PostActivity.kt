@@ -87,7 +87,8 @@ class PostActivity : MenuActivity() {
                         if(post.postImgUID != "null" && post.postImgUID != ""){
                             val layout = postShowImage
                             val postImView = ImageView(ApplicationContext.applicationContext())
-                            setImageFromFirestore(ApplicationContext.applicationContext(),postImView, "posts/${post.postid}/${post.postImgUID}")
+                            setImageFromFirestore(postImView,
+                                "posts/${post.postid}/${post.postImgUID}")
 
                             layout.addView(postImView)
                             postImView.layoutParams.height = 400
