@@ -9,16 +9,11 @@ import android.util.Log
 import android.view.View
 import android.widget.*
 import android.widget.AdapterView.OnItemSelectedListener
-import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
-import com.google.firebase.storage.UploadTask
 import kotlinx.android.synthetic.main.activity_session.*
-import kotlinx.android.synthetic.main.activity_splash.view.*
-import java.util.*
 import kotlin.collections.ArrayList
 
 
@@ -27,7 +22,7 @@ class SessionActivity : MenuActivity(){
     var array : ArrayList<String> ?= ArrayList()
     private lateinit var stu: StreamToUri
     private lateinit var storageReference: StorageReference
-    private var image_uri : Uri = Uri.EMPTY
+    private var imageUri : Uri = Uri.EMPTY
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -49,13 +44,13 @@ class SessionActivity : MenuActivity(){
         btnMinusRound.setOnClickListener {
             var round = editTextNumberSerie.text.toString().toInt()
             round -= 1
-            editTextNumberSerie.setText(round.toString())
+            editTextNumberSerie.text = round.toString()
         }
 
         btnPlusRound.setOnClickListener {
             var round = editTextNumberSerie.text.toString().toInt()
             round += 1
-            editTextNumberSerie.setText(round.toString())
+            editTextNumberSerie.text = round.toString()
         }
 
         imageViewCreateSession.setOnClickListener{
@@ -66,7 +61,7 @@ class SessionActivity : MenuActivity(){
             if (idUser != null) {
                 saveSession(database,
                     storageReference,
-                    image_uri,
+                    imageUri,
                     context,
                     idUser,
                     inputNameSession.text.toString(),
@@ -84,7 +79,7 @@ class SessionActivity : MenuActivity(){
                 deleteExoSessionTemp(database, idUser)
                 deleteInfosTempSession(database,this, idUser)
 
-                overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
+                overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right)
             }
         }
 
@@ -156,8 +151,8 @@ class SessionActivity : MenuActivity(){
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         stu.manageActivityResult(requestCode, data)
-        image_uri = stu.imageUri
-        imageViewCreateSession.setImageURI(image_uri)
+        imageUri = stu.imageUri
+        imageViewCreateSession.setImageURI(imageUri)
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
@@ -166,7 +161,7 @@ class SessionActivity : MenuActivity(){
     }
 
 
-    fun showPopMenuExo(){
+    private fun showPopMenuExo(){
         buttonAddExoSession.setOnClickListener {
             val popupMenu = PopupMenu(this, it)
             popupMenu.setOnMenuItemClickListener { item ->
@@ -174,13 +169,13 @@ class SessionActivity : MenuActivity(){
                    R.id.menu_create_exo -> {
                         val intent = Intent(this,ExerciceActivity::class.java)
                         startActivity(intent)
-                        overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
-                        true
+                        overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right)
+                       true
                     }
                     R.id.menu_choose_exo -> {
                         val intent = Intent(this,ListExercicesActivity::class.java)
                         startActivity(intent)
-                        overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
+                        overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right)
                         true
                     }
                     else -> false
@@ -201,7 +196,7 @@ class SessionActivity : MenuActivity(){
             }
         }
     }
-    fun createSpinnerLevel(){
+    private fun createSpinnerLevel(){
         val spinner: Spinner = findViewById(R.id.spinnerLevelSession)
 
         ArrayAdapter.createFromResource(
