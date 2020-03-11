@@ -13,6 +13,10 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
 import isen.CedricLucieFlorent.benfit.Adapters.MyProgAdapter
 import isen.CedricLucieFlorent.benfit.Adapters.ProgramFollowAdapter
+import isen.CedricLucieFlorent.benfit.Functions.countTotalProgramLikes
+import isen.CedricLucieFlorent.benfit.Functions.redirectToProgram
+import isen.CedricLucieFlorent.benfit.Functions.renderGrade
+import isen.CedricLucieFlorent.benfit.Functions.setImageFromFirestore
 import isen.CedricLucieFlorent.benfit.Models.*
 import kotlinx.android.synthetic.main.activity_profile.*
 import kotlin.collections.ArrayList

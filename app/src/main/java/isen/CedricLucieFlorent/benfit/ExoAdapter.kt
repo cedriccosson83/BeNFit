@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import isen.CedricLucieFlorent.benfit.Functions.setImageFromFirestore
 import isen.CedricLucieFlorent.benfit.Models.Exercice
 import kotlinx.android.synthetic.main.recycler_view_exo_cell.view.*
 import kotlinx.android.synthetic.main.recycler_view_feed_session.view.*

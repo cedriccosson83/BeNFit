@@ -10,6 +10,7 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import isen.CedricLucieFlorent.benfit.Adapters.ShowExercicesAdapter
+import isen.CedricLucieFlorent.benfit.Functions.*
 import isen.CedricLucieFlorent.benfit.Models.ShowExerciceSession
 import kotlinx.android.synthetic.main.activity_show_session.*
 import kotlinx.android.synthetic.main.recycler_view_show_program_sessions.*

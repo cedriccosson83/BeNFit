@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import isen.CedricLucieFlorent.benfit.*
+import isen.CedricLucieFlorent.benfit.Functions.*
 import isen.CedricLucieFlorent.benfit.Models.ProgramFeed
 import kotlinx.android.synthetic.main.recycler_view_feed_program.view.*
 import kotlinx.android.synthetic.main.recycler_view_feed_session.view.*

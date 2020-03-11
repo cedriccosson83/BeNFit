@@ -16,6 +16,7 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import com.google.firebase.storage.UploadTask
+import isen.CedricLucieFlorent.benfit.Functions.*
 import kotlinx.android.synthetic.main.activity_session.*
 import kotlinx.android.synthetic.main.activity_splash.view.*
 import java.util.*

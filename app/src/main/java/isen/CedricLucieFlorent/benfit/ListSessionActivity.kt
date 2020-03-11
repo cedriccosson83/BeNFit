@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.auth.FirebaseAuth
+import isen.CedricLucieFlorent.benfit.Functions.showSessions
 import kotlinx.android.synthetic.main.activity_list_exercices.*
 import kotlinx.android.synthetic.main.activity_list_session.*
 
