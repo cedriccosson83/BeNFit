@@ -178,16 +178,18 @@
     <string name="gradeFunctionning">Fonctionnement des grades</string>
 
     <string name="descrFonctGrade">Il existe deux sortes de grades sur BenFit :
-        Les grades sportif et les grades coach. Vous disposez d\'un grade de chaque
+        Le grade sportif et le grade coach. Vous disposez d\'un grade de chaque type
         qui évoluera avec votre carrière sur BenFit.</string>
 
     <string name="descrFonctFirstGrade">Le premier grade est le grade Sportif, il correspond
-        au programmes sportifs que vous avez effectué. A la fin de chaque programme, vous remportez
-        des points qui se cumuleront pour calculer ce score.\nVoici les Grades Sportif que vous pouvez obtenir :</string>
+        aux programmes sportifs que vous avez effectué. A la fin de chaque programme, vous remportez
+        des points qui se cumuleront pour calculer ce score.\nVoici les différents Grades de Sportif
+        que vous pouvez obtenir :</string>
+
 
     <string name="descrFonctSecondGrade">Le second grade est le grade Coach, il correspond au degré d\'appréciation
         des programmes, séances et exercices que vous avez créés. Ce grade est calculé par le nombre de mentions j\'aime
-        sur chacune de ces publications.\nVoici les Grades Coach que vous pouvez obtenir :</string>
+        sur chacune de ces publications.\nVoici les Grades de Coach que vous pouvez obtenir :</string>
 
     <string name="scoreGrade0">(Score &lt; 30)</string>
     <string name="scoreGrade1">(30 &lt; Score &gt; 60)</string>
