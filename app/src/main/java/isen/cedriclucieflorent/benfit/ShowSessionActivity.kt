@@ -9,9 +9,9 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
-import isen.cedriclucieflorent.benfit.Adapters.ShowExercicesAdapter
-import isen.cedriclucieflorent.benfit.Functions.*
-import isen.cedriclucieflorent.benfit.Models.ShowExerciceSession
+import isen.cedriclucieflorent.benfit.adapters.ShowExercicesAdapter
+import isen.cedriclucieflorent.benfit.functions.*
+import isen.cedriclucieflorent.benfit.models.ShowExerciceSession
 import kotlinx.android.synthetic.main.activity_show_session.*
 
 class ShowSessionActivity : MenuActivity() {
@@ -74,7 +74,6 @@ class ShowSessionActivity : MenuActivity() {
                         textNumberExo.text = arrayExercices.size.toString()
 
                         convertLevelToImg(session.levelSession, showSessionLevelIcon)
-                        //showSessionLevelText.text = session.levelSession
                         showUserName(session.userID, showSessionAuthor)
                         val path = "sessions/${session.sessionID}/likes"
                         val userId = auth.currentUser?.uid

@@ -8,8 +8,8 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
-import isen.cedriclucieflorent.benfit.Adapters.PostAdapter
-import isen.cedriclucieflorent.benfit.Models.Post
+import isen.cedriclucieflorent.benfit.adapters.PostAdapter
+import isen.cedriclucieflorent.benfit.models.Post
 import kotlinx.android.synthetic.main.activity_feed.*
 import kotlinx.android.synthetic.main.recycler_view_post_cell.*
 
@@ -58,7 +58,7 @@ class FeedActivity : MenuActivity() {
                     posts.add(post)
                 }
                 posts.reverse()
-                recyclerViewFeed.adapter = PostAdapter(posts, windowManager,
+                recyclerViewFeed.adapter = PostAdapter(posts,
                     { postItem : Post -> userClicked(postItem) },
                     { postItem : Post -> postClicked(postItem) })
             }
@@ -82,7 +82,6 @@ class FeedActivity : MenuActivity() {
         val name: String = textViewName.text.toString()
         intent.putExtra("post", id)
         intent.putExtra("name", name)
-        //intent.putExtra("post", post)
         startActivity(intent)
     }
 }

@@ -19,9 +19,9 @@ import com.google.firebase.database.ValueEventListener
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import com.google.firebase.storage.UploadTask
-import isen.cedriclucieflorent.benfit.Functions.getDrawableToURI
-import isen.cedriclucieflorent.benfit.Models.Sport
-import isen.cedriclucieflorent.benfit.Models.User
+import isen.cedriclucieflorent.benfit.functions.getDrawableToURI
+import isen.cedriclucieflorent.benfit.models.Sport
+import isen.cedriclucieflorent.benfit.models.User
 import kotlinx.android.synthetic.main.activity_sign_up.*
 import java.text.SimpleDateFormat
 
@@ -167,7 +167,7 @@ class SignUpActivity : AppCompatActivity() {
         ).addOnCompleteListener(this) { task ->
             if (task.isSuccessful) {
                 val user = auth.currentUser
-                val createdUserName = registerNewUser(user,
+                registerNewUser(user,
                     firstnameEditTextSignUp.text.toString(),
                     lastnameEditTextSignUp.text.toString(),
                     birthdayEditTextSignUp.text.toString(),
@@ -175,10 +175,10 @@ class SignUpActivity : AppCompatActivity() {
                     weightEditText.text.toString()
                 )
 
-                updateUI(user, createdUserName)
+                updateUI(user)
             } else {
                 Toast.makeText(baseContext, getString(R.string.err_inscription), Toast.LENGTH_SHORT).show()
-                updateUI(null, "")
+                updateUI(null)
             }
         }
     }
@@ -191,17 +191,15 @@ class SignUpActivity : AppCompatActivity() {
     }
 
     private fun registerNewUser(user: FirebaseUser?, fname:String, lname:String, birthdate:String,
-                                sports:ArrayList<Sport>, weight:String): String {
+                                sports:ArrayList<Sport>, weight:String) {
 
-        var userName = ""
         if (user?.uid != null) {
             currUser = User(user.uid, user.email, fname, lname, birthdate,sports,
                 weight, "", "0")
             val root = database.getReference("users")
             root.child(currUser.userid).setValue(currUser)
-            userName = currUser.firstname.toString()
 
-            // Photo
+
             val uniqID = UUID.randomUUID().toString()
             val stoRef = storageReference.child("users/${currUser.userid}/$uniqID")
             val result: UploadTask
@@ -218,14 +216,11 @@ class SignUpActivity : AppCompatActivity() {
 
         } else
             Toast.makeText(this, getString(R.string.err_inscription), Toast.LENGTH_LONG).show()
-        return userName
+
     }
 
-    private fun updateUI(user: FirebaseUser?, firstname : String) {
+    private fun updateUI(user: FirebaseUser?) {
         if (user != null) {
-            Toast.makeText(this,
-                getString(R.string.welcomeBack) +
-                        " " + firstname + " !", Toast.LENGTH_LONG).show()
             startActivity(Intent(this, HomeActivity::class.java))
         } else {
             Toast.makeText(this, getString(R.string.vous_avez_un_compte), Toast.LENGTH_LONG).show()

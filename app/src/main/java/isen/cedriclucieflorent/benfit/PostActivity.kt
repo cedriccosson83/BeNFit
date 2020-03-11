@@ -12,14 +12,14 @@ import android.widget.ImageView
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
-import isen.cedriclucieflorent.benfit.Adapters.CommentAdapter
-import isen.cedriclucieflorent.benfit.Models.Comment
-import isen.cedriclucieflorent.benfit.Models.Post
+import isen.cedriclucieflorent.benfit.adapters.CommentAdapter
+import isen.cedriclucieflorent.benfit.models.Comment
+import isen.cedriclucieflorent.benfit.models.Post
 import kotlinx.android.synthetic.main.activity_post.*
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
-import isen.cedriclucieflorent.benfit.Functions.*
+import isen.cedriclucieflorent.benfit.functions.*
 
 
 
@@ -52,7 +52,6 @@ class PostActivity : MenuActivity() {
         }
     }
 
-    //This function allows to show the name of the user
     private fun showPost(intent : Intent) {
 
         val myRef = database.getReference("posts")

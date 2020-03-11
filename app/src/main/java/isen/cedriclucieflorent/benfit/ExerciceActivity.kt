@@ -9,8 +9,8 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import com.google.firebase.storage.UploadTask
-import isen.cedriclucieflorent.benfit.Functions.*
-import isen.cedriclucieflorent.benfit.Models.Exercice
+import isen.cedriclucieflorent.benfit.functions.*
+import isen.cedriclucieflorent.benfit.models.Exercice
 import kotlinx.android.synthetic.main.activity_exercice.*
 import java.util.*
 
@@ -59,55 +59,52 @@ class ExerciceActivity : MenuActivity() {
             val valid: Boolean = constraintValidateYoutube(urlButton, inputURLExo.text.toString())
 
             if (valid){
-            val resRequest =
-                id?.let { it1 ->
-                    addNewExo(
-                        database, nameExo,
-                        it1, descExo, levelExo, categoryExo
-                    )
-                }
+                val resRequest =
+                    id?.let { it1 ->
+                        addNewExo(
+                            database, nameExo,
+                            it1, descExo, levelExo, categoryExo
+                        )
+                    }
 
-            if (resRequest != "false") {
-                if (urlButton.isChecked) {
-                    urlExo = inputURLExo.text.toString()
-                    database.getReference("exos/${resRequest}/urlYt").setValue(urlExo)
-                }
-                else {
-                    val uniqID = UUID.randomUUID().toString()
-                    val stoRef = storageReference.child("exos/${resRequest}/${uniqID}")
-                    val result: UploadTask
-                    result = if (imageUri != Uri.EMPTY) {
-                        stoRef.putFile(imageUri)
-                    } else {
-                        val uri = getDrawableToURI(context, R.drawable.exercice)
-                        stoRef.putFile(uri)
+                if (resRequest != "false") {
+                    if (urlButton.isChecked) {
+                        urlExo = inputURLExo.text.toString()
+                        database.getReference("exos/${resRequest}/urlYt").setValue(urlExo)
                     }
-                    result.addOnSuccessListener {
-                        database.getReference("exos/${resRequest}/pictureUID").setValue(uniqID)
+                    else {
+                        val uniqID = UUID.randomUUID().toString()
+                        val stoRef = storageReference.child("exos/${resRequest}/${uniqID}")
+                        val result: UploadTask
+                        result = if (imageUri != Uri.EMPTY) {
+                            stoRef.putFile(imageUri)
+                        } else {
+                            val uri = getDrawableToURI(context, R.drawable.exercice)
+                            stoRef.putFile(uri)
+                        }
+                        result.addOnSuccessListener {
+                            database.getReference("exos/${resRequest}/pictureUID").setValue(uniqID)
+                        }
                     }
+                    val exo: Exercice? = resRequest?.let { it1 ->
+                        Exercice(
+                            it1,
+                            nameExo,
+                            id.toString(),
+                            descExo,
+                            levelExo,
+                            ""
+                        )
+                    }
+                    if (exo != null) {
+                        addTemporaryExoSession(database, id.toString(), exo)
+                    }
+                    intent = Intent(this, SessionActivity::class.java)
+                    startActivity(intent)
+                } else {
+                    Toast.makeText(this, "Erreur! Veuillez réessayer!", Toast.LENGTH_SHORT).show()
                 }
-                Toast.makeText(this, "Nouvel exercice créé !", Toast.LENGTH_SHORT).show()
-                val exo: Exercice? = resRequest?.let { it1 ->
-                    Exercice(
-                        it1,
-                        nameExo,
-                        id.toString(),
-                        descExo,
-                        levelExo,
-                        ""
-                    )
-                }
-                if (exo != null) {
-                    addTemporaryExoSession(database, id.toString(), exo)
-                }
-                intent = Intent(this, SessionActivity::class.java)
-                startActivity(intent)
-            }
-            else {
-                Toast.makeText(this, "Erreur! Veuillez réessayer!", Toast.LENGTH_SHORT).show()
-            }
-            }
-            else {
+            } else {
                 toast(context, "Veuillez rensigner un URL correct")
             }
         }
@@ -128,15 +125,12 @@ class ExerciceActivity : MenuActivity() {
     private fun createSpinnerLevel(){
         val spinner: Spinner = findViewById(R.id.spinnerLevelExo)
 
-        // Create an ArrayAdapter using the string array and a default spinner layout
         ArrayAdapter.createFromResource(
             this,
             R.array.level_array,
             android.R.layout.simple_spinner_item
         ).also { adapter ->
-            // Specify the layout to use when the list of choices appears
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-            // Apply the adapter to the spinner
             spinner.adapter = adapter
         }
     }

@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
-import isen.cedriclucieflorent.benfit.Functions.*
+import isen.cedriclucieflorent.benfit.functions.*
 import kotlinx.android.synthetic.main.activity_session.*
 import kotlin.collections.ArrayList
 
@@ -70,7 +70,6 @@ class SessionActivity : MenuActivity(){
                     inputDescSession.text.toString(),
                     spinnerLevelSession.selectedItem.toString(),
                     editTextNumberSerie.text.toString().toInt() )
-                Toast.makeText(this,"Séance sauvegardée!", Toast.LENGTH_SHORT).show()
 
                 val intent = Intent(this,SessionFeedActivity::class.java)
                 

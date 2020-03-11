@@ -11,8 +11,8 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
-import isen.cedriclucieflorent.benfit.Adapters.SessionFeedAdapter
-import isen.cedriclucieflorent.benfit.Models.SessionFeed
+import isen.cedriclucieflorent.benfit.adapters.SessionFeedAdapter
+import isen.cedriclucieflorent.benfit.models.SessionFeed
 import kotlinx.android.synthetic.main.activity_session_feed.*
 
 class SessionFeedActivity : MenuActivity() {
@@ -45,11 +45,10 @@ class SessionFeedActivity : MenuActivity() {
         context.startActivity(intent)
     }
 
-    fun showSessionsFeed(database : FirebaseDatabase, view : RecyclerView, context: Context, userId: String) {
+    private fun showSessionsFeed(database : FirebaseDatabase, view : RecyclerView, context: Context, userId: String) {
 
         val myRef = database.getReference("sessions")
         auth = FirebaseAuth.getInstance()
-        val currentUserID = auth.currentUser?.uid
 
         myRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {

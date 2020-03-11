@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
-import isen.cedriclucieflorent.benfit.Functions.*
+import isen.cedriclucieflorent.benfit.functions.*
 import kotlinx.android.synthetic.main.activity_program.*
 
 class ProgramActivity : MenuActivity() {
@@ -43,7 +43,6 @@ class ProgramActivity : MenuActivity() {
         btnSaveProgram.setOnClickListener {
             if (id != null) {
                 saveProgram(database, storageReference,imageUri,context, id,inputNameProgram.text.toString(),inputDescProgram.text.toString(),spinnerLevelProgram.selectedItem.toString() )
-                Toast.makeText(this,"Programme sauvegardé!", Toast.LENGTH_SHORT).show()
                 deleteSessionsTempProgram(database,id)
                 deleteInfosTempProgram(database,this, id)
                 val intent = Intent(this,ProgramFeedActivity::class.java)
@@ -173,7 +172,6 @@ class ProgramActivity : MenuActivity() {
 
             override fun onNothingSelected(parent: AdapterView<*>?)
             {
-                //Log.d("niveau", spinnerLevelSession.getItemAtPosition(0).toString())
             }
         }
     }

@@ -45,7 +45,7 @@ class NotifActivity : MenuActivity() {
         val hour = t.get(Calendar.HOUR_OF_DAY)
         val minute = t.get(Calendar.MINUTE)
 
-        val dateFormat = "dd/MM/yyyy" // mention the format you need
+        val dateFormat = "dd/MM/yyyy"
         val timeFormat = "hh:mm a"
 
         val sdf = SimpleDateFormat(dateFormat, Locale.FRANCE)
@@ -96,7 +96,7 @@ class NotifActivity : MenuActivity() {
                         c.set(Calendar.YEAR, year)
                         c.set(Calendar.MONTH, monthOfYear)
                         c.set(Calendar.DAY_OF_MONTH, dayOfMonth)
-                        // Display Selected date in TextView
+
                         inputDate.setText(sdf.format(c.time))
                         dayselec = dayOfMonth
                         monthselec = monthOfYear
@@ -117,7 +117,7 @@ class NotifActivity : MenuActivity() {
                     TimePickerDialog.OnTimeSetListener { _, hourOfDay, minute ->
                         t.set(Calendar.HOUR_OF_DAY, hourOfDay)
                         t.set(Calendar.MINUTE, minute)
-                        // Display Selected time in TextView
+
                         inputTime.setText(stf.format(t.time))
                         hourselec = hourOfDay
                         minselec = minute
@@ -153,7 +153,7 @@ class NotifActivity : MenuActivity() {
 
             database.getReference("notifications/${userID}/${sessionId}").setValue("${hourselecr}:${minselecr} ${dayselec}/${monthr}/${yearselec}")
 
-            Toast.makeText(this, "Notification planifiée ${Calendar.MONTH}" , Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Notification planifiée !" , Toast.LENGTH_SHORT).show()
 
             intent = Intent(this, ReminderBroadcast::class.java)
 

@@ -10,9 +10,9 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
-import isen.cedriclucieflorent.benfit.Adapters.ProgramFeedAdapter
-import isen.cedriclucieflorent.benfit.Functions.redirectToProgram
-import isen.cedriclucieflorent.benfit.Models.ProgramFeed
+import isen.cedriclucieflorent.benfit.adapters.ProgramFeedAdapter
+import isen.cedriclucieflorent.benfit.functions.redirectToProgram
+import isen.cedriclucieflorent.benfit.models.ProgramFeed
 import kotlinx.android.synthetic.main.activity_program_feed.*
 import kotlinx.android.synthetic.main.recycler_view_feed_program.*
 
@@ -61,7 +61,6 @@ class ProgramFeedActivity : MenuActivity() {
         val sessions = programItem.sessions
         if(follow.all { it != idProg}) {
             follow.add(idProg)
-            //myRef.child("currentPrograms").setValue(follow)
             val sessionMap = HashMap<String, String>()
             for (sess in sessions)
                 sessionMap[sess] = "KO"

@@ -4,8 +4,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import isen.cedriclucieflorent.benfit.Functions.setImageFromFirestore
-import isen.cedriclucieflorent.benfit.Models.Exercice
+import isen.cedriclucieflorent.benfit.functions.setImageFromFirestore
+import isen.cedriclucieflorent.benfit.models.Exercice
 import kotlinx.android.synthetic.main.recycler_view_exo_cell.view.*
 
 

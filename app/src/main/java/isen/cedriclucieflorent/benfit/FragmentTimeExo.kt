@@ -25,9 +25,7 @@ class FragmentTimeExo : Fragment() {
             numberPicker.minValue = 0
             numberPicker.maxValue = 59
             numberPicker.wrapSelectorWheel = true
-            numberPicker.setOnValueChangedListener { _, oldVal, newVal ->
-                val text = "Changed from $oldVal to $newVal"
-            }
+            numberPicker.setOnValueChangedListener { _, _, _ ->}
         }
 
         val numberPickerSec = view?.findViewById<NumberPicker>(R.id.numberPickerSec)
@@ -35,9 +33,7 @@ class FragmentTimeExo : Fragment() {
             numberPickerSec.minValue = 0
             numberPickerSec.maxValue = 59
             numberPickerSec.wrapSelectorWheel = true
-            numberPickerSec.setOnValueChangedListener { _, oldVal, newVal ->
-                val text = "Changed from $oldVal to $newVal"
-            }
+            numberPickerSec.setOnValueChangedListener { _, _, _ ->}
         }
     }
 

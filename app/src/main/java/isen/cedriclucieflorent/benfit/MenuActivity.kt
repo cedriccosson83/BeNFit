@@ -19,7 +19,7 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
-import isen.cedriclucieflorent.benfit.Functions.setImageFromFirestore
+import isen.cedriclucieflorent.benfit.functions.setImageFromFirestore
 
 open class MenuActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener
 {
@@ -29,7 +29,6 @@ open class MenuActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
     lateinit var imgHomeBTN: ImageButton
     lateinit var frameLayout: FrameLayout
     lateinit var auth: FirebaseAuth
-    //lateinit var menuTopSection: CoordinatorLayout
     val database = FirebaseDatabase.getInstance()
 
 
@@ -43,7 +42,6 @@ open class MenuActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
         auth = FirebaseAuth.getInstance()
         context = this
         initView()
-        //navNameText = findViewById<TextView>(R.id.nav_name)
         frameLayout = findViewById(R.id.container)
         val navigationView = findViewById<NavigationView>(R.id.navView)
 
@@ -57,8 +55,6 @@ open class MenuActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
         img_menuOption = findViewById(R.id.img_menuOption)
         drawer = findViewById(R.id.drawer_layout)
         val navigationView = findViewById<NavigationView>(R.id.navView)
-        //navNameText = navigationView.findViewById(R.id.nav_name)
-        //val headerview = navigationView.getHeaderView(0)
         toggle = ActionBarDrawerToggle(
             this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close
         )
@@ -67,7 +63,6 @@ open class MenuActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
         toggle.syncState()
         navigationView.setNavigationItemSelectedListener(this)
         img_menuOption.setOnClickListener { drawer!!.openDrawer(GravityCompat.START) }
-        //menuTopSection = findViewById(R.id.topMenu)
     }
     private fun updateMenuInfos(userId: String, navView : NavigationView) {
         if (userId == "") return
@@ -142,7 +137,6 @@ open class MenuActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
 
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
-        // Handle navigation view item clicks here.
 
         val id = item.itemId
         val intent: Intent

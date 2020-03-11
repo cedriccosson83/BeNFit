@@ -9,9 +9,9 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
-import isen.cedriclucieflorent.benfit.Adapters.ShowSessionsAdapter
-import isen.cedriclucieflorent.benfit.Functions.*
-import isen.cedriclucieflorent.benfit.Models.ShowSessionProgram
+import isen.cedriclucieflorent.benfit.adapters.ShowSessionsAdapter
+import isen.cedriclucieflorent.benfit.functions.*
+import isen.cedriclucieflorent.benfit.models.ShowSessionProgram
 import kotlinx.android.synthetic.main.activity_show_program.*
 
 class ShowProgramActivity : MenuActivity() {
@@ -23,7 +23,8 @@ class ShowProgramActivity : MenuActivity() {
         layoutInflater.inflate(R.layout.activity_show_program, frameLayout)
         auth = FirebaseAuth.getInstance()
 
-        showProgramRecyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+        showProgramRecyclerView.layoutManager =
+            LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
 
         currentUser = auth.currentUser?.uid
 
@@ -89,7 +90,6 @@ class ShowProgramActivity : MenuActivity() {
                         showProgramDesc.text = program.descProgram
                         convertLevelToImg(program.levelProgram, showProgramLevelIcon)
                         numberSessionProgram.text = arraySession.size.toString()
-                        //showProgramLevelText.text = program.levelProgram
                         showUserName(program.userID, showProgramAuthor)
                         showFollowers(database,programId,"users/${currentUser}/currentPrograms", showProgramSub)
 
@@ -143,7 +143,6 @@ class ShowProgramActivity : MenuActivity() {
         val sessions = program.sessionsProgram
         if(follow.all { it != idProg}) {
             follow.add(idProg)
-            //myRef.child("currentPrograms").setValue(follow)
             val sessionMap = HashMap<String, String>()
             for (sess in sessions)
                 sessionMap[sess] = "KO"

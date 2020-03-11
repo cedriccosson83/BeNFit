@@ -1,5 +1,6 @@
 package isen.cedriclucieflorent.benfit
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -8,7 +9,7 @@ import java.text.SimpleDateFormat
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.FirebaseDatabase
-import isen.cedriclucieflorent.benfit.Functions.removePassedNotif
+import isen.cedriclucieflorent.benfit.functions.removePassedNotif
 import kotlinx.android.synthetic.main.activity_sign_in.*
 import java.util.*
 
@@ -50,6 +51,7 @@ class SignInActivity : AppCompatActivity() {
             }
     }
 
+    @SuppressLint("SimpleDateFormat")
     private fun updateUI(user: FirebaseUser?) {
         if (user != null ) {
             val sdf = SimpleDateFormat("HH:mm dd/MM/yyyy")

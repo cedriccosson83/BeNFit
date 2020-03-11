@@ -3,7 +3,7 @@ package isen.cedriclucieflorent.benfit
 import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.auth.FirebaseAuth
-import isen.cedriclucieflorent.benfit.Functions.showSessions
+import isen.cedriclucieflorent.benfit.functions.showSessions
 import kotlinx.android.synthetic.main.activity_list_session.*
 
 class ListSessionActivity : MenuActivity() {
@@ -18,6 +18,7 @@ class ListSessionActivity : MenuActivity() {
         if (id != null) {
             showSessions(database, recycler_view_list_session, this,id)
         }
-        recycler_view_list_session.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+        recycler_view_list_session.layoutManager =
+            LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
     }
 }

@@ -16,7 +16,7 @@ import androidx.core.content.ContextCompat
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
-import isen.cedriclucieflorent.benfit.Models.Post
+import isen.cedriclucieflorent.benfit.models.Post
 import kotlinx.android.synthetic.main.activity_write.*
 import java.text.SimpleDateFormat
 import java.util.*
@@ -62,7 +62,6 @@ class WritePostActivity : MenuActivity() {
                 if(publish_field.text.toString() != ""){
                     newPost(userid, publish_field.text.toString(), programId, sessionId, exoId)
                     publish_field.setText("")
-                    Toast.makeText(this, "Post publié!", Toast.LENGTH_LONG).show()
                     startActivity(Intent(this, FeedActivity::class.java))
                 }
                 else{

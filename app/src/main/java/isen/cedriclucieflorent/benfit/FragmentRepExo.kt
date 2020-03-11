@@ -25,8 +25,8 @@ class FragmentRepExo : Fragment() {
             numberPicker.minValue = 0
             numberPicker.maxValue = 500
             numberPicker.wrapSelectorWheel = true
-            numberPicker.setOnValueChangedListener { _, oldVal, newVal ->
-                val text = "Changed from $oldVal to $newVal"
+            numberPicker.setOnValueChangedListener { _, _, _ ->
+
             }
         }
     }

@@ -9,13 +9,13 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
-import isen.cedriclucieflorent.benfit.Adapters.MyProgAdapter
-import isen.cedriclucieflorent.benfit.Adapters.ProgramFollowAdapter
-import isen.cedriclucieflorent.benfit.Functions.countTotalProgramLikes
-import isen.cedriclucieflorent.benfit.Functions.redirectToProgram
-import isen.cedriclucieflorent.benfit.Functions.renderGrade
-import isen.cedriclucieflorent.benfit.Functions.setImageFromFirestore
-import isen.cedriclucieflorent.benfit.Models.*
+import isen.cedriclucieflorent.benfit.adapters.MyProgAdapter
+import isen.cedriclucieflorent.benfit.adapters.ProgramFollowAdapter
+import isen.cedriclucieflorent.benfit.functions.countTotalProgramLikes
+import isen.cedriclucieflorent.benfit.functions.redirectToProgram
+import isen.cedriclucieflorent.benfit.functions.renderGrade
+import isen.cedriclucieflorent.benfit.functions.setImageFromFirestore
+import isen.cedriclucieflorent.benfit.models.*
 import kotlinx.android.synthetic.main.activity_profile.*
 import kotlin.collections.ArrayList
 

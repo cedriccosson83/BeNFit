@@ -16,10 +16,10 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
-import isen.cedriclucieflorent.benfit.Functions.setImageFromFirestore
-import isen.cedriclucieflorent.benfit.Functions.toast
-import isen.cedriclucieflorent.benfit.Models.Sport
-import isen.cedriclucieflorent.benfit.Models.User
+import isen.cedriclucieflorent.benfit.functions.setImageFromFirestore
+import isen.cedriclucieflorent.benfit.functions.toast
+import isen.cedriclucieflorent.benfit.models.Sport
+import isen.cedriclucieflorent.benfit.models.User
 import kotlinx.android.synthetic.main.activity_modify_profile.*
 import java.text.SimpleDateFormat
 import java.util.*
