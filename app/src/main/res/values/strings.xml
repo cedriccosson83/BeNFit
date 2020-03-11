@@ -296,5 +296,8 @@
     <string name="sportInExo">(%1$s)</string>
     <string name="sportsPracticed">Sports pratiqués :</string>
     <string name="ConcatSport">%1$s%2$s </string>
+    <string name="doubleWordsSpaced">%1$s %2$s</string>
+    <string name="concatStringSpaced">%1$s </string>
+    <string name="concatValueWeight">%1$s kilos</string>
 
 </resources>

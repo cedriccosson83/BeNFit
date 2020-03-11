@@ -193,7 +193,8 @@ class ModifyProfile : MenuActivity() {
         }
     }
 
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>,
+                                            grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         stu.manageRequestPermissionResult(requestCode, grantResults)
     }
@@ -210,7 +211,8 @@ class ModifyProfile : MenuActivity() {
                         value.child("firstname").value.toString(),
                         value.child("lastname").value.toString(),
                         value.child("birthdate").value.toString(),
-                        ArrayList(value.child("sports").children.map { Sport(it.child("name").value.toString(), arrayListOf()) }),
+                        ArrayList(value.child("sports").children.map {
+                            Sport(it.child("name").value.toString(), arrayListOf()) }),
                         value.child("weight").value.toString(),
                         value.child("pictureUID").value.toString(),
                         value.child("grade").value.toString()
@@ -229,7 +231,10 @@ class ModifyProfile : MenuActivity() {
                             sportText = "Aucun sport sélectionné"
 
                         showSports.text = sportText
-                        setImageFromFirestore(context, changeProfilImageModify, "users/$userId/${user.pictureUID}")
+                        setImageFromFirestore(
+                            context,
+                            changeProfilImageModify,
+                            "users/$userId/${user.pictureUID}")
                     }
                 }
             }
@@ -242,17 +247,19 @@ class ModifyProfile : MenuActivity() {
         })
     }
 
-    private fun changeUser(user: FirebaseUser?, fnamenew:String, lnamenew:String, birthdatenew:String, weightnew:String) {
+    private fun changeUser(user: FirebaseUser?, fnamenew:String, lnamenew:String,
+                           birthdatenew:String, weightnew:String) {
         if (user?.uid != null) {
             val root = database.getReference("users")
             root.child(user.uid).child("firstname").setValue(fnamenew)
             root.child(user.uid).child("lastname").setValue(lnamenew)
             root.child(user.uid).child("birthdate").setValue(birthdatenew)
             root.child(user.uid).child("weight").setValue(weightnew)
-            if (sportSelectedModif.isNotEmpty()){ root.child(user.uid).child("sports").setValue(sportSelectedModif)}
-            else{
-                toast(context, "liste vide")}
-
+            if (sportSelectedModif.isNotEmpty()){
+                root.child(user.uid).child("sports").setValue(sportSelectedModif)
+            } else {
+                toast(context, "liste vide")
+            }
         } else
             Toast.makeText(this, getString(R.string.err_inscription), Toast.LENGTH_LONG).show()
     }
