@@ -50,13 +50,11 @@ class SessionActivity : MenuActivity(){
             var round = editTextNumberSerie.text.toString().toInt()
             round -= 1
             editTextNumberSerie.setText(round.toString())
-            Log.d("round", round.toString())
         }
 
         btnPlusRound.setOnClickListener {
             var round = editTextNumberSerie.text.toString().toInt()
             round += 1
-            Log.d("round", round.toString())
             editTextNumberSerie.setText(round.toString())
         }
 
@@ -155,20 +153,6 @@ class SessionActivity : MenuActivity(){
         })
     }
 
-    override fun onResume() {
-        super.onResume()
-        Log.d("state", "onresume")
-    }
-
-    override fun onRestart() {
-        super.onRestart()
-        Log.d("state", "onrestart")
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        Log.d("destroy", "ondestroy")
-    }
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         stu.manageActivityResult(requestCode, data)
@@ -235,15 +219,10 @@ class SessionActivity : MenuActivity(){
                 view: View,
                 position: Int,
                 id: Long
-            ) {
-                Log.d("niveau", spinnerLevelSession.getItemAtPosition(position).toString())
-
-            }
+            ) {}
 
             override fun onNothingSelected(parent: AdapterView<*>?)
-            {
-                //Log.d("niveau", spinnerLevelSession.getItemAtPosition(0).toString())
-            }
+            {}
         }
     }
 

@@ -61,7 +61,6 @@ class FeedActivity : MenuActivity() {
                 }
                 posts.reverse()
                 recyclerViewFeed.adapter = PostAdapter(posts, windowManager, { postItem : Post -> userClicked(postItem) }, { postItem : Post -> postClicked(postItem) })
-                Log.d("post", posts.toString())
             }
 
             override fun onCancelled(error: DatabaseError) {
@@ -86,7 +85,6 @@ class FeedActivity : MenuActivity() {
         val myRef = database.getReference("posts")
 
         val likes = postItem.likes
-        Log.d("like", likes.toString())
         if(likes.all { it != currentUserID }) {
             likes.add(currentUserID ?: "")
             myRef.child(postItem.postid).child("likes").setValue(likes)

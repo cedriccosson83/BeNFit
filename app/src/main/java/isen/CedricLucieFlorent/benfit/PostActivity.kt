@@ -88,7 +88,6 @@ class PostActivity : MenuActivity() {
                         }
 
                         if(post.postImgUID != "null" && post.postImgUID != ""){
-                            Log.d("CEDRIC_OK", "y'a une image")
                             val layout = postShowImage
                             val postImView = ImageView(ApplicationContext.applicationContext())
                             setImageFromFirestore(ApplicationContext.applicationContext(),postImView, "posts/${post.postid}/${post.postImgUID}")
@@ -156,7 +155,6 @@ class PostActivity : MenuActivity() {
                 }
                 //comments.reverse()
                 recyclerViewComments.adapter = CommentAdapter(comments) { commentItem : Comment -> userClicked(commentItem) }
-                Log.d("comment", comments.toString())
             }
             override fun onCancelled(error: DatabaseError) {
                 Log.w("comment", "Failed to read value.", error.toException())

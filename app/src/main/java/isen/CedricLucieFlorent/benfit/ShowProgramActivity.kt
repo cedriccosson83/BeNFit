@@ -73,7 +73,6 @@ class ShowProgramActivity : MenuActivity() {
                     val arraySession :ArrayList<String> = ArrayList()
                     for (childSession in value.child("sessionsProgram").children){
                         val sessionId : String = childSession.child("sessionID").value.toString()
-                        Log.d("SESSIONID", sessionId)
                         arraySession.add(sessionId)
                     }
                     program = ShowProgram(

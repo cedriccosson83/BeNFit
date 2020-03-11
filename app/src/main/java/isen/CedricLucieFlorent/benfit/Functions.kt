@@ -246,7 +246,6 @@ fun showNotified(database: FirebaseDatabase, pathToNotif : String, sessionID: St
 }
 
 fun removePassedNotif(database: FirebaseDatabase, userId: String, lastConn : String){
-    Log.d("PASS", "on est la")
     val myRef = database.getReference("notifications/${userId}")
     myRef.addValueEventListener(object : ValueEventListener{
         override fun onDataChange(dataSnapshot: DataSnapshot) {
@@ -276,7 +275,6 @@ fun showFollowers(database: FirebaseDatabase, currentUserID: String?, programID 
         override fun onDataChange(dataSnapshot: DataSnapshot) {
             val arrayFollowers :ArrayList<String> = ArrayList()
             for (value in dataSnapshot.children) {
-                Log.d("img", value.toString())
                 if (arrayFollowers.all { it != value.key.toString()}) {
                     arrayFollowers.add(value.key.toString())
                 }
@@ -399,13 +397,10 @@ fun checkUserSessionDone(database: FirebaseDatabase, userId: String?, programID:
 }
 
 fun renderProgressProgram(countSessTotProgram : Int,countTotalDoneSess : Int, programProgress: ProgressBar) {
-    Log.d("CEDRIC_TOT", countSessTotProgram.toString())
-    Log.d("CEDRIC_SUB", countTotalDoneSess.toString())
     val percent : Float = if (countTotalDoneSess > 0)
         round(((countTotalDoneSess.toFloat()/ countSessTotProgram.toFloat())  * 100).toFloat())
     else
         0F
-    Log.d("CEDRIC_percent", percent.toString())
     programProgress.progress = percent.toInt()
 }
 
@@ -521,21 +516,17 @@ fun checkCompleteProgram(database: FirebaseDatabase,
         .child("currentPrograms")
         .child(programId)
 
-    Log.d("CEDRIC_ref", "users/$userId/currentPrograms/$programId")
     val sessionAchieve: ArrayList<String> = ArrayList()
 
     myRef.addListenerForSingleValueEvent(object : ValueEventListener {
         override fun onDataChange(dataSnapshot: DataSnapshot) {
             var nbSupposedToBeOK = 0
             for (value in dataSnapshot.children) {
-                Log.d("CEDRIC_for", "tour")
                 sessionAchieve.add(value.key.toString())
                 if (value.value.toString() == "OK")
                     nbSupposedToBeOK++
             }
-            Log.d("CEDRIC_nbSupposedToBeOK", nbSupposedToBeOK.toString())
             if (nbSupposedToBeOK == sessionAchieve.size) { // 0L to compare a LONG type
-                Log.d("CEDRIC_nbSupposed", "IS OK")
                 computeScore(database, sessionAchieve, userId, context, programId)
                 dataSnapshot.ref.removeValue()
             }
@@ -560,7 +551,6 @@ fun computeScore(database: FirebaseDatabase, sessionAchieve : ArrayList<String>,
                     sumScore += difficultyToValue(sessDiff)
             }
 
-            Log.d("CEDRIC_sumScore", sumScore.toString())
 
             updateUserGrade(database, userId, sumScore, context, programId)
         }
@@ -585,10 +575,8 @@ fun updateUserGrade(database: FirebaseDatabase, userId: String, sumScore : Int, 
                     userFN = value.value.toString()
                 }
             }
-            Log.d("CEDRIC_newScore", newScore.toString())
 
             myRef.child("grade").setValue(newScore.toString())
-            Log.d("CEDRIC_SCORE", newScore.toString())
             showPopUpCongratz(userFN, newScore, context)
            // removeProgramFromCurrentProgram(database, userId,programId)
         }
@@ -705,7 +693,7 @@ fun showPopUpExercice(database: FirebaseDatabase, context : Context, exoID: Stri
                         videoWeb.visibility = View.INVISIBLE
                     }
                     exercice.urlYt != "" -> {
-                        Log.d("CEDRIC_HAS_URL", "oui")
+
                         // compute margin based on screen width to set specific margin for Responsive WebView
                         /*val displayMetrics = DisplayMetrics()
                         windowManager.defaultDisplay.getMetrics(displayMetrics)
@@ -728,9 +716,9 @@ fun showPopUpExercice(database: FirebaseDatabase, context : Context, exoID: Stri
                         videoWeb.settings.useWideViewPort = true
                         var ytUrl = exercice.urlYt.replace("watch?v=", "embed/")
                         ytUrl = ytUrl.replace("youtu.be", "youtube.com/embed/")
-                        Log.d("CEDRIC_URL1", ytUrl)
+
                         val url = "<iframe width=\"100%\" height=\"100%\" src=\"$ytUrl\" frameborder=\"0\" allowfullscreen></iframe>"
-                        Log.d("CEDRIC_URL2", url)
+
                         videoWeb.settings.javaScriptEnabled = true
                         videoWeb.loadData(url, "text/html" , "utf-8" )
                         videoWeb.webChromeClient = WebChromeClient()

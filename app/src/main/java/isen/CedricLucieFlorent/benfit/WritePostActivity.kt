@@ -49,13 +49,10 @@ class WritePostActivity : MenuActivity() {
         val exoId = intent.getStringExtra("sharedExo")?: ""
         val sharedName = intent.getStringExtra("sharedName")?: ""
         if (programId != "") {
-            Log.d("CEDRIC_prog", programId)
             sharedLink.text = sharedName
         } else if (sessionId != "") {
-            Log.d("CEDRIC_sess", sessionId)
             sharedLink.text = sharedName
         } else if (exoId != "") {
-            Log.d("CEDRIC_exo", exoId)
             sharedLink.text = sharedName
         } else {
             sharedLink.visibility = View.INVISIBLE
@@ -72,10 +69,8 @@ class WritePostActivity : MenuActivity() {
                     Toast.makeText(this, "Post publié!", Toast.LENGTH_LONG).show()
                     val intent = Intent(this, FeedActivity::class.java)
                     startActivity(intent)
-
                 }
                 else{
-                    Log.d("erreur", "vide")
                     Toast.makeText(this, "Publication vide", Toast.LENGTH_LONG).show()
                 }
             } else {
@@ -159,7 +154,6 @@ class WritePostActivity : MenuActivity() {
 
         val sdf = SimpleDateFormat("HH:mm:ss dd/MM/yyyy", Locale.getDefault())
         val currentDateandTime: String = sdf.format(Date())
-        Log.d("heure", currentDateandTime)
         val array : ArrayList<String> = ArrayList()
         val post = Post(userId, newId, currentDateandTime, content,array, "", programId, sessionId, exoId)
         dbPosts.child(newId).setValue(post)

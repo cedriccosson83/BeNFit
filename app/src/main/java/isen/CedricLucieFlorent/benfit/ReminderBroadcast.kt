@@ -19,7 +19,6 @@ public class ReminderBroadcast : BroadcastReceiver() {
         var notificationManger = NotificationManagerCompat.from(context)
         val random = (1 until 9).random()
         val m = random * 100
-        Log.d("NOTIF", m.toString())
         notificationManger.notify(m,builder.build())
     }
 }

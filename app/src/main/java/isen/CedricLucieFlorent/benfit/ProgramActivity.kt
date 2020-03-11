@@ -174,10 +174,7 @@ class ProgramActivity : MenuActivity() {
                     view: View,
                     position: Int,
                     id: Long
-            ) {
-                Log.d("niveau", spinnerLevelProgram.getItemAtPosition(position).toString())
-
-            }
+            ) {}
 
             override fun onNothingSelected(parent: AdapterView<*>?)
             {
