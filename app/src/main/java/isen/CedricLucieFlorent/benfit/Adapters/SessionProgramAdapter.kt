@@ -6,20 +6,23 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import isen.CedricLucieFlorent.benfit.*
 import isen.CedricLucieFlorent.benfit.Models.SessionProgram
-import kotlinx.android.synthetic.main.recycler_view_session_cell.view.*
 import kotlinx.android.synthetic.main.recycler_view_session_program.view.*
 
-class SessionProgramAdapter(val sessions: ArrayList<SessionProgram>, val deleteListener: (SessionProgram) -> Unit, val sessionListener: (SessionProgram) -> Unit): RecyclerView.Adapter<SessionProgramAdapter.SessionProgramViewHolder>() {
+class SessionProgramAdapter(
+    val sessions: ArrayList<SessionProgram>,
+        private val deleteListener: (SessionProgram) -> Unit,
+        private val sessionListener: (SessionProgram) -> Unit)
+    : RecyclerView.Adapter<SessionProgramAdapter.SessionProgramViewHolder>() {
 
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SessionProgramAdapter.SessionProgramViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SessionProgramViewHolder {
         val view = LayoutInflater.from(parent.context)
                 .inflate(R.layout.recycler_view_session_program, parent, false)
-        return SessionProgramAdapter.SessionProgramViewHolder(view)
+        return SessionProgramViewHolder(view)
     }
 
 
-    override fun onBindViewHolder(holder: SessionProgramAdapter.SessionProgramViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: SessionProgramViewHolder, position: Int) {
         val session = sessions[position]
         holder.bind(session, deleteListener, sessionListener)
     }
@@ -34,7 +37,7 @@ class SessionProgramAdapter(val sessions: ArrayList<SessionProgram>, val deleteL
         fun bind(session: SessionProgram, deleteListener: (SessionProgram) -> Unit, sessionListener: (SessionProgram) -> Unit) {
             view.nameSessionCreateProgram.text = session.nameSessionProgram
             view.btnDeleteSessionCreateProgram.setOnClickListener { deleteListener(session) }
-            var img = session.imgURI
+            val img = session.imgURI
             setImageFromFirestore(ApplicationContext.applicationContext(), view.imageViewSessionCreateProgram, "sessions/${session.sessionID}/${img}")
             //view.cardViewExoSession.setOnClickListener { exoListener(exo) }
         }
