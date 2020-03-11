@@ -8,19 +8,17 @@ import android.text.TextWatcher
 import android.util.Log
 import android.view.View
 import android.widget.*
-import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import isen.CedricLucieFlorent.benfit.Functions.*
 import kotlinx.android.synthetic.main.activity_program.*
-import kotlinx.android.synthetic.main.activity_session.*
 
 class ProgramActivity : MenuActivity() {
 
     private lateinit var stu: StreamToUri
-    private var image_uri : Uri = Uri.EMPTY
+    private var imageUri : Uri = Uri.EMPTY
     private lateinit var storageReference : StorageReference
 
 
@@ -44,14 +42,13 @@ class ProgramActivity : MenuActivity() {
 
         btnSaveProgram.setOnClickListener {
             if (id != null) {
-                saveProgram(database, storageReference,image_uri,context, id,inputNameProgram.text.toString(),inputDescProgram.text.toString(),spinnerLevelProgram.selectedItem.toString() )
+                saveProgram(database, storageReference,imageUri,context, id,inputNameProgram.text.toString(),inputDescProgram.text.toString(),spinnerLevelProgram.selectedItem.toString() )
                 Toast.makeText(this,"Programme sauvegardé!", Toast.LENGTH_SHORT).show()
                 deleteSessionsTempProgram(database,id)
                 deleteInfosTempProgram(database,this, id)
                 val intent = Intent(this,ProgramFeedActivity::class.java)
                 startActivity(intent)
                 finish()
-                //overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right)
             }
         }
 
@@ -61,7 +58,7 @@ class ProgramActivity : MenuActivity() {
                 if (id != null) {
                     addTemporaryLevelProgram(database,id, selectedItem)
                 }
-            } // to close the onItemSelected
+            }
 
             override fun onNothingSelected(parent: AdapterView<*>) {
 
@@ -104,7 +101,7 @@ class ProgramActivity : MenuActivity() {
     }
 
 
-    fun showPopMenuSession(){
+    private fun showPopMenuSession(){
         buttonAddSessionProgram.setOnClickListener {
             val popupMenu = PopupMenu(this, it)
             popupMenu.setOnMenuItemClickListener { item ->
@@ -113,14 +110,14 @@ class ProgramActivity : MenuActivity() {
                         val intent = Intent(this,SessionActivity::class.java)
                         finish()
                         startActivity(intent)
-                        overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
+                        overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right)
                         true
                     }
                     R.id.menu_choose_session -> {
                         val intent = Intent(this,ListSessionActivity::class.java)
                         finish()
                         startActivity(intent)
-                        overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
+                        overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right)
                         true
                     }
                     else -> false
@@ -145,8 +142,8 @@ class ProgramActivity : MenuActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         stu.manageActivityResult(requestCode, data)
-        image_uri = stu.imageUri
-        imageViewCreateProg.setImageURI(image_uri)
+        imageUri = stu.imageUri
+        imageViewCreateProg.setImageURI(imageUri)
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
@@ -154,18 +151,15 @@ class ProgramActivity : MenuActivity() {
         stu.manageRequestPermissionResult(requestCode, grantResults)
     }
 
-    fun createSpinnerLevel(){
+    private fun createSpinnerLevel(){
         val spinner: Spinner = findViewById(R.id.spinnerLevelProgram)
 
-        // Create an ArrayAdapter using the string array and a default spinner layout
         ArrayAdapter.createFromResource(
                 this,
                 R.array.level_array,
                 android.R.layout.simple_spinner_item
         ).also { adapter ->
-            // Specify the layout to use when the list of choices appears
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-            // Apply the adapter to the spinner
             spinner.adapter = adapter
         }
 

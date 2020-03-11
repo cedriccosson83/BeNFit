@@ -44,7 +44,6 @@ class ExoAdapter(private val exos: ArrayList<Exercice>,
 
             if (exo.pictureUID != "null" && exo.pictureUID != ""){
             setImageFromFirestore(
-                ApplicationContext.applicationContext(),
                 view.imageViewExo,
                 "exos/${exo.id}/${exo.pictureUID}")
             }else{

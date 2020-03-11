@@ -423,7 +423,7 @@ import kotlin.collections.ArrayList
                 if(exo.id == exoId){
                     textView.text = "${exo.name}"
                     if (exo.pictureUID != "" && exo.pictureUID != "null"){
-                        setImageFromFirestore(ApplicationContext.applicationContext(), imageView, "exos/${exo.id}/${exo.pictureUID}")
+                        setImageFromFirestore(imageView, "exos/${exo.id}/${exo.pictureUID}")
                     }
                 }
             }

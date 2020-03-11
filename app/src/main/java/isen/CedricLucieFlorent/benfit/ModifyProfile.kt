@@ -234,7 +234,6 @@ class ModifyProfile : MenuActivity() {
 
                         showSports.text = sportText
                         setImageFromFirestore(
-                            context,
                             changeProfilImageModify,
                             "users/$userId/${user.pictureUID}")
                     }

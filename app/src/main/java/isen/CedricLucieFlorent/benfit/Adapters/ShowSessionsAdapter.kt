@@ -56,7 +56,6 @@ class ShowSessionsAdapter (
             view.parentViewSessionShowProgram.setOnClickListener{clickSession(session)}
             view.nameSessionShowProgram.text = session.nameSession
             setImageFromFirestore(
-                ApplicationContext.applicationContext(),
                 view.imageViewSessionShowProgram,
                 "sessions/${session.sessionID}/${session.imgURI}")
 

@@ -43,7 +43,6 @@ class ShowExercicesAdapter (
             view.nameExerciceShowSession.text = exo.name
             if (exo.pictureUID != "" && exo.pictureUID != "null") {
                 setImageFromFirestore(
-                    ApplicationContext.applicationContext(),
                     view.imageViewExerciceShowSession,
                     "exos/${exo.id}/${exo.pictureUID}")
             } else if(exo.urlYt != "" && exo.urlYt != "null") {

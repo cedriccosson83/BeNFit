@@ -23,16 +23,12 @@ import kotlin.math.round
 
 fun addTemporaryNameProgram(database: FirebaseDatabase, idUser: String, nameProgram: String){
     val dbInfos = database.getReference("temporary_infos_program")
-    if(nameProgram != null){
-        dbInfos.child(idUser).child("nameProgram").setValue(nameProgram)
-    }
+    dbInfos.child(idUser).child("nameProgram").setValue(nameProgram)
 }
 
 fun addTemporaryDescProgram(database: FirebaseDatabase,idUser: String, descProgram: String){
     val dbInfos = database.getReference("temporary_infos_program")
-    if(descProgram !=null){
-        dbInfos.child(idUser).child("descProgram").setValue(descProgram)
-    }
+    dbInfos.child(idUser).child("descProgram").setValue(descProgram)
 }
 
 fun addTemporaryLevelProgram(database: FirebaseDatabase,idUser: String, levelProgram: String){
@@ -40,16 +36,21 @@ fun addTemporaryLevelProgram(database: FirebaseDatabase,idUser: String, levelPro
     dbInfos.child(idUser).child("levelProgram").setValue(levelProgram)
 }
 
-fun saveInfosProgram(database : FirebaseDatabase,idProgram: String, userId :String,nameProgram:String, descProgram: String, levelProgral:String) {
+fun saveInfosProgram(database : FirebaseDatabase,idProgram: String, userId :String) {
     val myRef = database.getReference("temporary_infos_program")
     val dbSession = database.getReference("program")
     myRef.addListenerForSingleValueEvent(object : ValueEventListener {
         override fun onDataChange(dataSnapshot: DataSnapshot){
             for(value in dataSnapshot.children ) {
                 if(value.key == userId){
-                    dbSession.child(idProgram).child("nameProgram").setValue(value.child("nameProgram").value.toString())
-                    dbSession.child(idProgram).child("descProgram").setValue(value.child("descProgram").value.toString())
-                    dbSession.child(idProgram).child("levelProgram").setValue(value.child("levelProgram").value.toString())
+                    dbSession.child(idProgram).child("nameProgram")
+                        .setValue(value.child("nameProgram").value.toString())
+
+                    dbSession.child(idProgram).child("descProgram")
+                        .setValue(value.child("descProgram").value.toString())
+
+                    dbSession.child(idProgram).child("levelProgram")
+                        .setValue(value.child("levelProgram").value.toString())
                 }
             }
         }
@@ -78,7 +79,8 @@ fun deleteInfosTempProgram(database : FirebaseDatabase, activity: ProgramActivit
     })
 }
 
-fun saveProgram(database : FirebaseDatabase, storageReference: StorageReference, image_uri : Uri, context: Context, userId :String, nameProgram:String, descProgram: String, levelProgram:String) {
+fun saveProgram(database : FirebaseDatabase, storageReference: StorageReference, image_uri : Uri,
+                context: Context, userId :String, nameProgram:String, descProgram: String, levelProgram:String) {
 
     val myRef = database.getReference("temporary_session_program")
     val dbProgram = database.getReference("programs")
@@ -86,11 +88,11 @@ fun saveProgram(database : FirebaseDatabase, storageReference: StorageReference,
     val newId = dbProgram.push().key
     myRef.addListenerForSingleValueEvent(object : ValueEventListener {
         override fun onDataChange(dataSnapshot: DataSnapshot){
-            val sessions : ArrayList<Session> = ArrayList<Session>()
+            val sessions : ArrayList<Session> = ArrayList()
             for(value in dataSnapshot.children ) {
 
-                var exosSession : ArrayList<SessionExercice> = ArrayList()
-                var session : Session = Session(
+                val exosSession : ArrayList<SessionExercice> = ArrayList()
+                val session = Session(
                     value.child("sessionID").value.toString(),
                     value.child("userID").value.toString(),
                     value.child("nameSession").value.toString(),
@@ -106,20 +108,20 @@ fun saveProgram(database : FirebaseDatabase, storageReference: StorageReference,
 
             }
 
-            var program = Program(newId,userId,nameProgram,descProgram,levelProgram,sessions)
+            val program = Program(newId,userId,nameProgram,descProgram,levelProgram,sessions)
             if (newId != null) {
                 dbProgram.child(newId).setValue(program)
-                saveInfosProgram(database,newId, userId,nameProgram, descProgram, levelProgram)
+                saveInfosProgram(database,newId, userId)
             }
 
             val uniqID = UUID.randomUUID().toString()
             val stoRef = storageReference.child("programs/${program.programID}/$uniqID")
             val result: UploadTask
-            if(image_uri != Uri.EMPTY) {
-                result = stoRef.putFile(image_uri)
+            result = if(image_uri != Uri.EMPTY) {
+                stoRef.putFile(image_uri)
             } else {
                 val uri = getDrawableToURI(context, R.drawable.programs)
-                result = stoRef.putFile(uri)
+                stoRef.putFile(uri)
             }
             result.addOnSuccessListener {
                 database.getReference("programs/${program.programID}/pictureUID").setValue(uniqID)
@@ -179,9 +181,10 @@ fun getProgramProgression(database: FirebaseDatabase, userId: String?,
     })
 }
 
-fun renderProgressProgram(countSessTotProgram : Int,countTotalDoneSess : Int, programProgress: ProgressBar) {
+fun renderProgressProgram(countSessTotProgram : Int,countTotalDoneSess : Int,
+                          programProgress: ProgressBar) {
     val percent : Float = if (countTotalDoneSess > 0)
-        round(((countTotalDoneSess.toFloat()/ countSessTotProgram.toFloat())  * 100).toFloat())
+        round(((countTotalDoneSess.toFloat()/ countSessTotProgram.toFloat())  * 100))
     else
         0F
     programProgress.progress = percent.toInt()
@@ -199,7 +202,8 @@ fun countTotalProgramLikes(database: FirebaseDatabase, userId: String,
                     for (childLike in value.child("likes").children)
                         countTotalLikes++
 
-            countTotalSessionLikes(database, userId, countTotalLikes, gradeText, gradeImg1, gradeImg2, context)
+            countTotalSessionLikes(database, userId, countTotalLikes, gradeText,
+                gradeImg1, gradeImg2, context)
         }
         override fun onCancelled(error: DatabaseError) {
             Log.w("session", "Failed to read value.", error.toException())

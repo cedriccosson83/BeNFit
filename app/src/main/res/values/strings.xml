@@ -300,5 +300,7 @@
     <string name="concatStringSpaced">%1$s %2$s</string>
     <string name="concatValueWeight">%1$s kilos</string>
     <string name="concatTwoStringNewLine">%1$s%2$s\n</string>
+    <string name="congratzName">Félicitation %1$s</string>
+    <string name="scoreSport">Score Sportif: %1$d</string>
 
 </resources>

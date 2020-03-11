@@ -4,7 +4,6 @@ import android.app.*
 import android.content.ContentResolver
 import android.content.Context
 import android.content.Intent
-import android.content.res.Resources
 import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
@@ -29,7 +28,7 @@ import java.util.*
 
 fun showDate(date : String?, textview: TextView){
 
-    var dateSplit = date?.split(" ")
+    val dateSplit = date?.split(" ")
     val sdf = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
     val currentDate: String = sdf.format(Date())
     if(currentDate == dateSplit?.get(1)){
@@ -51,7 +50,11 @@ fun creernotif(context: Context?, notificationManager: NotificationManager){
     val pendingIntent = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
 
     val contentView = RemoteViews(context.packageName, R.layout.notification_layout)
-    contentView.setTextViewText(R.id.tv_title,"Motivez vous ! ")
+    contentView.setTextViewText(R.id.tv_title,"Mtextview.text = ApplicationContext.applicationContext().getString(\n" +
+            "                        R.string.doubleWordsSpaced,\n" +
+            "                        fname,\n" +
+            "                        lname\n" +
+            "                    ) ! ")
     contentView.setTextViewText(R.id.tv_content, "N'oubliez pas votre séance d'entrainement")
 
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -69,7 +72,7 @@ fun creernotif(context: Context?, notificationManager: NotificationManager){
 
     }
     else{
-        builder = Notification.Builder(context) // fais gaffe aux fonctions Deprecated (les barrées) ca veut dire qyoioui merci jai compris mais ca fait quoi
+        builder = Notification.Builder(context)
             .setContent(contentView)
             .setSmallIcon(R.mipmap.benfit_logo_round)
             .setLargeIcon(BitmapFactory.decodeResource(context.resources, R.mipmap.benfit_logo_round))
@@ -83,12 +86,11 @@ fun redirectToUserActivity(context: Context, userID : String){
     context.startActivity(intent)
 }
 fun getDrawableToURI( context : Context,  drawableId : Int) : Uri {
-    val imageUri = Uri.parse(
+    return Uri.parse(
         ContentResolver.SCHEME_ANDROID_RESOURCE +
                 "://" + context.resources.getResourcePackageName(drawableId)
                 + '/' + context.resources.getResourceTypeName(drawableId)
                 + '/' + context.resources.getResourceEntryName(drawableId) )
-    return imageUri
 }
 fun redirectToProgram(context : Context, programID : String, extra : String = ""){
     val intent = Intent(context, ShowProgramActivity::class.java)
@@ -98,7 +100,7 @@ fun redirectToProgram(context : Context, programID : String, extra : String = ""
 }
 fun constraintValidateYoutube(btn : MaterialButton, inputText : String) : Boolean{
     if (btn.isChecked) {
-        var position = inputText.indexOf("https://www.youtube.com/watch?v=")
+        val position = inputText.indexOf("https://www.youtube.com/watch?v=")
         if(position == -1){
             return false
         }
@@ -151,11 +153,11 @@ fun removePassedNotif(database: FirebaseDatabase, userId: String, lastConn : Str
     myRef.addValueEventListener(object : ValueEventListener{
         override fun onDataChange(dataSnapshot: DataSnapshot) {
             for (value in dataSnapshot.children){
-                var time = value.value.toString()
-                var format = SimpleDateFormat("HH:mm dd/MM/yyyy")
-                var date = format.parse(time)
-                var lastCo = format.parse(lastConn)
-                if (lastCo.compareTo(date) > 0){
+                val time = value.value.toString()
+                val format = SimpleDateFormat("HH:mm dd/MM/yyyy")
+                val date = format.parse(time)
+                val lastCo = format.parse(lastConn)
+                if (lastCo != null && lastCo > date){
                     myRef.child(value.key.toString()).removeValue()
                 }
 
@@ -168,7 +170,7 @@ fun removePassedNotif(database: FirebaseDatabase, userId: String, lastConn : Str
     })
 
 }
-fun showFollowers(database: FirebaseDatabase, currentUserID: String?, programID : String,
+fun showFollowers(database: FirebaseDatabase, programID : String,
                   pathToFollowers : String, icon : ImageView){
     val myRef = database.getReference(pathToFollowers)
     myRef.addValueEventListener(object : ValueEventListener {
@@ -245,11 +247,12 @@ fun likesHandler(database: FirebaseDatabase,
         likeIcon.setImageResource(R.drawable.like)
     }
 }
-fun setImageFromFirestore(context: Context, target: ImageView, location: String) {
+fun setImageFromFirestore(target: ImageView, location: String) {
     val storeRef: StorageReference?
             = FirebaseStorage.getInstance().getReference(location)
     GlideApp.with(ApplicationContext.applicationContext()).load(storeRef).into(target)
 }
+
 fun renderCoachGrade(countTotal: Int, gradeText: TextView,
                      gradeImg1: ImageView, gradeImg2: ImageView,
                      context: Context) {
@@ -337,13 +340,21 @@ fun difficultyToValue(sessDiff : String) : Int {
         return 3
     return 1
 }
+
 fun showPopUpCongratz(userFirstName: String, newScore : Int, context: Context) {
     val dialog = Dialog(context)
     dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
     dialog.setContentView(R.layout.popup_congratz)
     dialog.setTitle("titre")
-    dialog.findViewById<TextView>(R.id.popUpCongratzName).text = "Félicitation $userFirstName !"
-    dialog.findViewById<TextView>(R.id.popUpCongratzScore).text = "Score Sportif : $newScore"
+    dialog.findViewById<TextView>(R.id.popUpCongratzName).text =
+        ApplicationContext.applicationContext().getString(
+            R.string.congratzName,
+            userFirstName
+        )
+    dialog.findViewById<TextView>(R.id.popUpCongratzScore).text = ApplicationContext.applicationContext().getString(
+        R.string.scoreSport,
+        newScore
+    )
     dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
     dialog.setOnDismissListener {
         val intent = Intent(context, ProfileActivity::class.java)
@@ -351,12 +362,10 @@ fun showPopUpCongratz(userFirstName: String, newScore : Int, context: Context) {
     }
     dialog.show()
 }
+
 fun fullScreenImage (context : Context,url : String) {
     val fullScreenIntent = Intent(context, FullScreenImageView::class.java)
     fullScreenIntent.putExtra("url", url)
     fullScreenIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
     context.startActivity(fullScreenIntent)
-}
-fun pxToDp(px: Int): Int {
-    return (px / Resources.getSystem().displayMetrics.density).toInt()
 }

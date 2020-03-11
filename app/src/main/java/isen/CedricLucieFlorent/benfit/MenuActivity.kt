@@ -91,7 +91,7 @@ open class MenuActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
                         val logoutBtn = header.findViewById<ImageView>(R.id.myLogoutBTN)
                         navNameText.text = "$fname $lname"
                         navMailText.text = mail
-                        setImageFromFirestore(context, navPict, "users/$userId/$pictUID")
+                        setImageFromFirestore(navPict, "users/$userId/$pictUID")
                         val navInfos = header.findViewById<View>(R.id.navInfos)
 
                         navInfos.setOnClickListener{startActivity(Intent(context,ProfileActivity::class.java))}

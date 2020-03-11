@@ -38,7 +38,7 @@ class SessionProgramAdapter(
             view.nameSessionCreateProgram.text = session.nameSessionProgram
             view.btnDeleteSessionCreateProgram.setOnClickListener { deleteListener(session) }
             val img = session.imgURI
-            setImageFromFirestore(ApplicationContext.applicationContext(), view.imageViewSessionCreateProgram, "sessions/${session.sessionID}/${img}")
+            setImageFromFirestore(view.imageViewSessionCreateProgram, "sessions/${session.sessionID}/${img}")
             //view.cardViewExoSession.setOnClickListener { exoListener(exo) }
         }
     }

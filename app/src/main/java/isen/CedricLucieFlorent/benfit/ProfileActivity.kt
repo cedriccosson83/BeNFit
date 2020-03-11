@@ -126,7 +126,7 @@ class ProfileActivity : MenuActivity() {
                         profileEmail.text = user.email
                         profileSportList.text = sportsaff
 
-                        setImageFromFirestore(context, ProfilImage, "users/$userId/$imagePath")
+                        setImageFromFirestore(ProfilImage, "users/$userId/$imagePath")
                         ProfilImage.setOnClickListener {
                             val fullScreenIntent = Intent(context, FullScreenImageView::class.java)
                             fullScreenIntent.putExtra("url", "users/$userId/$imagePath")

@@ -78,7 +78,7 @@ fun showUserNameImage(userId : String, textview: TextView,  imgView : ImageView)
                         fname,
                         lname
                     )
-                    setImageFromFirestore(ApplicationContext.applicationContext(), imgView, "users/$userId/$imgPath")
+                    setImageFromFirestore(imgView, "users/$userId/$imgPath")
                 }
             }
         }

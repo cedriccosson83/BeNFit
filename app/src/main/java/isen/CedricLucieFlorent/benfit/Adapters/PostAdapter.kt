@@ -86,7 +86,7 @@ class PostAdapter(
             if(post.postImgUID != "null"){
                 val layout = view.layoutImgPost
                 val postImView = ImageView(ApplicationContext.applicationContext())
-                setImageFromFirestore(ApplicationContext.applicationContext(),postImView, "posts/${post.postid}/${post.postImgUID}")
+                setImageFromFirestore(postImView, "posts/${post.postid}/${post.postImgUID}")
 
                 layout.addView(postImView)
                 postImView.layoutParams.height = 400
@@ -103,7 +103,7 @@ class PostAdapter(
             } else if (post.sessionId != "" && post.sessionId != "null") {
                 view.btnShareInFeed.setOnClickListener  {linkToSession(ApplicationContext.applicationContext(), post.sessionId)}
             } else if (post.exoId != "" && post.exoId != "null") {
-                view.btnShareInFeed.setOnClickListener{showPopUpExercice(database, it.context, post.exoId, windowManager)}
+                view.btnShareInFeed.setOnClickListener{showPopUpExercice(database, it.context, post.exoId)}
             } else {
                 view.btnShareInFeed.visibility = View.INVISIBLE
             }

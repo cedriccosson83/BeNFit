@@ -177,7 +177,7 @@ import kotlin.math.round
                 val retrievedUserId = value.child("userid").value?.toString()
                 if (retrievedUserId == userId) {
                     textview.text = "$fname $lname"
-                    setImageFromFirestore(ApplicationContext.applicationContext(), imgView, "users/$userId/$imgPath")
+                    setImageFromFirestore(imgView, "users/$userId/$imgPath")
                 }
             }
         }
@@ -354,7 +354,7 @@ fun showNotified(database: FirebaseDatabase, clickListenerNotif: (SessionFeed) -
     }
 }*/
 
-/*fun setImageFromFirestore(context: Context, target: ImageView, location: String) {
+/*fun setImageFromFirestore(target: ImageView, location: String) {
     val storeRef: StorageReference?
         = FirebaseStorage.getInstance().getReference(location)
     GlideApp.with(ApplicationContext.applicationContext()).load(storeRef).into(target)
@@ -684,7 +684,7 @@ fun showNotified(database: FirebaseDatabase, clickListenerNotif: (SessionFeed) -
                     exercice.pictureUID != "" -> {
                         val layout = dialog.findViewById<LinearLayout>(R.id.showExoMediaLayout)
                         val exoImView = ImageView(context)
-                        setImageFromFirestore(context,exoImView, "exos/${exercice.id}/${exercice.pictureUID}")
+                        setImageFromFirestore(exoImView, "exos/${exercice.id}/${exercice.pictureUID}")
 
                         layout.addView(exoImView)
                         exoImView.layoutParams.height = 400

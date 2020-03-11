@@ -44,7 +44,6 @@ class MyProgAdapter (
             view.parentMyProg.setOnClickListener{ clickListenerProgram(program)}
             val img = program.imageURI
             setImageFromFirestore(
-                ApplicationContext.applicationContext(),
                 view.imgViewMyProgs,
                 "programs/${program.programID}/${img}")
             showNumberLikes(database, "programs/${program.programID}/likes", view.nbLikesMyProgs )

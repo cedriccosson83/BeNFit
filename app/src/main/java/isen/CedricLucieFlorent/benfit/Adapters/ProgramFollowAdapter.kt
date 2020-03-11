@@ -45,7 +45,6 @@ class ProgramFollowAdapter (
             getProgramProgression(database, auth.currentUser?.uid, program.programID, view.programProgress)
             val img = program.imageURI
             setImageFromFirestore(
-                ApplicationContext.applicationContext(),
                 view.imageViewFollowedProg,
                 "programs/${program.programID}/${img}")
         }
