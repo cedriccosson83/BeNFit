@@ -12,19 +12,19 @@ class HomeActivity : AppCompatActivity() {
         setContentView(R.layout.activity_home)
 
 
-        home_programs.setOnClickListener {
+        homePrograms.setOnClickListener {
             startActivity(Intent(this, ProgramFeedActivity::class.java))
         }
 
-        home_sessions.setOnClickListener {
+        homeSessions.setOnClickListener {
             startActivity(Intent(this, SessionFeedActivity::class.java))
         }
 
-        home_feed.setOnClickListener {
+        homeFeed.setOnClickListener {
             startActivity(Intent(this, FeedActivity::class.java))
         }
 
-        home_profile.setOnClickListener {
+        homeProfile.setOnClickListener {
             startActivity(Intent(this, ProfileActivity::class.java))
         }
     }

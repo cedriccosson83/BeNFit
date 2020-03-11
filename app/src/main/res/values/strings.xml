@@ -288,5 +288,6 @@
     <string name="ex_5">ex: 5</string>
     <string name="ex_rep">ex: rép</string>
     <string name="defineExoRules">Définissez les instructions de l\'exercice</string>
+    <string name="validateModifs">Valider les modifications</string>
 
 </resources>

@@ -20,7 +20,8 @@
             android:ems="10"
             android:inputType="number"
             android:layout_marginEnd="11dp"
-            android:text="@string/poids"
+            android:hint="@string/poids"
+            android:importantForAutofill="no"
             app:layout_constraintBottom_toBottomOf="@+id/birthdateTextViewModify"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/birthdateTextViewModify"
@@ -34,7 +35,8 @@
             android:layout_marginTop="16dp"
             android:ems="10"
             android:inputType="textPersonName"
-            android:text="@string/date_de_naissance"
+            android:hint="@string/date_de_naissance"
+            android:importantForAutofill="no"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/lastNameTextViewModify" />
 
@@ -84,7 +86,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
-            android:text="Valider les modifications"
+            android:text="@string/validateModifs"
             android:textSize="12sp"
             app:backgroundTint="@color/greenSuccess"
             app:layout_constraintEnd_toEndOf="parent"
@@ -99,7 +101,8 @@
             android:layout_marginTop="24dp"
             android:ems="10"
             android:inputType="textPersonName"
-            android:text="@string/nom"
+            android:hint="@string/nom"
+            android:importantForAutofill="no"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/changeProfilImageModify" />
 
