@@ -27,29 +27,25 @@
         android:id="@+id/btnCreate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="144dp"
+        android:layout_marginTop="20dp"
         android:layout_weight="1"
         android:text="Planifier"
         app:backgroundTint="@color/greenSuccess"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearHD"
-        app:layout_constraintVertical_bias="0.741"></Button>
+        app:layout_constraintTop_toBottomOf="@+id/linearHD"></Button>
 
     <Button
         android:id="@+id/btnCancel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="50dp"
+        android:layout_marginTop="20dp"
         android:layout_weight="1"
         android:text="Désactiver"
         app:backgroundTint="@color/colorPrimary"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnCreate"
-        app:layout_constraintVertical_bias="0.478"></Button>
+        app:layout_constraintTop_toBottomOf="@+id/btnCreate"></Button>
 
     <TextView
         android:id="@+id/descriptionNotification"
