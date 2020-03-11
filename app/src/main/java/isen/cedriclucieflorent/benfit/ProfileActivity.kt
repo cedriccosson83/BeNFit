@@ -53,6 +53,8 @@ class ProfileActivity : MenuActivity() {
             if (userId != userFromIntent && userFromIntent != "") {
                 showUser(userFromIntent)
                 settingsButton.visibility = View.INVISIBLE
+                groupButtonProg.visibility = View.INVISIBLE
+                programRecyclerView.visibility = View.INVISIBLE
             }
             else {
                 showUser(userId)

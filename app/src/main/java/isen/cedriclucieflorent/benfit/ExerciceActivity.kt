@@ -105,7 +105,7 @@ class ExerciceActivity : MenuActivity() {
                     Toast.makeText(this, "Erreur! Veuillez réessayer!", Toast.LENGTH_SHORT).show()
                 }
             } else {
-                toast(context, "Veuillez rensigner un URL correct")
+                toast(context, "L'URL doit être : https://www.youtube.com/watch?v= ou https://youtu.be/")
             }
         }
     }
