@@ -3,9 +3,7 @@ package isen.CedricLucieFlorent.benfit
 import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.FirebaseDatabase
 import isen.CedricLucieFlorent.benfit.Functions.showExos
-import kotlinx.android.synthetic.main.activity_list_exercices.*
 import kotlinx.android.synthetic.main.activity_list_session.*
 
 class ListExercicesActivity : MenuActivity() {

@@ -46,7 +46,7 @@ open class MenuActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
         initView()
         //navNameText = findViewById<TextView>(R.id.nav_name)
         frameLayout = findViewById(R.id.container)
-        val navigationView = findViewById<NavigationView>(R.id.nav_view)
+        val navigationView = findViewById<NavigationView>(R.id.navView)
 
         updateMenuInfos(auth.currentUser?.uid ?: "", navigationView)
         navigationView.setNavigationItemSelectedListener(this)
@@ -57,7 +57,7 @@ open class MenuActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
         toolbar = findViewById(R.id.toolbar)
         img_menuOption = findViewById(R.id.img_menuOption)
         drawer = findViewById(R.id.drawer_layout)
-        val navigationView = findViewById<NavigationView>(R.id.nav_view)
+        val navigationView = findViewById<NavigationView>(R.id.navView)
         //navNameText = navigationView.findViewById(R.id.nav_name)
         //val headerview = navigationView.getHeaderView(0)
         toggle = ActionBarDrawerToggle(
@@ -70,7 +70,7 @@ open class MenuActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
         img_menuOption.setOnClickListener { drawer!!.openDrawer(GravityCompat.START) }
         //menuTopSection = findViewById(R.id.topMenu)
     }
-    private fun updateMenuInfos(userId: String, nav_view : NavigationView) {
+    private fun updateMenuInfos(userId: String, navView : NavigationView) {
         if (userId == "") return
         val myRef = database.getReference("users")
         myRef.addValueEventListener(object : ValueEventListener {
@@ -83,7 +83,7 @@ open class MenuActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
                     val pictUID = value.child("pictureUID").value.toString()
 
                     if (id == userId) {
-                        val header = nav_view.getHeaderView(0)
+                        val header = navView.getHeaderView(0)
                         val navNameText = header.findViewById<TextView>(R.id.nav_name)
                         val navMailText = header.findViewById<TextView>(R.id.nav_mail)
                         val navPict = header.findViewById<ImageView>(R.id.nav_picture)

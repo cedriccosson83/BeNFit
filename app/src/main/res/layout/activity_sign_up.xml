@@ -39,7 +39,8 @@
         android:layout_marginEnd="12dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textInputLayout12"
-        app:srcCompat="@drawable/default_profile_pict" />
+        app:srcCompat="@drawable/default_profile_pict"
+        android:contentDescription="TODO" />
 
     <TextView
         android:id="@+id/sportTewtView"
@@ -194,7 +195,8 @@
         android:layout_marginTop="15dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="?attr/homeAsUpIndicator" />
+        app:srcCompat="?attr/homeAsUpIndicator"
+        android:contentDescription="TODO" />
 
 
 

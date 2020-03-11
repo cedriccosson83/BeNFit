@@ -7,4 +7,4 @@ data class SessionExercice (
         var rep : String = "",
         var pictureUID : String = "",
         var urlYt : String = ""
-){}
+)

@@ -7,13 +7,4 @@
         <item name="windowNoTitle">true</item>
     </style>
 
-    <style name="round" parent="ShapeAppearance.MaterialComponents.MediumComponent">
-        <item name="cornerFamily">rounded</item>
-        <item name="cornerSize">18dp</item>
-    </style>
-
-    <style name="NumberPickerText">
-        <item name="android:textSize">22sp</item>
-    </style>
-
 </resources>

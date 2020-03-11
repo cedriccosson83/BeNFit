@@ -115,13 +115,10 @@ fun removePassedNotif(database: FirebaseDatabase, userId: String, lastConn : Str
                 if (lastCo != null && lastCo > date){
                     myRef.child(value.key.toString()).removeValue()
                 }
-
             }
         }
 
-        override fun onCancelled(p0: DatabaseError) {
-
-        }
+        override fun onCancelled(p0: DatabaseError) {}
     })
 
 }

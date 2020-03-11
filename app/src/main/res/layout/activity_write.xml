@@ -111,6 +111,7 @@
         app:layout_constraintBottom_toBottomOf="@+id/sharedLink"
         app:layout_constraintEnd_toStartOf="@+id/sharedLink"
         app:layout_constraintTop_toTopOf="@+id/sharedLink"
-        app:srcCompat="@drawable/link" />
+        app:srcCompat="@drawable/link"
+        android:contentDescription="TODO" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

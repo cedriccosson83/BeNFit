@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/constraintLayoutDetails"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
@@ -15,8 +15,6 @@
         android:minHeight="200dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
-
-        <!-- Card contents. -->
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -54,7 +52,7 @@
                 android:layout_height="20dp"
                 android:layout_marginTop="15dp"
                 android:layout_marginBottom="8dp"
-                android:text="Valeur : (ex : 5)"
+                android:text="@string/valeur_ex_5"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toTopOf="@+id/inputValueExo"
                 app:layout_constraintEnd_toEndOf="@+id/inputValueExo"
@@ -69,7 +67,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
                 android:layout_marginBottom="8dp"
-                android:text="Unité : (ex : rep)"
+                android:text="@string/unit_ex_rep"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toTopOf="@+id/inputUnitExo"
                 app:layout_constraintEnd_toEndOf="@+id/inputUnitExo"
@@ -87,7 +85,9 @@
                 android:ems="10"
                 android:inputType="textPersonName"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textNameExoSession" />
+                app:layout_constraintTop_toBottomOf="@+id/textNameExoSession"
+                android:hint="@string/ex_5"
+                android:importantForAutofill="no" />
 
             <EditText
                 android:id="@+id/inputUnitExo"
@@ -98,6 +98,8 @@
                 android:layout_marginEnd="50dp"
                 android:ems="10"
                 android:inputType="textPersonName"
+                android:hint="@string/ex_rep"
+                android:importantForAutofill="no"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toEndOf="@+id/inputValueExo"
@@ -108,7 +110,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:text="Définissez les instructions de l'exercice"
+                android:text="@string/defineExoRules"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textNameExoSession" />

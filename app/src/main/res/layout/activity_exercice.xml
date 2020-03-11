@@ -20,8 +20,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <!-- Card contents. -->
-
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -43,7 +41,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="0dp"
-                    android:layout_marginLeft="20dp"
                     android:layout_marginTop="0dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -66,7 +63,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="0dp"
-                    android:layout_marginLeft="20dp"
                     android:layout_marginTop="0dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -89,7 +85,7 @@
                     style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="URL youtube"
+                    android:text="@string/urlYoutube"
                     app:iconTint="@color/colorPrimary"
                     app:rippleColor="@color/colorPrimary"
                     app:strokeColor="@color/colorPrimary" />
@@ -99,7 +95,7 @@
                     style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Image"
+                    android:text="@string/imageLabel"
                     app:iconTint="@color/colorPrimary"
                     app:rippleColor="@color/colorPrimary"
                     app:strokeColor="@color/colorPrimary" />
@@ -125,22 +121,25 @@
                     app:layout_constraintHorizontal_bias="0.501"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/addpic" />
+                    app:srcCompat="@drawable/addpic"
+                    android:contentDescription="@string/img" />
 
                 <EditText
                     android:id="@+id/inputURLExo"
+                    android:hint="@string/urlYoutube"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="44dp"
                     android:ems="10"
-                    android:inputType="textPersonName"
                     android:text="@string/urlYtb"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.502"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="1.0" />
+                    app:layout_constraintVertical_bias="1.0"
+                    android:importantForAutofill="no"
+                    android:inputType="textUri" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <Spinner
@@ -171,7 +170,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:text="Créez votre exercice"
+                android:text="@string/createYourExo"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"

@@ -8,16 +8,10 @@
     <string name="nom">Nom</string>
     <string name="adresse_mail">Adresse mail</string>
     <string name="date_de_naissance">Date de naissance</string>
-    <string name="s_inscrire">S\'inscrire</string>
-    <string name="j_ai_un_compte">J\'ai déjà un compte</string>
     <string name="nameSession">Nom de la séance</string>
     <string name="descSession">Description de la séance</string>
-    <string name="levelSession">Niveau</string>
-    <string name="Validate">Valider</string>
-    <string name="freqSession">Fréquence entraînement(/semaine)</string>
     <string name="nameExo">Nom de l\'exercice</string>
     <string name="descExo">Description de l\'exercice</string>
-    <string name="nameProgram">Nom du programme</string>
     <string name="descProgram">Description du programme</string>
     <string name="accountCreation">Créer un compte</string>
 
@@ -196,25 +190,16 @@
         <item>Yoga</item>
         <item>Zumba</item>
     </string-array>
-    <string name="course_pieds">Course à pieds</string>
-    <string name="cyclisme">Cyclisme</string>
-    <string name="musculation">Musculation</string>
     <string name="poids">Poids</string>
     <string name="mail_mdp_incorrect">Email ou mot de passe incorrect</string>
     <string name="err_inscription">Erreur d\'inscription</string>
     <string name="vous_avez_un_compte">Vous avez déjà un compte</string>
-    <string name="sport_pratiqu">Sport pratiqué</string>
-    <string name="repetition">Répétitions</string>
-    <string name="time">Temps</string>
     <string name="done">Terminé</string>
     <string name="welcomeBack">Bon retour parmis nous</string>
-    <string name="descr">description</string>
     <string name="hint_publication">A quoi pensez vous ?</string>
-    <string name="write_something">Écrivez une publication</string>
     <string name="publish">Publier</string>
     <string name="Name">Name</string>
     <string name="Content">Content</string>
-    <string name="comments">Commentaires :</string>
     <string name="commentContent">Comment</string>
     <string name="commentsText">Votre commentaire ...</string>
     <string name="mail">Email</string>
@@ -225,7 +210,6 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="nav_header_desc">Navigation header</string>
-    <string name="sureToLeave">Voulez-vous vraiment partir ?</string>
     <string name="activity">Activité</string>
     <string name="community">Communauté</string>
     <string name="myspace">Mon espace</string>
@@ -238,14 +222,10 @@
     <string name="my_profile">Mon Profil</string>
     <string name="img">img_desc</string>
     <string name="textview">TextView</string>
-    <string name="slogan">Devenez le Meilleur</string>
     <string name="urlYtb">URL Youtube</string>
-    <string name="cateExo">Catégorie</string>
     <string name="sportExo">Sport</string>
     <string name="difficultyExo">Difficulté de l\'exercice</string>
-    <string name="repeat">Répéter</string>
     <string name="round">TOURS</string>
-    <string name="logout">Déconnexion</string>
     <string name="program_name">Nom du programme</string>
     <string name="prog_descr">Description du programme</string>
     <string name="_0">0</string>
@@ -264,8 +244,6 @@
     <string name="grade3">Athlète</string>
     <string name="grade4">Professionnel</string>
     <string name="grade5">Compétiteur</string>
-    <string name="unit">Unité</string>
-    <string name="valueExo">Valeur</string>
 
     <string name="coach_grade_0">Observateur</string>
     <string name="coach_grade_1">Entraîneur apprenti</string>
@@ -302,5 +280,13 @@
     <string name="concatTwoStringNewLine">%1$s%2$s\n</string>
     <string name="congratzName">Félicitation %1$s</string>
     <string name="scoreSport">Score Sportif: %1$d</string>
+    <string name="urlYoutube">URL youtube</string>
+    <string name="imageLabel">Image</string>
+    <string name="createYourExo">Créez votre exercice</string>
+    <string name="valeur_ex_5">Valeur : (ex : 5)</string>
+    <string name="unit_ex_rep">Unité : (ex : rep)</string>
+    <string name="ex_5">ex: 5</string>
+    <string name="ex_rep">ex: rép</string>
+    <string name="defineExoRules">Définissez les instructions de l\'exercice</string>
 
 </resources>

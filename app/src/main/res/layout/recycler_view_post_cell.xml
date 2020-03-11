@@ -92,7 +92,8 @@
                     app:layout_constraintBottom_toBottomOf="@+id/textViewCommentsNumberPost"
                     app:layout_constraintEnd_toStartOf="@+id/textViewCommentsNumberPost"
                     app:layout_constraintTop_toTopOf="@+id/textViewCommentsNumberPost"
-                    app:srcCompat="@drawable/link" />
+                    app:srcCompat="@drawable/link"
+                    android:contentDescription="TODO" />
 
                 <TextView
                     android:id="@+id/textViewLikeNumberPost"
@@ -120,7 +121,8 @@
                     android:padding="8dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/textViewLikeNumberPost"
-                    app:srcCompat="@drawable/comment" />
+                    app:srcCompat="@drawable/comment"
+                    android:contentDescription="TODO" />
 
                 <ImageView
                     android:id="@+id/btnLikePost"
@@ -130,7 +132,8 @@
                     android:padding="8dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:srcCompat="@drawable/dislike" />
+                    app:srcCompat="@drawable/dislike"
+                    android:contentDescription="TODO" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout

@@ -33,7 +33,8 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/sessions" />
+                app:srcCompat="@drawable/sessions"
+                android:contentDescription="TODO" />
 
             <TextView
                 android:id="@+id/sessionNameTextView"
@@ -68,7 +69,8 @@
                 android:padding="@dimen/padding_5dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:srcCompat="@drawable/dislike" />
+                app:srcCompat="@drawable/dislike"
+                android:contentDescription="TODO" />
 
             <TextView
                 android:id="@+id/nbLikeTextView"
@@ -87,7 +89,8 @@
                 android:padding="@dimen/icon_btn_inner_padding"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/notification" />
+                app:srcCompat="@drawable/notification"
+                android:contentDescription="TODO" />
 
             <TextView
                 android:id="@+id/authorSessionFeed"
@@ -109,7 +112,8 @@
                 app:layout_constraintBottom_toBottomOf="@+id/sessionNameTextView"
                 app:layout_constraintStart_toEndOf="@+id/sessionNameTextView"
                 app:layout_constraintTop_toTopOf="@+id/sessionNameTextView"
-                app:srcCompat="@drawable/level_1" />
+                app:srcCompat="@drawable/level_1"
+                android:contentDescription="TODO" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -2,6 +2,7 @@ package isen.CedricLucieFlorent.benfit
 
 import android.Manifest
 import android.app.Activity
+import android.app.Application
 import android.content.ContentResolver
 import android.content.ContentValues
 import android.content.Context
@@ -13,18 +14,20 @@ import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 
-class StreamToUri(
-    private var context: Context,
-    private var activity: Activity,
-    private var contResolv: ContentResolver
-) {
+class StreamToUri {
     private val codePermImage = 101
     private val codeReqImage = 102
     private val codeResExt = 101
-    var imageUri: Uri
+    lateinit var imageUri: Uri
+    private lateinit var context: Context
+    private lateinit var activity: Activity
+    private lateinit var contResolv: ContentResolver
 
-    init {
-        imageUri = Uri.EMPTY
+    constructor(){}
+    constructor(context: Context, activity: Activity, contResolv: ContentResolver) {
+        this.context = context
+        this.activity = activity
+        this.contResolv = contResolv
     }
 
     fun askCameraPermissions(){

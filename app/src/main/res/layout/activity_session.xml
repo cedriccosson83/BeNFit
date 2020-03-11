@@ -129,7 +129,8 @@
             app:layout_constraintBottom_toBottomOf="@+id/editTextNumberSerie"
             app:layout_constraintStart_toEndOf="@+id/editTextNumberSerie"
             app:layout_constraintTop_toTopOf="@+id/editTextNumberSerie"
-            app:srcCompat="@drawable/plus" />
+            app:srcCompat="@drawable/plus"
+            android:contentDescription="TODO" />
 
         <ImageView
             android:id="@+id/btnMinusRound"
@@ -139,7 +140,8 @@
             app:layout_constraintBottom_toBottomOf="@+id/editTextNumberSerie"
             app:layout_constraintEnd_toEndOf="@+id/textXexoSession"
             app:layout_constraintTop_toTopOf="@+id/editTextNumberSerie"
-            app:srcCompat="@drawable/minus" />
+            app:srcCompat="@drawable/minus"
+            android:contentDescription="TODO" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -162,7 +164,8 @@
             app:layout_constraintHorizontal_bias="0.4"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imageViewCreateSession"
-            app:srcCompat="@drawable/addexo" />
+            app:srcCompat="@drawable/addexo"
+            android:contentDescription="TODO" />
 
         <ImageView
             android:id="@+id/imageViewCreateSession"
@@ -172,7 +175,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/btnSaveSession"
-            app:srcCompat="@drawable/addpicture" />
+            app:srcCompat="@drawable/addpicture"
+            android:contentDescription="TODO" />
 
         <ImageView
             android:id="@+id/btnSaveSession"
@@ -183,7 +187,8 @@
             app:layout_constraintHorizontal_bias="0.475"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/save" />
+            app:srcCompat="@drawable/save"
+            android:contentDescription="TODO" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

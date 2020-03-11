@@ -14,7 +14,6 @@
     <dimen name="padding_5dp" tools:keep="@dimen/padding_5dp">5dp</dimen>
     <dimen name="padding_20" tools:keep="@dimen/padding_20">20dp</dimen>
     <dimen name="padding_15" tools:keep="@dimen/padding_15">15dp</dimen>
-    <dimen name="padding_30">30dp</dimen>
     <dimen name="padding_40" tools:keep="@dimen/padding_40">40dp</dimen>
     <dimen name="padding_50" tools:keep="@dimen/padding_50">50dp</dimen>
     <dimen name="txt_size_14" tools:keep="@dimen/txt_size_14">14dp</dimen>

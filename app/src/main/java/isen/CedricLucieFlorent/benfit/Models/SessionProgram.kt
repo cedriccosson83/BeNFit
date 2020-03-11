@@ -8,4 +8,4 @@ data class SessionProgram (
         var levelSessionProgram: String = "",
         var userID :String ="",
         var imgURI : String
-){}
+)

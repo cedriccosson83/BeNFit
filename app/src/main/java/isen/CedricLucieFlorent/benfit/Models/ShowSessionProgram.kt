@@ -5,4 +5,4 @@ data class ShowSessionProgram (
         var nameSession :String = "",
         var userID :String ="",
         var imgURI : String
-){}
+)

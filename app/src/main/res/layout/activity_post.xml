@@ -140,7 +140,8 @@
         app:layout_constraintBottom_toBottomOf="@+id/buttonLink"
         app:layout_constraintStart_toEndOf="@+id/buttonLink"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout"
-        app:srcCompat="@drawable/link" />
+        app:srcCompat="@drawable/link"
+        android:contentDescription="TODO" />
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
