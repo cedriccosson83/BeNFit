@@ -28,6 +28,7 @@ import com.google.firebase.database.ValueEventListener
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import isen.CedricLucieFlorent.benfit.Models.SessionExercice
+import isen.CedricLucieFlorent.benfit.Models.SessionFeed
 import isen.CedricLucieFlorent.benfit.Models.ShowExerciceSession
 import isen.CedricLucieFlorent.benfit.Models.ShowSessionProgram
 import kotlinx.android.synthetic.main.activity_exercice_session.*
@@ -229,7 +230,7 @@ fun showChecked(database : FirebaseDatabase, pathToChecked : String, icon : Imag
     })
 }
 
-fun showNotified(database: FirebaseDatabase, pathToNotif : String, sessionID: String, btn : ImageView){
+fun showNotified(database: FirebaseDatabase, clickListenerNotif: (SessionFeed) -> Unit, session : SessionFeed, pathToNotif : String, sessionID: String, btn : ImageView){
     val myRef = database.getReference(pathToNotif)
     myRef.addValueEventListener(object : ValueEventListener{
         override fun onDataChange(dataSnapshot: DataSnapshot) {

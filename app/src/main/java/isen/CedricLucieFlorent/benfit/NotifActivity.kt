@@ -6,10 +6,14 @@ import android.os.Bundle
 import android.content.Context
 import android.content.Intent
 import android.os.Build
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import kotlinx.android.synthetic.main.activity_notif.*
 import java.text.SimpleDateFormat
 import java.util.*
@@ -26,7 +30,16 @@ class NotifActivity : AppCompatActivity() {
         setContentView(R.layout.activity_notif)
         createNotificationChannel()
 
+
         auth = FirebaseAuth.getInstance()
+
+        val sessionId: String = intent.getStringExtra("sessionID")
+        val userID: String = intent.getStringExtra("userId")
+
+        val fromAct = intent.getStringExtra("fromAct")
+        val showSessionId = intent.getStringExtra("showSessionId")
+
+        val random = (1 until 9).random()
 
         val c = Calendar.getInstance()
         val year = c.get(Calendar.YEAR)
@@ -48,6 +61,32 @@ class NotifActivity : AppCompatActivity() {
         var yearselec : Int = 0
         var hourselec : Int = 0
         var minselec : Int = 0
+
+        var previous : String = ""
+
+        val myRef = database.getReference("notifications/${userID}")
+        myRef.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                for (value in dataSnapshot.children){
+                    if (value.key == sessionId){
+                        previous = value.value.toString()
+                        var delimiter = " "
+                        var parts = previous.split(delimiter)
+
+                        var previousDate = parts[1]
+                        var previousHour = parts[0]
+
+                        inputDate.setText(previousDate)
+                        inputTime.setText(previousHour)
+                    }
+                }
+            }
+
+            override fun onCancelled(p0: DatabaseError) {
+                Log.d("TAG", "Failed to read value")
+            }
+        })
+
 
         inputDate.setOnFocusChangeListener(View.OnFocusChangeListener { view, hasFocus ->
             if (hasFocus) {
@@ -91,12 +130,7 @@ class NotifActivity : AppCompatActivity() {
             }
         })
 
-        btn_create.setOnClickListener{
-
-            val sessionId = intent.getStringExtra("sessionID")
-            val userID = intent.getStringExtra("userId")
-            val fromAct = intent.getStringExtra("fromAct")
-            val showSessionId = intent.getStringExtra("showSessionId")
+        btnCreate.setOnClickListener{
 
             val calendar = Calendar.getInstance()
             calendar.setTimeInMillis(System.currentTimeMillis())
@@ -106,14 +140,25 @@ class NotifActivity : AppCompatActivity() {
             calendar.set(Calendar.HOUR_OF_DAY, hourselec)
             calendar.set(Calendar.MINUTE, minselec)
             var monthr = monthselec + 1
+            var hourselecr = ""
+            var minselecr = ""
+            if (hourselec in 0..9){
+                hourselecr = "0${hourselec}"
+            }
+            else
+                hourselecr = hourselec.toString()
+            if (minselec in 0..9){
+                minselecr = "0${minselec}"
+            }
+            else
+                minselecr = minselec.toString()
 
-            database.getReference("notifications/${userID}/${sessionId}").setValue("${hourselec}:${minselec} ${dayselec}/${monthr}/${yearselec}")
+            database.getReference("notifications/${userID}/${sessionId}").setValue("${hourselecr}:${minselecr} ${dayselec}/${monthr}/${yearselec}")
 
-            Toast.makeText(this, "reminder set! ${Calendar.MONTH}" , Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Notification planifiée ${Calendar.MONTH}" , Toast.LENGTH_SHORT).show()
 
             intent = Intent(this, ReminderBroadcast::class.java)
 
-            val random = (1 until 9).random()
 
             var pendingIntent = PendingIntent.getBroadcast(this, random, intent, 0)
 
@@ -133,7 +178,25 @@ class NotifActivity : AppCompatActivity() {
 
         }
 
+        btnCancel.setOnClickListener{
+            var pendingIntent = PendingIntent.getBroadcast(this, random, intent, 0)
+            var alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
+            alarmManager.cancel(pendingIntent)
+            database.getReference("notifications/${userID}/${sessionId}").removeValue()
+            if (fromAct == "Feed"){
+                this.startActivity(Intent(this, SessionFeedActivity::class.java))
+            }
+            else if (fromAct == "Show"){
+                var intentshow = Intent(this, ShowSessionActivity::class.java)
+                intentshow.putExtra("sessionId",showSessionId)
+                this.startActivity(intentshow)
+            }
+        }
+
     }
+
+
+
     fun createNotificationChannel(){
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
             var name = "BENFIT NOTIFICATION" as CharSequence
