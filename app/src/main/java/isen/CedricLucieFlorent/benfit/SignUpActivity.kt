@@ -153,7 +153,8 @@ class SignUpActivity : AppCompatActivity() {
         newPictureImageView.setImageURI(imageUri)
     }
 
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>,
+                                            grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         stu.manageRequestPermissionResult(requestCode, grantResults)
     }
@@ -193,7 +194,8 @@ class SignUpActivity : AppCompatActivity() {
 
         var userName = ""
         if (user?.uid != null) {
-            currUser = User(user.uid, user.email, fname, lname, birthdate,sports, weight, "", "0")
+            currUser = User(user.uid, user.email, fname, lname, birthdate,sports,
+                weight, "", "0")
             val root = database.getReference("users")
             root.child(currUser.userid).setValue(currUser)
             userName = currUser.firstname.toString()
@@ -220,7 +222,9 @@ class SignUpActivity : AppCompatActivity() {
 
     private fun updateUI(user: FirebaseUser?, firstname : String) {
         if (user != null) {
-            Toast.makeText(this, getString(R.string.welcomeBack) + " " + firstname + " !", Toast.LENGTH_LONG).show()
+            Toast.makeText(this,
+                getString(R.string.welcomeBack) +
+                        " " + firstname + " !", Toast.LENGTH_LONG).show()
             startActivity(Intent(this, HomeActivity::class.java))
         } else {
             Toast.makeText(this, getString(R.string.vous_avez_un_compte), Toast.LENGTH_LONG).show()

@@ -29,8 +29,18 @@ class StreamToUri(
 
     fun askCameraPermissions(){
         when {
-            ContextCompat.checkSelfPermission(context, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED -> ActivityCompat.requestPermissions(activity, arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE), codePermImage)
-            ContextCompat.checkSelfPermission(context, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED -> ActivityCompat.requestPermissions(activity, arrayOf(Manifest.permission.CAMERA), codeResExt)
+            ContextCompat.checkSelfPermission(
+                context,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED
+                    -> ActivityCompat.requestPermissions(activity,
+                    arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE), codePermImage)
+
+            ContextCompat.checkSelfPermission(
+                context,
+                Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED
+                    -> ActivityCompat.requestPermissions(activity,
+                    arrayOf(Manifest.permission.CAMERA), codeResExt)
+
             else -> openCamera()
         }
     }
