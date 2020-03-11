@@ -4,13 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginTop="@dimen/top_button_size_marge"
+    android:layout_marginBottom="@dimen/top_button_size_marge"
     tools:context="isen.cedriclucieflorent.benfit.GradeInfoActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/top_button_size_marge"
-        android:layout_marginBottom="@dimen/top_button_size_marge">
+        android:layout_height="wrap_content">
 
         <TextView
             android:id="@+id/textView42"
