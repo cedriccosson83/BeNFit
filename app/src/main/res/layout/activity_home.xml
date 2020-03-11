@@ -41,7 +41,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="100"
             android:contentDescription="@string/img"
-            app:srcCompat="@drawable/home_sessions"
+            app:srcCompat="@drawable/home_session"
             tools:ignore="NestedWeights"
             android:scaleType = "centerCrop" />
 
