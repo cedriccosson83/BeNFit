@@ -191,7 +191,7 @@ class ShowProgramActivity : MenuActivity() {
                 sessionsIn.reverse()
                 val reference = "users/${auth.currentUser?.uid}/currentPrograms/${program.programID}/"
                 showProgramRecyclerView.adapter = ShowSessionsAdapter(sessionsIn, program, ApplicationContext.applicationContext(), activityto, database, reference
-                ) { session : ShowSessionProgram -> •sessionClicked(session)}
+                ) { session : ShowSessionProgram -> sessionClicked(session)}
             }
             override fun onCancelled(error: DatabaseError) {
                 Log.w("session", "Failed to read value.", error.toException())
