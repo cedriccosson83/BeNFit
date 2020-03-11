@@ -33,10 +33,19 @@ class ExoAdapter(private val exos: ArrayList<Exercice>,
         fun bind(exo: Exercice, clickListener: (Exercice) -> Unit){
             view.nameExoListExo.text = exo.name
             view.descExoListExo.text = exo.description
-            view.difficultyExoListExo.text = ApplicationContext.applicationContext().getString(R.string.difficult_ELEM, exo.difficulty)
-            view.sportExoListExo.text = ApplicationContext.applicationContext().getString(R.string.sportInExo, exo.sport)
+            view.difficultyExoListExo.text =
+                ApplicationContext.applicationContext()
+                    .getString(R.string.difficult_ELEM, exo.difficulty)
+
+            view.sportExoListExo.text =
+                ApplicationContext.applicationContext()
+                    .getString(R.string.sportInExo, exo.sport)
+
             if (exo.pictureUID != "null" && exo.pictureUID != ""){
-            setImageFromFirestore(ApplicationContext.applicationContext(), view.imageViewExo, "exos/${exo.id}/${exo.pictureUID}")
+            setImageFromFirestore(
+                ApplicationContext.applicationContext(),
+                view.imageViewExo,
+                "exos/${exo.id}/${exo.pictureUID}")
             }else{
                 view.imageViewExo.setImageResource(R.drawable.ytb)
             }
