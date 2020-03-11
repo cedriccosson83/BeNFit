@@ -109,8 +109,8 @@ class PostActivity : MenuActivity() {
                             buttonLink.setOnClickListener {linkToSession(ApplicationContext.applicationContext(), post.sessionId)}
                             buttonLinkIcon.setOnClickListener {linkToSession(ApplicationContext.applicationContext(), post.sessionId)}
                         } else if (post.exoId != "" && post.exoId != "null") {
-                            buttonLink.setOnClickListener{showPopUpExercice(database, it.context, post.exoId, windowManager)}
-                            buttonLinkIcon.setOnClickListener{showPopUpExercice(database, it.context, post.exoId, windowManager)}
+                            buttonLink.setOnClickListener{showPopUpExercice(database, it.context, post.exoId)}
+                            buttonLinkIcon.setOnClickListener{showPopUpExercice(database, it.context, post.exoId)}
                         } else {
                             buttonLink.visibility = View.INVISIBLE
                             buttonLinkIcon.visibility = View.INVISIBLE

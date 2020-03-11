@@ -7,7 +7,6 @@ import android.content.Intent
 import android.util.Log
 import android.view.View
 import android.view.Window
-import android.view.WindowManager
 import android.webkit.WebChromeClient
 import android.webkit.WebView
 import android.widget.*
@@ -23,13 +22,8 @@ import isen.CedricLucieFlorent.benfit.Models.ShowExerciceSession
 import kotlinx.android.synthetic.main.activity_exercice_session.view.*
 
 fun addNewExo(database : FirebaseDatabase, nameExo: String, idUser: String, descExo: String, levelExo: String, sportExo: String) : String{
-
-    val database = FirebaseDatabase.getInstance()
     val dbExos = database.getReference("exos")
-    val newId = dbExos.push().key
-    if(newId == null){
-        return "false"
-    }
+    val newId = dbExos.push().key ?: return "false"
     val exo = Exercice(newId,nameExo,idUser,descExo,levelExo,sportExo)
     dbExos.child(newId).setValue(exo)
     return newId
@@ -41,7 +35,7 @@ fun addTemporaryExoSession(database : FirebaseDatabase, idUser:String, exo : Exe
         Log.d("TAG", "Couldn't get push key for exos")
         return -1
     }
-    var newExo : SessionExercice = SessionExercice(newId, idUser,exo.id, "0")
+    val newExo = SessionExercice(newId, idUser,exo.id, "0")
     dbExos.child(newId).setValue(newExo)
     return 0
 }
@@ -51,10 +45,10 @@ fun showInfosRep(database :  FirebaseDatabase, activity: View, userId: String){
         override fun onDataChange(dataSnapshot: DataSnapshot){
             for(value in dataSnapshot.children ) {
                 if(value.key == userId){
-                    val value  = value.child("rep").value.toString().split(" ")
-                    if(value.size > 1){
-                        activity.inputValueExo.setText(value[0])
-                        activity.inputUnitExo.setText(value[1])
+                    val valueRep  = value.child("rep").value.toString().split(" ")
+                    if(valueRep.size > 1){
+                        activity.inputValueExo.setText(valueRep[0])
+                        activity.inputUnitExo.setText(valueRep[1])
                     }else{
                         activity.inputValueExo.setText("")
                         activity.inputUnitExo.setText("")
@@ -73,13 +67,22 @@ fun showExos(database : FirebaseDatabase, view: RecyclerView, context: Context, 
     val myRef = database.getReference("exos")
     myRef.addValueEventListener(object : ValueEventListener {
         override fun onDataChange(dataSnapshot: DataSnapshot){
-            val exos : ArrayList<Exercice> = ArrayList<Exercice>()
+            val exos : ArrayList<Exercice> = ArrayList()
             for(value in dataSnapshot.children ) {
-                var exo : Exercice = Exercice(value.child("id").value.toString(), value.child("name").value.toString(), value.child("idUser").value.toString(), value.child("description").value.toString(),value.child("difficulty").value.toString(), value.child("sport").value.toString(), value.child("pictureUID").value.toString(), value.child("urlYt").value.toString())
+                val exo = Exercice(
+                    value.child("id").value.toString(),
+                    value.child("name").value.toString(),
+                    value.child("idUser").value.toString(),
+                    value.child("description").value.toString(),
+                    value.child("difficulty").value.toString(),
+                    value.child("sport").value.toString(),
+                    value.child("pictureUID").value.toString(),
+                    value.child("urlYt").value.toString())
                 exos.add(exo)
             }
             exos.reverse()
-            view.adapter = ExoAdapter(exos,  { exoItem : Exercice -> exoChooseSessionClicked(context,exoItem, database, userId) } )
+            view.adapter = ExoAdapter(exos) {
+                    exoItem : Exercice -> exoChooseSessionClicked(context,exoItem, database, userId) }
         }
 
         override fun onCancelled(error: DatabaseError) {
@@ -93,7 +96,7 @@ fun showExo(database: FirebaseDatabase, exoId : String, textView: TextView, imag
     myRef.addValueEventListener(object : ValueEventListener {
         override fun onDataChange(dataSnapshot: DataSnapshot){
             for(value in dataSnapshot.children ) {
-                var exo = Exercice(
+                val exo = Exercice(
                     value.child("id").value.toString(),
                     value.child("name").value.toString(),
                     value.child("idUser").value.toString(),
@@ -103,7 +106,7 @@ fun showExo(database: FirebaseDatabase, exoId : String, textView: TextView, imag
                     value.child("pictureUID").value.toString(),
                     value.child("urlYt").value.toString())
                 if(exo.id == exoId){
-                    textView.text = "${exo.name}"
+                    textView.text = exo.name
                     if (exo.pictureUID != "" && exo.pictureUID != "null"){
                         setImageFromFirestore(imageView, "exos/${exo.id}/${exo.pictureUID}")
                     }
@@ -159,52 +162,32 @@ fun exoChooseSessionClicked(context:Context, exoItem : Exercice, database : Fire
 fun deleteExoSessionClicked(firebase : FirebaseDatabase, exoItem : SessionExercice) {
     deleteExoSession(firebase, exoItem.exoSessionID)
 }
-fun deleteExosSession(database : FirebaseDatabase, userId :String) {
 
-    val myRef = database.getReference("temporary_exos_session")
-    myRef.addValueEventListener(object : ValueEventListener {
-        override fun onDataChange(dataSnapshot: DataSnapshot){
-            for(value in dataSnapshot.children ) {
-                if(value.child("idUser").value.toString() == userId){
-                    myRef.child(userId).removeValue()
-                }
-
-            }
-        }
-        override fun onCancelled(error: DatabaseError) {
-            Log.w("comment", "Failed to read value.", error.toException())
-        }
-    })
-
-
-}
 fun showPopUpDetails(database : FirebaseDatabase, context: Context, exoItem : SessionExercice){
-    var exoID = exoItem.exoID
-    var exoSessionID = exoItem.exoSessionID
-    val img : ImageView = ImageView(context)
+    val exoID = exoItem.exoID
+    val exoSessionID = exoItem.exoSessionID
+    val img = ImageView(context)
     val dialog = Dialog(context)
     dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
     dialog.setContentView(R.layout.activity_exercice_session)
-    if (exoID != null) {
-        showExo(database, exoID, dialog.findViewById(R.id.textNameExoSession), img)
-        if (exoSessionID != null) {
-            showInfosRep(database, dialog.findViewById(R.id.constraintLayoutDetails) , exoSessionID)
-        }
-    }
-    //dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+    showExo(database, exoID, dialog.findViewById(R.id.textNameExoSession), img)
+    showInfosRep(database, dialog.findViewById(R.id.constraintLayoutDetails) , exoSessionID)
 
-    var btnDone = dialog.findViewById<Button>(R.id.btnDoneExoDetails)
+    val btnDone = dialog.findViewById<Button>(R.id.btnDoneExoDetails)
     btnDone.setOnClickListener {
         val value = dialog.findViewById<EditText>(R.id.inputValueExo).text.toString()
         val unit: String = dialog.findViewById<EditText>(R.id.inputUnitExo).text.toString()
-        if (exoSessionID != null) {
-            updateRepExoSession(database, exoSessionID, "${value} ${unit}")
-        }
+        val strCombined = ApplicationContext.applicationContext().getString(
+            R.string.doubleWordsSpaced,
+            value,
+            unit
+        )
+        updateRepExoSession(database, exoSessionID, strCombined)
         dialog.dismiss()
     }
     dialog.show()
 }
-fun showPopUpExercice(database: FirebaseDatabase, context : Context, exoID: String, windowManager: WindowManager, sessionParent: String? = "") {
+fun showPopUpExercice(database: FirebaseDatabase, context : Context, exoID: String, sessionParent: String? = "") {
     val dialog = Dialog(context)
     dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
     dialog.setContentView(R.layout.popup_show_exo)

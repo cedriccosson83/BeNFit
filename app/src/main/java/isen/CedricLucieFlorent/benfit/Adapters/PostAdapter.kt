@@ -103,7 +103,7 @@ class PostAdapter(
             } else if (post.sessionId != "" && post.sessionId != "null") {
                 view.btnShareInFeed.setOnClickListener  {linkToSession(ApplicationContext.applicationContext(), post.sessionId)}
             } else if (post.exoId != "" && post.exoId != "null") {
-                view.btnShareInFeed.setOnClickListener{showPopUpExercice(database, it.context, post.exoId, windowManager)}
+                view.btnShareInFeed.setOnClickListener{showPopUpExercice(database, it.context, post.exoId)}
             } else {
                 view.btnShareInFeed.visibility = View.INVISIBLE
             }
