@@ -12,6 +12,7 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import android.view.Menu
+import android.view.View
 import android.widget.*
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import com.google.firebase.auth.FirebaseAuth
@@ -90,6 +91,10 @@ open class MenuActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
                         navNameText.text = "$fname $lname"
                         navMailText.text = mail
                         setImageFromFirestore(context, navPict, "users/$userId/$pictUID")
+                        val navInfos = header.findViewById<View>(R.id.navInfos)
+
+                        navInfos.setOnClickListener{startActivity(Intent(context,ProfileActivity::class.java))}
+                        navPict.setOnClickListener{startActivity(Intent(context,ProfileActivity::class.java))}
                         homeBtn.setOnClickListener{
                             intent = Intent(context, HomeActivity::class.java)
                             startActivity(intent)
