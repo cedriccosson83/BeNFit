@@ -24,7 +24,6 @@
         <activity android:name=".ProfileActivity" />
         <activity android:name=".WritePostActivity" />
         <activity android:name=".PostActivity" />
-        <activity android:name=".ScriptActivity" />
         <activity android:name=".FeedActivity" />
         <activity android:name=".SessionActivity" />
         <activity android:name=".SignUpActivity" />
