@@ -10,18 +10,21 @@ import isen.CedricLucieFlorent.benfit.R
 import isen.CedricLucieFlorent.benfit.setImageFromFirestore
 import kotlinx.android.synthetic.main.recycler_view_session_cell.view.*
 
-class SessionAdapter(val sessions: ArrayList<Session>, val clickListener: (Session) -> Unit): RecyclerView.Adapter<SessionAdapter.SessionViewHolder>(){
+class SessionAdapter(
+        val sessions: ArrayList<Session>,
+        private val clickListener: (Session) -> Unit)
+    : RecyclerView.Adapter<SessionAdapter.SessionViewHolder>(){
 
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SessionAdapter.SessionViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SessionViewHolder {
         val view = LayoutInflater.from(parent.context)
                 .inflate(R.layout.recycler_view_session_cell, parent, false)
-        return SessionAdapter.SessionViewHolder(view)
+        return SessionViewHolder(view)
     }
 
 
 
-    override fun onBindViewHolder(holder: SessionAdapter.SessionViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: SessionViewHolder, position: Int) {
         val session = sessions[position]
         holder.bind(session,clickListener)
     }
@@ -38,8 +41,11 @@ class SessionAdapter(val sessions: ArrayList<Session>, val clickListener: (Sessi
             view.descrSessionCell.text = session.descSession
             view.levelSessionCell.text = session.levelSession
             view.btnAddSessionProgram.setOnClickListener { clickListener(session) }
-            var img = session.pictureUID
-            setImageFromFirestore(ApplicationContext.applicationContext(), view.imageViewSessionProgram, "sessions/${session.sessionID}/${img}")
+            val img = session.pictureUID
+            setImageFromFirestore(
+                ApplicationContext.applicationContext(),
+                view.imageViewSessionProgram,
+                "sessions/${session.sessionID}/${img}")
         }
     }
 
