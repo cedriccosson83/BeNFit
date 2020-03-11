@@ -11,8 +11,7 @@ import kotlinx.android.synthetic.main.recycler_view_session_program.view.*
 
 class SessionProgramAdapter(
     val sessions: ArrayList<SessionProgram>,
-        private val deleteListener: (SessionProgram) -> Unit,
-        private val sessionListener: (SessionProgram) -> Unit)
+        private val deleteListener: (SessionProgram) -> Unit)
     : RecyclerView.Adapter<SessionProgramAdapter.SessionProgramViewHolder>() {
 
 
@@ -25,7 +24,7 @@ class SessionProgramAdapter(
 
     override fun onBindViewHolder(holder: SessionProgramViewHolder, position: Int) {
         val session = sessions[position]
-        holder.bind(session, deleteListener, sessionListener)
+        holder.bind(session, deleteListener)
     }
 
     override fun getItemCount(): Int {
@@ -35,7 +34,7 @@ class SessionProgramAdapter(
 
     class SessionProgramViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
 
-        fun bind(session: SessionProgram, deleteListener: (SessionProgram) -> Unit, sessionListener: (SessionProgram) -> Unit) {
+        fun bind(session: SessionProgram, deleteListener: (SessionProgram) -> Unit) {
             view.nameSessionCreateProgram.text = session.nameSessionProgram
             view.btnDeleteSessionCreateProgram.setOnClickListener { deleteListener(session) }
             val img = session.imgURI

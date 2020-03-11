@@ -13,7 +13,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
-import com.google.firebase.storage.UploadTask
 import isen.CedricLucieFlorent.benfit.Functions.*
 import kotlinx.android.synthetic.main.activity_session.*
 import kotlin.collections.ArrayList
@@ -37,7 +36,7 @@ class SessionActivity : MenuActivity(){
         val idUser = auth.currentUser?.uid
         if (idUser != null) {
             showInfosSession(database, this, idUser)
-            showExosSession(database, recyclerViewExoSession, idUser,this)
+            showExosSession(database, recyclerViewExoSession, idUser)
         }
         recyclerViewExoSession.layoutManager = LinearLayoutManager(
             this, LinearLayoutManager.VERTICAL, false)

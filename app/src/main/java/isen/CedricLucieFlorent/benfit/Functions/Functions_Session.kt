@@ -30,35 +30,29 @@ fun addTemporaryNameSession(database: FirebaseDatabase, idUser: String, nameSess
 }
 fun addTemporaryDescSession(database: FirebaseDatabase,idUser: String, descSession: String){
     val dbInfos = database.getReference("temporary_infos_session")
-    if(descSession != null){
-        dbInfos.child(idUser).child("descSession").setValue(descSession)
-    }
+    dbInfos.child(idUser).child("descSession").setValue(descSession)
+
 }
 fun addTemporaryLevelSession(database: FirebaseDatabase,idUser: String, levelSession: String){
     val dbInfos = database.getReference("temporary_infos_session")
-
     dbInfos.child(idUser).child("levelSession").setValue(levelSession)
 }
 fun addTemporaryRoundSession(database: FirebaseDatabase,idUser: String, roundSession: String){
     val dbInfos = database.getReference("temporary_infos_session")
-    if(roundSession != null){
-        dbInfos.child(idUser).child("roundSession").setValue(roundSession)
-    }
+    dbInfos.child(idUser).child("roundSession").setValue(roundSession)
+
 }
 fun updateRepExoSession(database: FirebaseDatabase, idExoSession: String, rep: String){
-    val database = FirebaseDatabase.getInstance()
     val dbExos = database.getReference("temporary_exos_session")
-
     dbExos.child(idExoSession).child("rep").setValue(rep)
 }
-fun showExosSession(database : FirebaseDatabase, view: RecyclerView, userId :String, context: Context) {
-
+fun showExosSession(database : FirebaseDatabase, view: RecyclerView, userId :String) {
     val myRef = database.getReference("temporary_exos_session")
     myRef.addValueEventListener(object : ValueEventListener {
         override fun onDataChange(dataSnapshot: DataSnapshot){
-            val exos : ArrayList<SessionExercice> = ArrayList<SessionExercice>()
+            val exos : ArrayList<SessionExercice> = ArrayList()
             for(value in dataSnapshot.children ) {
-                var exo : SessionExercice = SessionExercice(
+                val exo = SessionExercice(
                     value.child("exoSessionID").value.toString(),
                     value.child("userID").value.toString(),
                     value.child("exoID").value.toString(),
@@ -70,7 +64,8 @@ fun showExosSession(database : FirebaseDatabase, view: RecyclerView, userId :Str
                 }
             }
             exos.reverse()
-            view.adapter = ExoSessionAdapter(exos, { exoItem : SessionExercice -> deleteExoSessionClicked(database, exoItem) })
+            view.adapter = ExoSessionAdapter(exos) {
+                    exoItem : SessionExercice -> deleteExoSessionClicked(database, exoItem) }
         }
 
         override fun onCancelled(error: DatabaseError) {
@@ -92,7 +87,7 @@ fun showInfosSession(database :  FirebaseDatabase, activity: SessionActivity, us
                         activity.inputDescSession.setText(value.child("descSession").value.toString())
                     }
                     if(value.child("roundSession").exists()){
-                        activity.editTextNumberSerie.setText(value.child("roundSession").value.toString())
+                        activity.editTextNumberSerie.text = value.child("roundSession").value.toString()
                     }
                 }
             }
@@ -146,16 +141,19 @@ fun saveSession(database : FirebaseDatabase, storageReference : StorageReference
     val newId = dbSession.push().key
     myRef.addListenerForSingleValueEvent(object : ValueEventListener {
         override fun onDataChange(dataSnapshot: DataSnapshot){
-            val exos : ArrayList<SessionExercice> = ArrayList<SessionExercice>()
+            val exos : ArrayList<SessionExercice> = ArrayList()
             for(value in dataSnapshot.children ) {
-                var exo : SessionExercice = SessionExercice(value.child("exoSessionID").value.toString(),value.child("userID").value.toString(), value.child("exoID").value.toString(),value.child("rep").value.toString())
+                val exo = SessionExercice(
+                    value.child("exoSessionID").value.toString(),
+                    value.child("userID").value.toString(),
+                    value.child("exoID").value.toString(),
+                    value.child("rep").value.toString())
                 if(exo.userID== userId){
                     exos.add(exo)
                 }
             }
-            //var session : Session = Session(newId,userId,nameSession,descSession,levelSession,exos,nbrRound)
 
-            var session : Session = Session(newId,userId,nameSession,descSession,levelSession,exos,nbrRound,"")
+            val session = Session(newId,userId,nameSession,descSession,levelSession,exos,nbrRound,"")
             if (newId != null) {
                 dbSession.child(newId).setValue(session)
                 saveInfosSession(database,newId, userId,nameSession, descSession, levelSession,nbrRound)
@@ -164,11 +162,11 @@ fun saveSession(database : FirebaseDatabase, storageReference : StorageReference
             val uniqID = UUID.randomUUID().toString()
             val stoRef = storageReference.child("sessions/${session.sessionID}/$uniqID")
             val result: UploadTask
-            if(image_uri != Uri.EMPTY) {
-                result = stoRef.putFile(image_uri)
+            result = if(image_uri != Uri.EMPTY) {
+                stoRef.putFile(image_uri)
             } else {
                 val uri = getDrawableToURI(context, R.drawable.sessions)
-                result = stoRef.putFile(uri)
+                stoRef.putFile(uri)
             }
             result.addOnSuccessListener {
                 database.getReference("sessions/${session.sessionID}/pictureUID").setValue(uniqID)
@@ -218,10 +216,10 @@ fun showSessions(database: FirebaseDatabase, view: RecyclerView, context: Contex
     val myRef = database.getReference("sessions")
     myRef.addValueEventListener(object : ValueEventListener{
         override fun onDataChange(dataSnapshot: DataSnapshot){
-            val sessions : ArrayList<Session> = ArrayList<Session>()
+            val sessions : ArrayList<Session> = ArrayList()
             for(value in dataSnapshot.children ) {
-                var exosSession : ArrayList<SessionExercice> = ArrayList()
-                var session : Session = Session(value.child("sessionID").value.toString(),
+                val exosSession : ArrayList<SessionExercice> = ArrayList()
+                val session = Session(value.child("sessionID").value.toString(),
                     value.child("userID").value.toString(),
                     value.child("nameSession").value.toString(),
                     value.child("descSession").value.toString(),
@@ -232,7 +230,9 @@ fun showSessions(database: FirebaseDatabase, view: RecyclerView, context: Contex
                 sessions.add(session)
             }
             sessions.reverse()
-            view.adapter = SessionAdapter(sessions,  { sessionItem : Session -> sessionChooseProgramClicked(context,sessionItem,idUser, database) } )
+            view.adapter = SessionAdapter(sessions) {
+                    sessionItem : Session
+                        -> sessionChooseProgramClicked(context,sessionItem,idUser, database) }
         }
 
         override fun onCancelled(error: DatabaseError) {
@@ -240,16 +240,14 @@ fun showSessions(database: FirebaseDatabase, view: RecyclerView, context: Contex
         }
     })
 }
-fun showSessionsProgram(database: FirebaseDatabase,view: RecyclerView, context: Context, userId : String) {
+fun showSessionsProgram(database: FirebaseDatabase,view: RecyclerView, userId : String) {
 
     val myRef = database.getReference("temporary_session_program")
     myRef.addValueEventListener(object : ValueEventListener{
         override fun onDataChange(dataSnapshot: DataSnapshot){
-            val sessions : ArrayList<SessionProgram> = ArrayList<SessionProgram>()
+            val sessions : ArrayList<SessionProgram> = ArrayList()
             for(value in dataSnapshot.children ) {
-                var exosSession : ArrayList<SessionExercice> = ArrayList()
-                // var session : Session = Session(value.child("sessionID").value.toString(),value.child("userID").value.toString(),value.child("nameSession").value.toString(),value.child("descSession").value.toString(),value.child("levelSession").value.toString(),exosSession,value.child("nbrRound").value.toString().toInt())
-                var sessionProgram : SessionProgram = SessionProgram(
+                val sessionProgram = SessionProgram(
                     value.child("idSessionTemp").value.toString(),
                     value.child("sessionID").value.toString(),
                     value.child("nameSession").value.toString(),
@@ -263,7 +261,8 @@ fun showSessionsProgram(database: FirebaseDatabase,view: RecyclerView, context: 
 
             }
             sessions.reverse()
-            view.adapter = SessionProgramAdapter(sessions, {sessionItem : SessionProgram -> deleteSessionProgramClicked(database, sessionItem) },  { sessionItem : SessionProgram -> sessionProgramClicked(context, sessionItem,database) })
+            view.adapter = SessionProgramAdapter(sessions
+            ) { sessionItem : SessionProgram -> deleteSessionProgramClicked(database, sessionItem) }
         }
 
         override fun onCancelled(error: DatabaseError) {
@@ -272,7 +271,6 @@ fun showSessionsProgram(database: FirebaseDatabase,view: RecyclerView, context: 
     })
 }
 fun addTemporarySessionProgram(database : FirebaseDatabase, idUser:String, session : Session) : Int{
-    val database = FirebaseDatabase.getInstance()
     val dbSession = database.getReference("temporary_session_program")
     val newId = dbSession.push().key
 
@@ -280,7 +278,15 @@ fun addTemporarySessionProgram(database : FirebaseDatabase, idUser:String, sessi
         Log.d("TAG", "Couldn't get push key for exos")
         return -1
     }
-    var newSession : Session = Session(session.sessionID, idUser,session.nameSession,session.descSession,session.levelSession,session.exosSession,session.roundSession,session.pictureUID)
+    val newSession = Session(
+        session.sessionID,
+        idUser,
+        session.nameSession,
+        session.descSession,
+        session.levelSession,
+        session.exosSession,
+        session.roundSession,
+        session.pictureUID)
     dbSession.child(newId).setValue(newSession)
     dbSession.child(newId).child("idSessionTemp").setValue(newId)
     return 0
@@ -290,19 +296,13 @@ private fun sessionChooseProgramClicked(context:Context, sessionItem : Session, 
     context.startActivity(intent)
     addTemporarySessionProgram(database, idUser, sessionItem)
 }
-private fun sessionProgramClicked(context:Context, sessionItem : SessionProgram, database : FirebaseDatabase) {
 
-
-}
-private fun sessionsFeedClicked(context: Context, sessionItem: SessionFeed, database: FirebaseDatabase){
-
-}
 private fun deleteSessionProgramClicked(firebase : FirebaseDatabase, sessionItem : SessionProgram) {
-    sessionItem.sessionProgID?.let { deleteSessionProgram(firebase, it) }
+    deleteSessionProgram(firebase, sessionItem.sessionProgID)
 }
 fun sessionFinished(database: FirebaseDatabase, session: ShowSessionProgram, program: ShowProgram, currentUserID: String?, icon: ImageView){
-    var programID = program.programID ?: ""
-    var id = currentUserID ?:""
+    val programID = program.programID ?: ""
+    val id = currentUserID ?:""
     if (id != ""){
         val myRef = database.getReference("users").child(id).child("currentPrograms").child(programID)
         for (value in program.sessionsProgram) {
