@@ -57,7 +57,8 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:inputType="textPersonName"
-            android:text="@string/prenom"
+            android:hint="@string/prenom"
+            android:importantForAutofill="no"
             app:layout_constraintBottom_toBottomOf="@+id/lastNameTextViewModify"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/lastNameTextViewModify"
@@ -112,7 +113,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
             android:layout_marginTop="8dp"
-            android:text="(kg)"
+            android:text="@string/hintKg"
             app:layout_constraintBottom_toBottomOf="@+id/weightTextViewModify"
             app:layout_constraintStart_toEndOf="@+id/weightTextViewModify"
             app:layout_constraintTop_toTopOf="@+id/weightTextViewModify" />
@@ -139,7 +140,8 @@
             app:layout_constraintBottom_toTopOf="@id/validateModifyButton"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/sportTextViewModify">
+            app:layout_constraintTop_toBottomOf="@+id/sportTextViewModify"
+            tools:ignore="NestedScrolling">
 
             <LinearLayout
                 android:layout_width="match_parent"

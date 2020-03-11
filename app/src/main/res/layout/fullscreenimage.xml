@@ -9,5 +9,5 @@
         android:id="@+id/fullScreenImageView"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
-        android:contentDescription="TODO" />
+        android:contentDescription="@string/img" />
 </RelativeLayout>

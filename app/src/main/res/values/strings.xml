@@ -201,7 +201,7 @@
     <string name="Name">Name</string>
     <string name="Content">Content</string>
     <string name="commentContent">Comment</string>
-    <string name="commentsText">Votre commentaire ...</string>
+    <string name="commentsText">Votre commentaire …</string>
     <string name="mail">Email</string>
     <string name="date">Date</string>
     <string name="activityfeed">Fil d\'actualité</string>
@@ -289,5 +289,22 @@
     <string name="ex_rep">ex: rép</string>
     <string name="defineExoRules">Définissez les instructions de l\'exercice</string>
     <string name="validateModifs">Valider les modifications</string>
+    <string name="hintKg">(kg)</string>
+    <string name="disable">Désactiver</string>
+    <string name="plan">Planifier</string>
+    <string name="planYourSession">Programmez votre séance !</string>
+    <string name="hour">Heure</string>
+    <string name="myPrograms">Mes programmes</string>
+    <string name="followedPrograms">Programmes suivis</string>
+    <string name="programName">Nom du programme</string>
+    <string name="programDescr">Description du programme</string>
+    <string name="createYourProgram">Créez votre programme</string>
+    <string name="createYourSession">Créez votre séance</string>
+    <string name="x">X</string>
+    <string name="_1">1</string>
+    <string name="john_doe">John Doe</string>
+    <string name="_4">4</string>
+    <string name="newPublish">Nouvelle publication</string>
+    <string name="informations">Détails</string>
 
 </resources>

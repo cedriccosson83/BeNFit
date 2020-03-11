@@ -54,10 +54,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
                 android:layout_marginEnd="10dp"
-                android:layout_marginRight="10dp"
-                android:insetTop="15dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
                 android:text="@string/connexion"
                 android:textColor="@android:color/black"
                 app:backgroundTint="@color/redLogo" />
@@ -68,9 +67,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="29dp"
-                android:layout_marginRight="29dp"
                 android:layout_toStartOf="@id/signInButton"
-                android:layout_toLeftOf="@id/signInButton"
                 android:text="@string/je_n_ai_pas_de_compte"
                 android:textColor="@color/redLogo" />
 
@@ -88,7 +85,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/logo"
-        android:contentDescription="TODO" />
+        android:contentDescription="@string/img" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

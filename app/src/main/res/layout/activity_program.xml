@@ -13,7 +13,7 @@
         android:layout_height="60dp"
         android:layout_marginStart="20dp"
         android:layout_marginTop="8dp"
-        android:hint="Nom du programme"
+        android:hint="@string/programName"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/createProgramTextView">
 
@@ -31,7 +31,7 @@
         android:layout_height="60dp"
         android:layout_marginStart="20dp"
         android:layout_marginTop="20dp"
-        android:hint="Description du programme"
+        android:hint="@string/programDescr"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textInputLayoutProgram">
 
@@ -58,7 +58,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="50dp"
         android:layout_marginTop="50dp"
-        android:text="Créez votre programme"
+        android:text="@string/createYourProgram"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textStyle="bold"
         app:layout_constraintEnd_toStartOf="@+id/constraintLayoutBtn"
@@ -94,7 +94,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imageViewCreateProg"
             app:srcCompat="@drawable/addexo"
-            android:contentDescription="TODO" />
+            android:contentDescription="@string/img" />
 
         <ImageView
             android:id="@+id/imageViewCreateProg"
@@ -105,7 +105,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/btnSaveProgram"
             app:srcCompat="@drawable/addpicture"
-            android:contentDescription="TODO" />
+            android:contentDescription="@string/img" />
 
         <ImageView
             android:id="@+id/btnSaveProgram"
@@ -116,7 +116,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/save"
-            android:contentDescription="TODO" />
+            android:contentDescription="@string/img" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -96,7 +96,7 @@
         android:id="@+id/newPost"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Nouvelle publication"
+        android:text="@string/newPublish"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -112,6 +112,6 @@
         app:layout_constraintEnd_toStartOf="@+id/sharedLink"
         app:layout_constraintTop_toTopOf="@+id/sharedLink"
         app:srcCompat="@drawable/link"
-        android:contentDescription="TODO" />
+        android:contentDescription="@string/img" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

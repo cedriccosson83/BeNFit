@@ -29,11 +29,11 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:layout_weight="1"
-        android:text="Planifier"
+        android:text="@string/plan"
         app:backgroundTint="@color/greenSuccess"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearHD"></Button>
+        app:layout_constraintTop_toBottomOf="@+id/linearHD"/>
 
     <Button
         android:id="@+id/btnCancel"
@@ -41,18 +41,18 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:layout_weight="1"
-        android:text="Désactiver"
+        android:text="@string/disable"
         app:backgroundTint="@color/colorPrimary"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnCreate"></Button>
+        app:layout_constraintTop_toBottomOf="@+id/btnCreate"/>
 
     <TextView
         android:id="@+id/descriptionNotification"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
-        android:text="Programmez votre séance !"
+        android:text="@string/planYourSession"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -74,14 +74,17 @@
             android:id="@+id/inputDate"
             android:layout_width="150dp"
             android:layout_height="50dp"
-            android:hint="@string/date" />
+            android:hint="@string/date"
+            android:importantForAutofill="no"
+            android:inputType="date" />
 
         <EditText
             android:id="@+id/inputTime"
             android:layout_width="150dp"
             android:layout_height="50dp"
-            android:hint="Heure" />
-        />
+            android:hint="@string/hour"
+            android:importantForAutofill="no"
+            android:inputType="text" />
 
 
     </LinearLayout>

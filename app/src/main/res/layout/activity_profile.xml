@@ -145,8 +145,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Mes programmes"
-                android:textSize="11sp" />
+                android:text="@string/myPrograms"
+                android:textSize="11sp"
+                tools:ignore="SmallSp" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/subscribeProgramButton"
@@ -154,8 +155,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Programmes suivis"
-                android:textSize="11sp" />
+                android:text="@string/followedPrograms"
+                android:textSize="11sp"
+                tools:ignore="SmallSp" />
 
         </com.google.android.material.button.MaterialButtonToggleGroup>
 

@@ -40,7 +40,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textInputLayout12"
         app:srcCompat="@drawable/default_profile_pict"
-        android:contentDescription="TODO" />
+        android:contentDescription="@string/img" />
 
     <TextView
         android:id="@+id/sportTewtView"
@@ -196,7 +196,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="?attr/homeAsUpIndicator"
-        android:contentDescription="TODO" />
+        android:contentDescription="@string/img" />
 
 
 
