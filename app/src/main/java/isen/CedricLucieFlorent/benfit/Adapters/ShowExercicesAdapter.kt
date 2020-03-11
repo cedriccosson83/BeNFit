@@ -12,8 +12,10 @@ import isen.CedricLucieFlorent.benfit.Models.ShowExerciceSession
 import isen.CedricLucieFlorent.benfit.R
 import kotlinx.android.synthetic.main.recycler_view_show_session_exercices.view.*
 
-class ShowExercicesAdapter (val exercices: ArrayList<ShowExerciceSession>, val sessionID: String?,
-                            private val clickExercice: (ShowExerciceSession, sessID: String?) -> Unit)
+class ShowExercicesAdapter (
+        private val exercices: ArrayList<ShowExerciceSession>,
+        val sessionID: String?,
+        private val clickExercice: (ShowExerciceSession, sessID: String?) -> Unit)
     : RecyclerView.Adapter<ShowExercicesAdapter.ExoViewHolder>(){
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ExoViewHolder {
@@ -47,7 +49,6 @@ class ShowExercicesAdapter (val exercices: ArrayList<ShowExerciceSession>, val s
             } else if(exo.urlYt != "" && exo.urlYt != "null") {
                 view.imageViewExerciceShowSession.setImageResource(R.drawable.ytb)
             }
-            //view.nameExerciceShowSession.setOnClickListener { clickSession(exo, sessionID) }
         }
     }
 

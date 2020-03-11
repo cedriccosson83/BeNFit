@@ -1,11 +1,9 @@
 package isen.CedricLucieFlorent.benfit.Adapters
 
-import android.app.Dialog
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.Window
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
@@ -17,8 +15,14 @@ import isen.CedricLucieFlorent.benfit.Functions.showChecked
 import isen.CedricLucieFlorent.benfit.Models.ShowSessionProgram
 import kotlinx.android.synthetic.main.recycler_view_show_program_sessions.view.*
 
-class ShowSessionsAdapter (val sessions: ArrayList<ShowSessionProgram>, val program: ShowProgram, val context: Context, val activity: String, val database: FirebaseDatabase, val reference: String,
-                           private val clickSession: (ShowSessionProgram) -> Unit
+class ShowSessionsAdapter (
+    val sessions: ArrayList<ShowSessionProgram>,
+    private val program: ShowProgram,
+    val context: Context,
+    val activity: String,
+    val database: FirebaseDatabase,
+    private val reference: String,
+    private val clickSession: (ShowSessionProgram) -> Unit
 ): RecyclerView.Adapter<ShowSessionsAdapter.SessionViewHolder>(){
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SessionViewHolder {
@@ -29,7 +33,7 @@ class ShowSessionsAdapter (val sessions: ArrayList<ShowSessionProgram>, val prog
 
     override fun onBindViewHolder(holder: SessionViewHolder, position: Int) {
         val session = sessions[position]
-        holder.bind(session, context, program, activity, database, reference , clickSession)
+        holder.bind(session, program, activity, database, reference , clickSession)
     }
 
     override fun getItemCount(): Int {
@@ -39,12 +43,18 @@ class ShowSessionsAdapter (val sessions: ArrayList<ShowSessionProgram>, val prog
     class SessionViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
         lateinit var auth: FirebaseAuth
         val database = FirebaseDatabase.getInstance()
-        fun bind(session: ShowSessionProgram, context: Context, program : ShowProgram, activity: String, database : FirebaseDatabase, reference: String,
-                 clickSession: (ShowSessionProgram) -> Unit) {
+
+        fun bind(
+            session: ShowSessionProgram,
+            program : ShowProgram,
+            activity: String,
+            database : FirebaseDatabase,
+            reference: String,
+            clickSession: (ShowSessionProgram) -> Unit
+        ) {
             auth = FirebaseAuth.getInstance()
             view.parentViewSessionShowProgram.setOnClickListener{clickSession(session)}
             view.nameSessionShowProgram.text = session.nameSession
-            //view.nameSessionShowProgram.setOnClickListener { clickSession(session) }
             setImageFromFirestore(
                 ApplicationContext.applicationContext(),
                 view.imageViewSessionShowProgram,

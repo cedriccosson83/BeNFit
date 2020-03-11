@@ -32,7 +32,7 @@ class ModifyProfile : MenuActivity() {
 
     private lateinit var storageReference: StorageReference
     val sportSel = arrayListOf<String>()
-    private lateinit var image_uri : Uri
+    private lateinit var imageUri : Uri
 
     private lateinit var stu: StreamToUri
 
@@ -47,9 +47,6 @@ class ModifyProfile : MenuActivity() {
         val day = c.get(Calendar.DAY_OF_MONTH)
         val dateFormat = "dd/MM/yyyy"
         val sdf = SimpleDateFormat(dateFormat, Locale.FRANCE)
-        var dayselec : Int = 0
-        var monthselec : Int = 0
-        var yearselec : Int = 0
 
         val showdiffsports = findViewById<TextView>(R.id.showSports)
 
@@ -83,25 +80,24 @@ class ModifyProfile : MenuActivity() {
             }
         }
 
-        birthdateTextViewModify.onFocusChangeListener = View.OnFocusChangeListener { _, hasFocus ->
-            if (hasFocus) {
-                val dpd = DatePickerDialog(
-                    this,
-                    DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
-                        c.set(Calendar.YEAR, year)
-                        c.set(Calendar.MONTH, monthOfYear)
-                        c.set(Calendar.DAY_OF_MONTH, dayOfMonth)
-                        birthdateTextViewModify.setText(sdf.format(c.time))// = sdf.format(c.time)
-                        dayselec = dayOfMonth
-                        monthselec = monthOfYear
-                        yearselec = year
-                    },
-                    year,
-                    month,
-                    day
-                )
-                dpd.show()
-            }
+        birthdateTextViewModify.onFocusChangeListener = View.OnFocusChangeListener {
+            _, hasFocus ->
+                if (hasFocus) {
+                    val dpd = DatePickerDialog(
+                        this,
+                        DatePickerDialog.OnDateSetListener { _, year, monthOfYear,
+                                                             dayOfMonth ->
+                            c.set(Calendar.YEAR, year)
+                            c.set(Calendar.MONTH, monthOfYear)
+                            c.set(Calendar.DAY_OF_MONTH, dayOfMonth)
+                            birthdateTextViewModify.setText(sdf.format(c.time))
+                        },
+                        year,
+                        month,
+                        day
+                    )
+                    dpd.show()
+                }
         }
 
         changeProfilImageModify.setOnClickListener{
@@ -110,13 +106,18 @@ class ModifyProfile : MenuActivity() {
 
         validateModifyButton.setOnClickListener{
             val user = auth.currentUser
-            ChangeUser(user, firstNameTextViewModify.text.toString(),lastNameTextViewModify.text.toString(), birthdateTextViewModify.text.toString(), "", weightTextViewModify.text.toString())
+            changeUser(
+                user,
+                firstNameTextViewModify.text.toString(),
+                lastNameTextViewModify.text.toString(),
+                birthdateTextViewModify.text.toString(),
+                weightTextViewModify.text.toString())
             startActivity(Intent(this, ProfileActivity::class.java))
         }
 
         sportTextViewModify.setOnClickListener{
             val checkedColorsArray = BooleanArray(166)
-            var listSportselec : ArrayList<String> = ArrayList()
+            val listSportselec : ArrayList<String> = ArrayList()
             for (sport in sportSelectedModif){
                 listSportselec.add(sport.getSportName())
             }
@@ -134,15 +135,20 @@ class ModifyProfile : MenuActivity() {
                     checkedColorsArray
                 ) { _, which, isChecked ->
                     checkedColorsArray[which] = isChecked
-                    val currentItem = sportList[which]
                 }
-                .setPositiveButton("OK") { dialog, which ->
+                .setPositiveButton("OK") { _, _ ->
                     sportSelectedModif = ArrayList()
-                    showdiffsports.text = "Sports pratiqués : "
+                    showdiffsports.text = getString(R.string.sportsPracticed)
                     for (i in checkedColorsArray.indices) {
                         val checked = checkedColorsArray[i]
                         if (checked) {
-                            showdiffsports.text = showdiffsports.text.toString() + sportList[i] + " "
+                            showdiffsports.text =
+                                ApplicationContext.applicationContext().getString(
+                                    R.string.ConcatSport,
+                                    showdiffsports.text.toString(),
+                                    sportList[i]
+                                )
+                                showdiffsports.text.toString() + sportList[i] + " "
                             sportSelectedModif.add(Sport(sportList[i], ArrayList()))
                         }
                     }
@@ -180,21 +186,22 @@ class ModifyProfile : MenuActivity() {
         val userid = auth.currentUser?.uid ?: ""
         val uniqID = UUID.randomUUID().toString()
         stu.manageActivityResult(requestCode, data)
-        image_uri = stu.imageUri
+        imageUri = stu.imageUri
         val riversRef = storageReference.child("users/$userid/$uniqID")
-        val result = riversRef.putFile(image_uri)
+        val result = riversRef.putFile(imageUri)
         result.addOnSuccessListener {
-            changeProfilImageModify.setImageURI(image_uri)
+            changeProfilImageModify.setImageURI(imageUri)
             database.getReference("users/$userid/pictureUID").setValue(uniqID)
         }
     }
 
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>,
+                                            grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         stu.manageRequestPermissionResult(requestCode, grantResults)
     }
 
-    fun showUserM(userId: String) {
+    private fun showUserM(userId: String) {
         val myRef = database.getReference("users")
         myRef.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
@@ -206,7 +213,8 @@ class ModifyProfile : MenuActivity() {
                         value.child("firstname").value.toString(),
                         value.child("lastname").value.toString(),
                         value.child("birthdate").value.toString(),
-                        ArrayList(value.child("sports").children.map { Sport(it.child("name").value.toString(), arrayListOf()) }),
+                        ArrayList(value.child("sports").children.map {
+                            Sport(it.child("name").value.toString(), arrayListOf()) }),
                         value.child("weight").value.toString(),
                         value.child("pictureUID").value.toString(),
                         value.child("grade").value.toString()
@@ -215,7 +223,7 @@ class ModifyProfile : MenuActivity() {
                     if (user.userid == userId) {
                         firstNameTextViewModify.setText("${user.firstname}")
                         lastNameTextViewModify.setText("${user.lastname}")
-                        birthdateTextViewModify.setText("${user.birthdate.toString()}")
+                        birthdateTextViewModify.setText(user.birthdate.toString())
                         weightTextViewModify.setText("${user.weight}")
                         var sportText = "Sports pratiqués : "
                         for (sp in user.sports)
@@ -225,7 +233,10 @@ class ModifyProfile : MenuActivity() {
                             sportText = "Aucun sport sélectionné"
 
                         showSports.text = sportText
-                        setImageFromFirestore(context, changeProfilImageModify, "users/$userId/${user.pictureUID}")
+                        setImageFromFirestore(
+                            context,
+                            changeProfilImageModify,
+                            "users/$userId/${user.pictureUID}")
                     }
                 }
             }
@@ -238,17 +249,19 @@ class ModifyProfile : MenuActivity() {
         })
     }
 
-    private fun ChangeUser(user: FirebaseUser?, fnamenew:String, lnamenew:String, birthdatenew:String, sportnew:String, weightnew:String) {
+    private fun changeUser(user: FirebaseUser?, fnamenew:String, lnamenew:String,
+                           birthdatenew:String, weightnew:String) {
         if (user?.uid != null) {
             val root = database.getReference("users")
             root.child(user.uid).child("firstname").setValue(fnamenew)
             root.child(user.uid).child("lastname").setValue(lnamenew)
             root.child(user.uid).child("birthdate").setValue(birthdatenew)
             root.child(user.uid).child("weight").setValue(weightnew)
-            if (sportSelectedModif.isNotEmpty()){ root.child(user.uid).child("sports").setValue(sportSelectedModif)}
-            else{
-                toast(context, "liste vide")}
-
+            if (sportSelectedModif.isNotEmpty()){
+                root.child(user.uid).child("sports").setValue(sportSelectedModif)
+            } else {
+                toast(context, "liste vide")
+            }
         } else
             Toast.makeText(this, getString(R.string.err_inscription), Toast.LENGTH_LONG).show()
     }

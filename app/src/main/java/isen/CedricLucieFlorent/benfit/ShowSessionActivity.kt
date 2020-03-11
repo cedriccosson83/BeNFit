@@ -13,7 +13,6 @@ import isen.CedricLucieFlorent.benfit.Adapters.ShowExercicesAdapter
 import isen.CedricLucieFlorent.benfit.Functions.*
 import isen.CedricLucieFlorent.benfit.Models.ShowExerciceSession
 import kotlinx.android.synthetic.main.activity_show_session.*
-import kotlinx.android.synthetic.main.recycler_view_show_program_sessions.*
 
 class ShowSessionActivity : MenuActivity() {
 
@@ -22,7 +21,8 @@ class ShowSessionActivity : MenuActivity() {
         layoutInflater.inflate(R.layout.activity_show_session, frameLayout)
         auth = FirebaseAuth.getInstance()
 
-        showSessionRecyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+        showSessionRecyclerView.layoutManager = LinearLayoutManager(
+            this, LinearLayoutManager.VERTICAL, false)
 
 
         val intent = intent
@@ -96,7 +96,7 @@ class ShowSessionActivity : MenuActivity() {
                         }
 
                         showSessionNotif.setOnClickListener {
-                            var sessionID = session.sessionID ?: ""
+                            val sessionID = session.sessionID ?: ""
                             notifClicked(sessionID)
                         }
                         break
@@ -116,7 +116,8 @@ class ShowSessionActivity : MenuActivity() {
         showPopUpExercice(database,context,exoID, windowManager, sessId)
     }
 
-    fun showExercicesFromSession(database : FirebaseDatabase, sess_exercices: ArrayList<String>, sessId: String?) {
+    fun showExercicesFromSession(database : FirebaseDatabase, sess_exercices: ArrayList<String>,
+                                 sessId: String?) {
 
         val myRef = database.getReference("exos")
 

@@ -1,15 +1,12 @@
 package isen.CedricLucieFlorent.benfit
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import isen.CedricLucieFlorent.benfit.Adapters.SessionFeedAdapter
 import isen.CedricLucieFlorent.benfit.Models.SessionFeed
@@ -22,14 +19,15 @@ class SessionFeedActivity : MenuActivity() {
         auth = FirebaseAuth.getInstance()
         val id = auth.currentUser?.uid
         if (id != null) {
-            showSessionsFeed(database, recycler_view_session_feed, this, id)
+            showSessionsFeed()
         }
 
         feedSessionNewBtn.setOnClickListener {
             startActivity(Intent(this, SessionActivity::class.java))
         }
 
-        recycler_view_session_feed.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+        recycler_view_session_feed.layoutManager = LinearLayoutManager(
+            this, LinearLayoutManager.VERTICAL, false)
 
     }
     private fun notifClicked(session : SessionFeed) {
@@ -49,11 +47,10 @@ class SessionFeedActivity : MenuActivity() {
         context.startActivity(intent)
     }
 
-    fun showSessionsFeed(database : FirebaseDatabase, view : RecyclerView, context: Context, userId: String) {
+    private fun showSessionsFeed() {
 
         val myRef = database.getReference("sessions")
         auth = FirebaseAuth.getInstance()
-        val currentUserID = auth.currentUser?.uid
 
         myRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {

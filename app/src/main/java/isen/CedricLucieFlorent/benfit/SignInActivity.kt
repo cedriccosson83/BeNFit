@@ -58,7 +58,7 @@ class SignInActivity : AppCompatActivity() {
                 .child(user.uid).child("lastConn")
                 .setValue(date)
 
-            var currentTime = sdf.format(Calendar.getInstance().time)
+            val currentTime = sdf.format(Calendar.getInstance().time)
             removePassedNotif(database, user.uid, currentTime)
             startActivity(Intent(this, HomeActivity::class.java))
         } else {

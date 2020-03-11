@@ -13,7 +13,9 @@ import isen.CedricLucieFlorent.benfit.Models.ProgramFollow
 import isen.CedricLucieFlorent.benfit.R
 import kotlinx.android.synthetic.main.recycler_view_followed_programs.view.*
 
-class ProgramFollowAdapter (private val programs: ArrayList<ProgramFollow>, val clickListenerProgram: (ProgramFollow) -> Unit)
+class ProgramFollowAdapter (
+        private val programs: ArrayList<ProgramFollow>,
+        private val clickListenerProgram: (ProgramFollow) -> Unit)
     : RecyclerView.Adapter<ProgramFollowAdapter.ProgramViewHolder>(){
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProgramViewHolder {
@@ -42,7 +44,10 @@ class ProgramFollowAdapter (private val programs: ArrayList<ProgramFollow>, val 
             view.parentProgramFollowed.setOnClickListener{clickListenerProgram(program)}
             getProgramProgression(database, auth.currentUser?.uid, program.programID, view.programProgress)
             val img = program.imageURI
-            setImageFromFirestore(ApplicationContext.applicationContext(), view.imageViewFollowedProg, "programs/${program.programID}/${img}")
+            setImageFromFirestore(
+                ApplicationContext.applicationContext(),
+                view.imageViewFollowedProg,
+                "programs/${program.programID}/${img}")
         }
     }
 

@@ -14,20 +14,28 @@
         android:id="@+id/toolbar"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginStart="5dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
         app:contentInsetStart="0dp">
 
-        <ImageView
+        <com.airbnb.lottie.LottieAnimationView
             android:id="@+id/img_menuOption"
             android:layout_width="40dp"
             android:layout_height="40dp"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"
+            app:lottie_rawRes="@raw/menu"
+            android:background="@drawable/borderradius"/>
+<!--
+        <ImageView
+            android:layout_width="70dp"
+            android:layout_height="70dp"
             android:background="@drawable/custom_layout_shadow"
             android:clickable="true"
             android:contentDescription="@string/img"
             android:focusable="true"
 
-            android:src="@drawable/menu_icon" />
+            android:src="@drawable/menu_icon" />-->
 
     </androidx.appcompat.widget.Toolbar>
 

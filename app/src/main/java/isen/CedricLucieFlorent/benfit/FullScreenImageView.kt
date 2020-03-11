@@ -1,7 +1,6 @@
 package isen.CedricLucieFlorent.benfit
 
 import android.os.Bundle
-import android.util.Log
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.storage.FirebaseStorage

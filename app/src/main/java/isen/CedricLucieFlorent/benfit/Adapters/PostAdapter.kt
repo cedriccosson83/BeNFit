@@ -1,6 +1,5 @@
 package isen.CedricLucieFlorent.benfit.Adapters
 
-import android.content.Intent
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -20,21 +19,25 @@ import isen.CedricLucieFlorent.benfit.Functions.*
 import kotlinx.android.synthetic.main.recycler_view_post_cell.view.*
 import kotlin.collections.ArrayList
 
-
-class PostAdapter(val posts: ArrayList<Post>, val windowManager: WindowManager, val clickListener: (Post) -> Unit, val clickListenerPost: (Post) -> Unit): RecyclerView.Adapter<PostAdapter.PostViewHolder>(){
+class PostAdapter(
+        private val posts: ArrayList<Post>,
+        private val windowManager: WindowManager,
+        private val clickListener: (Post) -> Unit,
+        private val clickListenerPost: (Post) -> Unit)
+    : RecyclerView.Adapter<PostAdapter.PostViewHolder>(){
     lateinit var auth: FirebaseAuth
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostAdapter.PostViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostViewHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.recycler_view_post_cell, parent, false)
-        return PostAdapter.PostViewHolder(view)
+        return PostViewHolder(view)
     }
 
     override fun getItemCount(): Int {
         return posts.count()
     }
 
-    override fun onBindViewHolder(holder: PostAdapter.PostViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: PostViewHolder, position: Int) {
         val post = posts[position]
         holder.bind(post, windowManager, clickListener, clickListenerPost)
     }
@@ -43,18 +46,18 @@ class PostAdapter(val posts: ArrayList<Post>, val windowManager: WindowManager, 
         val auth = FirebaseAuth.getInstance()
         val database = FirebaseDatabase.getInstance()
 
-        fun countComments(postId: String) {
+        private fun countComments(postId: String) {
 
             val myRef = database.getReference("comments")
             myRef.addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(dataSnapshot: DataSnapshot) {
-                    var count: Int = 0
+                    var count = 0
                     for (value in dataSnapshot.children) {
                         val retrievedPostId = value.child("parentid").value.toString()
                         if (retrievedPostId == postId)
                             count++
                     }
-                    view.textViewCommentsNumberPost.text = "${count}"
+                    view.textViewCommentsNumberPost.text = count.toString()
 
                 }
 

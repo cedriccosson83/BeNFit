@@ -10,39 +10,42 @@ import android.content.pm.PackageManager
 import android.net.Uri
 import android.provider.MediaStore
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import kotlinx.android.synthetic.main.activity_sign_up.*
 
-class StreamToUri/* : AppCompatActivity */{
-    private var context : Context
-    private var activity : Activity
+class StreamToUri(
+    private var context: Context,
+    private var activity: Activity,
+    private var contResolv: ContentResolver
+) {
     private val codePermImage = 101
     private val codeReqImage = 102
     private val codeResExt = 101
     var imageUri: Uri
-    private var contResolv: ContentResolver
-    //private var storageReference: StorageReference = FirebaseStorage.getInstance().reference
 
-    constructor(context: Context, activity: Activity, contResolv: ContentResolver) {
-        this.context = context
-        this.activity = activity
-        this.contResolv = contResolv
+    init {
         imageUri = Uri.EMPTY
     }
 
     fun askCameraPermissions(){
-        if(ContextCompat.checkSelfPermission(context, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED){
-            ActivityCompat.requestPermissions(activity, arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE), codePermImage)
+        when {
+            ContextCompat.checkSelfPermission(
+                context,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED
+                    -> ActivityCompat.requestPermissions(activity,
+                    arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE), codePermImage)
+
+            ContextCompat.checkSelfPermission(
+                context,
+                Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED
+                    -> ActivityCompat.requestPermissions(activity,
+                    arrayOf(Manifest.permission.CAMERA), codeResExt)
+
+            else -> openCamera()
         }
-        else if (ContextCompat.checkSelfPermission(context, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(activity, arrayOf(Manifest.permission.CAMERA), codeResExt)
-        }
-        else { openCamera()}
     }
 
-    fun openCamera() {
+    private fun openCamera() {
         val values = ContentValues()
         values.put(MediaStore.Images.Media.DESCRIPTION, "New Picture")
         values.put(MediaStore.Images.Media.DESCRIPTION, "From the Camera")

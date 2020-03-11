@@ -7,22 +7,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.NumberPicker
-import android.widget.Toast
-import kotlinx.android.synthetic.main.activity_exercice.*
 
 class FragmentTimeExo : Fragment() {
-    // TODO: Rename and change types of parameters
     private var listener: OnFragmentInteractionListener? = null
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
 
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_time, container, false)
     }
 
@@ -33,7 +25,7 @@ class FragmentTimeExo : Fragment() {
             numberPicker.minValue = 0
             numberPicker.maxValue = 59
             numberPicker.wrapSelectorWheel = true
-            numberPicker.setOnValueChangedListener { picker, oldVal, newVal ->
+            numberPicker.setOnValueChangedListener { _, oldVal, newVal ->
                 val text = "Changed from $oldVal to $newVal"
             }
         }
@@ -43,11 +35,10 @@ class FragmentTimeExo : Fragment() {
             numberPickerSec.minValue = 0
             numberPickerSec.maxValue = 59
             numberPickerSec.wrapSelectorWheel = true
-            numberPickerSec.setOnValueChangedListener { picker, oldVal, newVal ->
+            numberPickerSec.setOnValueChangedListener { _, oldVal, newVal ->
                 val text = "Changed from $oldVal to $newVal"
             }
         }
-
     }
 
     override fun onAttach(context: Context) {
@@ -55,7 +46,7 @@ class FragmentTimeExo : Fragment() {
         if (context is OnFragmentInteractionListener) {
             listener = context
         } else {
-            throw RuntimeException(context.toString() + " must implement OnFragmentInteractionListener")
+            throw RuntimeException("$context must implement OnFragmentInteractionListener")
         }
     }
 

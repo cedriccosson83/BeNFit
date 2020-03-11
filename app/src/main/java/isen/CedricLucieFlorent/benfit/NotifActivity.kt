@@ -1,7 +1,6 @@
 package isen.CedricLucieFlorent.benfit
 
 import android.app.*
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.content.Context
 import android.content.Intent
@@ -9,21 +8,16 @@ import android.os.Build
 import android.view.View
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.FirebaseDatabase
 import kotlinx.android.synthetic.main.activity_notif.*
 import java.text.SimpleDateFormat
 import java.util.*
 
 
-class NotifActivity : AppCompatActivity() {
-
-
-    val database = FirebaseDatabase.getInstance()
-    lateinit var auth: FirebaseAuth
+class NotifActivity : MenuActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_notif)
+        layoutInflater.inflate(R.layout.activity_notif, frameLayout)
         createNotificationChannel()
 
         auth = FirebaseAuth.getInstance()
@@ -43,17 +37,17 @@ class NotifActivity : AppCompatActivity() {
         val sdf = SimpleDateFormat(dateFormat, Locale.FRANCE)
         val stf = SimpleDateFormat(timeFormat, Locale.FRANCE)
 
-        var dayselec : Int = 0
-        var monthselec : Int = 0
-        var yearselec : Int = 0
-        var hourselec : Int = 0
-        var minselec : Int = 0
+        var dayselec = 0
+        var monthselec = 0
+        var yearselec = 0
+        var hourselec = 0
+        var minselec  = 0
 
-        inputDate.setOnFocusChangeListener(View.OnFocusChangeListener { view, hasFocus ->
+        inputDate.onFocusChangeListener = View.OnFocusChangeListener { _, hasFocus ->
             if (hasFocus) {
                 val dpd = DatePickerDialog(
                     this,
-                    DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
+                    DatePickerDialog.OnDateSetListener { _, year, monthOfYear, dayOfMonth ->
                         c.set(Calendar.YEAR, year)
                         c.set(Calendar.MONTH, monthOfYear)
                         c.set(Calendar.DAY_OF_MONTH, dayOfMonth)
@@ -69,13 +63,13 @@ class NotifActivity : AppCompatActivity() {
                 )
                 dpd.show()
             }
-        })
+        }
 
-        inputTime.setOnFocusChangeListener(View.OnFocusChangeListener { view, hasFocus ->
+        inputTime.onFocusChangeListener = View.OnFocusChangeListener { _, hasFocus ->
             if (hasFocus) {
                 val tpd = TimePickerDialog(
                     this,
-                    TimePickerDialog.OnTimeSetListener { view, hourOfDay, minute ->
+                    TimePickerDialog.OnTimeSetListener { _, hourOfDay, minute ->
                         t.set(Calendar.HOUR_OF_DAY, hourOfDay)
                         t.set(Calendar.MINUTE, minute)
                         // Display Selected time in TextView
@@ -89,7 +83,7 @@ class NotifActivity : AppCompatActivity() {
                 )
                 tpd.show()
             }
-        })
+        }
 
         btn_create.setOnClickListener{
 
@@ -99,26 +93,20 @@ class NotifActivity : AppCompatActivity() {
             val showSessionId = intent.getStringExtra("showSessionId")
 
             val calendar = Calendar.getInstance()
-            calendar.setTimeInMillis(System.currentTimeMillis())
+            calendar.timeInMillis = System.currentTimeMillis()
             calendar.set(Calendar.MONTH, monthselec)
             calendar.set(Calendar.DAY_OF_MONTH, dayselec)
             calendar.set(Calendar.YEAR, yearselec)
             calendar.set(Calendar.HOUR_OF_DAY, hourselec)
             calendar.set(Calendar.MINUTE, minselec)
-            var monthr = monthselec + 1
+            val monthr = monthselec + 1
 
             database.getReference("notifications/${userID}/${sessionId}").setValue("${hourselec}:${minselec} ${dayselec}/${monthr}/${yearselec}")
-
-            Toast.makeText(this, "reminder set! ${Calendar.MONTH}" , Toast.LENGTH_SHORT).show()
-
+            Toast.makeText(this, "Rappel défini !" , Toast.LENGTH_SHORT).show()
             intent = Intent(this, ReminderBroadcast::class.java)
-
             val random = (1 until 9).random()
-
-            var pendingIntent = PendingIntent.getBroadcast(this, random, intent, 0)
-
-            var alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
-
+            val pendingIntent = PendingIntent.getBroadcast(this, random, intent, 0)
+            val alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
             alarmManager.setExact(AlarmManager.RTC_WAKEUP, calendar.timeInMillis, pendingIntent)
 
             if (fromAct == "Feed"){
@@ -126,7 +114,7 @@ class NotifActivity : AppCompatActivity() {
             }
 
             else if (fromAct == "Show"){
-                var intentshow = Intent(this, ShowSessionActivity::class.java)
+                val intentshow = Intent(this, ShowSessionActivity::class.java)
                 intentshow.putExtra("sessionId",showSessionId)
                 this.startActivity(intentshow)
             }
@@ -134,14 +122,14 @@ class NotifActivity : AppCompatActivity() {
         }
 
     }
-    fun createNotificationChannel(){
+    private fun createNotificationChannel(){
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
-            var name = "BENFIT NOTIFICATION" as CharSequence
-            var description = "c'est l'heure de votre entrainement"
-            var importance = NotificationManager.IMPORTANCE_DEFAULT
-            var channel = NotificationChannel("isen.CedricLucieFlorent.benfit", name, importance)
+            val name = "BENFIT NOTIFICATION" as CharSequence
+            val description = "c'est l'heure de votre entrainement"
+            val importance = NotificationManager.IMPORTANCE_DEFAULT
+            val channel = NotificationChannel("isen.CedricLucieFlorent.benfit", name, importance)
             channel.description = description
-            var notificationManager = getSystemService(NotificationManager::class.java) as NotificationManager
+            val notificationManager = getSystemService(NotificationManager::class.java) as NotificationManager
             notificationManager.createNotificationChannel(channel)
         }
     }

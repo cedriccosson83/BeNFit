@@ -292,5 +292,13 @@
     <string name="sportTemplate">Fitness</string>
     <string name="programList">Liste des programmes</string>
     <string name="sessionList">Liste des séances</string>
+    <string name="difficult_ELEM">Difficulté : %1$s</string>
+    <string name="sportInExo">(%1$s)</string>
+    <string name="sportsPracticed">Sports pratiqués :</string>
+    <string name="ConcatSport">%1$s%2$s </string>
+    <string name="doubleWordsSpaced">%1$s %2$s</string>
+    <string name="concatStringSpaced">%1$s </string>
+    <string name="concatValueWeight">%1$s kilos</string>
+    <string name="concatTwoStringNewLine">%1$s%2$s\n</string>
 
 </resources>

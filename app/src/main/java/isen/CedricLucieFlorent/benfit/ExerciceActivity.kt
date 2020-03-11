@@ -19,9 +19,8 @@ class ExerciceActivity : MenuActivity() {
 
     private lateinit var stu: StreamToUri
     private lateinit var storageReference: StorageReference
-    private var image_uri : Uri = Uri.EMPTY
+    private var imageUri : Uri = Uri.EMPTY
 
-    //var etatFragment : Int = 0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         layoutInflater.inflate(R.layout.activity_exercice, frameLayout)
@@ -52,16 +51,15 @@ class ExerciceActivity : MenuActivity() {
         }
 
         btnDoneExo.setOnClickListener {
-            var nameExo: String = inputNameExo.text.toString()
-            var descExo: String = inputDescExo.text.toString()
-            var categoryExo: String = spinnerSportExo.selectedItem.toString()
-            var levelExo: String = spinnerLevelExo.selectedItem.toString()
-            var urlExo: String
-            var valid = true
+            val nameExo: String = inputNameExo.text.toString()
+            val descExo: String = inputDescExo.text.toString()
+            val categoryExo: String = spinnerSportExo.selectedItem.toString()
+            val levelExo: String = spinnerLevelExo.selectedItem.toString()
+            val urlExo: String
+            val valid: Boolean = constraintValidateYoutube(urlButton, inputURLExo.text.toString())
 
-            valid = constraintValidateYoutube(urlButton, inputURLExo.text.toString())
             if (valid){
-            var res_request =
+            val resRequest =
                 id?.let { it1 ->
                     addNewExo(
                         database, nameExo,
@@ -69,27 +67,27 @@ class ExerciceActivity : MenuActivity() {
                     )
                 }
 
-            if (res_request != "false") {
+            if (resRequest != "false") {
                 if (urlButton.isChecked) {
                     urlExo = inputURLExo.text.toString()
-                    database.getReference("exos/${res_request}/urlYt").setValue(urlExo)
+                    database.getReference("exos/${resRequest}/urlYt").setValue(urlExo)
                 }
                 else {
                     val uniqID = UUID.randomUUID().toString()
-                    val stoRef = storageReference.child("exos/${res_request}/${uniqID}")
+                    val stoRef = storageReference.child("exos/${resRequest}/${uniqID}")
                     val result: UploadTask
-                    if (image_uri != Uri.EMPTY) {
-                        result = stoRef.putFile(image_uri)
+                    result = if (imageUri != Uri.EMPTY) {
+                        stoRef.putFile(imageUri)
                     } else {
                         val uri = getDrawableToURI(context, R.drawable.exercice)
-                        result = stoRef.putFile(uri)
+                        stoRef.putFile(uri)
                     }
                     result.addOnSuccessListener {
-                        database.getReference("exos/${res_request}/pictureUID").setValue(uniqID)
+                        database.getReference("exos/${resRequest}/pictureUID").setValue(uniqID)
                     }
                 }
                 Toast.makeText(this, "Nouvel exercice créé !", Toast.LENGTH_SHORT).show()
-                var exo: Exercice? = res_request?.let { it1 ->
+                val exo: Exercice? = resRequest?.let { it1 ->
                     Exercice(
                         it1,
                         nameExo,
@@ -118,8 +116,8 @@ class ExerciceActivity : MenuActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         stu.manageActivityResult(requestCode, data)
-        image_uri = stu.imageUri
-        imgViewExo.setImageURI(image_uri)
+        imageUri = stu.imageUri
+        imgViewExo.setImageURI(imageUri)
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {

@@ -5,7 +5,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -49,7 +48,7 @@ class ProgramFeedActivity : MenuActivity() {
         }
 
         if (currentUserID != null) {
-            showProgramFeed(database, recycler_view_list_prog_feed, this, currentUserID)
+            showProgramFeed(database, this, currentUserID)
         }
         recycler_view_list_prog_feed.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
 
@@ -76,7 +75,7 @@ class ProgramFeedActivity : MenuActivity() {
         }
     }
 
-    private fun showProgramFeed(database : FirebaseDatabase, view : RecyclerView, context: Context, userId: String) {
+    private fun showProgramFeed(database : FirebaseDatabase, context: Context, userId: String) {
 
         val myRef = database.getReference("programs")
 

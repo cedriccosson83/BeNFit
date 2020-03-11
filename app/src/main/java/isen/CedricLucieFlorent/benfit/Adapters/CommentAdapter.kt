@@ -10,23 +10,29 @@ import isen.CedricLucieFlorent.benfit.Functions.showDate
 import isen.CedricLucieFlorent.benfit.Functions.showUserNameImage
 import isen.CedricLucieFlorent.benfit.Models.Comment
 import isen.CedricLucieFlorent.benfit.R
+import isen.CedricLucieFlorent.benfit.showDate
+import isen.CedricLucieFlorent.benfit.showUserNameImage
 import kotlinx.android.synthetic.main.recycler_view_comment_cell.view.*
 
 
-class CommentAdapter(val comments: ArrayList<Comment>, val clickListener: (Comment) -> Unit): RecyclerView.Adapter<CommentAdapter.CommentViewHolder>(){
+class CommentAdapter(
+        private val comments: ArrayList<Comment>,
+        private val clickListener: (Comment) -> Unit)
+    : RecyclerView.Adapter<CommentAdapter.CommentViewHolder>(){
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): CommentAdapter.CommentViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.recycler_view_comment_cell, parent,false)
-        return CommentAdapter.CommentViewHolder(view)
+    ): CommentViewHolder {
+        val view = LayoutInflater.from(parent.context).inflate(
+            R.layout.recycler_view_comment_cell, parent,false)
+        return CommentViewHolder(view)
     }
 
     override fun getItemCount(): Int {
         return comments.count()
     }
 
-    override fun onBindViewHolder(holder: CommentAdapter.CommentViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: CommentViewHolder, position: Int) {
         val comment = comments[position]
         holder.bind(comment, clickListener)
     }

@@ -2,10 +2,8 @@ package isen.CedricLucieFlorent.benfit
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.DisplayMetrics
 import android.util.Log
 import android.view.View
-import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
@@ -72,7 +70,6 @@ class ProfileActivity : MenuActivity() {
         subscribeProgramButton.setOnClickListener{
             showSubPrograms()
         }
-        //getProgramProgression(database, auth.currentUser?.uid, "-M1oT3a7ENpbTPrtMO8L")
     }
 
         private fun showUser(userId: String) {
@@ -96,18 +93,25 @@ class ProfileActivity : MenuActivity() {
                         val imagePath = user.pictureUID
                         var sportsaff = ""
                         for (sport in user.sports){
-                            sportsaff += "${sport.getSportName()}" + " "
+                            sportsaff += ApplicationContext.applicationContext().getString(
+                                R.string.concatStringSpaced,
+                                sport.getSportName())
                         }
-                        fullNameTextView.text = "${user.firstname} ${user.lastname}"
+                        fullNameTextView.text =
+                            ApplicationContext.applicationContext().getString(
+                                R.string.doubleWordsSpaced,
+                                user.firstname,
+                                user.lastname)
                         renderGrade(user.grade,profileGradeText,profileGradeMedal1,profileGradeMedal2, context)
                         countTotalProgramLikes(database, userId,profileCoachGradeText,profileCoachGradeMedal1,profileCoachGradeMedal2, context)
                         profileBirthdate.text = user.birthdate.toString()
-                        profileWeight.text = "${user.weight} kilos"
+                        profileWeight.text = ApplicationContext.applicationContext().getString(
+                            R.string.concatValueWeight, user.weight)
+
                         profileEmail.text = user.email
                         profileSportList.text = sportsaff
-                        //descriptionTextView.text = "Sport(s) pratiqué(s) : ${sportsaff}"
-                        setImageFromFirestore(context, ProfilImage, "users/$userId/$imagePath")
 
+                        setImageFromFirestore(context, ProfilImage, "users/$userId/$imagePath")
                         ProfilImage.setOnClickListener {
                             val fullScreenIntent = Intent(context, FullScreenImageView::class.java)
                             fullScreenIntent.putExtra("url", "users/$userId/$imagePath")
@@ -150,8 +154,11 @@ class ProfileActivity : MenuActivity() {
                     }
                 }
                 programs.reverse()
-                programRecyclerView.adapter = MyProgAdapter(programs,
-                    { programItem : ProgramFollow -> redirectToProgram(context, programItem.programID, "MyProg")})
+                programRecyclerView.adapter = MyProgAdapter(programs)
+                { programItem : ProgramFollow -> redirectToProgram(
+                    context,
+                    programItem.programID,
+                    "MyProg")}
             }
             override fun onCancelled(error: DatabaseError) {
                 Log.w("session", "Failed to read value.", error.toException())
@@ -168,10 +175,6 @@ class ProfileActivity : MenuActivity() {
                     for (fo in follow){
                         if (fo == value.child("programID").value.toString()) {
                             val arrayLikes: ArrayList<String> = ArrayList()
-                            /*for (childLike in value.child("likes").children) {
-                                val likesUserId: String = childLike.value.toString()
-                                arrayLikes.add(likesUserId)
-                            }*/
 
                             val programfollow = ProgramFollow(
                                 value.child("programID").value.toString(),
@@ -187,8 +190,9 @@ class ProfileActivity : MenuActivity() {
                     }
                 }
                 programs.reverse()
-                programRecyclerView.adapter = ProgramFollowAdapter(programs,
-                    {programItem : ProgramFollow -> redirectToProgram(context, programItem.programID, "SubProg")})
+                programRecyclerView.adapter = ProgramFollowAdapter(programs)
+                { programItem : ProgramFollow -> redirectToProgram(
+                    context, programItem.programID, "SubProg")}
             }
             override fun onCancelled(error: DatabaseError) {
                 Log.w("session", "Failed to read value.", error.toException())

@@ -33,9 +33,8 @@ class SignUpActivity : AppCompatActivity() {
 
     lateinit var auth: FirebaseAuth
     val database = FirebaseDatabase.getInstance()
-    lateinit var currUser: User
+    private lateinit var currUser: User
     private var sportSelected = ArrayList<Sport>()
-    val sportSel = arrayListOf<String>()
     private val c = Calendar.getInstance()
     private val year = c.get(Calendar.YEAR)
     private val month = c.get(Calendar.MONTH)
@@ -45,7 +44,7 @@ class SignUpActivity : AppCompatActivity() {
     private var dayselec : Int = 0
     private var monthselec : Int = 0
     private var yearselec : Int = 0
-    private var image_uri : Uri = Uri.EMPTY
+    private var imageUri : Uri = Uri.EMPTY
     private lateinit var storageReference: StorageReference
     private lateinit var stu: StreamToUri
     override fun onCreate(saved: Bundle?) {
@@ -72,26 +71,26 @@ class SignUpActivity : AppCompatActivity() {
             }
 
         })
-        birthdayEditTextSignUp.setOnFocusChangeListener(View.OnFocusChangeListener { _, hasFocus ->
+        birthdayEditTextSignUp.onFocusChangeListener = View.OnFocusChangeListener { _, hasFocus ->
             if (hasFocus) {
                 val dpd = DatePickerDialog(
-                        this,
-                        DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
-                            c.set(Calendar.YEAR, year)
-                            c.set(Calendar.MONTH, monthOfYear)
-                            c.set(Calendar.DAY_OF_MONTH, dayOfMonth)
-                            birthdayEditTextSignUp.setText(sdf.format(c.time))
-                            dayselec = dayOfMonth
-                            monthselec = monthOfYear
-                            yearselec = year
-                        },
-                        year,
-                        month,
-                        day
+                    this,
+                    DatePickerDialog.OnDateSetListener { _, year, monthOfYear, dayOfMonth ->
+                        c.set(Calendar.YEAR, year)
+                        c.set(Calendar.MONTH, monthOfYear)
+                        c.set(Calendar.DAY_OF_MONTH, dayOfMonth)
+                        birthdayEditTextSignUp.setText(sdf.format(c.time))
+                        dayselec = dayOfMonth
+                        monthselec = monthOfYear
+                        yearselec = year
+                    },
+                    year,
+                    month,
+                    day
                 )
                 dpd.show()
             }
-        })
+        }
 
         newPictureImageView.setOnClickListener{
             stu.askCameraPermissions()
@@ -99,7 +98,7 @@ class SignUpActivity : AppCompatActivity() {
 
         sportTewtView.setOnClickListener{
             val checkedColorsArray = BooleanArray(34)
-            var listSportselec : ArrayList<String> = ArrayList()
+            val listSportselec : ArrayList<String> = ArrayList()
             for (sport in sportSelected){
                 listSportselec.add(sport.getSportName())
             }
@@ -117,13 +116,18 @@ class SignUpActivity : AppCompatActivity() {
                 ) { _, which, isChecked ->
                     checkedColorsArray[which] = isChecked
                 }
-                .setPositiveButton("OK") { dialog, which ->
+                .setPositiveButton("OK") { _, _ ->
                     sportSelected = ArrayList()
                     showdiffsportss.text = ""
                     for (i in checkedColorsArray.indices) {
                         val checked = checkedColorsArray[i]
                         if (checked) {
-                            showdiffsportss.text = showdiffsportss.text.toString() + sportList[i] + "\n"
+                            showdiffsportss.text =
+                                ApplicationContext.applicationContext().getString(
+                                    R.string.concatTwoStringNewLine,
+                                    showdiffsportss.text.toString(),
+                                    sportList[i]
+                                )
                             sportSelected.add(Sport(sportList[i], ArrayList()))
                         }
                     }
@@ -146,31 +150,32 @@ class SignUpActivity : AppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         stu.manageActivityResult(requestCode, data)
-        image_uri = stu.imageUri
-        newPictureImageView.setImageURI(image_uri)
+        imageUri = stu.imageUri
+        newPictureImageView.setImageURI(imageUri)
     }
 
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>,
+                                            grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         stu.manageRequestPermissionResult(requestCode, grantResults)
     }
 
-    fun signup() {
+    private fun signup() {
         auth.createUserWithEmailAndPassword(
             mailEditTextSignUp.text.toString(),
             passwordEditTextSignUp.text.toString()
         ).addOnCompleteListener(this) { task ->
             if (task.isSuccessful) {
-                //val putsport = ArrayList<String>()
                 val user = auth.currentUser
-                val userName = registerNewUser(user,
+                val createdUserName = registerNewUser(user,
                     firstnameEditTextSignUp.text.toString(),
                     lastnameEditTextSignUp.text.toString(),
                     birthdayEditTextSignUp.text.toString(),
                     sportSelected,
                     weightEditText.text.toString()
-                    )
-                //updateUI(user, userName)
+                )
+
+                updateUI(user, createdUserName)
             } else {
                 Toast.makeText(baseContext, getString(R.string.err_inscription), Toast.LENGTH_SHORT).show()
                 updateUI(null, "")
@@ -185,13 +190,13 @@ class SignUpActivity : AppCompatActivity() {
         }
     }
 
-    private fun registerNewUser(user: FirebaseUser?, fname:String, lname:String, birthdate:String, sports:ArrayList<Sport>, weight:String): String {
+    private fun registerNewUser(user: FirebaseUser?, fname:String, lname:String, birthdate:String,
+                                sports:ArrayList<Sport>, weight:String): String {
 
         var userName = ""
         if (user?.uid != null) {
-            val sdf = SimpleDateFormat("dd/mm/yyyy")
-            val date = sdf.format(Date())
-            currUser = User(user.uid, user.email, fname, lname, birthdate,sports, weight, "", "0")
+            currUser = User(user.uid, user.email, fname, lname, birthdate,sports,
+                weight, "", "0")
             val root = database.getReference("users")
             root.child(currUser.userid).setValue(currUser)
             userName = currUser.firstname.toString()
@@ -200,11 +205,11 @@ class SignUpActivity : AppCompatActivity() {
             val uniqID = UUID.randomUUID().toString()
             val stoRef = storageReference.child("users/${currUser.userid}/$uniqID")
             val result: UploadTask
-            if(image_uri != Uri.EMPTY) {
-                result = stoRef.putFile(image_uri)
+            result = if(imageUri != Uri.EMPTY) {
+                stoRef.putFile(imageUri)
             } else {
                 val uri = getDrawableToURI(this,R.drawable.default_profile)
-                result = stoRef.putFile(uri)
+                stoRef.putFile(uri)
             }
             result.addOnSuccessListener {
                 database.getReference("users/${currUser.userid}/pictureUID").setValue(uniqID)
@@ -216,9 +221,11 @@ class SignUpActivity : AppCompatActivity() {
         return userName
     }
 
-    fun updateUI(user: FirebaseUser?, firstname : String) {
+    private fun updateUI(user: FirebaseUser?, firstname : String) {
         if (user != null) {
-            Toast.makeText(this, getString(R.string.welcomeBack) + " " + firstname + " !", Toast.LENGTH_LONG).show()
+            Toast.makeText(this,
+                getString(R.string.welcomeBack) +
+                        " " + firstname + " !", Toast.LENGTH_LONG).show()
             startActivity(Intent(this, HomeActivity::class.java))
         } else {
             Toast.makeText(this, getString(R.string.vous_avez_un_compte), Toast.LENGTH_LONG).show()

@@ -7,13 +7,13 @@ import androidx.recyclerview.widget.RecyclerView
 import isen.CedricLucieFlorent.benfit.Functions.setImageFromFirestore
 import isen.CedricLucieFlorent.benfit.Models.Exercice
 import kotlinx.android.synthetic.main.recycler_view_exo_cell.view.*
-import kotlinx.android.synthetic.main.recycler_view_feed_session.view.*
 
 
-class ExoAdapter(val exos: ArrayList<Exercice>,  val clickListener: (Exercice) -> Unit): RecyclerView.Adapter<ExoAdapter.ExoViewHolder>(){
+class ExoAdapter(private val exos: ArrayList<Exercice>,
+                 private val clickListener: (Exercice) -> Unit)
+    : RecyclerView.Adapter<ExoAdapter.ExoViewHolder>(){
 
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ExoAdapter.ExoViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ExoViewHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.recycler_view_exo_cell, parent, false)
         return ExoViewHolder(view)
@@ -32,12 +32,21 @@ class ExoAdapter(val exos: ArrayList<Exercice>,  val clickListener: (Exercice) -
     class ExoViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
 
         fun bind(exo: Exercice, clickListener: (Exercice) -> Unit){
-            view.nameExoListExo.text = "${exo.name}"
-            view.descExoListExo.text = "${exo.description}"
-            view.difficultyExoListExo.text = "Difficulté : ${exo.difficulty}"
-            view.sportExoListExo.text = "(${exo.sport})"
+            view.nameExoListExo.text = exo.name
+            view.descExoListExo.text = exo.description
+            view.difficultyExoListExo.text =
+                ApplicationContext.applicationContext()
+                    .getString(R.string.difficult_ELEM, exo.difficulty)
+
+            view.sportExoListExo.text =
+                ApplicationContext.applicationContext()
+                    .getString(R.string.sportInExo, exo.sport)
+
             if (exo.pictureUID != "null" && exo.pictureUID != ""){
-            setImageFromFirestore(ApplicationContext.applicationContext(), view.imageViewExo, "exos/${exo.id}/${exo.pictureUID}")
+            setImageFromFirestore(
+                ApplicationContext.applicationContext(),
+                view.imageViewExo,
+                "exos/${exo.id}/${exo.pictureUID}")
             }else{
                 view.imageViewExo.setImageResource(R.drawable.ytb)
             }

@@ -47,12 +47,12 @@
         android:layout_marginBottom="8dp"
         android:contentDescription="@string/nav_header_desc"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/linearLayout2"
+        app:layout_constraintEnd_toStartOf="@+id/navInfos"
         app:layout_constraintStart_toStartOf="parent"
         android:src="@drawable/icon" />
 
     <LinearLayout
-        android:id="@+id/linearLayout2"
+        android:id="@+id/navInfos"
         android:layout_width="286dp"
         android:layout_height="61dp"
         android:layout_marginStart="8dp"

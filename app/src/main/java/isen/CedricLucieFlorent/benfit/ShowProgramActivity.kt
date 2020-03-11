@@ -13,7 +13,6 @@ import isen.CedricLucieFlorent.benfit.Adapters.ShowSessionsAdapter
 import isen.CedricLucieFlorent.benfit.Functions.*
 import isen.CedricLucieFlorent.benfit.Models.ShowSessionProgram
 import kotlinx.android.synthetic.main.activity_show_program.*
-import kotlinx.android.synthetic.main.recycler_view_show_program_sessions.*
 
 class ShowProgramActivity : MenuActivity() {
     val follow = ArrayList<String>()
@@ -59,7 +58,7 @@ class ShowProgramActivity : MenuActivity() {
 
         val programId: String = intent.getStringExtra("programId") ?: ""
 
-        var activity:String? = intent.getStringExtra("activity") ?: ""
+        val activity:String? = intent.getStringExtra("activity") ?: ""
 
         val myRef = database.getReference("programs")
         myRef.addValueEventListener(object : ValueEventListener {
@@ -104,7 +103,7 @@ class ShowProgramActivity : MenuActivity() {
                         showProgramAuthor.setOnClickListener {
                             redirectToUserActivity(this@ShowProgramActivity, program.userID)
                         }
-                        if (activity != null && programId != null )
+                        if (activity != null)
                             showSessionsFromProgram(database, program.sessionsProgram, activity, program)
 
 
@@ -192,8 +191,8 @@ class ShowProgramActivity : MenuActivity() {
                 }
                 sessionsIn.reverse()
                 val reference = "users/${auth.currentUser?.uid}/currentPrograms/${program.programID}/"
-                showProgramRecyclerView.adapter = ShowSessionsAdapter(sessionsIn, program, ApplicationContext.applicationContext(), activityto, database, reference,
-                    {session : ShowSessionProgram -> sessionClicked(session)})
+                showProgramRecyclerView.adapter = ShowSessionsAdapter(sessionsIn, program, ApplicationContext.applicationContext(), activityto, database, reference
+                ) { session : ShowSessionProgram -> sessionClicked(session)}
             }
             override fun onCancelled(error: DatabaseError) {
                 Log.w("session", "Failed to read value.", error.toException())
