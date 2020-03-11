@@ -308,7 +308,7 @@ fun renderGrade(grade: String?, gradeText: TextView, gradeImg1: ImageView, grade
 fun toast(context: Context, message: String) {
     Toast.makeText(context, message, Toast.LENGTH_LONG).show()
 }
-fun computeScore(database: FirebaseDatabase, sessionAchieve : ArrayList<String>, userId: String, context: Context, programId:String) {
+fun computeScore(database: FirebaseDatabase, sessionAchieve : ArrayList<String>, userId: String, context: Context) {
     val myRef = database.getReference("sessions")
 
     myRef.addListenerForSingleValueEvent(object : ValueEventListener {
@@ -323,7 +323,7 @@ fun computeScore(database: FirebaseDatabase, sessionAchieve : ArrayList<String>,
             }
 
 
-            updateUserGrade(database, userId, sumScore, context, programId)
+            updateUserGrade(database, userId, sumScore, context)
         }
         override fun onCancelled(error: DatabaseError) {
             Log.w("session", "Failed to read value.", error.toException())

@@ -22,7 +22,11 @@ fun showUserName(userId : String, textview: TextView) {
                 val lname = value.child("lastname").value.toString()
                 val retrievedUserId = value.child("userid").value?.toString()
                 if (retrievedUserId == userId) {
-                    textview.text = "$fname $lname"
+                    textview.text = ApplicationContext.applicationContext().getString(
+                        R.string.doubleWordsSpaced,
+                        fname,
+                        lname
+                    )
                 }
             }
         }
@@ -43,13 +47,17 @@ fun showUserNameSessionFeed(userId: String, textview : TextView){
                 val lname = value.child("lastname").value.toString()
                 val retrievedUserId = value.child("userid").value?.toString()
                 if (retrievedUserId == userId) {
-                    textview.text = "${fname} ${lname}"
+                    textview.text = ApplicationContext.applicationContext().getString(
+                        R.string.doubleWordsSpaced,
+                        fname,
+                        lname
+                    )
                 }
             }
         }
 
         override fun onCancelled(p0: DatabaseError) {
-            TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+            Log.d("TAG", "Error reading value")
         }
     })
 }
@@ -65,7 +73,11 @@ fun showUserNameImage(userId : String, textview: TextView,  imgView : ImageView)
                 val imgPath = value.child("pictureUID").value.toString()
                 val retrievedUserId = value.child("userid").value?.toString()
                 if (retrievedUserId == userId) {
-                    textview.text = "$fname $lname"
+                    textview.text = ApplicationContext.applicationContext().getString(
+                        R.string.doubleWordsSpaced,
+                        fname,
+                        lname
+                    )
                     setImageFromFirestore(ApplicationContext.applicationContext(), imgView, "users/$userId/$imgPath")
                 }
             }
@@ -96,7 +108,7 @@ fun checkUserSessionDone(database: FirebaseDatabase, userId: String?, programID:
         }
     })
 }
-fun updateUserGrade(database: FirebaseDatabase, userId: String, sumScore : Int, context: Context, programId: String) {
+fun updateUserGrade(database: FirebaseDatabase, userId: String, sumScore : Int, context: Context) {
     val myRef = database.getReference("users").child(userId)
 
     myRef.addListenerForSingleValueEvent(object : ValueEventListener {
