@@ -5,9 +5,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import isen.CedricLucieFlorent.benfit.ApplicationContext
+import isen.CedricLucieFlorent.benfit.Functions.setImageFromFirestore
 import isen.CedricLucieFlorent.benfit.Models.Session
 import isen.CedricLucieFlorent.benfit.R
-import isen.CedricLucieFlorent.benfit.setImageFromFirestore
 import kotlinx.android.synthetic.main.recycler_view_session_cell.view.*
 
 class SessionAdapter(val sessions: ArrayList<Session>, val clickListener: (Session) -> Unit): RecyclerView.Adapter<SessionAdapter.SessionViewHolder>(){

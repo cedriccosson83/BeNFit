@@ -5,6 +5,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.database.FirebaseDatabase
+import isen.CedricLucieFlorent.benfit.Functions.showExo
+import isen.CedricLucieFlorent.benfit.Functions.showPopUpDetails
 import isen.CedricLucieFlorent.benfit.Models.SessionExercice
 import kotlinx.android.synthetic.main.activity_exercice_session.view.*
 import kotlinx.android.synthetic.main.recycler_view_exo_session.view.*

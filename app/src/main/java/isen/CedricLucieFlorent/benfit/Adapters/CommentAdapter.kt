@@ -6,11 +6,10 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
+import isen.CedricLucieFlorent.benfit.Functions.showDate
+import isen.CedricLucieFlorent.benfit.Functions.showUserNameImage
 import isen.CedricLucieFlorent.benfit.Models.Comment
 import isen.CedricLucieFlorent.benfit.R
-import isen.CedricLucieFlorent.benfit.showDate
-import isen.CedricLucieFlorent.benfit.showUserName
-import isen.CedricLucieFlorent.benfit.showUserNameImage
 import kotlinx.android.synthetic.main.recycler_view_comment_cell.view.*
 
 

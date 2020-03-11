@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
+import isen.CedricLucieFlorent.benfit.Functions.*
 import kotlinx.android.synthetic.main.activity_program.*
 import kotlinx.android.synthetic.main.activity_session.*
 

@@ -7,9 +7,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import isen.CedricLucieFlorent.benfit.ApplicationContext
+import isen.CedricLucieFlorent.benfit.Functions.setImageFromFirestore
 import isen.CedricLucieFlorent.benfit.Models.ShowExerciceSession
 import isen.CedricLucieFlorent.benfit.R
-import isen.CedricLucieFlorent.benfit.setImageFromFirestore
 import kotlinx.android.synthetic.main.recycler_view_show_session_exercices.view.*
 
 class ShowExercicesAdapter (val exercices: ArrayList<ShowExerciceSession>, val sessionID: String?,

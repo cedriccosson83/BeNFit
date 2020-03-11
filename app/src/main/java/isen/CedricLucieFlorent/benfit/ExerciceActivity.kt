@@ -9,6 +9,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import com.google.firebase.storage.UploadTask
+import isen.CedricLucieFlorent.benfit.Functions.*
 import isen.CedricLucieFlorent.benfit.Models.Exercice
 import kotlinx.android.synthetic.main.activity_exercice.*
 import java.util.*

@@ -36,7 +36,7 @@ import java.util.*
 import kotlin.collections.ArrayList
 import kotlin.math.round
 
-fun showDate(date : String?, textview: TextView){
+/*fun showDate(date : String?, textview: TextView){
 
     var dateSplit = date?.split(" ")
     val sdf = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
@@ -46,9 +46,9 @@ fun showDate(date : String?, textview: TextView){
     }else{
         textview.text = "${dateSplit?.get(1)}"
     }
-}
+}*/
 
-fun creernotif(context: Context?, notificationManager:NotificationManager){
+/*fun creernotif(context: Context?, notificationManager:NotificationManager){
 
     if (context == null) return
 
@@ -86,15 +86,15 @@ fun creernotif(context: Context?, notificationManager:NotificationManager){
             .setContentIntent(pendingIntent)
     }
     notificationManager.notify(123, builder.build())
-}
+}*/
 
-fun redirectToUserActivity(context: Context, userID : String){
+/*fun redirectToUserActivity(context: Context, userID : String){
     val intent = Intent(context, ProfileActivity::class.java)
     intent.putExtra("userId", userID)
     context.startActivity(intent)
-}
+}*/
 
-fun showUserName(userId : String, textview: TextView) {
+/*fun showUserName(userId : String, textview: TextView) {
 
     val database = FirebaseDatabase.getInstance()
     val myRef = database.getReference("users")
@@ -115,17 +115,17 @@ fun showUserName(userId : String, textview: TextView) {
             Log.w("post", "Failed to read value.", error.toException())
         }
     })
-}
+}*/
 
-fun getDrawableToURI( context : Context,  drawableId : Int) : Uri {
+/*fun getDrawableToURI( context : Context,  drawableId : Int) : Uri {
     val imageUri = Uri.parse(ContentResolver.SCHEME_ANDROID_RESOURCE +
             "://" + context.resources.getResourcePackageName(drawableId)
             + '/' + context.resources.getResourceTypeName(drawableId)
             + '/' + context.resources.getResourceEntryName(drawableId) )
     return imageUri
-}
+}*/
 
-fun showUserNameSessionFeed(userId: String, textview : TextView){
+/*fun showUserNameSessionFeed(userId: String, textview : TextView){
     val database = FirebaseDatabase.getInstance()
     val myRef = database.getReference("users")
     myRef.addValueEventListener(object : ValueEventListener {
@@ -144,16 +144,16 @@ fun showUserNameSessionFeed(userId: String, textview : TextView){
             TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
         }
     })
-}
+}*/
 
-fun redirectToProgram(context : Context, programID : String, extra : String = ""){
+/*fun redirectToProgram(context : Context, programID : String, extra : String = ""){
     val intent = Intent(context, ShowProgramActivity::class.java)
     intent.putExtra("activity", extra)
     intent.putExtra("programId", programID)
     context.startActivity(intent)
-}
+}*/
 
-fun constraintValidateYoutube(btn : MaterialButton, inputText : String) : Boolean{
+/*fun constraintValidateYoutube(btn : MaterialButton, inputText : String) : Boolean{
     if (btn.isChecked) {
         var position = inputText.indexOf("https://www.youtube.com/watch?v=")
         if(position == -1){
@@ -161,9 +161,9 @@ fun constraintValidateYoutube(btn : MaterialButton, inputText : String) : Boolea
         }
     }
     return true
-}
+}*/
 
-fun showUserNameImage(userId : String, textview: TextView,  imgView : ImageView) {
+/*fun showUserNameImage(userId : String, textview: TextView,  imgView : ImageView) {
 
     val database = FirebaseDatabase.getInstance()
     val myRef = database.getReference("users")
@@ -185,17 +185,17 @@ fun showUserNameImage(userId : String, textview: TextView,  imgView : ImageView)
             Log.w("post", "Failed to read value.", error.toException())
         }
     })
-}
+}*/
 
-fun convertLevelToImg(level: String, image: ImageView) {
+/*fun convertLevelToImg(level: String, image: ImageView) {
     when (level) {
         "Expert" -> image.setImageResource(R.drawable.level_3)
         "Intermédiaire" -> image.setImageResource(R.drawable.level_2)
         else -> image.setImageResource(R.drawable.level_1)
     }
-}
+}*/
 
-fun sessionFinished(database: FirebaseDatabase,session: ShowSessionProgram, program: ShowProgram, currentUserID: String?, icon: ImageView){
+/*fun sessionFinished(database: FirebaseDatabase,session: ShowSessionProgram, program: ShowProgram, currentUserID: String?, icon: ImageView){
     var programID = program.programID ?: ""
     var id = currentUserID ?:""
     if (id != ""){
@@ -207,9 +207,9 @@ fun sessionFinished(database: FirebaseDatabase,session: ShowSessionProgram, prog
             }
         }
     }
-}
+}*/
 
-fun showChecked(database : FirebaseDatabase, pathToChecked : String, icon : ImageView, sessionID :String ) {
+/*fun showChecked(database : FirebaseDatabase, pathToChecked : String, icon : ImageView, sessionID :String ) {
     val myRef = database.getReference(pathToChecked)
     myRef.addListenerForSingleValueEvent(object : ValueEventListener {
         override fun onDataChange(dataSnapshot: DataSnapshot) {
@@ -227,9 +227,9 @@ fun showChecked(database : FirebaseDatabase, pathToChecked : String, icon : Imag
             Log.w("Likes", "Failed to read value.", error.toException())
         }
     })
-}
+}*/
 
-fun showNotified(database: FirebaseDatabase, pathToNotif : String, sessionID: String, btn : ImageView){
+/*fun showNotified(database: FirebaseDatabase, pathToNotif : String, sessionID: String, btn : ImageView){
     val myRef = database.getReference(pathToNotif)
     myRef.addValueEventListener(object : ValueEventListener{
         override fun onDataChange(dataSnapshot: DataSnapshot) {
@@ -243,9 +243,9 @@ fun showNotified(database: FirebaseDatabase, pathToNotif : String, sessionID: St
             Log.d("TAG", "Failed to read values")
         }
     })
-}
+}*/
 
-fun removePassedNotif(database: FirebaseDatabase, userId: String, lastConn : String){
+/*fun removePassedNotif(database: FirebaseDatabase, userId: String, lastConn : String){
     val myRef = database.getReference("notifications/${userId}")
     myRef.addValueEventListener(object : ValueEventListener{
         override fun onDataChange(dataSnapshot: DataSnapshot) {
@@ -266,9 +266,9 @@ fun removePassedNotif(database: FirebaseDatabase, userId: String, lastConn : Str
         }
     })
 
-}
+}*/
 
-fun showFollowers(database: FirebaseDatabase, currentUserID: String?, programID : String,
+/*fun showFollowers(database: FirebaseDatabase, currentUserID: String?, programID : String,
                   pathToFollowers : String, icon : ImageView){
     val myRef = database.getReference(pathToFollowers)
     myRef.addValueEventListener(object : ValueEventListener {
@@ -289,9 +289,9 @@ fun showFollowers(database: FirebaseDatabase, currentUserID: String?, programID 
             Log.w("Likes", "Failed to read value.", error.toException())
         }
     })
-}
+}*/
 
-fun showNumberLikes(database: FirebaseDatabase, pathToLikes : String, textTarget : TextView){
+/*fun showNumberLikes(database: FirebaseDatabase, pathToLikes : String, textTarget : TextView){
     val myRef = database.getReference(pathToLikes)
     myRef.addValueEventListener(object : ValueEventListener {
         override fun onDataChange(dataSnapshot: DataSnapshot) {
@@ -305,9 +305,9 @@ fun showNumberLikes(database: FirebaseDatabase, pathToLikes : String, textTarget
             Log.d("TAG", "Failed to read value")
         }
     })
-}
+}*/
 
-fun showLikes(database: FirebaseDatabase, currentUserID: String?, pathToLikes : String, textTarget : TextView, icon: ImageView) {
+/*fun showLikes(database: FirebaseDatabase, currentUserID: String?, pathToLikes : String, textTarget : TextView, icon: ImageView) {
 
     val myRef = database.getReference(pathToLikes)
     myRef.addValueEventListener(object : ValueEventListener {
@@ -329,9 +329,9 @@ fun showLikes(database: FirebaseDatabase, currentUserID: String?, pathToLikes : 
             Log.w("Likes", "Failed to read value.", error.toException())
         }
     })
-}
+}*/
 
-fun likesHandler(database: FirebaseDatabase,
+/*fun likesHandler(database: FirebaseDatabase,
                  currentUserID: String?,
                  pathToLikes : String,
                  likes : ArrayList<String>,
@@ -347,15 +347,15 @@ fun likesHandler(database: FirebaseDatabase,
         myRef.setValue(likes)
         likeIcon.setImageResource(R.drawable.like)
     }
-}
+}*/
 
-fun setImageFromFirestore(context: Context, target: ImageView, location: String) {
+/*fun setImageFromFirestore(context: Context, target: ImageView, location: String) {
     val storeRef: StorageReference?
         = FirebaseStorage.getInstance().getReference(location)
     GlideApp.with(ApplicationContext.applicationContext()).load(storeRef).into(target)
-}
+}*/
 
-fun getProgramProgression(database: FirebaseDatabase, userId: String?,
+/*fun getProgramProgression(database: FirebaseDatabase, userId: String?,
                           programID: String, programProgress: ProgressBar) {
     val myRef = database.getReference("programs").child(programID)
     myRef.addListenerForSingleValueEvent(object : ValueEventListener {
@@ -374,9 +374,9 @@ fun getProgramProgression(database: FirebaseDatabase, userId: String?,
             Log.w("programs", "Failed to read value.", error.toException())
         }
     })
-}
+}*/
 
-fun checkUserSessionDone(database: FirebaseDatabase, userId: String?, programID: String,
+/*fun checkUserSessionDone(database: FirebaseDatabase, userId: String?, programID: String,
                          countSessTotProgram: Int, programProgress: ProgressBar) {
     if (userId == null) return
     val myRef = database.getReference("users").child(userId).child("currentPrograms").child(programID)
@@ -394,17 +394,17 @@ fun checkUserSessionDone(database: FirebaseDatabase, userId: String?, programID:
             Log.w("programs", "Failed to read value.", error.toException())
         }
     })
-}
+}*/
 
-fun renderProgressProgram(countSessTotProgram : Int,countTotalDoneSess : Int, programProgress: ProgressBar) {
+/*fun renderProgressProgram(countSessTotProgram : Int,countTotalDoneSess : Int, programProgress: ProgressBar) {
     val percent : Float = if (countTotalDoneSess > 0)
         round(((countTotalDoneSess.toFloat()/ countSessTotProgram.toFloat())  * 100).toFloat())
     else
         0F
     programProgress.progress = percent.toInt()
-}
+}*/
 
-fun countTotalProgramLikes(database: FirebaseDatabase, userId: String,
+/*fun countTotalProgramLikes(database: FirebaseDatabase, userId: String,
                            gradeText: TextView, gradeImg1: ImageView,
                            gradeImg2: ImageView, context: Context) {
     val myRef = database.getReference("programs")
@@ -422,9 +422,9 @@ fun countTotalProgramLikes(database: FirebaseDatabase, userId: String,
             Log.w("session", "Failed to read value.", error.toException())
         }
     })
-}
+}*/
 
-fun countTotalSessionLikes(database: FirebaseDatabase, userId: String, countTotalLikesProgram: Int,
+/*fun countTotalSessionLikes(database: FirebaseDatabase, userId: String, countTotalLikesProgram: Int,
                            gradeText: TextView, gradeImg1: ImageView, gradeImg2: ImageView, context: Context) {
     val myRef = database.getReference("sessions")
     myRef.addValueEventListener(object : ValueEventListener {
@@ -441,9 +441,9 @@ fun countTotalSessionLikes(database: FirebaseDatabase, userId: String, countTota
             Log.w("session", "Failed to read value.", error.toException())
         }
     })
-}
+}*/
 
-fun renderCoachGrade(countTotal: Int, gradeText: TextView,
+/*fun renderCoachGrade(countTotal: Int, gradeText: TextView,
                      gradeImg1: ImageView, gradeImg2: ImageView,
                      context: Context) {
     when {
@@ -465,10 +465,10 @@ fun renderCoachGrade(countTotal: Int, gradeText: TextView,
             gradeImg2.setImageResource(R.drawable.coach_grade_0)
         }
     }
-}
+}*/
 
 
-fun renderGrade(grade: String?, gradeText: TextView, gradeImg1: ImageView, gradeImg2: ImageView, context: Context) {
+/*fun renderGrade(grade: String?, gradeText: TextView, gradeImg1: ImageView, gradeImg2: ImageView, context: Context) {
     if (grade != null) {
         val intGrade = grade.toInt()
         when {
@@ -499,13 +499,13 @@ fun renderGrade(grade: String?, gradeText: TextView, gradeImg1: ImageView, grade
             }
         }
     }
-}
+}*/
 
-fun toast(context: Context, message: String) {
+/*fun toast(context: Context, message: String) {
     Toast.makeText(context, message, Toast.LENGTH_LONG).show()
-}
+}*/
 
-fun checkCompleteProgram(database: FirebaseDatabase,
+/*fun checkCompleteProgram(database: FirebaseDatabase,
                          userId: String,
                          context: Context,
                          programId : String
@@ -535,9 +535,9 @@ fun checkCompleteProgram(database: FirebaseDatabase,
             Log.w("session", "Failed to read value.", error.toException())
         }
     })
-}
+}*/
 
-fun computeScore(database: FirebaseDatabase, sessionAchieve : ArrayList<String>, userId: String, context: Context, programId:String) {
+/*fun computeScore(database: FirebaseDatabase, sessionAchieve : ArrayList<String>, userId: String, context: Context, programId:String) {
     val myRef = database.getReference("sessions")
 
     myRef.addListenerForSingleValueEvent(object : ValueEventListener {
@@ -558,9 +558,9 @@ fun computeScore(database: FirebaseDatabase, sessionAchieve : ArrayList<String>,
             Log.w("session", "Failed to read value.", error.toException())
         }
     })
-}
+}*/
 
-fun updateUserGrade(database: FirebaseDatabase, userId: String, sumScore : Int, context: Context, programId: String) {
+/*fun updateUserGrade(database: FirebaseDatabase, userId: String, sumScore : Int, context: Context, programId: String) {
     val myRef = database.getReference("users").child(userId)
 
     myRef.addListenerForSingleValueEvent(object : ValueEventListener {
@@ -584,19 +584,19 @@ fun updateUserGrade(database: FirebaseDatabase, userId: String, sumScore : Int, 
             Log.w("session", "Failed to read value.", error.toException())
         }
     })
-}
+}*/
 
-fun difficultyToValue(sessDiff : String) : Int {
+/*fun difficultyToValue(sessDiff : String) : Int {
     if (sessDiff == "Expert")
         return 5
     else if (sessDiff == "Intermédiaire")
         return 3
     return 1
 }
-
+*/
 //fun removeProgramFromCurrentProgram(database, userId,programId)
 
-fun showPopUpCongratz(userFirstName: String, newScore : Int, context: Context) {
+/*fun showPopUpCongratz(userFirstName: String, newScore : Int, context: Context) {
     val dialog = Dialog(context)
     dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
     dialog.setContentView(R.layout.popup_congratz)
@@ -609,9 +609,9 @@ fun showPopUpCongratz(userFirstName: String, newScore : Int, context: Context) {
         context.startActivity(intent)
     }
     dialog.show()
-}
+}*/
 
-fun showPopUpDetails(database : FirebaseDatabase, context: Context, exoItem : SessionExercice){
+/*fun showPopUpDetails(database : FirebaseDatabase, context: Context, exoItem : SessionExercice){
     var exoID = exoItem.exoID
     var exoSessionID = exoItem.exoSessionID
     val img : ImageView = ImageView(context)
@@ -636,9 +636,9 @@ fun showPopUpDetails(database : FirebaseDatabase, context: Context, exoItem : Se
         dialog.dismiss()
     }
     dialog.show()
-}
+}*/
 
-fun showPopUpExercice(database: FirebaseDatabase, context : Context, exoID: String, windowManager: WindowManager, sessionParent: String? = "") {
+/*fun showPopUpExercice(database: FirebaseDatabase, context : Context, exoID: String, windowManager: WindowManager, sessionParent: String? = "") {
     val dialog = Dialog(context)
     dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
     dialog.setContentView(R.layout.popup_show_exo)
@@ -733,29 +733,29 @@ fun showPopUpExercice(database: FirebaseDatabase, context : Context, exoID: Stri
     })
     dialog.show()
 }
-
-fun linkToProgram(context : Context,id : String) {
+*/
+/*fun linkToProgram(context : Context,id : String) {
     val sharedLinkIntent = Intent(context, ShowProgramActivity::class.java)
     sharedLinkIntent.putExtra("programId", id)
     sharedLinkIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
     context.startActivity(sharedLinkIntent)
-}
+}*/
 
-fun linkToSession(context : Context,id : String) {
+/*fun linkToSession(context : Context,id : String) {
     val sharedLinkIntent = Intent(context, ShowSessionActivity::class.java)
     sharedLinkIntent.putExtra("sessionId", id)
     sharedLinkIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
     context.startActivity(sharedLinkIntent)
-}
+}*/
 
-fun fullScreenImage (context : Context,url : String) {
+/*fun fullScreenImage (context : Context,url : String) {
     val fullScreenIntent = Intent(context, FullScreenImageView::class.java)
     fullScreenIntent.putExtra("url", url)
     fullScreenIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
     context.startActivity(fullScreenIntent)
-}
+}*/
 
-fun setRulesIfInSession(database: FirebaseDatabase, targetTextView : TextView
+/*fun setRulesIfInSession(database: FirebaseDatabase, targetTextView : TextView
                         , targetLabel : TextView , exerciceID: String, sessionParent: String?) {
     if (sessionParent != "" && sessionParent != null) {
         val myRef = database.getReference("sessions")
@@ -781,8 +781,8 @@ fun setRulesIfInSession(database: FirebaseDatabase, targetTextView : TextView
         targetTextView.text = ""
         targetLabel.text = ""
     }
-}
+}*/
 
-fun pxToDp(px: Int): Int {
+/*fun pxToDp(px: Int): Int {
     return (px / Resources.getSystem().displayMetrics.density).toInt()
-}
+}*/

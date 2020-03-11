@@ -15,8 +15,8 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import isen.CedricLucieFlorent.benfit.Models.Post
 import isen.CedricLucieFlorent.benfit.R
-import isen.CedricLucieFlorent.benfit.showDate
 import isen.CedricLucieFlorent.benfit.*
+import isen.CedricLucieFlorent.benfit.Functions.*
 import kotlinx.android.synthetic.main.recycler_view_post_cell.view.*
 import kotlin.collections.ArrayList
 

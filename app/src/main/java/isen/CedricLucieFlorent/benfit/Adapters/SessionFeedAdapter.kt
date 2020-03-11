@@ -11,6 +11,7 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import isen.CedricLucieFlorent.benfit.*
+import isen.CedricLucieFlorent.benfit.Functions.*
 import isen.CedricLucieFlorent.benfit.Models.Post
 import isen.CedricLucieFlorent.benfit.Models.Session
 import isen.CedricLucieFlorent.benfit.Models.SessionFeed

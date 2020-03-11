@@ -5,6 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import isen.CedricLucieFlorent.benfit.*
+import isen.CedricLucieFlorent.benfit.Functions.setImageFromFirestore
 import isen.CedricLucieFlorent.benfit.Models.SessionProgram
 import kotlinx.android.synthetic.main.recycler_view_session_cell.view.*
 import kotlinx.android.synthetic.main.recycler_view_session_program.view.*

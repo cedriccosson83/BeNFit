@@ -10,6 +10,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import isen.CedricLucieFlorent.benfit.*
+import isen.CedricLucieFlorent.benfit.Functions.checkCompleteProgram
+import isen.CedricLucieFlorent.benfit.Functions.sessionFinished
+import isen.CedricLucieFlorent.benfit.Functions.setImageFromFirestore
+import isen.CedricLucieFlorent.benfit.Functions.showChecked
 import isen.CedricLucieFlorent.benfit.Models.ShowSessionProgram
 import kotlinx.android.synthetic.main.recycler_view_show_program_sessions.view.*
 

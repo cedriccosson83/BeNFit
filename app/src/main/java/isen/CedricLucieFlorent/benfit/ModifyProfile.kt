@@ -16,6 +16,8 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
+import isen.CedricLucieFlorent.benfit.Functions.setImageFromFirestore
+import isen.CedricLucieFlorent.benfit.Functions.toast
 import isen.CedricLucieFlorent.benfit.Models.Sport
 import isen.CedricLucieFlorent.benfit.Models.User
 import kotlinx.android.synthetic.main.activity_modify_profile.*
