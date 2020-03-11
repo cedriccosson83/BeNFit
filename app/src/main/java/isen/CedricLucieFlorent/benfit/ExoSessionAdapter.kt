@@ -6,11 +6,13 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.database.FirebaseDatabase
 import isen.CedricLucieFlorent.benfit.Models.SessionExercice
-import kotlinx.android.synthetic.main.activity_exercice_session.view.*
 import kotlinx.android.synthetic.main.recycler_view_exo_session.view.*
 
 
-class ExoSessionAdapter(val exos: ArrayList<SessionExercice>, val deleteListener: (SessionExercice) -> Unit): RecyclerView.Adapter<ExoSessionAdapter.ExoSessionViewHolder>(){
+class ExoSessionAdapter(
+        private val exos: ArrayList<SessionExercice>,
+        private val deleteListener: (SessionExercice) -> Unit)
+        : RecyclerView.Adapter<ExoSessionAdapter.ExoSessionViewHolder>(){
 
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ExoSessionViewHolder {
