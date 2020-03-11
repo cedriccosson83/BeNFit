@@ -34,7 +34,6 @@ class SignUpActivity : AppCompatActivity() {
     val database = FirebaseDatabase.getInstance()
     lateinit var currUser: User
     private var sportSelected = ArrayList<Sport>()
-    val sportSel = arrayListOf<String>()
     private val c = Calendar.getInstance()
     private val year = c.get(Calendar.YEAR)
     private val month = c.get(Calendar.MONTH)
@@ -71,26 +70,26 @@ class SignUpActivity : AppCompatActivity() {
             }
 
         })
-        birthdayEditTextSignUp.setOnFocusChangeListener(View.OnFocusChangeListener { _, hasFocus ->
+        birthdayEditTextSignUp.onFocusChangeListener = View.OnFocusChangeListener { _, hasFocus ->
             if (hasFocus) {
                 val dpd = DatePickerDialog(
-                        this,
-                        DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
-                            c.set(Calendar.YEAR, year)
-                            c.set(Calendar.MONTH, monthOfYear)
-                            c.set(Calendar.DAY_OF_MONTH, dayOfMonth)
-                            birthdayEditTextSignUp.setText(sdf.format(c.time))
-                            dayselec = dayOfMonth
-                            monthselec = monthOfYear
-                            yearselec = year
-                        },
-                        year,
-                        month,
-                        day
+                    this,
+                    DatePickerDialog.OnDateSetListener { _, year, monthOfYear, dayOfMonth ->
+                        c.set(Calendar.YEAR, year)
+                        c.set(Calendar.MONTH, monthOfYear)
+                        c.set(Calendar.DAY_OF_MONTH, dayOfMonth)
+                        birthdayEditTextSignUp.setText(sdf.format(c.time))
+                        dayselec = dayOfMonth
+                        monthselec = monthOfYear
+                        yearselec = year
+                    },
+                    year,
+                    month,
+                    day
                 )
                 dpd.show()
             }
-        })
+        }
 
         newPictureImageView.setOnClickListener{
             stu.askCameraPermissions()
@@ -98,7 +97,7 @@ class SignUpActivity : AppCompatActivity() {
 
         sportTewtView.setOnClickListener{
             val checkedColorsArray = BooleanArray(34)
-            var listSportselec : ArrayList<String> = ArrayList()
+            val listSportselec : ArrayList<String> = ArrayList()
             for (sport in sportSelected){
                 listSportselec.add(sport.getSportName())
             }
@@ -116,13 +115,18 @@ class SignUpActivity : AppCompatActivity() {
                 ) { _, which, isChecked ->
                     checkedColorsArray[which] = isChecked
                 }
-                .setPositiveButton("OK") { dialog, which ->
+                .setPositiveButton("OK") { _, _ ->
                     sportSelected = ArrayList()
                     showdiffsportss.text = ""
                     for (i in checkedColorsArray.indices) {
                         val checked = checkedColorsArray[i]
                         if (checked) {
-                            showdiffsportss.text = showdiffsportss.text.toString() + sportList[i] + "\n"
+                            showdiffsportss.text =
+                                ApplicationContext.applicationContext().getString(
+                                    R.string.concatTwoStringNewLine,
+                                    showdiffsportss.text.toString(),
+                                    sportList[i]
+                                )
                             sportSelected.add(Sport(sportList[i], ArrayList()))
                         }
                     }

@@ -187,7 +187,8 @@ class ProfileActivity : MenuActivity() {
                 }
                 programs.reverse()
                 programRecyclerView.adapter = ProgramFollowAdapter(programs)
-                { programItem : ProgramFollow -> redirectToProgram(context, programItem.programID, "SubProg")}
+                { programItem : ProgramFollow -> redirectToProgram(
+                    context, programItem.programID, "SubProg")}
             }
             override fun onCancelled(error: DatabaseError) {
                 Log.w("session", "Failed to read value.", error.toException())
