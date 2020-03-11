@@ -29,7 +29,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/programs"
-                android:contentDescription="TODO" />
+                android:contentDescription="@string/img" />
 
             <TextView
                 android:id="@+id/nameProgFollow"

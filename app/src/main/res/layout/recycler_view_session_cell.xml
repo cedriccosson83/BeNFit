@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
@@ -34,7 +33,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@mipmap/benfit_logo_round"
-                android:contentDescription="TODO" />
+                android:contentDescription="@string/img" />
 
             <TextView
                 android:id="@+id/nameSessionProgram"
@@ -59,7 +58,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/plusexo"
-                android:contentDescription="TODO" />
+                android:contentDescription="@string/img" />
 
             <TextView
                 android:id="@+id/descrSessionCell"
@@ -68,7 +67,7 @@
                 android:layout_marginStart="4dp"
                 android:layout_marginTop="8dp"
                 android:maxWidth="200dp"
-                android:text="Description de la séance"
+                android:text="@string/descSession"
                 app:layout_constraintStart_toEndOf="@+id/imageViewSessionProgram"
                 app:layout_constraintTop_toBottomOf="@+id/nameSessionProgram" />
 
@@ -79,7 +78,7 @@
                 android:layout_marginStart="4dp"
                 android:layout_marginTop="8dp"
                 android:maxWidth="200dp"
-                android:text="Niveau"
+                android:text="@string/level"
                 app:layout_constraintStart_toEndOf="@+id/imageViewSessionProgram"
                 app:layout_constraintTop_toBottomOf="@+id/descrSessionCell" />
 

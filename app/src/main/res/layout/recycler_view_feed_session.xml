@@ -34,7 +34,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/sessions"
-                android:contentDescription="TODO" />
+                android:contentDescription="@string/img" />
 
             <TextView
                 android:id="@+id/sessionNameTextView"
@@ -43,7 +43,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="35dp"
                 android:maxWidth="200dp"
-                android:text="Nom de la séance"
+                android:text="@string/session_name"
                 android:textSize="24sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toStartOf="@+id/btnNotifFeedSession"
@@ -57,7 +57,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="4dp"
                 android:layout_marginEnd="6dp"
-                android:text="Description de la séance"
+                android:text="@string/descSession"
                 app:layout_constraintEnd_toStartOf="@+id/btnNotifFeedSession"
                 app:layout_constraintStart_toEndOf="@+id/imageViewFeedSession"
                 app:layout_constraintTop_toBottomOf="@+id/sessionNameTextView" />
@@ -70,14 +70,14 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:srcCompat="@drawable/dislike"
-                android:contentDescription="TODO" />
+                android:contentDescription="@string/img" />
 
             <TextView
                 android:id="@+id/nbLikeTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="2dp"
-                android:text="0"
+                android:text="@string/_0"
                 app:layout_constraintBottom_toBottomOf="@+id/btnLikeFeedSession"
                 app:layout_constraintEnd_toStartOf="@+id/btnLikeFeedSession"
                 app:layout_constraintTop_toTopOf="@+id/btnLikeFeedSession" />
@@ -90,19 +90,20 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/notification"
-                android:contentDescription="TODO" />
+                android:contentDescription="@string/img" />
 
             <TextView
                 android:id="@+id/authorSessionFeed"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="11dp"
-                android:text="TextView"
+                android:text="@string/author"
                 android:textSize="8sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/imageViewFeedSession"
                 app:layout_constraintTop_toBottomOf="@+id/descriptionSessionTextView"
-                app:layout_constraintVertical_bias="1.0" />
+                app:layout_constraintVertical_bias="1.0"
+                tools:ignore="SmallSp" />
 
             <ImageView
                 android:id="@+id/levelSessionFeed"
@@ -113,9 +114,8 @@
                 app:layout_constraintStart_toEndOf="@+id/sessionNameTextView"
                 app:layout_constraintTop_toTopOf="@+id/sessionNameTextView"
                 app:srcCompat="@drawable/level_1"
-                android:contentDescription="TODO" />
+                android:contentDescription="@string/img" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-
     </com.google.android.material.card.MaterialCardView>
 </androidx.constraintlayout.widget.ConstraintLayout>
