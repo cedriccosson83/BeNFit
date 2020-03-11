@@ -70,6 +70,10 @@ class ProfileActivity : MenuActivity() {
         subscribeProgramButton.setOnClickListener{
             showSubPrograms()
         }
+
+        infoGradeBtn.setOnClickListener{
+            startActivity(Intent(this,GradeInfoActivity::class.java))
+        }
     }
 
         private fun showUser(userId: String) {

@@ -21,7 +21,6 @@ class NotifActivity : MenuActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_notif)
         createNotificationChannel()
         layoutInflater.inflate(R.layout.activity_notif, frameLayout)
 

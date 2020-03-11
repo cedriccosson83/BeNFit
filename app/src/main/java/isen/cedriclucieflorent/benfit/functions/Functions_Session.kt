@@ -134,7 +134,9 @@ fun deleteInfosTempSession(database : FirebaseDatabase, activity: SessionActivit
         }
     })
 }
-fun saveSession(database : FirebaseDatabase, storageReference : StorageReference, image_uri : Uri, context : Context, userId :String, nameSession:String, descSession: String, levelSession:String, nbrRound: Int) {
+fun saveSession(database : FirebaseDatabase, storageReference : StorageReference,
+                image_uri : Uri, context : Context, userId :String, nameSession:String,
+                descSession: String, levelSession:String, roundSession: Int) {
     val myRef = database.getReference("temporary_exos_session")
     val dbSession = database.getReference("sessions")
 
@@ -153,10 +155,12 @@ fun saveSession(database : FirebaseDatabase, storageReference : StorageReference
                 }
             }
 
-            val session = Session(newId,userId,nameSession,descSession,levelSession,exos,nbrRound,"")
+            val session = Session(newId,userId,nameSession,descSession,levelSession,exos,
+                    roundSession,"")
             if (newId != null) {
                 dbSession.child(newId).setValue(session)
-                saveInfosSession(database,newId, userId,nameSession, descSession, levelSession,nbrRound)
+                saveInfosSession(database,newId, userId,nameSession, descSession, levelSession,
+                    roundSession)
             }
 
             val uniqID = UUID.randomUUID().toString()

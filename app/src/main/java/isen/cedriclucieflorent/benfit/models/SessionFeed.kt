@@ -7,7 +7,7 @@ class SessionFeed {
         var nameSession :String = ""
         var descrSession: String = ""
         var userID :String =""
-        var nbrRound :String =""
+        var roundSession :String =""
         var levelSession :String =""
         var likes: ArrayList<String> =ArrayList()
         var imgURI : String = ""
@@ -17,7 +17,7 @@ class SessionFeed {
                 nameSessionFeed :String = "",
                 descrSessionFeed: String = "",
                 userID :String ="",
-                nbrRound :String ="",
+                roundSession :String ="",
                 levelSession :String ="",
                 likes: ArrayList<String> =ArrayList(),
                 imgURI: String) {
@@ -26,7 +26,7 @@ class SessionFeed {
                 this.nameSessionFeed = nameSessionFeed
                 this.descrSessionFeed = descrSessionFeed
                 this.userID = userID
-                this.nbrRound = nbrRound
+                this.roundSession = roundSession
                 this.levelSession = levelSession
                 this.likes = likes
                 this.imgURI = imgURI

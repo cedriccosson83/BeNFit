@@ -5,7 +5,7 @@ data class ShowSession (
         var userID : String = "",
         var nameSession: String = "",
         var descSession: String = "",
-        var nbrRound: String = "",
+        var roundSession: String = "",
         var levelSession: String = "",
         var exosSession : ArrayList<String> = ArrayList(),
         var likes : ArrayList<String> = ArrayList(),

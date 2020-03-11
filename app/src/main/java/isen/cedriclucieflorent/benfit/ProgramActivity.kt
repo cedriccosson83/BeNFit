@@ -140,7 +140,7 @@ class ProgramActivity : MenuActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        stu.manageActivityResult(requestCode, data)
+        stu.manageActivityResult(requestCode, resultCode, data)
         imageUri = stu.imageUri
         imageViewCreateProg.setImageURI(imageUri)
     }

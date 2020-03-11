@@ -142,8 +142,7 @@ class ModifyProfile : MenuActivity() {
                     for (i in checkedColorsArray.indices) {
                         val checked = checkedColorsArray[i]
                         if (checked) {
-                            showdiffsports.text =
-                                ApplicationContext.applicationContext().getString(
+                            showdiffsports.text = ApplicationContext.applicationContext().getString(
                                     R.string.ConcatSport,
                                     showdiffsports.text.toString(),
                                     sportList[i]
@@ -185,7 +184,7 @@ class ModifyProfile : MenuActivity() {
         super.onActivityResult(requestCode, resultCode, data)
         val userid = auth.currentUser?.uid ?: ""
         val uniqID = UUID.randomUUID().toString()
-        stu.manageActivityResult(requestCode, data)
+        stu.manageActivityResult(requestCode, resultCode, data)
         imageUri = stu.imageUri
         val riversRef = storageReference.child("users/$userid/$uniqID")
         val result = riversRef.putFile(imageUri)

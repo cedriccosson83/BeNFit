@@ -1,15 +1,22 @@
 package isen.cedriclucieflorent.benfit
 
+import android.Manifest
+import android.app.Activity
 import android.app.DatePickerDialog
+import android.content.ContentValues
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.provider.MediaStore
 import android.util.Log
 import android.view.View
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.DataSnapshot
@@ -23,6 +30,7 @@ import isen.cedriclucieflorent.benfit.functions.getDrawableToURI
 import isen.cedriclucieflorent.benfit.models.Sport
 import isen.cedriclucieflorent.benfit.models.User
 import kotlinx.android.synthetic.main.activity_sign_up.*
+import kotlinx.android.synthetic.main.activity_write.*
 import java.text.SimpleDateFormat
 
 import java.util.*
@@ -30,6 +38,11 @@ import kotlin.collections.ArrayList
 
 
 class SignUpActivity : AppCompatActivity() {
+
+
+    private val codePermImage = 10115
+    private val codeReqImage = 10116
+    private val codeResExt = 10117
 
     lateinit var auth: FirebaseAuth
     val database = FirebaseDatabase.getInstance()
@@ -147,17 +160,18 @@ class SignUpActivity : AppCompatActivity() {
         }
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        stu.manageActivityResult(requestCode, data)
-        imageUri = stu.imageUri
-        newPictureImageView.setImageURI(imageUri)
-    }
-
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>,
                                             grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         stu.manageRequestPermissionResult(requestCode, grantResults)
+    }
+
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        stu.manageActivityResult(requestCode, resultCode, data)
+        imageUri = stu.imageUri
+        newPictureImageView.setImageURI(imageUri)
     }
 
     private fun signup() {

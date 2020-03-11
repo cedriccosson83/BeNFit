@@ -32,16 +32,14 @@ class StreamToUri {
     fun askCameraPermissions(){
         when {
             ContextCompat.checkSelfPermission(
-                context,
-                Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED
+                context, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED
                     -> ActivityCompat.requestPermissions(activity,
-                    arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE), codePermImage)
+                        arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE), codePermImage)
 
             ContextCompat.checkSelfPermission(
-                context,
-                Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED
+                context,Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED
                     -> ActivityCompat.requestPermissions(activity,
-                    arrayOf(Manifest.permission.CAMERA), codeResExt)
+                        arrayOf(Manifest.permission.CAMERA), codeResExt)
 
             else -> openCamera()
         }
@@ -70,18 +68,20 @@ class StreamToUri {
 
     fun manageRequestPermissionResult(requestCode: Int, grantResults: IntArray) {
         if (requestCode == codePermImage){
-            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED ){
+            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 openCamera()
-            }else{
-                Toast.makeText(context, "Camera permissions required", Toast.LENGTH_LONG).show()
+            } else {
+                Toast.makeText(context, "Permission Denied", Toast.LENGTH_SHORT).show()
             }
         }
     }
 
-    fun manageActivityResult(requestCode: Int, data: Intent?) {
-        if (requestCode == codeReqImage){
-            if(data?.data != null){
-                imageUri = data.data as Uri
+    fun manageActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if (resultCode != Activity.RESULT_CANCELED) {
+            if (requestCode == codeReqImage) {
+                if (data?.data != null) {
+                    imageUri = data.data as Uri
+                }
             }
         }
     }

@@ -22,11 +22,11 @@ class SessionFeedActivity : MenuActivity() {
         auth = FirebaseAuth.getInstance()
         val id = auth.currentUser?.uid
         if (id != null) {
-            showSessionsFeed(database, recycler_view_session_feed, this, id)
+            showSessionsFeed(database)
         }
 
         recycler_view_session_feed.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-
+        feedSessionNewBtn.setOnClickListener{startActivity(Intent(context, SessionActivity::class.java))}
     }
     private fun notifClicked(session : SessionFeed) {
         val intent = Intent(this, NotifActivity::class.java)
@@ -45,7 +45,7 @@ class SessionFeedActivity : MenuActivity() {
         context.startActivity(intent)
     }
 
-    private fun showSessionsFeed(database : FirebaseDatabase, view : RecyclerView, context: Context, userId: String) {
+    private fun showSessionsFeed(database : FirebaseDatabase) {
 
         val myRef = database.getReference("sessions")
         auth = FirebaseAuth.getInstance()
@@ -65,7 +65,7 @@ class SessionFeedActivity : MenuActivity() {
                         value.child("nameSession").value.toString(),
                         value.child("descSession").value.toString(),
                         value.child("userID").value.toString(),
-                        value.child("nbrRound").value.toString(),
+                        value.child("roundSession").value.toString(),
                         value.child("levelSession").value.toString(),
                         arrayLikes,
                         value.child("pictureUID").value.toString()

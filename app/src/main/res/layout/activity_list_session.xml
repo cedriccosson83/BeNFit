@@ -10,7 +10,7 @@
         android:id="@+id/recycler_view_list_session"
         android:layout_width="396dp"
         android:layout_height="0sp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="@dimen/top_button_size_marge"
         android:layout_marginEnd="2dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

@@ -62,7 +62,7 @@ class ShowSessionActivity : MenuActivity() {
                         value.child("userID").value.toString(),
                         value.child("nameSession").value.toString(),
                         value.child("descSession").value.toString(),
-                        value.child("nbrRound").value.toString(),
+                        value.child("roundSession").value.toString(),
                         value.child("levelSession").value.toString(),
                         arrayExercices,
                         arrayLikes,
@@ -78,6 +78,11 @@ class ShowSessionActivity : MenuActivity() {
                         val path = "sessions/${session.sessionID}/likes"
                         val userId = auth.currentUser?.uid
                         showLikes(database,userId ,path , showSessionLike, showSessionLikeIcon)
+
+                        showSessionTour.text = ApplicationContext.applicationContext().getString(
+                            R.string.circuitTour,
+                            session.roundSession
+                        )
                         showSessionLikeIcon.setOnClickListener{
                             likesHandler(database,userId,path,session.likes, showSessionLikeIcon)
                         }
@@ -99,6 +104,7 @@ class ShowSessionActivity : MenuActivity() {
                             val sessionID = session.sessionID ?: ""
                             notifClicked(sessionID)
                         }
+
                         break
                     }
 

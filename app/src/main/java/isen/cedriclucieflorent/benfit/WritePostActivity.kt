@@ -1,18 +1,11 @@
 package isen.cedriclucieflorent.benfit
 
-import android.Manifest
-import android.app.Activity
-import android.content.ContentValues
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
-import android.provider.MediaStore
 import android.util.Log
 import android.view.View
 import android.widget.Toast
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
@@ -25,12 +18,10 @@ import kotlin.collections.ArrayList
 
 class WritePostActivity : MenuActivity() {
 
-    private val codePermImage = 10115
-    private val codeReqImage = 10116
-    private val codeResExt = 10117
     private lateinit var imageUri : Uri
     private lateinit var storageReference: StorageReference
     private var uniqPostID = ""
+    private lateinit var stu: StreamToUri
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,6 +30,8 @@ class WritePostActivity : MenuActivity() {
 
         auth = FirebaseAuth.getInstance()
         storageReference = FirebaseStorage.getInstance().reference
+        stu = StreamToUri(this, this, contentResolver)
+
         imageUri = Uri.EMPTY
         val intent = intent
         val programId = intent.getStringExtra("sharedProgram")?: ""
@@ -73,73 +66,23 @@ class WritePostActivity : MenuActivity() {
         }
 
         imageViewWritePost.setOnClickListener{
-            askCameraPermissions()
+            stu.askCameraPermissions()
         }
 
-    }
-
-    private fun askCameraPermissions(){
-        when {
-            ContextCompat.checkSelfPermission(
-                this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED
-                        -> ActivityCompat.requestPermissions(this,
-                            arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE), codePermImage)
-            ContextCompat.checkSelfPermission(
-                this,Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED
-                        -> ActivityCompat.requestPermissions(this,
-                            arrayOf(Manifest.permission.CAMERA), codeResExt)
-            else -> openCamera()
-        }
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>,
                                             grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        if (requestCode == codePermImage) {
-            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                openCamera()
-            } else {
-                Toast.makeText(this, "Permission Denied", Toast.LENGTH_SHORT).show()
-            }
-            return
-        }
+        stu.manageRequestPermissionResult(requestCode, grantResults)
     }
 
-    private fun openCamera(){
-        val values = ContentValues()
-        values.put(MediaStore.Images.Media.DESCRIPTION, "New Picture")
-        values.put(MediaStore.Images.Media.DESCRIPTION, "From the Camera")
-        val notsureuri = contentResolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values)
-        if (notsureuri != null ){
-            imageUri = notsureuri}
-        val imagefromgalleryIntent = Intent(Intent.ACTION_PICK)
-        imagefromgalleryIntent.type = "image/png"
-        imagefromgalleryIntent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri)
-
-        val cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-        cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri)
-
-
-        val chooseIntent= Intent.createChooser(imagefromgalleryIntent, getString(R.string.chooseImage))
-        chooseIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, arrayOf(cameraIntent))
-
-        startActivityForResult(chooseIntent, codeReqImage)
-    }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (resultCode != Activity.RESULT_CANCELED) {
-            if (requestCode == codeReqImage){
-                if(data?.data == null){
-                    imageViewWritePost.setImageURI(imageUri)
-                    uniqPostID = UUID.randomUUID().toString()
-                }else{
-                    uniqPostID = UUID.randomUUID().toString()
-                    imageViewWritePost.setImageURI(data.data)
-                    imageUri = data.data as Uri
-                }
-            }
-        }
+        stu.manageActivityResult(requestCode, resultCode, data)
+        imageUri = stu.imageUri
+        imageViewWritePost.setImageURI(imageUri)
     }
 
     private fun newPost(userId: String, content: String,
