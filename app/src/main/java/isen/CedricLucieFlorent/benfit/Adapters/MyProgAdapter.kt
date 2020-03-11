@@ -13,7 +13,9 @@ import isen.CedricLucieFlorent.benfit.setImageFromFirestore
 import isen.CedricLucieFlorent.benfit.showNumberLikes
 import kotlinx.android.synthetic.main.recycler_view_my_programs.view.*
 
-class MyProgAdapter (private val programs: ArrayList<ProgramFollow>, val clickListenerProgram: (ProgramFollow) -> Unit)
+class MyProgAdapter (
+        private val programs: ArrayList<ProgramFollow>,
+        private val clickListenerProgram: (ProgramFollow) -> Unit)
     : RecyclerView.Adapter<MyProgAdapter.MyProgramViewHolder>(){
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyProgramViewHolder {
@@ -39,8 +41,11 @@ class MyProgAdapter (private val programs: ArrayList<ProgramFollow>, val clickLi
             view.nameMyProgs.text = program.nameProgramFollow
             view.descMyProg.text = program.descrProgramFollow
             view.parentMyProg.setOnClickListener{ clickListenerProgram(program)}
-            var img = program.imageURI
-            setImageFromFirestore(ApplicationContext.applicationContext(), view.imgViewMyProgs, "programs/${program.programID}/${img}")
+            val img = program.imageURI
+            setImageFromFirestore(
+                ApplicationContext.applicationContext(),
+                view.imgViewMyProgs,
+                "programs/${program.programID}/${img}")
             showNumberLikes(database, "programs/${program.programID}/likes", view.nbLikesMyProgs )
         }
     }
