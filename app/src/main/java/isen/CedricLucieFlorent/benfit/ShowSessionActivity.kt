@@ -34,6 +34,7 @@ class ShowSessionActivity : MenuActivity() {
     private fun notifClicked(sessionID : String) {
         val intent = Intent(this, NotifActivity::class.java)
         val id = auth.currentUser?.uid
+        intent.putExtra("sessionID", sessionID)
         intent.putExtra("userId", id)
         intent.putExtra("showSessionId",sessionID)
         intent.putExtra("fromAct", "Show")
