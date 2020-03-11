@@ -9,9 +9,11 @@ import android.os.Bundle
 import android.util.Log
 import androidx.core.graphics.drawable.toDrawable
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import isen.CedricLucieFlorent.benfit.Adapters.SessionFeedAdapter
 import isen.CedricLucieFlorent.benfit.Models.SessionFeed
@@ -25,24 +27,19 @@ class SessionFeedActivity : MenuActivity() {
         auth = FirebaseAuth.getInstance()
         val id = auth.currentUser?.uid
         if (id != null) {
-            showSessionsFeed()
+            showSessionsFeed(database, recycler_view_session_feed, this, id)
         }
 
-        feedSessionNewBtn.setOnClickListener {
-            startActivity(Intent(this, SessionActivity::class.java))
-        }
-
-        recycler_view_session_feed.layoutManager = LinearLayoutManager(
-            this, LinearLayoutManager.VERTICAL, false)
+        recycler_view_session_feed.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
 
     }
     private fun notifClicked(session : SessionFeed) {
-            val intent = Intent(this, NotifActivity::class.java)
-            val id = auth.currentUser?.uid
-            intent.putExtra("userId", id)
-            intent.putExtra("sessionID", session.sessionID)
-            intent.putExtra("fromAct", "Feed")
-            startActivity(intent)
+        val intent = Intent(this, NotifActivity::class.java)
+        val id = auth.currentUser?.uid
+        intent.putExtra("userId", id)
+        intent.putExtra("sessionID", session.sessionID)
+        intent.putExtra("fromAct", "Feed")
+        startActivity(intent)
     }
 
 
@@ -53,10 +50,11 @@ class SessionFeedActivity : MenuActivity() {
         context.startActivity(intent)
     }
 
-    private fun showSessionsFeed() {
+    fun showSessionsFeed(database : FirebaseDatabase, view : RecyclerView, context: Context, userId: String) {
 
         val myRef = database.getReference("sessions")
         auth = FirebaseAuth.getInstance()
+        val currentUserID = auth.currentUser?.uid
 
         myRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
@@ -69,14 +67,14 @@ class SessionFeedActivity : MenuActivity() {
                     }
 
                     val sessionFeed = SessionFeed(
-                            value.child("sessionID").value.toString(),
-                            value.child("nameSession").value.toString(),
-                            value.child("descSession").value.toString(),
-                            value.child("userID").value.toString(),
-                            value.child("nbrRound").value.toString(),
-                            value.child("levelSession").value.toString(),
-                            arrayLikes,
-                            value.child("pictureUID").value.toString()
+                        value.child("sessionID").value.toString(),
+                        value.child("nameSession").value.toString(),
+                        value.child("descSession").value.toString(),
+                        value.child("userID").value.toString(),
+                        value.child("nbrRound").value.toString(),
+                        value.child("levelSession").value.toString(),
+                        arrayLikes,
+                        value.child("pictureUID").value.toString()
                     )
                     sessions.add(sessionFeed)
                 }
