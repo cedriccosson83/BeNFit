@@ -22,7 +22,7 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin" tools:keep="@dimen/activity_vertical_margin">16dp</dimen>
     <dimen name="nav_header_vertical_spacing" tools:keep="@dimen/nav_header_vertical_spacing">8dp</dimen>
-    <dimen name="nav_header_height">150dp</dimen>
+    <dimen name="nav_header_height">170dp</dimen>
     <dimen name="fab_margin" tools:keep="@dimen/fab_margin">20dp</dimen>
     <dimen name="btn_size" tools:keep="@dimen/btn_size">20dp</dimen>
     <dimen name="design_navigation_icon_size" tools:override="true">20sp</dimen>

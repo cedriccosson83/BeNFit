@@ -36,7 +36,7 @@ fun addTemporaryLevelProgram(database: FirebaseDatabase,idUser: String, levelPro
     dbInfos.child(idUser).child("levelProgram").setValue(levelProgram)
 }
 
-fun saveInfosProgram(database : FirebaseDatabase,idProgram: String, userId :String) {
+fun saveInfosProgram(database : FirebaseDatabase,idProgram: String, userId :String, program: Program) {
     val myRef = database.getReference("temporary_infos_program")
     val dbSession = database.getReference("programs")
     myRef.addListenerForSingleValueEvent(object : ValueEventListener {
@@ -44,13 +44,13 @@ fun saveInfosProgram(database : FirebaseDatabase,idProgram: String, userId :Stri
             for(value in dataSnapshot.children ) {
                 if(value.key == userId){
                     dbSession.child(idProgram).child("nameProgram")
-                        .setValue(value.child("nameProgram").value.toString())
+                        .setValue(program.nameProgram)
 
                     dbSession.child(idProgram).child("descProgram")
-                        .setValue(value.child("descProgram").value.toString())
+                        .setValue(program.descProgram)
 
                     dbSession.child(idProgram).child("levelProgram")
-                        .setValue(value.child("levelProgram").value.toString())
+                        .setValue(program.levelProgram)
                 }
             }
         }
@@ -105,13 +105,12 @@ fun saveProgram(database : FirebaseDatabase, storageReference: StorageReference,
                 if(session.userID == userId){
                     sessions.add(session)
                 }
-
             }
 
             val program = Program(newId,userId,nameProgram,descProgram,levelProgram,sessions)
             if (newId != null) {
                 dbProgram.child(newId).setValue(program)
-                saveInfosProgram(database,newId, userId)
+                saveInfosProgram(database,newId, userId, program)
             }
 
             val uniqID = UUID.randomUUID().toString()
