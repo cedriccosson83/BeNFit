@@ -9,16 +9,14 @@ import com.google.firebase.database.FirebaseDatabase
 import isen.CedricLucieFlorent.benfit.*
 import isen.CedricLucieFlorent.benfit.Models.ProgramFeed
 import kotlinx.android.synthetic.main.recycler_view_feed_program.view.*
-import kotlinx.android.synthetic.main.recycler_view_feed_session.view.*
 
 class ProgramFeedAdapter (val programs: ArrayList<ProgramFeed>,
-                          val clickListenersubscribe: (ProgramFeed) -> Unit,
-                          val clickListenerProgram: (ProgramFeed) -> Unit
+                          private val clickListenersubscribe: (ProgramFeed) -> Unit,
+                          private val clickListenerProgram: (ProgramFeed) -> Unit
 ): RecyclerView.Adapter<ProgramFeedAdapter.ProgramViewHolder>(){
 
     lateinit var auth: FirebaseAuth
     val database = FirebaseDatabase.getInstance()
-    val follow = ArrayList<String>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProgramViewHolder {
         val view = LayoutInflater.from(parent.context)
@@ -38,7 +36,7 @@ class ProgramFeedAdapter (val programs: ArrayList<ProgramFeed>,
     class ProgramViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
 
         val auth = FirebaseAuth.getInstance()
-        val currentUserID = auth.currentUser?.uid
+        private val currentUserID = auth.currentUser?.uid
         val database = FirebaseDatabase.getInstance()
 
         fun bind(program: ProgramFeed, clickListenersubscribe: (ProgramFeed) -> Unit,
@@ -46,16 +44,34 @@ class ProgramFeedAdapter (val programs: ArrayList<ProgramFeed>,
             view.nameProgTextView.text = program.nameProgramFeed
             view.descriptionProgTextView.text = program.descrProgramFeed
             view.btnSubscribeProg.setOnClickListener { clickListenersubscribe(program) }
-            var img = program.imgURI
-            setImageFromFirestore(ApplicationContext.applicationContext(), view.imageViewFeedProg, "programs/${program.programID}/${img}")
+            val img = program.imgURI
+            setImageFromFirestore(
+                ApplicationContext.applicationContext(),
+                view.imageViewFeedProg,
+                "programs/${program.programID}/${img}")
             view.btnLikeProgram.setOnClickListener {
-                likesHandler(database,auth.currentUser?.uid, "programs/${program.programID}/likes",program.likes, view.btnLikeProgram)
+                likesHandler(
+                    database,
+                    auth.currentUser?.uid,
+                    "programs/${program.programID}/likes",
+                    program.likes,
+                    view.btnLikeProgram)
             }
             view.parentFeedProgram.setOnClickListener { clickListenerProgram(program) }
             showUserNameSessionFeed(program.userID, view.authorProgramFeed)
             convertLevelToImg(program.levelProgram, view.btnLevelProgFeed)
-            showLikes(database, currentUserID, "programs/${program.programID}/likes",view.NbLikeProgram, view.btnLikeProgram)
-            showFollowers(database, currentUserID,program.programID,"users/${currentUserID}/currentPrograms", view.btnSubscribeProg)
+            showLikes(database,
+                currentUserID,
+                "programs/${program.programID}/likes",
+                view.NbLikeProgram,
+                view.btnLikeProgram)
+
+            showFollowers(
+                database,
+                currentUserID,
+                program.programID,
+                "users/${currentUserID}/currentPrograms",
+                view.btnSubscribeProg)
         }
     }
 
