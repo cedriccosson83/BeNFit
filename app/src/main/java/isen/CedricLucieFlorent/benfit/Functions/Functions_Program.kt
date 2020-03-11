@@ -229,7 +229,7 @@ fun checkCompleteProgram(database: FirebaseDatabase,
                     nbSupposedToBeOK++
             }
             if (nbSupposedToBeOK == sessionAchieve.size) { // 0L to compare a LONG type
-                computeScore(database, sessionAchieve, userId, context, programId)
+                computeScore(database, sessionAchieve, userId, context)
                 dataSnapshot.ref.removeValue()
             }
         }

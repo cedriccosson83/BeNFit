@@ -19,9 +19,6 @@ import kotlinx.android.synthetic.main.activity_post.*
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
-import androidx.core.app.ComponentActivity.ExtraData
-import androidx.core.content.ContextCompat.getSystemService
-import android.icu.lang.UCharacter.GraphemeClusterBreak.T
 import isen.CedricLucieFlorent.benfit.Functions.*
 
 

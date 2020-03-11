@@ -95,15 +95,30 @@ class ProfileActivity : MenuActivity() {
                         for (sport in user.sports){
                             sportsaff += ApplicationContext.applicationContext().getString(
                                 R.string.concatStringSpaced,
-                                sport.getSportName())
+                                sport.getSportName(),
+                                "")
                         }
                         fullNameTextView.text =
                             ApplicationContext.applicationContext().getString(
                                 R.string.doubleWordsSpaced,
                                 user.firstname,
                                 user.lastname)
-                        renderGrade(user.grade,profileGradeText,profileGradeMedal1,profileGradeMedal2, context)
-                        countTotalProgramLikes(database, userId,profileCoachGradeText,profileCoachGradeMedal1,profileCoachGradeMedal2, context)
+
+                        renderGrade(
+                            user.grade,
+                            profileGradeText,
+                            profileGradeMedal1,
+                            profileGradeMedal2,
+                            context)
+
+                        countTotalProgramLikes(
+                            database,
+                            userId,
+                            profileCoachGradeText,
+                            profileCoachGradeMedal1,
+                            profileCoachGradeMedal2,
+                            context)
+
                         profileBirthdate.text = user.birthdate.toString()
                         profileWeight.text = ApplicationContext.applicationContext().getString(
                             R.string.concatValueWeight, user.weight)
