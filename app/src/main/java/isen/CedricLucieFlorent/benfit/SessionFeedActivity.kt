@@ -1,8 +1,13 @@
 package isen.CedricLucieFlorent.benfit
 
+import android.app.AlarmManager
+import android.app.PendingIntent
+import android.content.Context
 import android.content.Intent
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.util.Log
+import androidx.core.graphics.drawable.toDrawable
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
@@ -11,6 +16,7 @@ import com.google.firebase.database.ValueEventListener
 import isen.CedricLucieFlorent.benfit.Adapters.SessionFeedAdapter
 import isen.CedricLucieFlorent.benfit.Models.SessionFeed
 import kotlinx.android.synthetic.main.activity_session_feed.*
+import kotlinx.android.synthetic.main.recycler_view_feed_session.*
 
 class SessionFeedActivity : MenuActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,12 +37,12 @@ class SessionFeedActivity : MenuActivity() {
 
     }
     private fun notifClicked(session : SessionFeed) {
-        val intent = Intent(this, NotifActivity::class.java)
-        val id = auth.currentUser?.uid
-        intent.putExtra("userId", id)
-        intent.putExtra("sessionID", session.sessionID)
-        intent.putExtra("fromAct", "Feed")
-        startActivity(intent)
+            val intent = Intent(this, NotifActivity::class.java)
+            val id = auth.currentUser?.uid
+            intent.putExtra("userId", id)
+            intent.putExtra("sessionID", session.sessionID)
+            intent.putExtra("fromAct", "Feed")
+            startActivity(intent)
     }
 
 

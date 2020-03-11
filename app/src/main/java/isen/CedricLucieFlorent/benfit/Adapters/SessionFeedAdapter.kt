@@ -47,6 +47,7 @@ class SessionFeedAdapter (val sessions: ArrayList<SessionFeed>,
             view.sessionNameTextView.setOnClickListener { sessionClicked(session) }
             view.parentFeedSession.setOnClickListener { sessionClicked(session) }
             view.btnNotifFeedSession.setOnClickListener { clickListenernotif(session) }
+
             showNotified(
                 database,
                 "notifications/${auth.currentUser?.uid}",
@@ -59,6 +60,11 @@ class SessionFeedAdapter (val sessions: ArrayList<SessionFeed>,
                 ApplicationContext.applicationContext(),
                 view.imageViewFeedSession,
                 "sessions/${session.sessionID}/${img}")
+
+            showNotified(database, clickListenernotif, session, "notifications/${auth.currentUser?.uid}", session.sessionID, view.btnNotifFeedSession)
+            var img = session.imgURI
+            setImageFromFirestore(ApplicationContext.applicationContext(), view.imageViewFeedSession, "sessions/${session.sessionID}/${img}")
+
             view.btnLikeFeedSession.setOnClickListener {
                 likesHandler(
                     database,
